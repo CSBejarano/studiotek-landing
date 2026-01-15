@@ -1,0 +1,448 @@
+# TIER 3: Agent memory for @frontend domain
+# Project: studiotek-landing
+# Path: ai_docs/expertise/domain-experts/frontend.yaml
+
+domain_id: "frontend"
+display_name: "Frontend Engineer"
+version: "1.24"
+updated_at: "2026-01-15T17:00:00Z"
+tasks_handled: 27
+success_rate: 1.0
+
+# Configuracion de clasificacion
+keywords:
+  primary: ["react", "next.js", "tailwind", "component", "ui", "ux"]
+  secondary: ["typescript", "css", "responsive", "layout"]
+  file_patterns: ["components/**", "app/**", "*.tsx"]
+  exclude: ["api/", "lib/email.ts"]
+
+# Contexto del dominio
+context:
+  key_concepts:
+    - "Next.js 16 App Router"
+    - "Tailwind CSS 4 (inline @theme en globals.css)"
+    - "React 19"
+    - "Lucide React icons"
+  common_patterns:
+    - "Client components con 'use client' para event handlers"
+    - "next/font/google para tipografia"
+    - "next/image para optimizacion de imagenes"
+    - "Smooth scroll con scrollIntoView({ behavior: 'smooth' })"
+  anti_patterns:
+    - "No usar tailwind.config.ts en Tailwind 4 - usar @theme inline"
+    - "No usar # para href de logo - usar /"
+  preferred_tools:
+    - "Edit para modificaciones"
+    - "Write para archivos nuevos"
+    - "Bash solo para npm commands"
+
+# Decisiones del dominio (StudioTek Landing)
+decisions:
+  - id: "SL001"
+    context: "Tailwind 4 color configuration"
+    decision: "Usar @theme inline en globals.css en lugar de tailwind.config.ts"
+    rationale: "Next.js 16 + Tailwind 4 no usa archivo de config separado"
+    confidence: 0.99
+    validated_count: 1
+    last_used: "2026-01-13"
+    tags: ["tailwind", "config", "next.js"]
+
+  - id: "SL002"
+    context: "Header navigation pattern"
+    decision: "Logo href='/' no '#', solo CTA sin nav links (D037, D038 aplicadas)"
+    rationale: "SPA navigation correcta, landing single-page simplificada"
+    confidence: 0.99
+    validated_count: 1
+    last_used: "2026-01-13"
+    tags: ["navigation", "header", "ux"]
+
+  - id: "SL003"
+    context: "Hero smooth scroll implementation"
+    decision: "Use scrollIntoView with behavior: 'smooth' + CSS fallback html { scroll-behavior: smooth }"
+    rationale: "Compatibilidad cross-browser, CSS como fallback para Safari"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-13"
+    tags: ["scroll", "ux", "hero"]
+
+  - id: "SL004"
+    context: "Button component variants"
+    decision: "Crear Button.tsx con variant prop: 'primary' | 'secondary'"
+    rationale: "Reutilizable para CTAs, consistencia de estilos"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-13"
+    tags: ["components", "ui", "button"]
+
+  - id: "SL005"
+    context: "Header fixed positioning"
+    decision: "fixed top-0 z-50 con backdrop-blur-md bg-white/80"
+    rationale: "Header siempre visible, blur para legibilidad sobre contenido"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-13"
+    tags: ["header", "layout", "css"]
+
+  - id: "SL006"
+    context: "create-next-app en directorio existente"
+    decision: "Mover archivos existentes temporalmente, ejecutar create-next-app, restaurar"
+    rationale: "Evita conflictos con PRD.md y .claude/"
+    confidence: 0.99
+    validated_count: 1
+    last_used: "2026-01-13"
+    tags: ["setup", "next.js", "workaround"]
+
+  - id: "SL007"
+    context: "Benefit cards with Lucide icons"
+    decision: "Usar Card.tsx reutilizable + iconos Lucide con size={48} strokeWidth={1.5}"
+    rationale: "Card component reutilizable para Benefits y futuros Services; iconos consistentes"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-13"
+    tags: ["components", "icons", "card"]
+
+  - id: "SL008"
+    context: "Form components pattern"
+    decision: "Usar forwardRef en Input/Select/Textarea para compatibilidad con react-hook-form register()"
+    rationale: "react-hook-form usa refs internamente; forwardRef permite que register() funcione correctamente"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-13"
+    tags: ["forms", "react-hook-form", "components"]
+
+  - id: "SL009"
+    context: "Form validation with Zod"
+    decision: "Usar Zod schema + zodResolver con react-hook-form; schema en lib/validations.ts"
+    rationale: "Tipo inferido automaticamente via z.infer<typeof schema>, validacion declarativa"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-13"
+    tags: ["forms", "zod", "validation"]
+
+  - id: "SL010"
+    context: "Button component extension"
+    decision: "Extender ButtonHTMLAttributes para heredar type, disabled, etc sin definir manualmente"
+    rationale: "Permite usar type='submit' en forms sin modificar interface"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-13"
+    tags: ["components", "typescript", "button"]
+
+  - id: "SL011"
+    context: "Accessible form error display"
+    decision: "Usar aria-invalid, aria-describedby, role='alert' en campos con error"
+    rationale: "Screen readers anuncian errores correctamente; WCAG compliance"
+    confidence: 0.90
+    validated_count: 1
+    last_used: "2026-01-13"
+    tags: ["accessibility", "forms", "a11y"]
+
+  - id: "SL012"
+    context: "Card design for dark themes"
+    decision: "Usar ShineBorder (borderWidth=1, duration=12-16s) en lugar de BorderBeam para efecto sutil"
+    rationale: "BorderBeam es muy llamativo con beam visible; ShineBorder es mas elegante con glow difuso"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-13"
+    tags: ["cards", "magic-ui", "effects", "dark-theme"]
+
+  - id: "SL013"
+    context: "MagicCard dark background support"
+    decision: "Agregar prop background='bg-slate-950' a MagicCard para eliminar fondo blanco interno"
+    rationale: "MagicCard por defecto tiene bg-white interno; prop permite customizar para dark themes"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-13"
+    tags: ["cards", "magic-ui", "dark-theme"]
+
+  - id: "SL014"
+    context: "Card hover effects for dark theme"
+    decision: "Usar hover:border-{color}-500/30 + hover:shadow-[0_0_30px_rgba(R,G,B,0.12)] para glow sutil"
+    rationale: "Combina borde sutil con sombra difusa para efecto elegante sin ser llamativo"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-13"
+    tags: ["cards", "hover", "css", "dark-theme"]
+
+  - id: "SL015"
+    context: "VitaEon-style premium card component"
+    decision: "VitaEonCard con bg-slate-900/60, border-blue-500/20, 3D transform hover, glow decorativo y accent line"
+    rationale: "Estilo copiado de ideas-frontend VitaEon; variant='form' desactiva transform 3D para no interferir con inputs"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-13"
+    tags: ["cards", "vitaeon", "premium", "3d-transform", "dark-theme"]
+
+  - id: "SL016"
+    context: "ShineBorder integration in VitaEonCard"
+    decision: "Agregar ShineBorder con shineColorMap por glowColor, borderWidth=1, duration=12s"
+    rationale: "ShineBorder usa position:absolute rounded-[inherit], hereda border-radius del padre; shineColorMap mapea glowColor a pares de colores hex para gradiente animado"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-13"
+    tags: ["cards", "vitaeon", "shine-border", "magic-ui", "dark-theme"]
+
+  - id: "SL017"
+    context: "HowItWorks glassmorphism cards"
+    decision: "Usar motion.div con stagger + glassmorphism bg-gradient backdrop-blur"
+    rationale: "Estilo consistente; mejor performance sin componentes MagicUI pesados; CSS hover effects son suficientes"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-13"
+    tags: ["cards", "glassmorphism", "framer-motion", "performance"]
+
+  - id: "SL018"
+    context: "Sequential animation state for HowItWorks"
+    decision: "useState + useEffect interval con isPaused, completedSteps y useReducedMotion"
+    rationale: "Ciclo automatico cada 3s con pause on hover, tracking de pasos completados, accesible via prefers-reduced-motion"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-13"
+    tags: ["animation", "framer-motion", "state-management", "accessibility"]
+
+  - id: "SL019"
+    context: "Dim/active visual states for animated cards"
+    decision: "scale 1.02/0.98, opacity 1/0.6, dynamic boxShadow glow con RGB del gradient"
+    rationale: "Estados claros con transiciones GPU-friendly (transform, opacity); glow color-matched al tema de cada card"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-13"
+    tags: ["animation", "visual-states", "glow", "performance"]
+
+  - id: "SL020"
+    context: "Animated connecting lines for step process"
+    decision: "Connector component con base line + animated glow line + traveling dot (lg+ breakpoint)"
+    rationale: "Muestra progreso visualmente; solo en desktop para simplicidad responsive; dot anima con opacity keyframes"
+    confidence: 0.90
+    validated_count: 1
+    last_used: "2026-01-13"
+    tags: ["animation", "connectors", "responsive", "framer-motion"]
+
+  - id: "SL021"
+    context: "Accessibility for animated process steps"
+    decision: "useReducedMotion fallback estatico, role='list', aria-current='step', aria-label descriptivo"
+    rationale: "WCAG compliance; usuarios con prefers-reduced-motion ven primer card activo sin ciclo automatico"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-13"
+    tags: ["accessibility", "a11y", "wcag", "reduced-motion"]
+
+  - id: "SL022"
+    context: "Button 3D effect with dark frame"
+    decision: "Usar border-[3px] border-[#0f172a] + ShineBorder interno + box-shadow inset para efecto relieve 3D"
+    rationale: "Marco oscuro crea contraste, ShineBorder agrega luz animada, shadows dan profundidad"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-14"
+    tags: ["button", "3d-effect", "shine-border", "ui"]
+
+  - id: "SL023"
+    context: "Card alignment with variable content heights"
+    decision: "h-full en TODOS los niveles: BlurFade wrapper, VitaEonCard wrapper externo ([perspective]), div interno, contenedor de contenido. Ademas flex-grow en descripcion y mt-auto en botones"
+    rationale: "CSS Grid/Flexbox solo iguala altura del hijo directo; h-full debe propagarse por TODA la cadena de componentes hasta el contenido"
+    confidence: 0.99
+    validated_count: 3
+    last_used: "2026-01-14"
+    tags: ["cards", "flexbox", "layout", "alignment", "height-propagation", "benefits", "services"]
+
+  - id: "SL024"
+    context: "Button consistency across all variants"
+    decision: "Todos los botones (Button, ShimmerButton) usan marco oscuro border-[3px] border-[#0f172a]. No sobrescribir con clases custom en className"
+    rationale: "Consistencia visual, efecto 3D, mejora percepcion de calidad UI"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-14"
+    tags: ["button", "consistency", "ui", "3d-effect"]
+
+  - id: "SL025"
+    context: "Decorative floating animations"
+    decision: "Definir keyframes float/float-delayed/glow-pulse en globals.css con clases animate-float, animate-float-delayed, animate-glow-pulse"
+    rationale: "Animaciones CSS reutilizables para elementos decorativos (orbs, glows); no requieren JS"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-14"
+    tags: ["animation", "css", "keyframes", "decorative"]
+
+  - id: "SL026"
+    context: "Section divider component"
+    decision: "SectionDivider con variant='gradient'|'line' y color='blue'|'indigo'|'emerald' para separar secciones"
+    rationale: "Componente reutilizable para transiciones visuales entre secciones; gradientes sutiles"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-14"
+    tags: ["components", "ui", "divider", "gradient"]
+
+  - id: "SL027"
+    context: "Floating orbs background effect"
+    decision: "FloatingOrbs component con blur-3xl, opacity baja (10%), animate-float para efecto atmosferico"
+    rationale: "Agrega profundidad visual sin distraer; pointer-events-none y aria-hidden para accesibilidad"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-14"
+    tags: ["components", "ui", "decorative", "background", "accessibility"]
+
+  - id: "SL028"
+    context: "SectionDividers usage strategy"
+    decision: "Usar SectionDivider con moderacion - solo antes de secciones importantes (ej: Stats). No poner entre CADA seccion"
+    rationale: "Demasiados dividers fragmentan la experiencia visual. Usarlos estrategicamente para destacar transiciones clave"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-14"
+    tags: ["components", "ux", "divider", "layout"]
+
+  - id: "SL029"
+    context: "Preventing horizontal scroll"
+    decision: "Agregar overflow-x: hidden a html y body en globals.css. Componentes decorativos con overflow-hidden en lugar de overflow-visible"
+    rationale: "Elementos decorativos (particles, fiber optics, orbs) pueden exceder viewport; overflow-hidden previene scroll horizontal"
+    confidence: 0.99
+    validated_count: 1
+    last_used: "2026-01-14"
+    tags: ["css", "overflow", "layout", "fix"]
+
+  - id: "SL030"
+    context: "FiberOptics SVG positioning"
+    decision: "Usar bottom-0 en lugar de -bottom-[20%] para SVG. Glow divs con bottom-0 left-0/right-0 en lugar de valores negativos (-bottom-20 -left-20)"
+    rationale: "Valores negativos causan que elementos salgan del contenedor y aparezcan debajo del footer incluso con overflow-hidden"
+    confidence: 0.99
+    validated_count: 1
+    last_used: "2026-01-14"
+    tags: ["css", "positioning", "svg", "fiber-optics", "fix"]
+
+  - id: "SL031"
+    context: "Background pattern for form sections"
+    decision: "Usar DotPattern de MagicUI con glow=true, fill-blue-500/30 y mask-image radial-gradient para efecto sutil"
+    rationale: "DotPattern es mas sutil que FiberOptics para formularios; el mask-image crea un fade circular elegante que no distrae del contenido"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-15"
+    tags: ["magic-ui", "background", "pattern", "forms", "contact"]
+
+  - id: "SL032"
+    context: "Form components dark theme support"
+    decision: "Input/Select/Textarea usan cn() con defaults dark: bg-slate-800/50, border-slate-700, text-white, label text-slate-300. Select usa [&>option] selector para estilar options con fondo oscuro"
+    rationale: "Componentes de formulario originalmente tenian bg-white y text-slate-700 hardcodeados; cn() permite merge de clases con defaults dark-friendly que pueden ser overrideados via className"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-14"
+    tags: ["forms", "dark-theme", "components", "tailwind", "cn"]
+
+  - id: "SL033"
+    context: "VitaEonCard opacity for forms"
+    decision: "Usar bg-slate-900/85 en lugar de bg-slate-900/60 para formularios que necesitan mejor contraste con inputs"
+    rationale: "Opacidad mayor mejora legibilidad de inputs y reduce distraccion del fondo; 85% es buen balance entre solidez y efecto glassmorphism"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-14"
+    tags: ["vitaeon", "cards", "opacity", "forms", "glassmorphism"]
+
+  - id: "SL034"
+    context: "3D card effect hook pattern"
+    decision: "use3DCardEffect hook: trackea mouse position, calcula rotateX/Y basado en posicion relativa al centro (max 15 grados), retorna {style, handlers, ref, isHovered}"
+    rationale: "Hook reusable para efectos 3D intensos; cubic-bezier(0.03, 0.98, 0.52, 0.99) para transiciones suaves; sombra dinamica que se mueve con rotacion"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-15"
+    tags: ["hooks", "3d-effect", "animation", "mouse-tracking"]
+
+  - id: "SL035"
+    context: "Scroll animation detection hook"
+    decision: "useScrollAnimation hook: wrapper de react-intersection-observer con {ref, isInView, hasAnimated}; triggerOnce=true por defecto"
+    rationale: "Simplifica uso de IntersectionObserver; hasAnimated permite detectar si ya se ejecuto la animacion"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-15"
+    tags: ["hooks", "animation", "scroll", "intersection-observer"]
+
+  - id: "SL036"
+    context: "Card3D storytelling component"
+    decision: "Card3D.tsx en components/storytelling/: usa use3DCardEffect, glassmorphism (bg-slate-900/60 backdrop-blur-md), glow decorativo, compatible con framer-motion"
+    rationale: "Componente estilo Apple para secciones inmersivas; intensity prop (1-20) controla rotacion max; glowColor map para colores dinamicos"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-15"
+    tags: ["components", "storytelling", "3d-effect", "glassmorphism", "cards"]
+
+  - id: "SL044"
+    context: "Modal navigation pattern for carousel"
+    decision: "Estado centralizado en padre, modal unico via portal con botones de navegacion laterales"
+    rationale: "ServiceModal recibe card actual + callbacks onNext/onPrev + flags hasNext/hasPrev; botones ChevronLeft/Right fuera del modal container"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-15"
+    tags: ["modal", "navigation", "carousel", "portal"]
+
+  - id: "SL045"
+    context: "Keyboard navigation in modal"
+    decision: "ArrowLeft/ArrowRight para navegar entre items, Escape para cerrar"
+    rationale: "useEffect con switch en keydown; previene default para evitar scroll; body overflow hidden mientras modal esta abierto"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-15"
+    tags: ["modal", "keyboard", "accessibility", "navigation"]
+
+  - id: "SL046"
+    context: "AnimatePresence for modal content transitions"
+    decision: "Usar AnimatePresence mode='wait' para transiciones entre contenidos de modal durante navegacion"
+    rationale: "mode='wait' asegura que el exit animation complete antes de enter; key en child debe ser unico (ej: card.title) para detectar cambios de contenido"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-15"
+    tags: ["framer-motion", "animatepresence", "modal", "transitions"]
+
+# Blockers del dominio
+blockers:
+  - id: "SLB001"
+    symptom: "create-next-app falla en directorio no vacio"
+    solution: "Mover archivos existentes a /tmp, ejecutar create-next-app, restaurar"
+    domain_context: "Proyecto nuevo con PRD.md existente"
+
+  - id: "SLB002"
+    symptom: "Tailwind colors no aplican"
+    solution: "En Tailwind 4, usar @theme inline en globals.css, no tailwind.config.ts"
+    domain_context: "Next.js 16 + Tailwind 4"
+
+  - id: "SLB003"
+    symptom: "Select tiene fondo blanco en dark theme y texto no se ve"
+    root_cause: "bg-white hardcodeado en componente Select.tsx antes de className; className de Tailwind no overridea cuando bg-white esta primero en template literal"
+    solution: "Usar cn() de lib/utils para merge correcto de clases. Poner defaults dark (bg-slate-800/50) en cn() y permitir override via className. Agregar [&>option]:bg-slate-800 para options nativas"
+    prevention: "Siempre usar cn() en componentes base, nunca concatenar clases con template literals cuando hay posibilidad de override"
+    domain_context: "Componentes de formulario en dark theme"
+
+# File patterns discovered
+file_patterns_discovered:
+  - pattern: "components/sections/*.tsx"
+    purpose: "Secciones de pagina (Hero, Header, Footer, Benefits, Services, ContactForm, HowItWorks, Stats)"
+  - pattern: "components/ui/*.tsx"
+    purpose: "Componentes base reutilizables (Button, Card, Input, Select, Textarea, VitaEonCard, SectionDivider, FloatingOrbs)"
+  - pattern: "components/magicui/*.tsx"
+    purpose: "Magic UI components (MagicCard, ShineBorder, BorderBeam, BlurFade, TextAnimate, Particles, DotPattern, etc.)"
+  - pattern: "components/storytelling/*.tsx"
+    purpose: "Storytelling components for immersive sections (Card3D, etc.)"
+  - pattern: "hooks/*.ts"
+    purpose: "Custom React hooks (use3DCardEffect, useScrollAnimation)"
+  - pattern: "lib/validations.ts"
+    purpose: "Zod schemas para validacion de formularios"
+  - pattern: "app/layout.tsx"
+    purpose: "Root layout con font, metadata, Header + Footer"
+  - pattern: "app/page.tsx"
+    purpose: "Pagina principal con todas las secciones"
+
+# Project-specific info
+project_info:
+  name: "StudioTek Landing"
+  stack:
+    - "Next.js 16.1.1"
+    - "React 19.2.3"
+    - "Tailwind CSS 4"
+    - "TypeScript 5.x"
+    - "Lucide React"
+  structure:
+    app: "Next.js App Router pages"
+    components_sections: "Page sections (Hero, Header, Footer)"
+    components_ui: "Base UI components (Button)"
+    public: "Static assets (logo.svg)"
+    lib: "Utilities (email, validations)"
+  dependencies:
+    - "react-hook-form"
+    - "@hookform/resolvers"
+    - "zod"

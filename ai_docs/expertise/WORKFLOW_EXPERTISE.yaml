@@ -1,0 +1,106 @@
+# WORKFLOW EXPERTISE - StudioTek Landing
+# Conocimiento acumulado de workflows ejecutados
+
+version: "1.0"
+project_id: "studiotek-landing"
+updated_at: "2026-01-13T12:00:00Z"
+total_workflows: 1
+
+# Decisiones validadas cross-domain
+validated_decisions:
+  # Setup & Config
+  - id: "WE001"
+    domain: "frontend"
+    context: "Tailwind 4 en Next.js 16"
+    decision: "Usar @theme inline en globals.css, no tailwind.config.ts"
+    confidence: 0.99
+    validated_count: 1
+    source: "FASE 1 - Project Setup"
+
+  - id: "WE002"
+    domain: "frontend"
+    context: "create-next-app en directorio no vacío"
+    decision: "Backup archivos existentes, ejecutar, restaurar"
+    confidence: 0.99
+    validated_count: 1
+    source: "FASE 1 - Project Setup"
+
+  # UX Patterns
+  - id: "WE003"
+    domain: "frontend"
+    context: "Navegación de logo en SPA"
+    decision: "href='/' no '#'"
+    confidence: 0.99
+    validated_count: 1
+    inherited_from: "ideas-frontend D037"
+
+  - id: "WE004"
+    domain: "frontend"
+    context: "Header de landing page"
+    decision: "Solo CTAs, sin nav links para single-page"
+    confidence: 0.95
+    validated_count: 1
+    inherited_from: "ideas-frontend D038"
+
+  # Components
+  - id: "WE005"
+    domain: "frontend"
+    context: "Smooth scroll a secciones"
+    decision: "scrollIntoView({ behavior: 'smooth' }) + CSS fallback"
+    confidence: 0.95
+    validated_count: 1
+    source: "FASE 3 - Hero Section"
+
+  - id: "WE006"
+    domain: "frontend"
+    context: "Button reusable"
+    decision: "Variant prop con 'primary' | 'secondary'"
+    confidence: 0.95
+    validated_count: 1
+    source: "FASE 3 - Hero Section"
+
+# Blockers conocidos
+known_blockers:
+  - symptom: "create-next-app falla en directorio con archivos"
+    solution: "mv archivos /tmp, ejecutar, mv back"
+    domain: "frontend"
+    severity: "medium"
+
+  - symptom: "Colores Tailwind no aplican"
+    solution: "Tailwind 4 usa @theme inline, no config file"
+    domain: "frontend"
+    severity: "medium"
+
+# Patrones de éxito
+success_patterns:
+  landing_page:
+    phases:
+      - "Project Setup"
+      - "Layout (Header/Footer)"
+      - "Hero Section"
+      - "Content Sections"
+      - "Contact Form"
+      - "Polish & Deploy"
+    agents: ["@frontend", "@testing"]
+    avg_duration_per_phase: 20
+
+# Métricas de velocidad
+velocity:
+  by_phase_type:
+    setup: { avg_min: 15, samples: 1 }
+    layout: { avg_min: 20, samples: 1 }
+    section: { avg_min: 25, samples: 1 }
+    validation: { avg_min: 15, samples: 1 }
+
+# Historial de workflows
+workflow_history:
+  - id: "2026-01-13_phase3-hero-section"
+    status: "COMPLETE"
+    duration_min: 75
+    phases: 4
+    agents: ["@frontend", "@testing"]
+    deliverables:
+      - "Next.js project configured"
+      - "Header + Footer components"
+      - "Hero section with CTAs"
+      - "Build passing"

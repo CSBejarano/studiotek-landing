@@ -1,0 +1,79 @@
+# Expert Registry - StudioTek Landing
+# Registro de agentes expertos disponibles
+
+version: "1.0"
+project_id: "studiotek-landing"
+updated_at: "2026-01-13T12:00:00Z"
+
+# Agentes activos en este proyecto
+active_agents:
+  - id: "frontend"
+    display_name: "Frontend Engineer"
+    memory_file: "domain-experts/frontend.yaml"
+    tasks_handled: 3
+    last_used: "2026-01-13"
+    specialties:
+      - "React 19"
+      - "Next.js 16"
+      - "Tailwind CSS 4"
+      - "TypeScript"
+      - "Responsive design"
+
+  - id: "testing"
+    display_name: "Testing Engineer"
+    memory_file: "domain-experts/testing.yaml"
+    tasks_handled: 1
+    last_used: "2026-01-13"
+    specialties:
+      - "Build validation"
+      - "Lint checks"
+      - "Visual testing"
+      - "Responsive verification"
+
+# Agentes disponibles pero no usados aún
+available_agents:
+  - id: "backend"
+    display_name: "Backend Engineer"
+    memory_file: "domain-experts/backend.yaml"
+    specialties:
+      - "API routes"
+      - "Server actions"
+      - "Email integration (Resend)"
+
+  - id: "security"
+    display_name: "Security Reviewer"
+    memory_file: "domain-experts/security.yaml"
+    specialties:
+      - "Form validation"
+      - "OWASP compliance"
+      - "Input sanitization"
+
+# Mapeo dominio → agente
+domain_mapping:
+  frontend: "@frontend"
+  testing: "@testing"
+  backend: "@backend"
+  security: "@security-reviewer"
+  infra: "@infra"
+  review: "@gentleman"
+
+# Keywords para detección automática
+detection_keywords:
+  frontend:
+    - "react"
+    - "component"
+    - "tailwind"
+    - "tsx"
+    - "ui"
+    - "responsive"
+  testing:
+    - "test"
+    - "build"
+    - "lint"
+    - "validation"
+    - "qa"
+  backend:
+    - "api"
+    - "route"
+    - "email"
+    - "server"

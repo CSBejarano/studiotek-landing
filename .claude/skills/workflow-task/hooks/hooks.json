@@ -1,0 +1,42 @@
+{
+  "description": "Workflow-task v2.0 hooks - Bash wrappers that execute Python logic",
+  "hooks": {
+    "Start": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PROJECT_ROOT}/.claude/skills/workflow-task/hooks/pre_workflow.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "(Edit|Write|Bash)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PROJECT_ROOT}/.claude/skills/workflow-task/hooks/post_phase.sh tool_event"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PROJECT_ROOT}/.claude/skills/workflow-task/hooks/ralph_stop_hook.sh"
+          },
+          {
+            "type": "command",
+            "command": "${CLAUDE_PROJECT_ROOT}/.claude/skills/workflow-task/hooks/post_workflow.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,120 @@
+# TIER 3: Agent memory for @infra domain
+# Project: studiotek-landing
+# Path: ai_docs/expertise/domain-experts/infra.yaml
+
+domain_id: "infra"
+display_name: "Infrastructure Engineer"
+version: "1.0"
+updated_at: "2026-01-15T14:30:00Z"
+tasks_handled: 2
+success_rate: 1.0
+
+# Configuracion de clasificacion
+keywords:
+  primary: ["deploy", "vercel", "env", "npm", "package", "dependencies"]
+  secondary: ["build", "ci", "docker", "config"]
+  file_patterns: ["package.json", ".env*", "vercel.json", "next.config.*"]
+  exclude: ["components/**", "app/**"]
+
+# Contexto del dominio
+context:
+  key_concepts:
+    - "Vercel deployment platform"
+    - "Next.js 16 build process"
+    - "Environment variables management"
+    - "npm dependency management"
+  common_patterns:
+    - "Variables sensibles en .env.local (no commitear)"
+    - ".env.local.example para documentar variables requeridas"
+    - "npm install para dependencias, npm run build para verificar"
+    - "vercel deploy --prod para produccion"
+  anti_patterns:
+    - "No commitear .env.local con credenciales reales"
+    - "No usar npm install --force sin razon"
+  preferred_tools:
+    - "Bash para comandos npm/vercel"
+    - "Write para crear archivos de config"
+    - "Read para verificar package.json"
+
+# Decisiones del dominio (StudioTek Landing)
+decisions:
+  - id: "SLI001"
+    context: "Environment variables documentation"
+    decision: "Crear .env.local.example con todas las variables necesarias y valores placeholder"
+    rationale: "Documenta requisitos sin exponer credenciales reales; facilita onboarding"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-15"
+    tags: ["env", "documentation", "security"]
+
+  - id: "SLI002"
+    context: "Dependency installation"
+    decision: "Instalar @supabase/supabase-js, resend, react-intersection-observer via npm install"
+    rationale: "Dependencias necesarias para storytelling workflow; versiones LTS estables"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-15"
+    tags: ["npm", "dependencies"]
+
+  - id: "SLI003"
+    context: "Vercel deployment"
+    decision: "Deploy a produccion con vercel deploy --prod desde main branch"
+    rationale: "Main branch es source of truth; --prod para URL de produccion estable"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-14"
+    tags: ["vercel", "deploy", "production"]
+
+# Blockers del dominio
+blockers: []
+
+# Dependencies installed
+dependencies_managed:
+  - name: "@supabase/supabase-js"
+    version: "2.90.1"
+    purpose: "Supabase client for leads persistence"
+    installed: "2026-01-15"
+
+  - name: "resend"
+    version: "6.7.0"
+    purpose: "Email service for confirmation emails"
+    installed: "2026-01-15"
+
+  - name: "react-intersection-observer"
+    version: "10.0.0"
+    purpose: "Scroll animation detection"
+    installed: "2026-01-15"
+
+# Environment variables required
+env_variables:
+  - name: "NEXT_PUBLIC_SUPABASE_URL"
+    required: true
+    description: "Supabase project URL"
+
+  - name: "NEXT_PUBLIC_SUPABASE_ANON_KEY"
+    required: true
+    description: "Supabase anonymous key"
+
+  - name: "RESEND_API_KEY"
+    required: true
+    description: "Resend API key for emails"
+
+  - name: "NEXT_PUBLIC_APP_URL"
+    required: false
+    description: "Application URL (defaults to localhost:3000)"
+
+# Deployment info
+deployment:
+  platform: "Vercel"
+  production_url: "https://studiotek-landing-m7siiq4pd-csbejaranos-projects.vercel.app"
+  last_deploy: "2026-01-14"
+  build_command: "next build"
+  output_directory: ".next"
+
+# Project-specific info
+project_info:
+  name: "StudioTek Landing"
+  stack:
+    - "Next.js 16.1.1"
+    - "Vercel Platform"
+    - "Turbopack (dev)"

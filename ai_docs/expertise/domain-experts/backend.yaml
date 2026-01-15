@@ -1,0 +1,105 @@
+# TIER 3: Agent memory for @backend domain
+# Project: studiotek-landing
+# Path: ai_docs/expertise/domain-experts/backend.yaml
+
+domain_id: "backend"
+display_name: "Backend Engineer"
+version: "1.0"
+updated_at: "2026-01-15T12:00:00Z"
+tasks_handled: 1
+success_rate: 1.0
+
+# Configuracion de clasificacion
+keywords:
+  primary: ["api", "route", "supabase", "database", "email", "resend"]
+  secondary: ["zod", "validation", "server", "endpoint"]
+  file_patterns: ["app/api/**", "lib/supabase.ts", "lib/resend.ts"]
+  exclude: ["components/**", "hooks/**"]
+
+# Contexto del dominio
+context:
+  key_concepts:
+    - "Next.js 16 App Router API Routes"
+    - "Supabase client para persistencia"
+    - "Resend para emails transaccionales"
+    - "Zod para validacion de requests"
+  common_patterns:
+    - "API routes en app/api/*/route.ts"
+    - "Validacion con Zod antes de procesar"
+    - "Graceful degradation si servicios no configurados"
+    - "NextResponse.json() para respuestas"
+  anti_patterns:
+    - "No exponer claves en cliente (usar server-side)"
+    - "No ignorar errores de validacion"
+  preferred_tools:
+    - "Write para crear archivos nuevos"
+    - "Edit para modificaciones"
+    - "Bash solo para verificar dependencias"
+
+# Decisiones del dominio (StudioTek Landing)
+decisions:
+  - id: "SLB001"
+    context: "Supabase client pattern"
+    decision: "createSupabaseClient() retorna null si faltan credenciales, permitiendo graceful degradation"
+    rationale: "Permite desarrollo local sin Supabase configurado; logs en consola en modo dev"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-15"
+    tags: ["supabase", "client", "graceful-degradation"]
+
+  - id: "SLB002"
+    context: "API route validation"
+    decision: "Usar Zod v4 schema.parse() con try/catch; retornar 400 con error.issues en caso de fallo"
+    rationale: "Zod v4 usa error.issues en lugar de error.errors; consistencia con version instalada"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-15"
+    tags: ["zod", "validation", "api"]
+
+  - id: "SLB003"
+    context: "Email service pattern"
+    decision: "Resend client con template HTML inline; graceful degradation si RESEND_API_KEY no existe"
+    rationale: "Template inline permite control total del HTML; mock response en dev sin API key"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-15"
+    tags: ["resend", "email", "template"]
+
+  - id: "SLB004"
+    context: "Lead schema fields"
+    decision: "Lead interface con campos: name, email, company?, phone?, budget?, message?, service_interest?, privacy_accepted, commercial_accepted?"
+    rationale: "Campos alineados con ContactForm existente; privacy_accepted obligatorio por RGPD"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-15"
+    tags: ["schema", "lead", "supabase"]
+
+# Blockers del dominio
+blockers:
+  - id: "SLBB001"
+    symptom: "Zod error.errors undefined"
+    solution: "En Zod v4, usar error.issues en lugar de error.errors"
+    domain_context: "API routes con validacion Zod"
+
+# API endpoints created
+api_endpoints:
+  - path: "/api/leads"
+    method: "POST"
+    description: "Guarda lead en Supabase"
+    validation: "leadSchema (Zod)"
+    graceful_degradation: true
+
+  - path: "/api/send-email"
+    method: "POST"
+    description: "Envia email de confirmacion via Resend"
+    validation: "emailSchema (Zod)"
+    graceful_degradation: true
+
+# Project-specific info
+project_info:
+  name: "StudioTek Landing"
+  stack:
+    - "Next.js 16.1.1 App Router"
+    - "@supabase/supabase-js 2.90.1"
+    - "resend 6.7.0"
+    - "zod 4.x"

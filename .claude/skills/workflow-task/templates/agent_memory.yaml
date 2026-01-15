@@ -1,0 +1,40 @@
+# TIER 3: Agent memory template (per domain)
+# Path: agents/memory/{domain_id}.yaml
+
+domain_id: ""
+display_name: ""
+version: "1.0"
+updated_at: null
+tasks_handled: 0
+success_rate: 1.0
+
+# Configuracion de clasificacion
+keywords:
+  primary: []      # +0.2 confianza cada uno (max 0.8)
+  secondary: []    # +0.1 confianza cada uno (max 0.3)
+  file_patterns: [] # +0.3 si coincide
+  exclude: []      # Descalifica completamente
+
+# Contexto del dominio
+context:
+  key_concepts: []
+  common_patterns: []
+  anti_patterns: []
+  preferred_tools: []
+
+# Decisiones del dominio
+decisions: []
+# Example:
+#   - id: "AD001"
+#     scenario: "Nuevo endpoint REST"
+#     decision: "Usar OpenAPI con Pydantic schemas"
+#     rationale: "Documentacion automatica + validacion"
+#     confidence: 0.88
+
+# Blockers del dominio
+blockers: []
+# Example:
+#   - id: "AB001"
+#     symptom: "CORS errors en frontend"
+#     solution: "Configurar CORS_ORIGINS en .env"
+#     domain_context: "Solo en desarrollo local"

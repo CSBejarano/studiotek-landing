@@ -1,0 +1,126 @@
+# TIER 3: Agent memory for @testing domain
+# Project: studiotek-landing
+# Path: ai_docs/expertise/domain-experts/testing.yaml
+
+domain_id: "testing"
+display_name: "Testing Engineer"
+version: "1.0"
+updated_at: "2026-01-15T12:00:00Z"
+tasks_handled: 3
+success_rate: 1.0
+
+# Configuracion de clasificacion
+keywords:
+  primary: ["test", "lint", "build", "validation", "qa"]
+  secondary: ["eslint", "typescript", "responsive"]
+  file_patterns: ["**/*.test.ts", "**/*.spec.ts"]
+  exclude: []
+
+# Contexto del dominio
+context:
+  key_concepts:
+    - "npm run build para produccion"
+    - "npm run lint para codigo limpio"
+    - "Verificacion visual de componentes"
+    - "Responsive testing en DevTools"
+  common_patterns:
+    - "Build antes de merge"
+    - "Lint check despues de cada cambio"
+    - "Visual inspection para landing pages"
+  anti_patterns:
+    - "No ignorar errores de lint"
+    - "No saltar verificacion responsive"
+  preferred_tools:
+    - "Bash para npm commands"
+    - "Read para verificar codigo"
+    - "Glob para listar archivos"
+
+# Decisiones del dominio (StudioTek Landing)
+decisions:
+  - id: "SLT001"
+    context: "Landing page testing strategy"
+    decision: "Visual testing + build validation, no unit tests para MVP"
+    rationale: "Landing es principalmente visual, build catch errores de tipo"
+    confidence: 0.90
+    validated_count: 1
+    last_used: "2026-01-13"
+    tags: ["testing", "strategy", "landing"]
+
+  - id: "SLT002"
+    context: "Lint errors en archivos de ejemplo"
+    decision: "Ignorar errores en .claude/skills/*/examples/ - no son codigo de produccion"
+    rationale: "Ejemplos de documentacion, no afectan el build"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-13"
+    tags: ["lint", "examples", "ignore"]
+
+# Blockers del dominio
+blockers: []
+
+# Validation checklist used
+validation_checklist:
+  build:
+    - "npm run build: SUCCESS (sin errores)"
+    - "Output en .next/ generado"
+  lint:
+    - "npm run lint: 0 errors en codigo del proyecto"
+  visual:
+    - "Hero H1 visible con texto correcto"
+    - "Hero subheadline visible"
+    - "2 CTAs visibles (primary + secondary)"
+    - "Header fijo con z-50"
+    - "Footer con copyright 2026"
+  responsive:
+    - "Clases sm: presentes para mobile"
+    - "Clases md: presentes para desktop"
+
+# Last validation results
+last_validation:
+  date: "2026-01-15"
+  phase: "MODAL_NAVIGATION"
+  result: "SUCCESS"
+  criteria_passed: 5
+  criteria_total: 5
+  notes: "Modal navigation feature verificada. Build OK, ServiceModal.tsx existe con navegacion, CarouselCard.tsx sin createPortal, Services.tsx con ServiceModal integrado via portal"
+
+# Final validation report
+final_report:
+  date: "2026-01-13T18:30:00Z"
+  criteria:
+    - id: "BUILD"
+      description: "npm run build: SUCCESS"
+      status: "PASS"
+      details: "Next.js 16.1.1 Turbopack - Compiled successfully in 1467ms"
+    - id: "LINT"
+      description: "npm run lint: 0 errors en codigo de produccion"
+      status: "PASS"
+      details: "6 errores/warnings SOLO en .claude/skills/*/examples/ - no afecta produccion"
+    - id: "FILES"
+      description: "Todos los archivos requeridos existen"
+      status: "PASS"
+      details: "11 archivos de componentes + 2 archivos app + 1 lib verificados"
+    - id: "HERO"
+      description: "Hero con H1 correcto y 2 CTAs"
+      status: "PASS"
+      details: "H1='Automatiza tu negocio con Inteligencia Artificial', CTAs: Solicita consulta + Ver servicios"
+    - id: "BENEFITS"
+      description: "Benefits con 3 cards e iconos"
+      status: "PASS"
+      details: "Ahorro (PiggyBank), Eficiencia (Zap), Escalabilidad (TrendingUp)"
+    - id: "SERVICES"
+      description: "Services con 3 cards e iconos"
+      status: "PASS"
+      details: "Implementacion (Rocket), Consultoria (Lightbulb), Formacion (GraduationCap)"
+    - id: "CONTACTFORM"
+      description: "ContactForm con 5 campos y validacion Zod"
+      status: "PASS"
+      details: "nombre, email, empresa, presupuesto, mensaje - todos con validacion"
+    - id: "FOOTER"
+      description: "Footer con copyright 2026 y email"
+      status: "PASS"
+      details: "Copyright 2026 StudioTek, comunicacion@studiotek.es"
+    - id: "NAVIGATION"
+      description: "Smooth scroll funciona"
+      status: "PASS"
+      details: "Header CTA -> #contact, Hero CTAs -> #contact y #services con scrollIntoView smooth"

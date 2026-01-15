@@ -1,0 +1,50 @@
+# TIER 2: Long-term memory for studiotek-landing
+# Path: memoria/long_term.yaml
+# Created: 2026-01-13
+
+version: "3.0"
+project_id: "studiotek-landing"
+updated_at: "2026-01-13T18:10:00Z"
+workflows_completed: 0
+
+# =============================================================================
+# Decisiones Validadas
+# =============================================================================
+decisions: []
+
+# =============================================================================
+# Blockers Conocidos
+# =============================================================================
+blockers: []
+
+# =============================================================================
+# Estadisticas de Velocidad
+# =============================================================================
+velocity:
+  by_phase:
+    pre_phase: {avg_min: 0, samples: 0}
+    planning: {avg_min: 0, samples: 0}
+    execution: {avg_min: 0, samples: 0}
+    review: {avg_min: 0, samples: 0}
+    qa: {avg_min: 0, samples: 0}
+    validation: {avg_min: 0, samples: 0}
+  by_complexity:
+    low: {avg_min: 0, success_rate: 0, samples: 0}
+    medium: {avg_min: 0, success_rate: 0, samples: 0}
+    high: {avg_min: 0, success_rate: 0, samples: 0}
+
+# =============================================================================
+# Estadisticas de Herramientas
+# =============================================================================
+tools:
+  Edit: {success_count: 0, fail_count: 0}
+  Read: {success_count: 0, fail_count: 0}
+  Write: {success_count: 0, fail_count: 0}
+  Bash: {success_count: 0, fail_count: 0}
+  Glob: {success_count: 0, fail_count: 0}
+  Grep: {success_count: 0, fail_count: 0}
+
+# =============================================================================
+# Historial de Workflows
+# =============================================================================
+history: []

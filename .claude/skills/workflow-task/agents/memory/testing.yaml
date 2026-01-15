@@ -1,0 +1,18 @@
+domain_id: testing
+display_name: Testing Expert
+version: 1.0
+updated_at: "2026-01-13T18:13:23.408347+00:00"
+tasks_handled: 0
+success_rate: 1.0
+keywords:
+  primary: []
+  secondary: []
+  file_patterns: []
+  exclude: []
+context:
+  key_concepts: []
+  common_patterns: []
+  anti_patterns: []
+  preferred_tools: []
+decisions: []
+blockers: []

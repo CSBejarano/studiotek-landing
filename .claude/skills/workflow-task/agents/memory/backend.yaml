@@ -1,0 +1,18 @@
+domain_id: backend
+display_name: Backend Expert
+version: 1.0
+updated_at: "2026-01-13T18:08:21.396066+00:00"
+tasks_handled: 0
+success_rate: 1.0
+keywords:
+  primary: []
+  secondary: []
+  file_patterns: []
+  exclude: []
+context:
+  key_concepts: []
+  common_patterns: []
+  anti_patterns: []
+  preferred_tools: []
+decisions: []
+blockers: []

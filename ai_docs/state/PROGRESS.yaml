@@ -1,0 +1,109 @@
+# PROGRESS.yaml - Estado del proyecto
+# Project: studiotek-landing
+# Updated: 2026-01-15
+
+workflow_id: "2026-01-15_modal-navigation-carousel"
+status: "COMPLETE"
+started_at: "2026-01-15T17:00:00Z"
+completed_at: "2026-01-15T17:30:00Z"
+
+# Fases ejecutadas
+phases:
+  - id: 0
+    name: "Pre-flight Check"
+    agent: "@infra"
+    status: "COMPLETE"
+    description: "Verificar archivos existentes y build"
+    result: "SUCCESS - 4/4 archivos, build OK"
+
+  - id: 1
+    name: "Crear ServiceModal"
+    agent: "@frontend"
+    status: "COMPLETE"
+    description: "Crear componente ServiceModal con navegacion"
+    result: "SUCCESS"
+
+  - id: 2
+    name: "Simplificar CarouselCard"
+    agent: "@frontend"
+    status: "COMPLETE"
+    description: "Eliminar modal de CarouselCard, agregar onClick prop"
+    result: "SUCCESS - 68% reduccion de codigo"
+
+  - id: 3
+    name: "Integrar en Services"
+    agent: "@frontend"
+    status: "COMPLETE"
+    description: "Estado centralizado openIndex + Portal del modal"
+    result: "SUCCESS"
+
+  - id: 4
+    name: "QA y Build"
+    agent: "@testing"
+    status: "COMPLETE"
+    description: "npm run build y verificacion de archivos"
+    result: "BUILD SUCCESS"
+
+  - id: 5
+    name: "Hotfix - Navigation Buttons"
+    agent: "@frontend"
+    status: "COMPLETE"
+    description: "Mover botones dentro de containerRef para evitar useOutsideClick"
+    result: "SUCCESS - botones funcionan correctamente"
+
+# Metricas
+metrics:
+  total_phases: 6
+  completed_phases: 6
+  skipped_phases: 0
+  duration_minutes: 30
+  agents_used: ["@infra", "@frontend", "@testing"]
+  hotfixes_applied: 1
+
+# Git
+git:
+  branch: "main"
+  commit: "pending"
+  message: "feat: Add modal navigation to Services carousel"
+
+# PRD Progress
+prd_progress:
+  total_phases: 10
+  completed_phases: 10
+  status: "100% COMPLETE + MODAL NAVIGATION"
+
+# Archivos
+files:
+  created: 1
+  modified: 2
+  details:
+    created:
+      - "components/ui/ServiceModal.tsx"
+    modified:
+      - "components/ui/CarouselCard.tsx"
+      - "components/sections/Services.tsx"
+
+# Domain Experts
+domain_experts:
+  frontend:
+    version: "1.24"
+    tasks_handled: 34
+    new_decisions: ["SL044", "SL045", "SL046", "SL047"]
+  infra:
+    version: "1.0"
+    tasks_handled: 3
+  testing:
+    version: "1.0"
+    tasks_handled: 4
+
+# Modal Navigation Features
+modal_navigation:
+  - "Botones laterales ChevronLeft/ChevronRight"
+  - "Keyboard: ArrowLeft/ArrowRight/Escape"
+  - "AnimatePresence mode=wait para transiciones"
+  - "Estado centralizado en Services (openIndex)"
+  - "Accesibilidad: aria-labels, role=dialog, aria-modal=true"
+  - "Hotfix: botones dentro de containerRef"
+
+# Completion Promise
+completion_promise: "Modal navigation implementado - usuario puede navegar entre servicios sin cerrar modal"
