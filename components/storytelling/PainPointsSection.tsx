@@ -14,6 +14,7 @@ const painPoints = [
       "Tareas repetitivas que podrian automatizarse te roban tiempo valioso",
     gradient: "from-slate-500 to-slate-600",
     glowColor: "purple" as const,
+    image: "/images/generated/pain-procesos-manuales.png",
   },
   {
     icon: Brain,
@@ -21,6 +22,7 @@ const painPoints = [
     description: "Ahogado en operaciones, no puedes enfocarte en crecer",
     gradient: "from-slate-500 to-slate-600",
     glowColor: "indigo" as const,
+    image: "/images/generated/pain-sin-tiempo.png",
   },
   {
     icon: TrendingDown,
@@ -28,6 +30,7 @@ const painPoints = [
     description: "Mientras otros adoptan IA, tu negocio se queda atras",
     gradient: "from-slate-500 to-slate-600",
     glowColor: "violet" as const,
+    image: "/images/generated/pain-competencia.png",
   },
   {
     icon: Database,
@@ -35,6 +38,7 @@ const painPoints = [
     description: "Tienes informacion valiosa que no estas aprovechando",
     gradient: "from-slate-500 to-slate-600",
     glowColor: "purple" as const,
+    image: "/images/generated/pain-datos.png",
   },
 ];
 
@@ -103,6 +107,8 @@ export function PainPointsSection() {
                 icon={point.icon}
                 gradient={point.gradient}
                 glowColor={point.glowColor}
+                image={point.image}
+                imageOpacity={55}
                 intensity={8}
                 showBorderGlow={true}
                 initial={{ opacity: 0, y: 20 }}

@@ -2,6 +2,7 @@
 
 import { type LucideIcon } from "lucide-react";
 import { motion, HTMLMotionProps } from "framer-motion";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { use3DCardEffect } from "@/hooks/use3DCardEffect";
 
@@ -14,6 +15,10 @@ interface Card3DProps extends Omit<HTMLMotionProps<"div">, "style"> {
   icon: LucideIcon;
   /** Gradient for icon background (tailwind classes), e.g., "from-blue-500 to-cyan-500" */
   gradient?: string;
+  /** Optional background image */
+  image?: string;
+  /** Image opacity (0-100), default 25 for subtle effect */
+  imageOpacity?: number;
   /** Additional CSS classes */
   className?: string;
   /** 3D effect intensity (1-20), default 12 */
@@ -107,6 +112,8 @@ export function Card3D({
   description,
   icon: Icon,
   gradient = "from-blue-500 to-cyan-500",
+  image,
+  imageOpacity = 25,
   className,
   intensity = 12,
   glowColor = "blue",
@@ -146,6 +153,21 @@ export function Card3D({
             : "0 8px 30px -12px rgba(0, 0, 0, 0.4)",
         }}
       >
+        {/* Optional background image */}
+        {image && (
+          <div
+            className="absolute inset-0 overflow-hidden rounded-2xl"
+            style={{ opacity: imageOpacity / 100 }}
+          >
+            <Image
+              src={image}
+              alt=""
+              fill
+              className="object-cover"
+            />
+          </div>
+        )}
+
         {/* Top glow decoration */}
         <div
           className={cn(
