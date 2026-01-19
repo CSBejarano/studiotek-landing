@@ -8,8 +8,10 @@ import { Bot, X, MessageSquare, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface Message {
+  id: string;
   role: 'user' | 'assistant';
   content: string;
+  timestamp: string;
 }
 
 interface ChatApiResponse {
@@ -44,7 +46,12 @@ export function HeroAIChat() {
     setLastResponse(null);
 
     // Add user message
-    const userMessage: Message = { role: 'user', content: userText.trim() };
+    const userMessage: Message = {
+      id: crypto.randomUUID(),
+      role: 'user',
+      content: userText.trim(),
+      timestamp: new Date().toISOString(),
+    };
     setMessages(prev => [...prev, userMessage]);
 
     // Create abort controller
@@ -77,7 +84,12 @@ export function HeroAIChat() {
       }
 
       // Add assistant message
-      const assistantMessage: Message = { role: 'assistant', content: data.message };
+      const assistantMessage: Message = {
+        id: crypto.randomUUID(),
+        role: 'assistant',
+        content: data.message,
+        timestamp: new Date().toISOString(),
+      };
       setMessages(prev => [...prev, assistantMessage]);
       setLastResponse(data.message);
 
