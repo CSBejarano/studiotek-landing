@@ -164,3 +164,53 @@ canvas {
 .animate-glow-pulse {
   animation: glow-pulse 2s ease-in-out infinite;
 }
+
+/* ============================================================================
+   Voice Agent Highlight Animation
+   ============================================================================ */
+
+@keyframes voice-highlight-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 20px 10px rgba(59, 130, 246, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+  }
+}
+
+@keyframes voice-highlight-border {
+  0%, 100% {
+    border-color: rgba(59, 130, 246, 0.5);
+  }
+  50% {
+    border-color: rgba(59, 130, 246, 1);
+  }
+}
+
+.voice-highlight {
+  position: relative;
+  animation: voice-highlight-pulse 1.5s ease-in-out infinite;
+  outline: 2px solid rgba(59, 130, 246, 0.6);
+  outline-offset: 2px;
+  border-radius: inherit;
+  z-index: 10;
+}
+
+/* For form inputs */
+input.voice-highlight,
+textarea.voice-highlight,
+select.voice-highlight {
+  animation: voice-highlight-pulse 1.5s ease-in-out infinite, voice-highlight-border 1.5s ease-in-out infinite;
+  outline: none;
+  border: 2px solid rgba(59, 130, 246, 1) !important;
+}
+
+/* For buttons */
+button.voice-highlight {
+  animation: voice-highlight-pulse 1s ease-in-out infinite;
+  transform: scale(1.02);
+  transition: transform 0.2s ease;
+}

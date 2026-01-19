@@ -1,55 +1,86 @@
 # GOAL - Estado Actual del Proyecto
 
-## Status: COMPLETE - MODAL NAVIGATION + ALL FEATURES
+## Status: IDLE - LANDING COMPLETE + VOICE AGENT
 
-La landing page de StudioTek está funcionalmente completa con todas las features implementadas incluyendo navegación entre modales del carousel.
+La landing page de StudioTek esta funcionalmente completa con agente de voz interactivo.
 
-**Production URL:** https://studiotek-landing-m7siiq4pd-csbejaranos-projects.vercel.app
+**Production URL:** https://studiotek-landing-fsw63i0gi-csbejaranos-projects.vercel.app
+**GitHub:** https://github.com/CSBejarano/studiotek-landing
 **Local Dev:** http://localhost:3000
 
 ## Ultimo Workflow Completado
 
 | Campo | Valor |
 |-------|-------|
-| ID | `2026-01-15_modal-navigation-carousel` |
+| ID | `2026-01-19_voice-agent` |
 | Duracion | ~30 minutos |
-| Resultado | COMPLETION PROMISE ACHIEVED |
-| Fases | 6 (5 + 1 hotfix) |
+| Resultado | Voice Agent completo con function calling |
 
-## Features Implementadas (Todas)
+## Voice Agent - Feature Principal
 
-### Modal Navigation (NUEVO)
-- Botones de navegación laterales (ChevronLeft/ChevronRight)
-- Keyboard navigation: ArrowLeft/ArrowRight para navegar, Escape para cerrar
-- Transiciones suaves con AnimatePresence mode="wait"
-- Estado centralizado en Services.tsx (openIndex)
-- Accesibilidad: aria-labels, role="dialog", aria-modal="true"
-- Hotfix: botones dentro de containerRef para evitar useOutsideClick
-
-### Cookie Banner Animation
-- AnimatePresence de framer-motion
-- Fade-in desde abajo (y: 50 -> 0, opacity: 0 -> 1)
-- Animación de salida al aceptar/rechazar
-
-### Apple Cards Carousel
-- Carousel horizontal con scroll/drag
-- Cards expandibles a modal true fullscreen via React Portal
-- z-index alto (99998/99999) para overlay completo
-- Tamaño modal: max-w-4xl, min-h-[70vh], max-h-[92vh]
-- Contenido: 6 features + benefits por servicio
-
-## Archivos del Workflow Actual
-
-### Creados (1)
+### Arquitectura
 ```
-components/ui/ServiceModal.tsx    # Modal con navegación
+User Speech -> Web Speech API -> Text
+     |
+     v
+OpenAI Chat API (gpt-4o-mini) + Function Calling
+     |
+     v
+Response + Function Execution -> OpenAI TTS (onyx voice)
+     |
+     v
+Audio Playback -> User
 ```
 
-### Modificados (2)
-```
-components/ui/CarouselCard.tsx    # Simplificado (solo card)
-components/sections/Services.tsx  # Estado centralizado + Portal
-```
+### Componentes Creados (12 archivos)
+- **VoiceAgent.tsx** - Orquestador principal
+- **VoiceButton.tsx** - Boton flotante con estados visuales
+- **TranscriptWindow.tsx** - Ventana de transcripcion + input de texto
+- **VoiceAgentProvider.tsx** - Context para estado global
+- **useSpeechRecognition.ts** - Hook para Web Speech API
+- **useVoiceAgent.ts** - Hook publico para consumir el agente
+- **/api/voice/chat** - Endpoint para chat con OpenAI
+- **/api/voice/tts** - Endpoint para text-to-speech
+- **types.ts** - Tipos TypeScript
+- **prompts.ts** - System prompt del agente
+- **functions.ts** - Definiciones de funciones OpenAI
+- **functionHandlers.ts** - Handlers client-side
+
+### Function Calling (5 funciones)
+1. **navigate_to_section** - Scroll a secciones
+2. **open_service_modal** - Abre modales de servicios
+3. **highlight_element** - Resalta elementos
+4. **fill_form_field** - Rellena campos del formulario
+5. **submit_contact_form** - Prepara envio de formulario
+
+### Features Implementadas
+- Web Speech API para speech-to-text (Chrome/Edge)
+- Text input fallback para navegadores sin soporte
+- Boton de pausar/reanudar microfono
+- Tip automatico si el microfono no captura audio
+- Explicaciones detalladas al abrir modales de servicios
+- Voz masculina (onyx) via OpenAI TTS
+
+## Bugs Arreglados
+
+### Speech Recognition Recreation Bug
+- **Problema:** El recognition se recreaba constantemente por callbacks en dependencias
+- **Solucion:** useRef para callbacks, removidos de las dependencias del useEffect
+
+### Generic Function Responses
+- **Problema:** El bot respondia "Entendido, ejecutando la accion" sin explicar
+- **Solucion:** Mejorado system prompt + fallbacks contextuales por funcion
+
+## Integraciones Activas
+
+| Servicio | Estado | Uso |
+|----------|--------|-----|
+| OpenAI | ACTIVO | Chat + Function Calling + TTS |
+| Supabase | ACTIVO | Base de datos leads |
+| Vercel | ACTIVO | Hosting y deploy |
+| GitHub | ACTIVO | Repositorio de codigo |
+| Gemini | ACTIVO | Generacion de imagenes |
+| Resend | PENDIENTE | Emails de confirmacion |
 
 ## PRD Progress
 
@@ -58,35 +89,39 @@ components/sections/Services.tsx  # Estado centralizado + Portal
 | 1. Project Setup | COMPLETE |
 | 2. Layout/Header | COMPLETE |
 | 3. Hero Section | COMPLETE |
-| 4. Benefits | COMPLETE |
-| 5. Services | COMPLETE + CAROUSEL + NAVIGATION |
-| 6. Contact Form | COMPLETE |
-| 7. Polish | COMPLETE |
-| 8. RGPD Compliance | COMPLETE + ANIMATION |
-| 9. Deploy | COMPLETE |
-| 10. Storytelling | COMPLETE |
+| 4. Benefits | COMPLETE + IMAGES |
+| 5. Services | COMPLETE + CAROUSEL |
+| 6. How It Works | COMPLETE + IMAGES |
+| 7. Contact Form | COMPLETE + SUPABASE |
+| 8. Polish | COMPLETE |
+| 9. RGPD Compliance | COMPLETE |
+| 10. Deploy | COMPLETE |
+| BONUS: PainPoints Images | COMPLETE |
+| BONUS: Voice Agent | COMPLETE |
 
 ## Quick Start
 
 ```bash
-# Ver el proyecto
+# Desarrollo
 npm run dev
 
 # Servidor activo en http://localhost:3000
 
-# Test modal navigation:
-# 1. Ir a sección Services
-# 2. Click en cualquier card -> modal se abre
-# 3. Click en flechas laterales -> navegar entre servicios
-# 4. Teclas ←/→ -> navegación por teclado
-# 5. Escape o click fuera -> cerrar modal
-
-# Build de producción
+# Build de produccion
 npm run build
+
+# Deploy
+vercel deploy --prod
 ```
+
+## Pendientes Opcionales
+
+- Configurar Resend para emails de confirmacion
+- Google Analytics
+- Dashboard de leads (admin panel)
 
 ---
 
-**Modal navigation implementado - usuario puede navegar entre servicios sin cerrar modal**
+**Voice Agent complete - Web Speech API + OpenAI Chat/TTS + Function Calling**
 
-**Ultima actualización:** 2026-01-15T17:30:00Z
+**Ultima actualizacion:** 2026-01-19T02:30:00Z

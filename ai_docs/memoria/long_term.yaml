@@ -1,156 +1,30 @@
-# TIER 2: Long-term memory (project, persistent)
-# Project: studiotek-landing
-# Path: ai_docs/memoria/long_term.yaml
-# Date: 2026-01-13
-
-version: "1.0"
-project_id: "studiotek-landing"
-updated_at: "2026-01-13T12:00:00Z"
-workflows_completed: 1
-
-# =============================================================================
-# Decisiones Validadas
-# =============================================================================
-decisions:
-  # Tailwind 4 Config
-  - id: "D001"
-    context: "Tailwind 4 color configuration"
-    decision: "Usar @theme inline en globals.css en lugar de tailwind.config.ts"
-    confidence: 0.99
-    validated_count: 1
-    failed_count: 0
-    last_used: "2026-01-13"
-    tags: ["tailwind", "config", "next.js"]
-    notes: "Next.js 16.1.1 + Tailwind 4 no genera tailwind.config.ts"
-
-  # Navigation
-  - id: "D002"
-    context: "Logo navigation in SPA"
-    decision: "Logo href must be '/' not '#' for correct navigation"
-    confidence: 0.99
-    validated_count: 1
-    failed_count: 0
-    last_used: "2026-01-13"
-    tags: ["navigation", "spa", "ux"]
-    source: "Inherited from ideas-frontend D037"
-
-  - id: "D003"
-    context: "Landing page header simplification"
-    decision: "Remove nav links from header for single-page design - only CTAs"
-    confidence: 0.95
-    validated_count: 1
-    failed_count: 0
-    last_used: "2026-01-13"
-    tags: ["ux", "landing", "navigation"]
-    source: "Inherited from ideas-frontend D038"
-
-  # Hero Section
-  - id: "D004"
-    context: "Hero smooth scroll implementation"
-    decision: "Use scrollIntoView with behavior: 'smooth' + CSS fallback"
-    confidence: 0.95
-    validated_count: 1
-    failed_count: 0
-    last_used: "2026-01-13"
-    tags: ["scroll", "ux", "hero"]
-
-  # Setup
-  - id: "D005"
-    context: "create-next-app in non-empty directory"
-    decision: "Move existing files to /tmp, run create-next-app, restore files"
-    confidence: 0.99
-    validated_count: 1
-    failed_count: 0
-    last_used: "2026-01-13"
-    tags: ["setup", "next.js", "workaround"]
-
-# =============================================================================
-# Blockers Conocidos
-# =============================================================================
-blockers:
-  - symptom: "create-next-app fails in non-empty directory"
-    solution: "Move existing files to /tmp, run create-next-app, restore"
-    occurrences: 1
-    severity: "medium"
-    prevention: "Always backup existing files before create-next-app"
-    tags: ["setup", "next.js"]
-
-  - symptom: "Tailwind colors don't apply in Tailwind 4"
-    solution: "Use @theme inline in globals.css instead of tailwind.config.ts"
-    occurrences: 1
-    severity: "medium"
-    prevention: "Check Tailwind version - v4 uses inline config"
-    tags: ["tailwind", "css"]
-
-# =============================================================================
-# Historial de Workflows
-# =============================================================================
+version: 2.0
+project_id: studiotek-landing
+updated_at: "2026-01-19T01:13:51.792543+00:00"
+workflows_completed: 5
+decisions: []
+blockers: []
+velocity:
+  by_phase: {}
+  by_complexity:
+    low:
+      avg_min: 3.8156792166666667
+      success_rate: 1.0
+      samples: 1
+tools:
+  TodoWrite:
+    success_count: 5
+    fail_count: 0
+  Edit:
+    success_count: 9
+    fail_count: 0
+  Bash:
+    success_count: 3
+    fail_count: 0
 history:
-  - id: "2026-01-13_phase3-hero-section"
-    result: "SUCCESS"
-    duration_min: 45
-    domain: ["frontend", "testing"]
-    complexity: 4
-    pr: null
-    tests_added: 0
-    files_modified: 9
-    timestamp: "2026-01-13T12:00:00Z"
-    notes: |
-      PHASE 3 Hero Section (4 fases):
-      - FASE 1: Project Setup - Next.js 16 + Tailwind 4 + dependencias
-      - FASE 2: Layout, Header, Footer - Inter font, SEO metadata
-      - FASE 3: Hero Section - CTAs + smooth scroll
-      - FASE 4: Validation - 8/8 criterios PASS
-      Agents: @frontend (3 tasks), @testing (1 task)
-      Files created:
-        - components/ui/Button.tsx
-        - components/sections/Header.tsx
-        - components/sections/Hero.tsx
-        - components/sections/Footer.tsx
-        - app/layout.tsx (modified)
-        - app/page.tsx (modified)
-        - app/globals.css (modified)
-        - public/logo.svg
-      Build: SUCCESS
-      Lint: 0 errors (proyecto)
-
-# =============================================================================
-# Patrones de Exito
-# =============================================================================
-success_patterns:
-  landing_page:
-    recommended_mode: "phased"
-    critical_phases: ["setup", "layout", "hero"]
-    tips:
-      - "Use @frontend agent for UI components"
-      - "Use @testing agent for final validation"
-      - "Build check after each phase"
-  component_creation:
-    recommended_mode: "fast"
-    critical_phases: ["implementation"]
-    tips:
-      - "Create UI components in components/ui/"
-      - "Create page sections in components/sections/"
-      - "Use 'use client' for event handlers"
-
-# =============================================================================
-# Project Info
-# =============================================================================
-project_info:
-  name: "StudioTek Landing Page"
-  type: "landing"
-  stack:
-    framework: "Next.js 16.1.1"
-    ui: "React 19.2.3"
-    styling: "Tailwind CSS 4"
-    language: "TypeScript 5.x"
-    icons: "Lucide React"
-    forms: "React Hook Form + Zod"
-    email: "Resend"
-  phases_completed:
-    - "PHASE 3: Hero Section"
-  phases_pending:
-    - "PHASE 4: Benefits Section"
-    - "PHASE 5: Services Section"
-    - "PHASE 6: Contact Form"
-    - "PHASE 7: Polish and Deploy"
+  -
+    id: 2026-01-19_workflow
+    result: SUCCESS
+    duration_min: 3.82
+    domain: backend
+    timestamp: "2026-01-19T01:13:51.258084+00:00"

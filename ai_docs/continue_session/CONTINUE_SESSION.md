@@ -4,81 +4,120 @@
 
 **Proyecto:** StudioTek Landing Page
 **Stack:** Next.js 16 + React 19 + Tailwind 4 + TypeScript
-**Estado:** MODAL NAVIGATION COMPLETE + TODOS LOS FEATURES IMPLEMENTADOS
-**URL:** https://studiotek-landing-m7siiq4pd-csbejaranos-projects.vercel.app
+**Estado:** IDLE - LANDING COMPLETE + VOICE AGENT
+**Production URL:** https://studiotek-landing-fsw63i0gi-csbejaranos-projects.vercel.app
+**GitHub:** https://github.com/CSBejarano/studiotek-landing
 
 ## Ultimo Workflow
 
 | Campo | Valor |
 |-------|-------|
-| ID | `2026-01-15_modal-navigation-carousel` |
+| ID | `2026-01-19_voice-agent` |
 | Estado | COMPLETE |
-| Fases | 5 (0-4) + 1 hotfix |
-| Agentes | @infra, @frontend, @testing |
-| Resultado | COMPLETION PROMISE ACHIEVED |
+| Duracion | ~30 minutos |
+| Resultado | Voice Agent con function calling |
 
-## Resumen del Workflow
+## Voice Agent - Nueva Feature
 
-Modal Navigation para Apple Cards Carousel:
-
-### Features Implementadas
-- Botones de navegacion laterales (ChevronLeft/ChevronRight)
-- Keyboard navigation: ArrowLeft/ArrowRight para navegar, Escape para cerrar
-- Transiciones suaves con AnimatePresence mode="wait"
-- Accesibilidad: aria-labels, role="dialog", aria-modal="true"
-- Estado centralizado en Services.tsx (openIndex)
-- Modal separado en ServiceModal.tsx
-
-### Hotfix Aplicado
-- Botones de navegacion ahora dentro del containerRef
-- Fix: useOutsideClick ya no cierra modal al clickear botones
-
-## Archivos Creados (1)
-
+### Arquitectura
 ```
-components/ui/
-  - ServiceModal.tsx    # Modal con navegacion entre servicios
+Speech -> Web Speech API -> OpenAI Chat -> Function Calling -> TTS -> Audio
 ```
 
-## Archivos Modificados (2)
+### Componentes Principales
+- **VoiceAgent.tsx** - Orquestador (listen -> process -> speak -> execute)
+- **VoiceButton.tsx** - Boton flotante con estados visuales
+- **TranscriptWindow.tsx** - Chat + input de texto fallback
+- **useSpeechRecognition.ts** - Hook Web Speech API
+
+### APIs
+- **POST /api/voice/chat** - Chat con gpt-4o-mini + function calling
+- **POST /api/voice/tts** - Text-to-speech con voz "onyx"
+
+### Function Calling (5 funciones)
+1. `navigate_to_section` - Scroll a secciones
+2. `open_service_modal` - Abre modales (indices 0-3)
+3. `highlight_element` - Resalta elementos
+4. `fill_form_field` - Rellena formulario
+5. `submit_contact_form` - Prepara envio
+
+### Bugs Arreglados
+- **Speech Recreation Bug:** useRef para callbacks evita recreacion constante
+- **Generic Responses:** Fallbacks contextuales por funcion + prompt mejorado
+
+### Features Extra
+- Text input fallback (Brave/Firefox)
+- Boton pausar/reanudar microfono
+- Tip automatico si mic no funciona (8s)
+
+## Archivos Creados (12)
 
 ```
-components/ui/CarouselCard.tsx      # Simplificado (solo card, sin modal)
-components/sections/Services.tsx    # Estado centralizado + Portal
+components/voice/
+├── VoiceAgent.tsx
+├── VoiceButton.tsx
+├── TranscriptWindow.tsx
+└── VoiceAgentProvider.tsx
+
+hooks/
+├── useSpeechRecognition.ts
+└── useVoiceAgent.ts
+
+app/api/voice/
+├── chat/route.ts
+└── tts/route.ts
+
+lib/voice/
+├── types.ts
+├── prompts.ts
+├── functions.ts
+└── functionHandlers.ts
 ```
+
+## Stack de Integraciones
+
+| Servicio | Estado | Uso |
+|----------|--------|-----|
+| OpenAI | ACTIVO | Chat + TTS + Function Calling |
+| Supabase | ACTIVO | Base de datos leads |
+| Gemini | ACTIVO | Generacion imagenes (15) |
+| Vercel | ACTIVO | Hosting + Deploy |
+| GitHub | ACTIVO | Repositorio |
+| Resend | PENDIENTE | Emails |
 
 ## PRD Progress
 
-- [x] PHASE 1-10: Landing completa + RGPD + Storytelling
-- [x] Apple Cards Carousel
-- [x] Cookie Banner Animation
-- [x] Modal Navigation (NUEVO)
+- [x] PHASE 1-10: Landing completa
+- [x] Apple Cards Carousel + Modal Navigation
+- [x] Cookie Banner + RGPD Compliance
+- [x] Supabase Leads Integration
+- [x] Images: Benefits (3) + HowItWorks (6) + PainPoints (4)
+- [x] Voice Agent con Function Calling - NUEVO
 
-## Domain Experts Actualizados
+## Domain Experts
 
 | Agente | Version | Tasks |
 |--------|---------|-------|
-| @frontend | 1.24 | 34 |
-| @backend | 1.0 | 1 |
-| @infra | 1.0 | 3 |
+| @frontend | 1.27 | 48 |
+| @backend | 1.2 | 5 |
+| @infra | 1.3 | 6 |
 | @testing | 1.0 | 4 |
 
-## Nuevas Decisiones Frontend
+## Nuevas Decisiones
 
-- SL044: Estado centralizado en padre, modal unico via portal
-- SL045: ArrowLeft/ArrowRight para navegar, Escape para cerrar
-- SL046: AnimatePresence mode="wait" para transiciones suaves
-- SL047: Botones de navegacion dentro de containerRef para evitar useOutsideClick
+- D037: useRef para callbacks en useSpeechRecognition
+- D038: Text input fallback para navegadores sin Web Speech API
+- D039: Fallbacks contextuales por funcion en route.ts
+- D040: System prompt detallado con indices de servicios
 
 ## Pendientes
 
-Ninguno critico. Proyecto funcionalmente completo.
+Ninguno critico. Proyecto funcionalmente completo con voice agent.
 
 ### Opcional (Futuro)
-- Agregar imagenes reales a servicios
-- Configurar credenciales Supabase/Resend en produccion
-- Deploy con nuevas features
+- Configurar Resend para emails
 - Google Analytics
+- Dashboard de leads
 
 ## Comandos Utiles
 
@@ -89,24 +128,18 @@ npm run dev
 # Build
 npm run build
 
-# Test modal navigation
-# 1. Ir a seccion Services
-# 2. Click en cualquier card -> modal se abre
-# 3. Click en flechas laterales -> navegar entre servicios
-# 4. Teclas ←/→ -> navegacion por teclado
-# 5. Escape o click fuera -> cerrar modal
-
 # Deploy
 vercel deploy --prod
 ```
 
 ## Referencias
 
-- Plan: `.claude/plans/2026-01-15_modal-navigation-carousel.md`
-- Frontend Memory: `ai_docs/expertise/domain-experts/frontend.yaml`
+- Production: https://studiotek-landing-fsw63i0gi-csbejaranos-projects.vercel.app
+- GitHub: https://github.com/CSBejarano/studiotek-landing
+- Supabase: [Tu proyecto en supabase.com]
 
 ---
 
-**Modal navigation implementado - usuario puede navegar entre servicios sin cerrar modal**
+**Voice Agent complete - Web Speech API + OpenAI Chat/TTS + Function Calling**
 
-**Ultima actualizacion:** 2026-01-15T17:30:00Z
+**Ultima actualizacion:** 2026-01-19T02:30:00Z

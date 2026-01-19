@@ -1,109 +1,169 @@
 # PROGRESS.yaml - Estado del proyecto
 # Project: studiotek-landing
-# Updated: 2026-01-15
+# Updated: 2026-01-19
 
-workflow_id: "2026-01-15_modal-navigation-carousel"
-status: "COMPLETE"
-started_at: "2026-01-15T17:00:00Z"
-completed_at: "2026-01-15T17:30:00Z"
+workflow_id: "2026-01-19_voice-agent"
+status: "IDLE"
+started_at: "2026-01-19T02:00:00Z"
+completed_at: "2026-01-19T02:30:00Z"
 
-# Fases ejecutadas
+# Ultimo workflow: Voice Agent Implementation
 phases:
-  - id: 0
-    name: "Pre-flight Check"
-    agent: "@infra"
-    status: "COMPLETE"
-    description: "Verificar archivos existentes y build"
-    result: "SUCCESS - 4/4 archivos, build OK"
-
   - id: 1
-    name: "Crear ServiceModal"
+    name: "Implementacion de Voice Agent"
     agent: "@frontend"
     status: "COMPLETE"
-    description: "Crear componente ServiceModal con navegacion"
-    result: "SUCCESS"
+    description: "Sistema completo de agente de voz con Web Speech API + OpenAI"
+    result: "SUCCESS - VoiceButton, TranscriptWindow, VoiceAgent, VoiceAgentProvider"
 
   - id: 2
-    name: "Simplificar CarouselCard"
-    agent: "@frontend"
+    name: "APIs de Voz"
+    agent: "@backend"
     status: "COMPLETE"
-    description: "Eliminar modal de CarouselCard, agregar onClick prop"
-    result: "SUCCESS - 68% reduccion de codigo"
+    description: "Endpoints para chat y TTS"
+    result: "SUCCESS - /api/voice/chat, /api/voice/tts"
 
   - id: 3
-    name: "Integrar en Services"
-    agent: "@frontend"
+    name: "Function Calling"
+    agent: "@backend"
     status: "COMPLETE"
-    description: "Estado centralizado openIndex + Portal del modal"
-    result: "SUCCESS"
+    description: "Funciones para navegar, abrir modales, rellenar formularios"
+    result: "SUCCESS - 5 funciones implementadas"
 
   - id: 4
-    name: "QA y Build"
-    agent: "@testing"
-    status: "COMPLETE"
-    description: "npm run build y verificacion de archivos"
-    result: "BUILD SUCCESS"
-
-  - id: 5
-    name: "Hotfix - Navigation Buttons"
+    name: "Fix Speech Recognition"
     agent: "@frontend"
     status: "COMPLETE"
-    description: "Mover botones dentro de containerRef para evitar useOutsideClick"
-    result: "SUCCESS - botones funcionan correctamente"
+    description: "Bug de recreacion constante del recognition"
+    result: "SUCCESS - useRef para callbacks"
+
+  - id: 5
+    name: "Text Input Fallback"
+    agent: "@frontend"
+    status: "COMPLETE"
+    description: "Input de texto para navegadores sin Web Speech API"
+    result: "SUCCESS - TextInput en TranscriptWindow"
+
+  - id: 6
+    name: "Mic Pause Button"
+    agent: "@frontend"
+    status: "COMPLETE"
+    description: "Boton para pausar/reanudar escucha de voz"
+    result: "SUCCESS - Toggle mic en footer"
+
+  - id: 7
+    name: "Service Explanations"
+    agent: "@backend"
+    status: "COMPLETE"
+    description: "Mejora de prompt y fallbacks para explicar servicios"
+    result: "SUCCESS - Descripciones detalladas por servicio"
+
+  - id: 8
+    name: "Deploy a Vercel"
+    agent: "@infra"
+    status: "COMPLETE"
+    description: "vercel deploy --prod"
+    result: "SUCCESS - production deployed"
 
 # Metricas
 metrics:
-  total_phases: 6
-  completed_phases: 6
+  total_phases: 8
+  completed_phases: 8
   skipped_phases: 0
   duration_minutes: 30
-  agents_used: ["@infra", "@frontend", "@testing"]
-  hotfixes_applied: 1
+  agents_used: ["@frontend", "@backend", "@infra"]
+  files_created: 12
+  files_modified: 6
 
 # Git
 git:
   branch: "main"
-  commit: "pending"
-  message: "feat: Add modal navigation to Services carousel"
+  remote: "https://github.com/CSBejarano/studiotek-landing"
+  commits:
+    - hash: "f812ea8"
+      message: "Initial commit: StudioTek Landing Page"
+    - hash: "048bab3"
+      message: "fix: Support both SUPABASE_URL and NEXT_PUBLIC_SUPABASE_URL env vars"
+    - hash: "0f3b1e0"
+      message: "feat: add background images to PainPointsSection cards"
 
 # PRD Progress
 prd_progress:
   total_phases: 10
   completed_phases: 10
-  status: "100% COMPLETE + MODAL NAVIGATION"
+  status: "100% COMPLETE + VOICE AGENT"
 
-# Archivos
-files:
-  created: 1
-  modified: 2
-  details:
-    created:
-      - "components/ui/ServiceModal.tsx"
-    modified:
-      - "components/ui/CarouselCard.tsx"
-      - "components/sections/Services.tsx"
+# Integraciones
+integrations:
+  supabase:
+    status: "ACTIVE"
+    table: "leads"
+    rls: true
+    service_role: true
+  openai:
+    status: "ACTIVE"
+    models: ["gpt-4o-mini", "tts-1"]
+    features: ["chat", "function_calling", "tts"]
+  resend:
+    status: "PENDING"
+    api_key: false
+  vercel:
+    status: "ACTIVE"
+    url: "https://studiotek-landing-fsw63i0gi-csbejaranos-projects.vercel.app"
+  github:
+    status: "ACTIVE"
+    repo: "https://github.com/CSBejarano/studiotek-landing"
+  gemini:
+    status: "ACTIVE"
+    model: "imagen-4.0-generate-001"
+    images_generated: 15
+
+# Voice Agent Components
+voice_agent:
+  components:
+    - "components/voice/VoiceAgent.tsx"
+    - "components/voice/VoiceButton.tsx"
+    - "components/voice/TranscriptWindow.tsx"
+    - "components/voice/VoiceAgentProvider.tsx"
+  hooks:
+    - "hooks/useSpeechRecognition.ts"
+    - "hooks/useVoiceAgent.ts"
+  apis:
+    - "app/api/voice/chat/route.ts"
+    - "app/api/voice/tts/route.ts"
+  lib:
+    - "lib/voice/types.ts"
+    - "lib/voice/prompts.ts"
+    - "lib/voice/functions.ts"
+    - "lib/voice/functionHandlers.ts"
+  features:
+    - "Web Speech API (speech-to-text)"
+    - "OpenAI Chat API with function calling"
+    - "OpenAI TTS API (voice: onyx)"
+    - "Text input fallback"
+    - "Mic pause/resume button"
+    - "Auto tip for mic issues"
+  functions:
+    - "navigate_to_section"
+    - "open_service_modal"
+    - "highlight_element"
+    - "fill_form_field"
+    - "submit_contact_form"
 
 # Domain Experts
 domain_experts:
   frontend:
-    version: "1.24"
-    tasks_handled: 34
-    new_decisions: ["SL044", "SL045", "SL046", "SL047"]
+    version: "1.27"
+    tasks_handled: 48
+  backend:
+    version: "1.2"
+    tasks_handled: 5
   infra:
-    version: "1.0"
-    tasks_handled: 3
+    version: "1.3"
+    tasks_handled: 6
   testing:
     version: "1.0"
     tasks_handled: 4
 
-# Modal Navigation Features
-modal_navigation:
-  - "Botones laterales ChevronLeft/ChevronRight"
-  - "Keyboard: ArrowLeft/ArrowRight/Escape"
-  - "AnimatePresence mode=wait para transiciones"
-  - "Estado centralizado en Services (openIndex)"
-  - "Accesibilidad: aria-labels, role=dialog, aria-modal=true"
-  - "Hotfix: botones dentro de containerRef"
-
 # Completion Promise
-completion_promise: "Modal navigation implementado - usuario puede navegar entre servicios sin cerrar modal"
+completion_promise: "Voice Agent complete - Web Speech API + OpenAI Chat/TTS + Function Calling"

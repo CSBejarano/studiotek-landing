@@ -6,6 +6,7 @@ import { Services } from '@/components/sections/Services';
 import { HowItWorks } from '@/components/sections/HowItWorks';
 import { ContactForm } from '@/components/sections/ContactForm';
 import { SectionDivider } from '@/components/ui/SectionDivider';
+import { VoiceAgent } from '@/components/voice/VoiceAgent';
 
 export default function Home() {
   return (
@@ -34,6 +35,9 @@ export default function Home() {
 
       {/* 8. Formulario de contacto */}
       <ContactForm />
+
+      {/* 9. Agente de voz */}
+      <VoiceAgent />
     </main>
   );
 }

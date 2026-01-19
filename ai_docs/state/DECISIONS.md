@@ -132,10 +132,166 @@
 
 ---
 
-## Decisiones Pendientes
+---
 
-Ninguna decisión pendiente de validación.
+## Session: 2026-01-15 Modal Navigation
+
+### D021: Estado Centralizado en Padre
+- **Contexto:** Modal navigation requiere control desde Services.tsx
+- **Decision:** openIndex state en Services, modal unico via Portal
+- **Confianza:** 0.99
+- **Validado en:** FASE 3
+
+### D022: Keyboard Navigation
+- **Contexto:** Accesibilidad en modal
+- **Decision:** ArrowLeft/ArrowRight para navegar, Escape para cerrar
+- **Confianza:** 0.99
+- **Validado en:** FASE 1
+
+### D023: AnimatePresence Mode
+- **Contexto:** Transiciones entre servicios en modal
+- **Decision:** mode="wait" para transiciones suaves sin overlap
+- **Confianza:** 0.95
+- **Validado en:** FASE 1
+
+### D024: Botones Dentro de containerRef
+- **Contexto:** useOutsideClick cerraba modal al clickear botones
+- **Decision:** Mover botones de navegacion dentro de containerRef
+- **Confianza:** 0.99
+- **Validado en:** Hotfix FASE 5
 
 ---
 
-**Última actualización:** 2026-01-14T18:00:00Z
+## Session: 2026-01-15 Supabase Integration
+
+### D025: Service Role Key para Server
+- **Contexto:** RLS bloquea INSERT desde anon key
+- **Decision:** Usar SUPABASE_SERVICE_ROLE_KEY en server-side para bypass RLS
+- **Confianza:** 0.99
+- **Validado en:** FASE 3
+
+### D026: Variables de Entorno Flexibles
+- **Contexto:** Vercel usa SUPABASE_URL, local usa NEXT_PUBLIC_SUPABASE_URL
+- **Decision:** Soportar ambos nombres: process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL
+- **Confianza:** 0.95
+- **Validado en:** Deploy
+
+### D027: RLS Policies para Produccion
+- **Contexto:** Seguridad de tabla leads
+- **Decision:** public INSERT (formulario), authenticated SELECT/UPDATE/DELETE (admin)
+- **Confianza:** 0.99
+- **Validado en:** FASE 2
+
+### D028: Historial Git Limpio
+- **Contexto:** GitHub Push Protection detecta secretos en historial
+- **Decision:** Crear branch orphan, excluir .claude/mcp/, force push
+- **Confianza:** 0.99
+- **Validado en:** FASE 4
+
+---
+
+---
+
+## Session: 2026-01-19 Images and UX Improvements
+
+### D029: Imagenes con Opacidad Configurable
+- **Contexto:** Imagenes de fondo en cards necesitan balance con contenido
+- **Decision:** Opacidad configurable por seccion: Benefits 45%, HowItWorks 90%
+- **Confianza:** 0.95
+- **Validado en:** User feedback
+
+### D030: Progress Dots Neutros
+- **Contexto:** Dots de colores en HowItWorks distraian del contenido
+- **Decision:** Usar bg-slate-500 siempre, solo cambiar scale/opacity
+- **Confianza:** 0.95
+- **Validado en:** User request
+
+### D031: Logo como Boton con Scroll
+- **Contexto:** Click en logo debe navegar al inicio
+- **Decision:** Cambiar Link por button con window.scrollTo({ top: 0, behavior: 'smooth' })
+- **Confianza:** 0.99
+- **Validado en:** User request
+
+### D032: Gemini API para Imagenes
+- **Contexto:** Necesidad de imagenes profesionales para cards
+- **Decision:** Usar gemini-2.5-flash-image-preview via gemini_client.py
+- **Confianza:** 0.95
+- **Validado en:** 9 imagenes generadas exitosamente
+
+### D033: Cache Busting de Imagenes
+- **Contexto:** Next.js Image cachea agresivamente imagenes optimizadas
+- **Decision:** Eliminar .next completo (no solo cache) al regenerar imagenes
+- **Confianza:** 0.99
+- **Validado en:** Resolucion de issue de cache
+
+---
+
+## Session: 2026-01-19 PainPointsSection Images
+
+### D034: Imagenes Empaticas para Pain Points
+- **Contexto:** Cards de pain points necesitan imagenes con tonos empaticos
+- **Decision:** Usar tonos slate/grises oscuros (no brillantes) para transmitir empatia
+- **Confianza:** 0.95
+- **Validado en:** User feedback (55% opacidad final)
+
+### D035: Card3D Image Support Reutilizable
+- **Contexto:** Card3D usado en PainPointsSection necesita imagenes
+- **Decision:** Agregar props `image?: string` e `imageOpacity?: number` a Card3D
+- **Confianza:** 0.99
+- **Validado en:** Build passed, visual verification
+
+### D036: Imagen 4.0 API Migration
+- **Contexto:** gemini-2.5-flash-image-preview deprecado
+- **Decision:** Migrar a imagen-4.0-generate-001 via SDK v2 (google.genai)
+- **Confianza:** 0.99
+- **Validado en:** 4 imagenes generadas exitosamente
+
+---
+
+## Session: 2026-01-19 Voice Agent Implementation
+
+### D037: useRef para Callbacks en useSpeechRecognition
+- **Contexto:** El recognition se recreaba constantemente porque las callbacks estaban en las dependencias del useEffect
+- **Decision:** Usar useRef para almacenar callbacks, actualizar refs en useEffects separados
+- **Confianza:** 0.99
+- **Validado en:** Bug fix - microfono funcionando en Chrome
+
+### D038: Text Input Fallback
+- **Contexto:** Web Speech API no funciona en Brave (bloqueada por privacidad)
+- **Decision:** Agregar input de texto en TranscriptWindow como fallback universal
+- **Confianza:** 0.99
+- **Validado en:** User testing - funciona en todos los navegadores
+
+### D039: Fallbacks Contextuales por Funcion
+- **Contexto:** OpenAI a veces retorna function calls sin contenido de texto
+- **Decision:** Agregar descripciones especificas por funcion (service_index -> descripcion)
+- **Confianza:** 0.95
+- **Validado en:** User testing - explicaciones detalladas de servicios
+
+### D040: System Prompt con Indices de Servicios
+- **Contexto:** El bot necesita saber que indice usar para cada servicio
+- **Decision:** Documentar indices 0-3 en system prompt con descripciones completas
+- **Confianza:** 0.99
+- **Validado en:** Function calling correcto para open_service_modal
+
+### D041: Mic Pause/Resume Toggle
+- **Contexto:** Usuario necesita poder pausar el microfono sin cerrar el chat
+- **Decision:** Agregar boton toggle en footer de TranscriptWindow + estado isListeningPaused
+- **Confianza:** 0.95
+- **Validado en:** User request implementado
+
+### D042: Auto Tip para Mic Issues
+- **Contexto:** Usuarios en navegadores sin soporte no saben que usar texto
+- **Decision:** Mostrar tip despues de 8 segundos en estado listening sin captura
+- **Confianza:** 0.95
+- **Validado en:** Visual verification
+
+---
+
+## Decisiones Pendientes
+
+Ninguna decision pendiente de validacion.
+
+---
+
+**Ultima actualizacion:** 2026-01-19T02:30:00Z

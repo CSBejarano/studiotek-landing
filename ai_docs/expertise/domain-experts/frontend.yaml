@@ -4,9 +4,9 @@
 
 domain_id: "frontend"
 display_name: "Frontend Engineer"
-version: "1.24"
-updated_at: "2026-01-15T17:00:00Z"
-tasks_handled: 27
+version: "1.25"
+updated_at: "2026-01-19T01:45:38.637074+00:00"
+tasks_handled: 76
 success_rate: 1.0
 
 # Configuracion de clasificacion
@@ -389,6 +389,42 @@ decisions:
     last_used: "2026-01-15"
     tags: ["framer-motion", "animatepresence", "modal", "transitions"]
 
+  - id: "SL047"
+    context: "Voice agent context provider architecture"
+    decision: "VoiceAgentProvider con estado centralizado (isActive, voiceState, messages, currentTranscript, error) + actions memoizadas + hydration safety check"
+    rationale: "Patron consistente con CookieProvider existente; mounted state evita hydration mismatch; useMemo para actions previene re-renders innecesarios"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-19"
+    tags: ["context", "voice", "state-management", "hydration"]
+
+  - id: "SL048"
+    context: "Voice agent hook pattern"
+    decision: "useVoiceAgent hook expone state + derived state (isListening, isSpeaking, lastMessage) + actions. Safe version retorna null fuera de provider"
+    rationale: "Derived state con useMemo evita recalculos; useVoiceAgentSafe para componentes que pueden estar fuera del provider; utility hooks (useVoiceState, useVoiceActive) para optimizacion"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-19"
+    tags: ["hooks", "voice", "derived-state", "optimization"]
+
+  - id: "SL049"
+    context: "Voice agent types organization"
+    decision: "Tipos en lib/voice/types.ts: VoiceState union type, Message interface con optional functionCall, FunctionDefinition para OpenAI function calling, VoiceAgentContextType completo"
+    rationale: "Separacion clara types/prompts/provider; FunctionDefinition compatible con OpenAI API; CreateMessage utility type para omitir id/timestamp"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-19"
+    tags: ["typescript", "voice", "types", "organization"]
+
+  - id: "SL050"
+    context: "TypeScript export conflict"
+    decision: "No duplicar export type cuando interface ya esta exportada. Interface con export al definir es suficiente"
+    rationale: "TypeScript error: Export declaration conflicts with exported declaration. Remover export type duplicado al final del archivo"
+    confidence: 0.99
+    validated_count: 1
+    last_used: "2026-01-19"
+    tags: ["typescript", "exports", "fix"]
+
 # Blockers del dominio
 blockers:
   - id: "SLB001"
@@ -419,7 +455,11 @@ file_patterns_discovered:
   - pattern: "components/storytelling/*.tsx"
     purpose: "Storytelling components for immersive sections (Card3D, etc.)"
   - pattern: "hooks/*.ts"
-    purpose: "Custom React hooks (use3DCardEffect, useScrollAnimation)"
+    purpose: "Custom React hooks (use3DCardEffect, useScrollAnimation, useVoiceAgent)"
+  - pattern: "lib/voice/*.ts"
+    purpose: "Voice agent types and prompts (types.ts, prompts.ts)"
+  - pattern: "components/voice/*.tsx"
+    purpose: "Voice agent components (VoiceAgentProvider)"
   - pattern: "lib/validations.ts"
     purpose: "Zod schemas para validacion de formularios"
   - pattern: "app/layout.tsx"

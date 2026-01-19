@@ -5,6 +5,7 @@ import { Header } from '@/components/sections/Header';
 import { Footer } from '@/components/sections/Footer';
 import { CookieProvider } from '@/components/cookies/CookieContext';
 import { CookieBanner } from '@/components/cookies/CookieBanner';
+import { VoiceAgentProvider } from '@/components/voice/VoiceAgentProvider';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -66,10 +67,12 @@ export default function RootLayout({
     <html lang="es">
       <body className={`${inter.variable} antialiased`}>
         <CookieProvider>
-          <Header />
-          <main className="pt-16">{children}</main>
-          <Footer />
-          <CookieBanner />
+          <VoiceAgentProvider>
+            <Header />
+            <main className="pt-16">{children}</main>
+            <Footer />
+            <CookieBanner />
+          </VoiceAgentProvider>
         </CookieProvider>
       </body>
     </html>
