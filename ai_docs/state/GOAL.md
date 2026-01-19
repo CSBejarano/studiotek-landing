@@ -1,8 +1,8 @@
 # GOAL - Estado Actual del Proyecto
 
-## Status: IDLE - LANDING COMPLETE + VOICE AGENT
+## Status: IDLE - LANDING COMPLETE + AI CHAT ENHANCED
 
-La landing page de StudioTek esta funcionalmente completa con agente de voz interactivo.
+La landing page de StudioTek esta funcionalmente completa con AI chat mejorado.
 
 **Production URL:** https://studiotek-landing-fsw63i0gi-csbejaranos-projects.vercel.app
 **GitHub:** https://github.com/CSBejarano/studiotek-landing
@@ -12,70 +12,78 @@ La landing page de StudioTek esta funcionalmente completa con agente de voz inte
 
 | Campo | Valor |
 |-------|-------|
-| ID | `2026-01-19_voice-agent` |
-| Duracion | ~30 minutos |
-| Resultado | Voice Agent completo con function calling |
+| ID | `2026-01-19_ai-chat-enhancement` |
+| Duracion | ~90 minutos |
+| Resultado | AI Chat con reconocimiento hibrido de voz |
 
-## Voice Agent - Feature Principal
+## AI Chat Enhancement - Feature Principal
 
-### Arquitectura
+### Arquitectura de Reconocimiento de Voz
 ```
-User Speech -> Web Speech API -> Text
-     |
-     v
-OpenAI Chat API (gpt-4o-mini) + Function Calling
-     |
-     v
-Response + Function Execution -> OpenAI TTS (onyx voice)
-     |
-     v
-Audio Playback -> User
+┌─────────────────────────────────────────────────────┐
+│                  AI CHAT INPUT                      │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│  ┌─────────────────┐    ┌─────────────────┐        │
+│  │  Web Speech API │    │  OpenAI Whisper │        │
+│  │   (PRIMARY)     │ OR │   (FALLBACK)    │        │
+│  │   Green LED     │    │    Red LED      │        │
+│  └────────┬────────┘    └────────┬────────┘        │
+│           │                      │                  │
+│           │   Network Error?     │                  │
+│           └──────────────────────┘                  │
+│                      │                              │
+│                      v                              │
+│              Transcription                          │
+│       (Real-time or 2.5s intervals)                │
+│                      │                              │
+│                      v                              │
+│           Expandable Textarea                       │
+│            (max 150px height)                       │
+└─────────────────────────────────────────────────────┘
 ```
 
-### Componentes Creados (12 archivos)
-- **VoiceAgent.tsx** - Orquestador principal
-- **VoiceButton.tsx** - Boton flotante con estados visuales
-- **TranscriptWindow.tsx** - Ventana de transcripcion + input de texto
-- **VoiceAgentProvider.tsx** - Context para estado global
-- **useSpeechRecognition.ts** - Hook para Web Speech API
-- **useVoiceAgent.ts** - Hook publico para consumir el agente
-- **/api/voice/chat** - Endpoint para chat con OpenAI
-- **/api/voice/tts** - Endpoint para text-to-speech
-- **types.ts** - Tipos TypeScript
-- **prompts.ts** - System prompt del agente
-- **functions.ts** - Definiciones de funciones OpenAI
-- **functionHandlers.ts** - Handlers client-side
+### Cambios Implementados
 
-### Function Calling (5 funciones)
-1. **navigate_to_section** - Scroll a secciones
-2. **open_service_modal** - Abre modales de servicios
-3. **highlight_element** - Resalta elementos
-4. **fill_form_field** - Rellena campos del formulario
-5. **submit_contact_form** - Prepara envio de formulario
+| Cambio | Descripcion |
+|--------|-------------|
+| **Whisper Fallback** | Auto-activacion cuando Web Speech falla |
+| **STT Endpoint** | Nuevo `/api/voice/stt` con Whisper API |
+| **Real-time Whisper** | Transcripcion cada 2.5s durante grabacion |
+| **Expandable Input** | Textarea auto-resize (max 150px) |
+| **UI Centering** | Input y placeholder centrados |
+| **Visual Indicators** | Verde = Web Speech, Rojo = Whisper |
 
-### Features Implementadas
-- Web Speech API para speech-to-text (Chrome/Edge)
-- Text input fallback para navegadores sin soporte
-- Boton de pausar/reanudar microfono
-- Tip automatico si el microfono no captura audio
-- Explicaciones detalladas al abrir modales de servicios
-- Voz masculina (onyx) via OpenAI TTS
+### Archivos Modificados/Creados
 
-## Bugs Arreglados
+**Nuevo:**
+- `app/api/voice/stt/route.ts` - Endpoint Whisper STT
 
-### Speech Recognition Recreation Bug
-- **Problema:** El recognition se recreaba constantemente por callbacks en dependencias
-- **Solucion:** useRef para callbacks, removidos de las dependencias del useEffect
+**Modificado:**
+- `components/ui/ai-chat-input.tsx` - Reescritura mayor:
+  - Reconocimiento hibrido
+  - Textarea expandible
+  - Transcripcion periodica
+  - UI centrada
 
-### Generic Function Responses
-- **Problema:** El bot respondia "Entendido, ejecutando la accion" sin explicar
-- **Solucion:** Mejorado system prompt + fallbacks contextuales por funcion
+## Git - Ultimo Commit
+
+```
+f728e1e feat: enhance AI chat with hybrid voice recognition and expandable input
+
+- Add Whisper fallback for Web Speech API network errors
+- Implement real-time periodic transcription in Whisper mode (every 2.5s)
+- Change input to auto-resizing textarea for long messages
+- Center input and placeholder in container
+- Add new /api/voice/stt endpoint for Whisper transcription
+- Visual indicators: green for Web Speech, red for Whisper mode
+```
 
 ## Integraciones Activas
 
-| Servicio | Estado | Uso |
-|----------|--------|-----|
-| OpenAI | ACTIVO | Chat + Function Calling + TTS |
+| Servicio | Estado | Modelos/Features |
+|----------|--------|------------------|
+| OpenAI | ACTIVO | gpt-4o-mini, tts-1, whisper-1 |
 | Supabase | ACTIVO | Base de datos leads |
 | Vercel | ACTIVO | Hosting y deploy |
 | GitHub | ACTIVO | Repositorio de codigo |
@@ -86,26 +94,19 @@ Audio Playback -> User
 
 | Phase | Status |
 |-------|--------|
-| 1. Project Setup | COMPLETE |
-| 2. Layout/Header | COMPLETE |
-| 3. Hero Section | COMPLETE |
-| 4. Benefits | COMPLETE + IMAGES |
-| 5. Services | COMPLETE + CAROUSEL |
-| 6. How It Works | COMPLETE + IMAGES |
-| 7. Contact Form | COMPLETE + SUPABASE |
-| 8. Polish | COMPLETE |
-| 9. RGPD Compliance | COMPLETE |
-| 10. Deploy | COMPLETE |
-| BONUS: PainPoints Images | COMPLETE |
-| BONUS: Voice Agent | COMPLETE |
+| 1-10. Landing Base | COMPLETE |
+| Apple Cards Carousel | COMPLETE |
+| Cookie Banner + RGPD | COMPLETE |
+| Supabase Integration | COMPLETE |
+| Images Generation | COMPLETE (15 imgs) |
+| Voice Agent | COMPLETE |
+| **AI Chat Enhanced** | **COMPLETE** |
 
 ## Quick Start
 
 ```bash
 # Desarrollo
 npm run dev
-
-# Servidor activo en http://localhost:3000
 
 # Build de produccion
 npm run build
@@ -122,6 +123,6 @@ vercel deploy --prod
 
 ---
 
-**Voice Agent complete - Web Speech API + OpenAI Chat/TTS + Function Calling**
+**AI Chat Enhanced - Hybrid Voice Recognition + Whisper Fallback + Expandable Input**
 
-**Ultima actualizacion:** 2026-01-19T02:30:00Z
+**Ultima actualizacion:** 2026-01-19T15:30:00Z

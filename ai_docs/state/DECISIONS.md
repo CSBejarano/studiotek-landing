@@ -288,10 +288,44 @@
 
 ---
 
+## Session: 2026-01-19 AI Chat Enhancement
+
+### D043: Whisper Fallback Automatico
+- **Contexto:** Web Speech API falla con "network error" en algunos navegadores/redes
+- **Decision:** Implementar fallback automatico a OpenAI Whisper cuando Web Speech falla
+- **Confianza:** 0.99
+- **Validado en:** User testing - funciona cuando Web Speech no disponible
+
+### D044: Transcripcion Periodica en Whisper
+- **Contexto:** Whisper no ofrece transcripcion en tiempo real como Web Speech API
+- **Decision:** Implementar `transcribePartial()` cada 2.5 segundos durante grabacion
+- **Confianza:** 0.95
+- **Validado en:** User feedback - transcripcion visible mientras habla
+
+### D045: Textarea Auto-resize
+- **Contexto:** Mensajes largos se cortaban en el input fijo
+- **Decision:** Cambiar de `input` a `textarea` con auto-resize y max-height 150px
+- **Confianza:** 0.99
+- **Validado en:** User request - mensajes largos visibles completos
+
+### D046: Indicadores Visuales de Modo
+- **Contexto:** Usuario necesita saber que modo de reconocimiento esta activo
+- **Decision:** LED verde para Web Speech API, LED rojo para Whisper fallback
+- **Confianza:** 0.95
+- **Validado en:** Visual verification
+
+### D047: useRef para Transcription State
+- **Contexto:** Multiples refs necesarios para manejar estado de transcripcion
+- **Decision:** Usar textareaRef, transcriptionIntervalRef, isTranscribingRef, mimeTypeRef
+- **Confianza:** 0.99
+- **Validado en:** Build passed, funcionalidad correcta
+
+---
+
 ## Decisiones Pendientes
 
 Ninguna decision pendiente de validacion.
 
 ---
 
-**Ultima actualizacion:** 2026-01-19T02:30:00Z
+**Ultima actualizacion:** 2026-01-19T15:30:00Z

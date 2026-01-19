@@ -4,7 +4,7 @@
 
 **Proyecto:** StudioTek Landing Page
 **Stack:** Next.js 16 + React 19 + Tailwind 4 + TypeScript
-**Estado:** IDLE - LANDING COMPLETE + VOICE AGENT
+**Estado:** IDLE - LANDING COMPLETE + AI CHAT ENHANCED
 **Production URL:** https://studiotek-landing-fsw63i0gi-csbejaranos-projects.vercel.app
 **GitHub:** https://github.com/CSBejarano/studiotek-landing
 
@@ -12,77 +12,79 @@
 
 | Campo | Valor |
 |-------|-------|
-| ID | `2026-01-19_voice-agent` |
+| ID | `2026-01-19_ai-chat-enhancement` |
 | Estado | COMPLETE |
-| Duracion | ~30 minutos |
-| Resultado | Voice Agent con function calling |
+| Duracion | ~90 minutos |
+| Resultado | AI Chat con reconocimiento hibrido de voz |
 
-## Voice Agent - Nueva Feature
+## AI Chat Enhancement - Nueva Feature
 
-### Arquitectura
+### Arquitectura de Reconocimiento Hibrido
 ```
-Speech -> Web Speech API -> OpenAI Chat -> Function Calling -> TTS -> Audio
+User Click Mic -> Web Speech API (GREEN LED)
+       |
+       v
+  Network Error?
+       |
+  YES  v  NO
+       |   |
+       v   v
+    Whisper    Real-time
+    Fallback   Transcription
+   (RED LED)
+       |
+       v
+Periodic Transcription (2.5s intervals)
+       |
+       v
+Expandable Textarea (max 150px)
 ```
 
-### Componentes Principales
-- **VoiceAgent.tsx** - Orquestador (listen -> process -> speak -> execute)
-- **VoiceButton.tsx** - Boton flotante con estados visuales
-- **TranscriptWindow.tsx** - Chat + input de texto fallback
-- **useSpeechRecognition.ts** - Hook Web Speech API
+### Cambios Principales
 
-### APIs
-- **POST /api/voice/chat** - Chat con gpt-4o-mini + function calling
-- **POST /api/voice/tts** - Text-to-speech con voz "onyx"
+| Archivo | Cambio |
+|---------|--------|
+| `app/api/voice/stt/route.ts` | **NUEVO** - Endpoint Whisper STT |
+| `components/ui/ai-chat-input.tsx` | **REESCRITO** - Hibrido + Expandable |
 
-### Function Calling (5 funciones)
-1. `navigate_to_section` - Scroll a secciones
-2. `open_service_modal` - Abre modales (indices 0-3)
-3. `highlight_element` - Resalta elementos
-4. `fill_form_field` - Rellena formulario
-5. `submit_contact_form` - Prepara envio
+### Features Nuevas
+- **Whisper Fallback:** Auto-activacion cuando Web Speech falla (network error)
+- **Visual Indicators:** Verde = Web Speech, Rojo = Whisper
+- **Real-time Whisper:** `transcribePartial()` cada 2.5 segundos
+- **Expandable Input:** Textarea con max-height 150px
+- **UI Centering:** Input y placeholder centrados en contenedor
 
-### Bugs Arreglados
-- **Speech Recreation Bug:** useRef para callbacks evita recreacion constante
-- **Generic Responses:** Fallbacks contextuales por funcion + prompt mejorado
+### Refs Clave en ai-chat-input.tsx
+```typescript
+const textareaRef = useRef<HTMLTextAreaElement>(null);
+const transcriptionIntervalRef = useRef<NodeJS.Timeout | null>(null);
+const isTranscribingRef = useRef(false);
+const mimeTypeRef = useRef<string>('audio/webm');
+```
 
-### Features Extra
-- Text input fallback (Brave/Firefox)
-- Boton pausar/reanudar microfono
-- Tip automatico si mic no funciona (8s)
+## APIs de Voz
 
-## Archivos Creados (12)
+| Endpoint | Modelo | Uso |
+|----------|--------|-----|
+| POST /api/voice/chat | gpt-4o-mini | Chat + Function Calling |
+| POST /api/voice/tts | tts-1 (onyx) | Text-to-Speech |
+| POST /api/voice/stt | whisper-1 | Speech-to-Text (Whisper) |
+
+## Git - Ultimo Commit
 
 ```
-components/voice/
-├── VoiceAgent.tsx
-├── VoiceButton.tsx
-├── TranscriptWindow.tsx
-└── VoiceAgentProvider.tsx
-
-hooks/
-├── useSpeechRecognition.ts
-└── useVoiceAgent.ts
-
-app/api/voice/
-├── chat/route.ts
-└── tts/route.ts
-
-lib/voice/
-├── types.ts
-├── prompts.ts
-├── functions.ts
-└── functionHandlers.ts
+f728e1e feat: enhance AI chat with hybrid voice recognition and expandable input
 ```
 
 ## Stack de Integraciones
 
-| Servicio | Estado | Uso |
-|----------|--------|-----|
-| OpenAI | ACTIVO | Chat + TTS + Function Calling |
-| Supabase | ACTIVO | Base de datos leads |
-| Gemini | ACTIVO | Generacion imagenes (15) |
-| Vercel | ACTIVO | Hosting + Deploy |
-| GitHub | ACTIVO | Repositorio |
+| Servicio | Estado | Modelos |
+|----------|--------|---------|
+| OpenAI | ACTIVO | gpt-4o-mini, tts-1, whisper-1 |
+| Supabase | ACTIVO | Leads database |
+| Gemini | ACTIVO | imagen-4.0 (15 imgs) |
+| Vercel | ACTIVO | Hosting |
+| GitHub | ACTIVO | Repo |
 | Resend | PENDIENTE | Emails |
 
 ## PRD Progress
@@ -92,27 +94,28 @@ lib/voice/
 - [x] Cookie Banner + RGPD Compliance
 - [x] Supabase Leads Integration
 - [x] Images: Benefits (3) + HowItWorks (6) + PainPoints (4)
-- [x] Voice Agent con Function Calling - NUEVO
+- [x] Voice Agent con Function Calling
+- [x] **AI Chat Enhanced** - NUEVO
 
 ## Domain Experts
 
 | Agente | Version | Tasks |
 |--------|---------|-------|
-| @frontend | 1.27 | 48 |
-| @backend | 1.2 | 5 |
-| @infra | 1.3 | 6 |
+| @frontend | 1.28 | 52 |
+| @backend | 1.3 | 6 |
+| @infra | 1.4 | 7 |
 | @testing | 1.0 | 4 |
 
 ## Nuevas Decisiones
 
-- D037: useRef para callbacks en useSpeechRecognition
-- D038: Text input fallback para navegadores sin Web Speech API
-- D039: Fallbacks contextuales por funcion en route.ts
-- D040: System prompt detallado con indices de servicios
+- D043: Whisper fallback automatico cuando Web Speech falla con network error
+- D044: Transcripcion periodica cada 2.5s en modo Whisper
+- D045: Textarea auto-resize con max-height 150px
+- D046: Indicadores visuales: verde (Web Speech) / rojo (Whisper)
 
 ## Pendientes
 
-Ninguno critico. Proyecto funcionalmente completo con voice agent.
+Ninguno critico. Proyecto funcionalmente completo con AI chat mejorado.
 
 ### Opcional (Futuro)
 - Configurar Resend para emails
@@ -136,10 +139,9 @@ vercel deploy --prod
 
 - Production: https://studiotek-landing-fsw63i0gi-csbejaranos-projects.vercel.app
 - GitHub: https://github.com/CSBejarano/studiotek-landing
-- Supabase: [Tu proyecto en supabase.com]
 
 ---
 
-**Voice Agent complete - Web Speech API + OpenAI Chat/TTS + Function Calling**
+**AI Chat Enhanced - Hybrid Voice Recognition + Whisper Fallback + Expandable Input**
 
-**Ultima actualizacion:** 2026-01-19T02:30:00Z
+**Ultima actualizacion:** 2026-01-19T15:30:00Z
