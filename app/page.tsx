@@ -6,38 +6,34 @@ import { Services } from '@/components/sections/Services';
 import { HowItWorks } from '@/components/sections/HowItWorks';
 import { ContactForm } from '@/components/sections/ContactForm';
 import { SectionDivider } from '@/components/ui/SectionDivider';
-import { VoiceAgent } from '@/components/voice/VoiceAgent';
 
 export default function Home() {
   return (
     <main>
-      {/* 1. Impacto inicial */}
+      {/* 1. Hero con Asistente IA central */}
       <Hero />
 
-      {/* 2. Storytelling: Problemas del cliente */}
+      {/* 2. ¿Te identificas? - Problemas del cliente */}
       <PainPointsSection />
 
-      {/* 3. Storytelling: Nuestra solucion */}
+      {/* 3. Nuestra solucion (menos espacio con PainPoints) */}
       <SolutionSection />
 
-      {/* 4. Beneficios de automatizar */}
+      {/* 4. ¿Por que automatizar? - Beneficios */}
       <Benefits />
 
-      {/* 5. Numeros de impacto */}
+      {/* 5. Nuestros servicios */}
+      <Services />
+
+      {/* 6. Resultados que hablan - Stats */}
       <SectionDivider color="blue" variant="line" />
       <Stats />
 
-      {/* 6. Servicios detallados */}
-      <Services />
-
-      {/* 7. Como trabajamos (6 pasos) */}
+      {/* 7. Como trabajamos */}
       <HowItWorks />
 
       {/* 8. Formulario de contacto */}
       <ContactForm />
-
-      {/* 9. Agente de voz */}
-      <VoiceAgent />
     </main>
   );
 }

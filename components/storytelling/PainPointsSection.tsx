@@ -9,9 +9,9 @@ import { DotPattern } from "@/components/magicui/dot-pattern";
 const painPoints = [
   {
     icon: Clock,
-    title: "Procesos manuales que consumen horas",
+    title: "Procesos manuales consumen horas",
     description:
-      "Tareas repetitivas que podrian automatizarse te roban tiempo valioso",
+      "Y un gran coste en personal. Tareas repetitivas que podrian automatizarse te roban recursos valiosos",
     gradient: "from-slate-500 to-slate-600",
     glowColor: "purple" as const,
     image: "/images/generated/pain-procesos-manuales.png",
@@ -19,7 +19,7 @@ const painPoints = [
   {
     icon: Brain,
     title: "Sin tiempo para lo estrategico",
-    description: "Ahogado en operaciones, no puedes enfocarte en crecer",
+    description: "Ahogado en operaciones diarias, no puedes enfocarte en hacer crecer tu negocio",
     gradient: "from-slate-500 to-slate-600",
     glowColor: "indigo" as const,
     image: "/images/generated/pain-sin-tiempo.png",
@@ -27,15 +27,15 @@ const painPoints = [
   {
     icon: TrendingDown,
     title: "La competencia se adelanta",
-    description: "Mientras otros adoptan IA, tu negocio se queda atras",
+    description: "Mientras otros adoptan IA y automatizan, tu negocio pierde terreno cada dia",
     gradient: "from-slate-500 to-slate-600",
     glowColor: "violet" as const,
     image: "/images/generated/pain-competencia.png",
   },
   {
     icon: Database,
-    title: "Datos sin explotar",
-    description: "Tienes informacion valiosa que no estas aprovechando",
+    title: "Datos sin explotar, decisiones sin tomar",
+    description: "Tienes informacion valiosa que no estas aprovechando para tomar mejores decisiones",
     gradient: "from-slate-500 to-slate-600",
     glowColor: "purple" as const,
     image: "/images/generated/pain-datos.png",

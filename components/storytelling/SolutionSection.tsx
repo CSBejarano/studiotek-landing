@@ -49,7 +49,7 @@ export function SolutionSection() {
   return (
     <section
       id="solutions"
-      className="relative bg-slate-950 py-24 overflow-hidden"
+      className="relative bg-slate-950 pt-8 pb-24 overflow-hidden"
     >
       {/* Background gradient - more vibrant than pain points */}
       <div

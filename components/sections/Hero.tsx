@@ -1,22 +1,17 @@
 'use client';
 
-import { Button } from '../ui/Button';
 import { AnimatedGridPattern } from '../magicui/animated-grid-pattern';
 import { TextAnimate } from '../magicui/text-animate';
 import { BlurFade } from '../magicui/blur-fade';
-import { ShimmerButton } from '../magicui/shimmer-button';
 import { FloatingOrbs } from '../ui/FloatingOrbs';
 import { OrbitingCircles } from '../magicui/orbiting-circles';
+import { HeroAIChat } from '../ui/HeroAIChat';
 
 export function Hero() {
-  const scrollToSection = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 overflow-hidden py-20"
     >
       {/* Animated Grid Background */}
       <AnimatedGridPattern
@@ -29,8 +24,29 @@ export function Hero() {
       {/* Floating decorative orbs */}
       <FloatingOrbs color="blue" count={2} className="opacity-50" />
 
-      {/* Orbiting circles decoration */}
-      <div className="absolute top-1/4 right-10 lg:right-1/4 opacity-30 pointer-events-none z-0">
+      {/* Orbiting circles decoration - left side */}
+      <div className="absolute top-1/3 left-10 lg:left-1/6 opacity-20 pointer-events-none z-0">
+        <div className="relative h-32 w-32">
+          <OrbitingCircles
+            radius={50}
+            duration={18}
+            path={false}
+          >
+            <div className="h-2.5 w-2.5 rounded-full bg-cyan-400/50" />
+          </OrbitingCircles>
+          <OrbitingCircles
+            radius={70}
+            duration={22}
+            reverse
+            path={false}
+          >
+            <div className="h-2 w-2 rounded-full bg-blue-500/40" />
+          </OrbitingCircles>
+        </div>
+      </div>
+
+      {/* Orbiting circles decoration - right side */}
+      <div className="absolute top-1/4 right-10 lg:right-1/6 opacity-20 pointer-events-none z-0">
         <div className="relative h-40 w-40">
           <OrbitingCircles
             radius={60}
@@ -54,12 +70,20 @@ export function Hero() {
       <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/60 pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
+        {/* Logo badge */}
+        <BlurFade delay={0.05} inView>
+          <div className="inline-flex items-center gap-2 bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-full px-4 py-2 mb-8">
+            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+            <span className="text-sm text-slate-300">Asistente IA disponible 24/7</span>
+          </div>
+        </BlurFade>
+
         <BlurFade delay={0.1} inView>
           <TextAnimate
             as="h1"
             animation="blurInUp"
             by="word"
-            className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight"
             delay={0.2}
             duration={0.8}
           >
@@ -68,32 +92,37 @@ export function Hero() {
         </BlurFade>
 
         <BlurFade delay={0.4} inView>
-          <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mt-8">
-            Ayudamos a PYMEs a reducir costes y escalar operaciones mediante soluciones de IA personalizadas
+          <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mt-6 mb-12">
+            Cuéntanos qué procesos te quitan más tiempo. Nuestro asistente de IA te ayudará a encontrar la solución perfecta.
           </p>
         </BlurFade>
 
+        {/* AI Chat Input - Centro del Hero */}
         <BlurFade delay={0.6} inView>
-          <div className="flex flex-col sm:flex-row justify-center gap-4 mt-12">
-            <ShimmerButton
-              shimmerColor="#ffffff"
-              shimmerSize="0.05em"
-              shimmerDuration="3s"
-              background="rgba(59, 130, 246, 1)"
-              shineColor={["#60a5fa", "#3b82f6", "#60a5fa"]}
-              borderRadius="12px"
-              className="text-lg px-8 py-4 font-semibold"
-              onClick={() => scrollToSection('contact')}
-            >
-              Solicita una consulta gratuita
-            </ShimmerButton>
+          <HeroAIChat />
+        </BlurFade>
 
-            <Button
-              variant="secondary"
-              onClick={() => scrollToSection('services')}
-            >
-              Ver servicios
-            </Button>
+        {/* Trust indicators */}
+        <BlurFade delay={0.8} inView>
+          <div className="flex flex-wrap justify-center items-center gap-6 mt-16 text-slate-500 text-sm">
+            <div className="flex items-center gap-2">
+              <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              <span>Sin compromiso</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              <span>Respuesta inmediata</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              <span>Consulta gratuita</span>
+            </div>
           </div>
         </BlurFade>
       </div>
