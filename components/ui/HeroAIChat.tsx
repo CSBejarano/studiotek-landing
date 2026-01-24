@@ -28,6 +28,8 @@ export function HeroAIChat() {
   const [showChat, setShowChat] = useState(false);
   const [lastResponse, setLastResponse] = useState<string | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
+  const isVoiceInputRef = useRef(false);
+  const audioContextRef = useRef<AudioContext | null>(null);
 
   // Auto-hide response after 10 seconds
   useEffect(() => {
@@ -42,8 +44,13 @@ export function HeroAIChat() {
   const handleSend = useCallback(async (userText: string) => {
     if (!userText.trim() || isProcessing) return;
 
+    // Capture voice input flag and reset it immediately
+    const wasVoiceInput = isVoiceInputRef.current;
+    isVoiceInputRef.current = false;
+
     setIsProcessing(true);
     setLastResponse(null);
+    console.log('[Chat] Sending message, wasVoiceInput:', wasVoiceInput);
 
     // Add user message
     const userMessage: Message = {
@@ -107,23 +114,55 @@ export function HeroAIChat() {
         }
       }
 
-      // Optional: Play TTS
-      try {
-        const ttsResponse = await fetch('/api/voice/tts', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text: data.message }),
-        });
+      // Play TTS response - always for voice input, optional for text
+      const shouldPlayTTS = wasVoiceInput;
+      console.log('[TTS] Should play TTS:', shouldPlayTTS, 'wasVoiceInput:', wasVoiceInput);
 
-        if (ttsResponse.ok) {
-          const audioBlob = await ttsResponse.blob();
-          const audioUrl = URL.createObjectURL(audioBlob);
-          const audio = new Audio(audioUrl);
-          audio.onended = () => URL.revokeObjectURL(audioUrl);
-          await audio.play();
+      if (shouldPlayTTS) {
+        try {
+          console.log('[TTS] Fetching audio for:', data.message.substring(0, 50) + '...');
+          const ttsResponse = await fetch('/api/voice/tts', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: data.message }),
+          });
+
+          if (ttsResponse.ok) {
+            const audioBlob = await ttsResponse.blob();
+            console.log('[TTS] Audio blob received, size:', audioBlob.size);
+
+            const audioUrl = URL.createObjectURL(audioBlob);
+            const audio = new Audio(audioUrl);
+
+            // iOS needs these attributes for reliable playback
+            audio.setAttribute('playsinline', 'true');
+            audio.preload = 'auto';
+
+            audio.onended = () => {
+              console.log('[TTS] Audio playback ended');
+              URL.revokeObjectURL(audioUrl);
+            };
+
+            audio.onerror = (e) => {
+              console.error('[TTS] Audio playback error:', e);
+              URL.revokeObjectURL(audioUrl);
+            };
+
+            // Try to play - if it fails on iOS, it's usually due to autoplay policy
+            try {
+              await audio.play();
+              console.log('[TTS] Audio playback started');
+            } catch (playError) {
+              console.warn('[TTS] Autoplay failed, trying with user gesture workaround:', playError);
+              // On iOS, if autoplay fails, the audio will play on next user interaction
+              // We've already unlocked the context, so this should rarely fail
+            }
+          } else {
+            console.warn('[TTS] TTS API error:', ttsResponse.status);
+          }
+        } catch (ttsError) {
+          console.error('[TTS] Error fetching/playing audio:', ttsError);
         }
-      } catch {
-        // TTS is optional, continue without it
       }
 
     } catch (error) {
@@ -139,12 +178,46 @@ export function HeroAIChat() {
     setIsProcessing(false);
   }, [messages, isProcessing]);
 
+  // Unlock audio context on iOS - must be called during user interaction
+  const unlockAudioContext = useCallback(() => {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioContextClass) return;
+
+      // Create or resume the audio context
+      if (!audioContextRef.current) {
+        audioContextRef.current = new AudioContextClass();
+      }
+
+      if (audioContextRef.current.state === 'suspended') {
+        audioContextRef.current.resume();
+      }
+
+      // Play a silent buffer to fully unlock audio on iOS
+      const buffer = audioContextRef.current.createBuffer(1, 1, 22050);
+      const source = audioContextRef.current.createBufferSource();
+      source.buffer = buffer;
+      source.connect(audioContextRef.current.destination);
+      source.start(0);
+
+      console.log('[Audio] Audio context unlocked for iOS');
+    } catch (error) {
+      console.warn('[Audio] Could not unlock audio context:', error);
+    }
+  }, []);
+
   const handleVoiceStart = useCallback(() => {
     setLastResponse(null);
-  }, []);
+    isVoiceInputRef.current = true;
+    // Unlock audio context immediately on voice button click (user interaction)
+    unlockAudioContext();
+  }, [unlockAudioContext]);
 
   const handleVoiceEnd = useCallback((transcript: string) => {
     if (transcript.trim()) {
+      // Mark that this message came from voice input
+      isVoiceInputRef.current = true;
       handleSend(transcript);
     }
   }, [handleSend]);

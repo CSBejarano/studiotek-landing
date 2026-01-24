@@ -494,7 +494,7 @@ export function AIChatInput({
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.25 }}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-base leading-6 text-slate-400 pointer-events-none whitespace-nowrap"
+                className="absolute left-4 right-20 top-1/2 -translate-y-1/2 text-base leading-6 text-slate-400 pointer-events-none truncate"
               >
                 {displayPlaceholder}
               </motion.span>
