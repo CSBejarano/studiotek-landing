@@ -187,6 +187,8 @@ export function VoiceButton({ className }: VoiceButtonProps) {
         'disabled:opacity-50 disabled:cursor-not-allowed',
         // Cursor
         'cursor-pointer',
+        // Touch optimization - eliminates 300ms delay on mobile
+        'touch-fast',
         className
       )}
       variants={buttonVariants}

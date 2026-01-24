@@ -214,3 +214,13 @@ button.voice-highlight {
   transform: scale(1.02);
   transition: transform 0.2s ease;
 }
+
+/* ============================================================================
+   Touch Optimization for Mobile
+   ============================================================================ */
+
+/* Eliminates 300ms delay on touch devices */
+.touch-fast {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}

@@ -1,0 +1,448 @@
+# WORKFLOW-STATUS.yaml
+# Generated: 2026-01-24
+# Plan: ai_docs/plans/2026-01-24_fix-microfono-movil-studiotek.md
+
+workflow_id: "2026-01-24_fix-microfono-movil-studiotek"
+issue: null
+mode: FAST
+started_at: "2026-01-24T12:00:00+00:00"
+completed_at: "2026-01-24T12:30:00+00:00"
+iteration: 8
+max_iterations: 50
+
+phases:
+  - id: 1
+    name: "Mobile Detection + Whisper Fallback Infrastructure"
+    agent: "@frontend"
+    status: PENDING
+    checkpoint:
+      command: "grep -E 'isMobileDevice|isWhisperMode|iOS' hooks/useSpeechRecognition.ts | head -10"
+      expected: "Mobile detection and Whisper mode state visible"
+    retries: 0
+    max_retries: 3
+    prompt: |
+      # PRE-TAREA
+      Leer ai_docs/expertise/domain-experts/frontend.yaml
+
+      # CONTEXTO
+      Issue: Fix microfono movil - iOS Safari no soporta Web Speech API de forma confiable
+
+      # TAREA
+      Modificar hooks/useSpeechRecognition.ts:
+
+      1. Agregar funcion `isMobileDevice()` que detecta dispositivos moviles:
+         ```typescript
+         const isMobileDevice = (): boolean => {
+           if (typeof window === 'undefined') return false;
+           const ua = navigator.userAgent;
+           return /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(ua) ||
+                  (navigator.maxTouchPoints > 0 && /Macintosh/.test(ua)); // iPad iPadOS
+         };
+         ```
+
+      2. Agregar funcion `isIOSSafari()` para deteccion especifica de iOS Safari:
+         ```typescript
+         const isIOSSafari = (): boolean => {
+           if (typeof window === 'undefined') return false;
+           const ua = navigator.userAgent;
+           const isIOS = /iPad|iPhone|iPod/.test(ua);
+           const isWebkit = /WebKit/.test(ua);
+           const isChrome = /CriOS/.test(ua);
+           return isIOS && isWebkit && !isChrome;
+         };
+         ```
+
+      3. Agregar state y refs para Whisper mode despues de los refs existentes:
+         ```typescript
+         const [isWhisperMode, setIsWhisperMode] = useState<boolean>(false);
+         const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+         const streamRef = useRef<MediaStream | null>(null);
+         const audioChunksRef = useRef<Blob[]>([]);
+         const mimeTypeRef = useRef<string>('audio/webm');
+         ```
+
+      4. Modificar configuracion de recognition para usar `continuous: continuous && !isIOSSafari()`
+         - Agregar comentario explicando por que
+
+      ## Archivos
+      MODIFY:
+        - hooks/useSpeechRecognition.ts
+
+      # POST-TAREA
+      1. Verificar que npm run build pasa sin errores
+      2. Actualizar memoria del agente en ai_docs/expertise/domain-experts/frontend.yaml:
+         - Agregar decision SL052 sobre mobile speech recognition config
+
+  - id: 2
+    name: "Implement Whisper Recording Functions"
+    agent: "@frontend"
+    status: PENDING
+    checkpoint:
+      command: "grep -E 'startWhisperListening|transcribeWithWhisper|getSupportedMimeType' hooks/useSpeechRecognition.ts"
+      expected: "Whisper functions implemented"
+    retries: 0
+    max_retries: 3
+    prompt: |
+      # PRE-TAREA
+      Leer ai_docs/expertise/domain-experts/frontend.yaml
+      Leer components/ui/ai-chat-input.tsx (lineas 296-381 tienen patron de referencia)
+
+      # CONTEXTO
+      Issue: Fix microfono movil - Implementar funciones Whisper en useSpeechRecognition
+
+      # TAREA
+      Modificar hooks/useSpeechRecognition.ts:
+
+      1. Agregar funcion `getSupportedMimeType()` con cadena de fallback:
+         ```typescript
+         const getSupportedMimeType = (): string => {
+           const types = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/wav'];
+           for (const type of types) {
+             if (MediaRecorder.isTypeSupported(type)) return type;
+           }
+           return 'audio/webm';
+         };
+         ```
+
+      2. Agregar funcion `transcribeWithWhisper(audioBlob: Blob)`:
+         ```typescript
+         const transcribeWithWhisper = async (audioBlob: Blob): Promise<string | null> => {
+           try {
+             const formData = new FormData();
+             const ext = mimeTypeRef.current.includes('mp4') ? 'mp4' : 'webm';
+             formData.append('audio', audioBlob, `recording.${ext}`);
+
+             const response = await fetch('/api/voice/stt', {
+               method: 'POST',
+               body: formData,
+             });
+
+             const data = await response.json();
+             return data.success ? data.transcript : null;
+           } catch (error) {
+             console.error('[Whisper] Transcription error:', error);
+             return null;
+           }
+         };
+         ```
+
+      3. Agregar funcion `startWhisperListening()`:
+         - getUserMedia con constraints movil-friendly (sampleRate: 16000, channelCount: 1)
+         - Iniciar MediaRecorder con mimeType detectado
+         - Manejar ondataavailable, onstop, onerror
+         - Setear isListening = true, error = null
+
+      4. Agregar funcion `stopWhisperListening()`:
+         - Detener MediaRecorder
+         - Transcribir audio acumulado en onstop
+         - Llamar onResult callback con transcripcion
+
+      ## Archivos
+      MODIFY:
+        - hooks/useSpeechRecognition.ts
+
+      # POST-TAREA
+      1. Verificar que npm run build pasa sin errores
+      2. Actualizar memoria del agente: agregar decision SL051
+
+  - id: 3
+    name: "Integrate Whisper Fallback in startListening/stopListening"
+    agent: "@frontend"
+    status: PENDING
+    checkpoint:
+      command: "grep -E 'isWhisperMode|startWhisperListening' hooks/useSpeechRecognition.ts | head -10"
+      expected: "Whisper mode integration in start/stop functions"
+    retries: 0
+    max_retries: 3
+    prompt: |
+      # PRE-TAREA
+      Leer ai_docs/expertise/domain-experts/frontend.yaml
+      Leer hooks/useSpeechRecognition.ts (trabajo de fases anteriores)
+
+      # CONTEXTO
+      Issue: Fix microfono movil - Integrar Whisper fallback en funciones principales
+
+      # TAREA
+      Modificar hooks/useSpeechRecognition.ts:
+
+      1. Agregar useEffect para detectar y activar Whisper mode en mobile:
+         ```typescript
+         useEffect(() => {
+           // Force Whisper mode on iOS Safari where Web Speech API is unreliable
+           if (isMobileDevice() && isIOSSafari()) {
+             console.log('[SpeechRecognition] iOS Safari detected, using Whisper fallback');
+             setIsWhisperMode(true);
+             setIsSupported(true); // Whisper is always supported
+           }
+         }, []);
+         ```
+
+      2. Modificar `startListening()` para manejar ambos modos:
+         ```typescript
+         const startListening = useCallback(() => {
+           if (isWhisperMode) {
+             startWhisperListening();
+             return;
+           }
+           // ... existing Web Speech API logic ...
+         }, [isWhisperMode, ...]);
+         ```
+
+      3. Modificar `stopListening()` para manejar ambos modos:
+         ```typescript
+         const stopListening = useCallback(() => {
+           if (isWhisperMode) {
+             stopWhisperListening();
+             return;
+           }
+           // ... existing logic ...
+         }, [isWhisperMode]);
+         ```
+
+      4. En el handler `onerror` de recognition, agregar fallback a Whisper:
+         - Si error es 'network', cambiar a modo Whisper y reiniciar
+
+      5. Agregar `isWhisperMode` al return del hook
+
+      6. Agregar cleanup de MediaStream y MediaRecorder en useEffect return
+
+      ## Archivos
+      MODIFY:
+        - hooks/useSpeechRecognition.ts
+
+      # POST-TAREA
+      1. Verificar que npm run build pasa sin errores
+      2. Probar en iOS Safari manualmente
+
+  - id: 4
+    name: "Touch Optimization"
+    agent: "@frontend"
+    status: PENDING
+    checkpoint:
+      command: "grep 'touch-action' components/voice/VoiceButton.tsx app/globals.css"
+      expected: "touch-action: manipulation found"
+    retries: 0
+    max_retries: 3
+    prompt: |
+      # PRE-TAREA
+      Leer ai_docs/expertise/domain-experts/frontend.yaml
+
+      # CONTEXTO
+      Issue: Fix microfono movil - El boton tiene delay de 300ms en mobile
+
+      # TAREA
+
+      1. Modificar components/voice/VoiceButton.tsx:
+         - Agregar style `touchAction: 'manipulation'` al motion.button
+         - O agregar className con touch-action
+
+      2. Modificar app/globals.css:
+         - Agregar clase utilitaria:
+           ```css
+           .touch-fast {
+             touch-action: manipulation;
+             -webkit-tap-highlight-color: transparent;
+           }
+           ```
+
+      ## Archivos
+      MODIFY:
+        - components/voice/VoiceButton.tsx
+        - app/globals.css
+
+      # POST-TAREA
+      1. Verificar que npm run build pasa sin errores
+      2. Agregar decision SL053 sobre touch optimization
+
+  - id: 5
+    name: "Visibility Change Handler"
+    agent: "@frontend"
+    status: PENDING
+    checkpoint:
+      command: "grep 'visibilitychange' components/voice/VoiceAgent.tsx"
+      expected: "visibilitychange listener found"
+    retries: 0
+    max_retries: 3
+    prompt: |
+      # PRE-TAREA
+      Leer ai_docs/expertise/domain-experts/frontend.yaml
+      Leer components/voice/VoiceAgent.tsx
+
+      # CONTEXTO
+      Issue: Fix microfono movil - Cuando usuario minimiza y vuelve, el mic no funciona
+
+      # TAREA
+      Modificar components/voice/VoiceAgent.tsx:
+
+      1. Agregar useEffect para manejar visibilitychange:
+         ```typescript
+         useEffect(() => {
+           const handleVisibilityChange = () => {
+             if (document.hidden) {
+               // Pausar listening cuando app va a background
+               if (isListening) {
+                 stopListening();
+               }
+             } else {
+               // Reiniciar listening cuando vuelve a foreground
+               if (isActive && voiceState === 'idle') {
+                 // Delay pequeno para asegurar que el browser esta listo
+                 setTimeout(() => {
+                   startListening();
+                 }, 300);
+               }
+             }
+           };
+
+           document.addEventListener('visibilitychange', handleVisibilityChange);
+           return () => {
+             document.removeEventListener('visibilitychange', handleVisibilityChange);
+           };
+         }, [isActive, isListening, voiceState, stopListening, startListening]);
+         ```
+
+      ## Archivos
+      MODIFY:
+        - components/voice/VoiceAgent.tsx
+
+      # POST-TAREA
+      1. Verificar que npm run build pasa sin errores
+
+  - id: 6
+    name: "Build Validation"
+    agent: "@testing"
+    status: PENDING
+    checkpoint:
+      command: "npm run build && npm run lint"
+      expected: "No errors or warnings"
+    retries: 0
+    max_retries: 3
+    prompt: |
+      # PRE-TAREA
+      Leer ai_docs/expertise/domain-experts/testing.yaml
+
+      # CONTEXTO
+      Validar que todos los cambios de mobile microphone fix compilan correctamente
+
+      # TAREA
+      1. Ejecutar npm run build
+      2. Ejecutar npm run lint
+      3. Verificar que no hay errores de TypeScript
+      4. Verificar que no hay warnings criticos
+
+      # POST-TAREA
+      1. Reportar resultado del build
+      2. Si hay errores, documentar para correccion
+
+  - id: 7
+    name: "Update Expert Memory"
+    agent: "@frontend"
+    status: PENDING
+    checkpoint:
+      command: "grep 'SL051\\|SL052\\|SL053' ai_docs/expertise/domain-experts/frontend.yaml"
+      expected: "Decisions documented"
+    retries: 0
+    max_retries: 3
+    prompt: |
+      # PRE-TAREA
+      Leer ai_docs/expertise/domain-experts/frontend.yaml
+
+      # TAREA
+      Agregar las siguientes decisiones a la seccion `decisions:`:
+
+      ```yaml
+      - id: "SL051"
+        context: "Mobile audio MIME type detection"
+        decision: "Usar cadena de fallback ordenada: audio/webm;codecs=opus -> audio/webm -> audio/mp4 -> audio/wav"
+        rationale: "iOS Safari solo soporta audio/mp4, Android Chrome prefiere webm"
+        confidence: 0.95
+        validated_count: 1
+        last_used: "2026-01-24"
+        tags: ["mobile", "audio", "mediarecorder", "ios", "safari"]
+
+      - id: "SL052"
+        context: "Mobile speech recognition configuration"
+        decision: "Deshabilitar continuous mode en iOS Safari, usar restart manual"
+        rationale: "iOS Safari WebkitSpeechRecognition tiene bugs con continuous=true que causan que deje de escuchar"
+        confidence: 0.95
+        validated_count: 1
+        last_used: "2026-01-24"
+        tags: ["mobile", "speech-recognition", "ios", "safari", "web-speech-api"]
+
+      - id: "SL053"
+        context: "Touch optimization for voice button"
+        decision: "Agregar touch-action: manipulation y -webkit-tap-highlight-color: transparent"
+        rationale: "Elimina delay de 300ms en dispositivos moviles y previene highlight azul en iOS"
+        confidence: 0.95
+        validated_count: 1
+        last_used: "2026-01-24"
+        tags: ["mobile", "touch", "ux", "voice-button"]
+      ```
+
+      ## Archivos
+      MODIFY:
+        - ai_docs/expertise/domain-experts/frontend.yaml
+
+      # POST-TAREA
+      1. Incrementar tasks_handled
+      2. Actualizar updated_at
+
+  - id: 8
+    name: "Code Review"
+    agent: "@gentleman"
+    status: PENDING
+    checkpoint:
+      command: "echo APPROVED"
+      expected: "APPROVED"
+    retries: 0
+    max_retries: 3
+    prompt: |
+      # PRE-TAREA
+      Leer ai_docs/expertise/domain-experts/frontend.yaml
+
+      ## Purpose
+      Review arquitectonico final de los cambios para fix de microfono movil
+
+      # CONTEXTO
+      Se han realizado los siguientes cambios:
+      1. Deteccion de iOS Safari y deshabilitacion de continuous mode
+      2. Cadena de fallback para MIME types de audio
+      3. Constraints optimizados de getUserMedia
+      4. Touch optimization en VoiceButton
+      5. Visibility change handler en VoiceAgent
+
+      # TAREA
+      Verificar:
+
+      ## Arquitectura
+      - [ ] Cambios son minimos e invasivos
+      - [ ] Patrones consistentes con el codebase existente
+      - [ ] No hay regresiones en funcionalidad desktop
+
+      ## Codigo
+      - [ ] TypeScript sin any innecesarios
+      - [ ] Cleanup correcto en useEffect
+      - [ ] Fallbacks implementados correctamente
+
+      ## UX
+      - [ ] Feedback al usuario mantenido
+      - [ ] Accesibilidad no afectada
+      - [ ] Touch response mejorada
+
+      ## Performance
+      - [ ] No memory leaks nuevos
+      - [ ] Event listeners con cleanup
+
+      # VERDICT
+      - APPROVED: Cambios correctos, listo para produccion
+      - NEEDS_REVISION: Issues menores a corregir
+      - REJECTED: Issues criticos
+
+      # POST-TAREA
+      1. Emitir verdict con justificacion
+      2. Si NEEDS_REVISION, listar items a corregir
+
+completion:
+  all_completed: true
+  completion_promise: "WORKFLOW COMPLETE"
+  final_status: SUCCESS

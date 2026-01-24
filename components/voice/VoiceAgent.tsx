@@ -511,6 +511,36 @@ export function VoiceAgent({ config: userConfig, className }: VoiceAgentProps) {
     }
   }, [isActive, stopListening, resetTranscript]);
 
+  // ========== Visibility Change Handler (Mobile Background/Foreground) ==========
+
+  /**
+   * Handle visibility change - pause/resume listening when app goes to background/foreground
+   * This fixes the issue where microphone stops working after minimizing and returning on mobile
+   */
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        // Pause listening when app goes to background
+        if (isListening) {
+          stopListening();
+        }
+      } else {
+        // Resume listening when returning to foreground
+        if (isActive && voiceState === 'idle') {
+          // Small delay to ensure the browser is ready
+          setTimeout(() => {
+            startListening();
+          }, 300);
+        }
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [isActive, isListening, voiceState, stopListening, startListening]);
+
   // ========== Cleanup on Unmount ==========
 
   useEffect(() => {

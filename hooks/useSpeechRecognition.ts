@@ -107,6 +107,34 @@ declare global {
 }
 
 // ============================================================================
+// Device Detection Utilities
+// ============================================================================
+
+/**
+ * Detects if the current device is a mobile device
+ * Includes detection for iPadOS (which reports as Macintosh but has touch)
+ */
+const isMobileDevice = (): boolean => {
+  if (typeof window === 'undefined') return false;
+  const ua = navigator.userAgent;
+  return /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(ua) ||
+         (navigator.maxTouchPoints > 0 && /Macintosh/.test(ua)); // iPad iPadOS
+};
+
+/**
+ * Detects if the current browser is Safari on iOS
+ * iOS Safari has unreliable Web Speech API support, especially for continuous mode
+ */
+const isIOSSafari = (): boolean => {
+  if (typeof window === 'undefined') return false;
+  const ua = navigator.userAgent;
+  const isIOS = /iPad|iPhone|iPod/.test(ua);
+  const isWebkit = /WebKit/.test(ua);
+  const isChrome = /CriOS/.test(ua);
+  return isIOS && isWebkit && !isChrome;
+};
+
+// ============================================================================
 // Hook Types
 // ============================================================================
 
@@ -152,6 +180,12 @@ export interface UseSpeechRecognitionReturn {
   stopListening: () => void;
   /** Reset the transcript to empty */
   resetTranscript: () => void;
+  /** Whether currently using Whisper mode (server-side transcription) */
+  isWhisperMode: boolean;
+  /** Start Whisper-based listening (mobile fallback) */
+  startWhisperListening: () => Promise<void>;
+  /** Stop Whisper-based listening */
+  stopWhisperListening: () => void;
 }
 
 // ============================================================================
@@ -239,6 +273,13 @@ export function useSpeechRecognition(
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const isStoppingRef = useRef<boolean>(false);
 
+  // Whisper mode state and refs (for mobile fallback via server-side transcription)
+  const [isWhisperMode, setIsWhisperMode] = useState<boolean>(false);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
+  const mimeTypeRef = useRef<string>('audio/webm');
+
   // Refs for callbacks (to avoid recreating recognition on callback changes)
   const onResultRef = useRef(onResult);
   const onInterimResultRef = useRef(onInterimResult);
@@ -261,6 +302,15 @@ export function useSpeechRecognition(
     setIsSupported(!!SpeechRecognitionAPI);
   }, []);
 
+  // Force Whisper mode on iOS Safari where Web Speech API is unreliable
+  useEffect(() => {
+    if (isMobileDevice() && isIOSSafari()) {
+      console.log('[SpeechRecognition] iOS Safari detected, using Whisper fallback');
+      setIsWhisperMode(true);
+      setIsSupported(true); // Whisper is always supported
+    }
+  }, []);
+
   // Initialize recognition instance
   useEffect(() => {
     if (!isSupported) return;
@@ -274,7 +324,9 @@ export function useSpeechRecognition(
 
     // Configure
     recognition.lang = lang;
-    recognition.continuous = continuous;
+    // iOS Safari has unreliable continuous mode - it often stops after a few seconds
+    // or fails silently. Disable continuous mode on iOS Safari to prevent issues.
+    recognition.continuous = continuous && !isIOSSafari();
     recognition.interimResults = interimResults;
     recognition.maxAlternatives = 1;
 
@@ -377,12 +429,232 @@ export function useSpeechRecognition(
         }
         recognitionRef.current = null;
       }
+
+      // Cleanup MediaStream and MediaRecorder (Whisper mode)
+      if (streamRef.current) {
+        console.log('[SpeechRecognition] Cleanup - stopping media stream tracks');
+        streamRef.current.getTracks().forEach(track => track.stop());
+        streamRef.current = null;
+      }
+      if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+        console.log('[SpeechRecognition] Cleanup - stopping media recorder');
+        try {
+          mediaRecorderRef.current.stop();
+        } catch {
+          // Ignore cleanup errors
+        }
+        mediaRecorderRef.current = null;
+      }
     };
   }, [isSupported, lang, continuous, interimResults]); // Removed callbacks from deps - using refs instead
 
-  // Start listening
+  // ============================================================================
+  // Whisper Mode Functions (Mobile Fallback)
+  // These must be declared BEFORE startListening/stopListening because they
+  // are used as dependencies in those functions.
+  // ============================================================================
+
+  /**
+   * Gets the best supported MIME type for MediaRecorder
+   * Falls back through a chain of formats for maximum compatibility
+   */
+  const getSupportedMimeType = useCallback((): string => {
+    const types = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/wav'];
+    for (const type of types) {
+      if (MediaRecorder.isTypeSupported(type)) {
+        console.log('[Whisper] Using MIME type:', type);
+        return type;
+      }
+    }
+    console.log('[Whisper] No preferred MIME type supported, defaulting to audio/webm');
+    return 'audio/webm';
+  }, []);
+
+  /**
+   * Transcribes audio blob using Whisper API via server endpoint
+   */
+  const transcribeWithWhisper = useCallback(async (audioBlob: Blob): Promise<string | null> => {
+    try {
+      console.log('[Whisper] Transcribing audio, size:', audioBlob.size, 'type:', mimeTypeRef.current);
+
+      const formData = new FormData();
+      const ext = mimeTypeRef.current.includes('mp4') ? 'mp4' : 'webm';
+      formData.append('audio', audioBlob, `recording.${ext}`);
+
+      const response = await fetch('/api/voice/stt', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        console.error('[Whisper] API error:', response.status, response.statusText);
+        return null;
+      }
+
+      const data = await response.json();
+
+      if (data.success && data.transcript) {
+        console.log('[Whisper] Transcription successful:', data.transcript);
+        return data.transcript;
+      }
+
+      console.warn('[Whisper] Transcription returned no result');
+      return null;
+    } catch (error) {
+      console.error('[Whisper] Transcription error:', error);
+      return null;
+    }
+  }, []);
+
+  /**
+   * Starts Whisper-based listening using MediaRecorder
+   * Used as fallback on mobile devices where Web Speech API is unreliable
+   */
+  const startWhisperListening = useCallback(async () => {
+    console.log('[Whisper] Starting Whisper listening mode');
+
+    setError(null);
+    setTranscript('');
+    setInterimTranscript('');
+    audioChunksRef.current = [];
+
+    try {
+      // Request microphone with mobile-friendly constraints
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: {
+          echoCancellation: true,
+          noiseSuppression: true,
+          sampleRate: 16000,
+          channelCount: 1,
+        }
+      });
+
+      streamRef.current = stream;
+
+      // Detect best MIME type for this device
+      const mimeType = getSupportedMimeType();
+      mimeTypeRef.current = mimeType;
+
+      const mediaRecorder = new MediaRecorder(stream, { mimeType });
+
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          audioChunksRef.current.push(event.data);
+        }
+      };
+
+      mediaRecorder.onstop = async () => {
+        console.log('[Whisper] MediaRecorder stopped, processing audio...');
+
+        const audioBlob = new Blob(audioChunksRef.current, { type: mimeType });
+
+        // Clean up stream
+        if (streamRef.current) {
+          streamRef.current.getTracks().forEach(track => track.stop());
+          streamRef.current = null;
+        }
+
+        if (audioBlob.size > 0) {
+          setInterimTranscript('Procesando audio...');
+
+          const result = await transcribeWithWhisper(audioBlob);
+
+          setInterimTranscript('');
+
+          if (result) {
+            setTranscript(result);
+            onResultRef.current?.(result);
+          } else {
+            setError('No se pudo transcribir el audio. Intenta de nuevo.');
+            onErrorRef.current?.('No se pudo transcribir el audio.');
+          }
+        }
+
+        setIsListening(false);
+        onEndRef.current?.();
+      };
+
+      mediaRecorder.onerror = () => {
+        console.error('[Whisper] MediaRecorder error');
+        setError('Error durante la grabacion');
+        setIsListening(false);
+
+        if (streamRef.current) {
+          streamRef.current.getTracks().forEach(track => track.stop());
+          streamRef.current = null;
+        }
+
+        onErrorRef.current?.('Error durante la grabacion');
+      };
+
+      mediaRecorderRef.current = mediaRecorder;
+      mediaRecorder.start(100); // Collect data every 100ms
+
+      setIsListening(true);
+      setIsWhisperMode(true);
+      onStartRef.current?.();
+
+      console.log('[Whisper] MediaRecorder started successfully');
+
+    } catch (error) {
+      console.error('[Whisper] Error accessing microphone:', error);
+
+      if (error instanceof DOMException) {
+        switch (error.name) {
+          case 'NotAllowedError':
+            setError('Permisos de microfono denegados. Por favor, permite el acceso al microfono.');
+            break;
+          case 'NotFoundError':
+            setError('No se encontro ningun microfono.');
+            break;
+          default:
+            setError('No se pudo acceder al microfono.');
+        }
+      } else {
+        setError('Error al iniciar la grabacion.');
+      }
+
+      onErrorRef.current?.(error instanceof Error ? error.message : 'Error al iniciar la grabacion');
+    }
+  }, [getSupportedMimeType, transcribeWithWhisper]);
+
+  /**
+   * Stops Whisper-based listening
+   * The actual transcription is handled in the onstop handler
+   */
+  const stopWhisperListening = useCallback(() => {
+    console.log('[Whisper] Stopping Whisper listening');
+
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+      mediaRecorderRef.current.stop();
+      // Note: isListening will be set to false in onstop handler after transcription
+    } else {
+      // Clean up if recorder wasn't active
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach(track => track.stop());
+        streamRef.current = null;
+      }
+      setIsListening(false);
+    }
+
+    setIsWhisperMode(false);
+  }, []);
+
+  // ============================================================================
+  // Main Listening Functions
+  // These depend on the Whisper functions declared above.
+  // ============================================================================
+
+  // Start listening (handles both Web Speech API and Whisper mode)
   const startListening = useCallback(() => {
-    console.log('[SpeechRecognition] startListening called, isSupported:', isSupported, 'isListening:', isListening);
+    console.log('[SpeechRecognition] startListening called, isSupported:', isSupported, 'isListening:', isListening, 'isWhisperMode:', isWhisperMode);
+
+    // If in Whisper mode, delegate to Whisper listening
+    if (isWhisperMode) {
+      console.log('[SpeechRecognition] Using Whisper mode for listening');
+      startWhisperListening();
+      return;
+    }
 
     if (!isSupported) {
       setError(ERROR_MESSAGES['not-supported']);
@@ -416,10 +688,19 @@ export function useSpeechRecognition(
         onErrorRef.current?.('Error al iniciar el reconocimiento de voz.');
       }
     }
-  }, [isSupported, isListening]);
+  }, [isSupported, isListening, isWhisperMode, startWhisperListening]);
 
-  // Stop listening
+  // Stop listening (handles both Web Speech API and Whisper mode)
   const stopListening = useCallback(() => {
+    console.log('[SpeechRecognition] stopListening called, isWhisperMode:', isWhisperMode);
+
+    // If in Whisper mode, delegate to Whisper stop
+    if (isWhisperMode) {
+      console.log('[SpeechRecognition] Using Whisper mode for stopping');
+      stopWhisperListening();
+      return;
+    }
+
     if (!recognitionRef.current) return;
 
     isStoppingRef.current = true;
@@ -432,7 +713,7 @@ export function useSpeechRecognition(
 
     setIsListening(false);
     setInterimTranscript('');
-  }, []);
+  }, [isWhisperMode, stopWhisperListening]);
 
   // Reset transcript
   const resetTranscript = useCallback(() => {
@@ -450,6 +731,10 @@ export function useSpeechRecognition(
     startListening,
     stopListening,
     resetTranscript,
+    // Whisper mode exports (for mobile fallback)
+    isWhisperMode,
+    startWhisperListening,
+    stopWhisperListening,
   };
 }
 

@@ -4,9 +4,9 @@
 
 domain_id: "frontend"
 display_name: "Frontend Engineer"
-version: "1.25"
-updated_at: "2026-01-19T01:45:38.637074+00:00"
-tasks_handled: 76
+version: "1.26"
+updated_at: "2026-01-24T12:00:00+00:00"
+tasks_handled: 77
 success_rate: 1.0
 
 # Configuracion de clasificacion
@@ -424,6 +424,33 @@ decisions:
     validated_count: 1
     last_used: "2026-01-19"
     tags: ["typescript", "exports", "fix"]
+
+  - id: "SL051"
+    context: "Mobile audio MIME type detection"
+    decision: "Usar cadena de fallback ordenada: audio/webm;codecs=opus -> audio/webm -> audio/mp4 -> audio/wav"
+    rationale: "iOS Safari solo soporta audio/mp4, Android Chrome prefiere webm"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-24"
+    tags: ["mobile", "audio", "mediarecorder", "ios", "safari"]
+
+  - id: "SL052"
+    context: "Mobile speech recognition configuration"
+    decision: "Deshabilitar continuous mode en iOS Safari, usar restart manual"
+    rationale: "iOS Safari WebkitSpeechRecognition tiene bugs con continuous=true que causan que deje de escuchar"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-24"
+    tags: ["mobile", "speech-recognition", "ios", "safari", "web-speech-api"]
+
+  - id: "SL053"
+    context: "Touch optimization for voice button"
+    decision: "Agregar touch-action: manipulation y -webkit-tap-highlight-color: transparent"
+    rationale: "Elimina delay de 300ms en dispositivos moviles y previene highlight azul en iOS"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-24"
+    tags: ["mobile", "touch", "ux", "voice-button"]
 
 # Blockers del dominio
 blockers:
