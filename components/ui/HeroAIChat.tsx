@@ -114,55 +114,46 @@ export function HeroAIChat() {
         }
       }
 
-      // Play TTS response - always for voice input, optional for text
-      const shouldPlayTTS = wasVoiceInput;
-      console.log('[TTS] Should play TTS:', shouldPlayTTS, 'wasVoiceInput:', wasVoiceInput);
+      // Play TTS response - always enabled for better UX
+      console.log('[TTS] Playing TTS response');
+      try {
+        console.log('[TTS] Fetching audio for:', data.message.substring(0, 50) + '...');
+        const ttsResponse = await fetch('/api/voice/tts', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: data.message }),
+        });
 
-      if (shouldPlayTTS) {
-        try {
-          console.log('[TTS] Fetching audio for:', data.message.substring(0, 50) + '...');
-          const ttsResponse = await fetch('/api/voice/tts', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text: data.message }),
-          });
+        if (ttsResponse.ok) {
+          const audioBlob = await ttsResponse.blob();
+          console.log('[TTS] Audio blob received, size:', audioBlob.size);
 
-          if (ttsResponse.ok) {
-            const audioBlob = await ttsResponse.blob();
-            console.log('[TTS] Audio blob received, size:', audioBlob.size);
+          const audioUrl = URL.createObjectURL(audioBlob);
+          const audio = new Audio(audioUrl);
 
-            const audioUrl = URL.createObjectURL(audioBlob);
-            const audio = new Audio(audioUrl);
+          // iOS needs these attributes for reliable playback
+          audio.setAttribute('playsinline', 'true');
+          audio.preload = 'auto';
 
-            // iOS needs these attributes for reliable playback
-            audio.setAttribute('playsinline', 'true');
-            audio.preload = 'auto';
+          audio.onended = () => {
+            console.log('[TTS] Audio playback ended');
+            URL.revokeObjectURL(audioUrl);
+          };
 
-            audio.onended = () => {
-              console.log('[TTS] Audio playback ended');
-              URL.revokeObjectURL(audioUrl);
-            };
+          audio.onerror = (e) => {
+            console.error('[TTS] Audio playback error:', e);
+            URL.revokeObjectURL(audioUrl);
+          };
 
-            audio.onerror = (e) => {
-              console.error('[TTS] Audio playback error:', e);
-              URL.revokeObjectURL(audioUrl);
-            };
-
-            // Try to play - if it fails on iOS, it's usually due to autoplay policy
-            try {
-              await audio.play();
-              console.log('[TTS] Audio playback started');
-            } catch (playError) {
-              console.warn('[TTS] Autoplay failed, trying with user gesture workaround:', playError);
-              // On iOS, if autoplay fails, the audio will play on next user interaction
-              // We've already unlocked the context, so this should rarely fail
-            }
-          } else {
-            console.warn('[TTS] TTS API error:', ttsResponse.status);
-          }
-        } catch (ttsError) {
-          console.error('[TTS] Error fetching/playing audio:', ttsError);
+          // Try to play
+          await audio.play();
+          console.log('[TTS] Audio playback started');
+        } else {
+          console.warn('[TTS] TTS API error:', ttsResponse.status);
         }
+      } catch (ttsError) {
+        console.error('[TTS] Error with TTS:', ttsError);
+        // TTS errors should not break the chat flow
       }
 
     } catch (error) {
@@ -226,7 +217,10 @@ export function HeroAIChat() {
     <div className="w-full max-w-2xl mx-auto">
       {/* Chat Input */}
       <AIChatInput
-        onSend={handleSend}
+        onSend={(text) => {
+          unlockAudioContext(); // Unlock audio on send click for iOS TTS
+          handleSend(text);
+        }}
         onVoiceStart={handleVoiceStart}
         onVoiceEnd={handleVoiceEnd}
         isProcessing={isProcessing}
