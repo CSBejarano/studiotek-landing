@@ -209,9 +209,11 @@ export function HeroAIChat() {
     if (transcript.trim()) {
       // Mark that this message came from voice input
       isVoiceInputRef.current = true;
+      // Unlock audio again right before sending - iOS needs this close to playback
+      unlockAudioContext();
       handleSend(transcript);
     }
-  }, [handleSend]);
+  }, [handleSend, unlockAudioContext]);
 
   return (
     <div className="w-full max-w-2xl mx-auto">

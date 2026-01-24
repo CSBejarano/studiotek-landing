@@ -485,9 +485,9 @@ export function AIChatInput({
             )}
           />
 
-          {/* Animated placeholder */}
+          {/* Animated placeholder - hidden when processing or has value */}
           <AnimatePresence mode="wait">
-            {!value && !isFocused && !isVoiceActive && (
+            {!value && !isFocused && !isVoiceActive && !isProcessing && (
               <motion.span
                 key={currentPlaceholder}
                 initial={{ opacity: 0, y: 8 }}
