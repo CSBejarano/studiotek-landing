@@ -79,22 +79,56 @@ export function Hero() {
         </BlurFade>
 
         <BlurFade delay={0.1} inView>
-          <TextAnimate
-            as="h1"
-            animation="blurInUp"
-            by="word"
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight"
-            delay={0.2}
-            duration={0.8}
-          >
-            Automatización IA para empresas: ahorra 40% en costes operativos
-          </TextAnimate>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight">
+            {/* Main keyword - SEO critical */}
+            <TextAnimate
+              animation="blurInUp"
+              by="word"
+              className="block mb-2"
+              delay={0.2}
+              duration={0.8}
+            >
+              Automatización IA
+            </TextAnimate>
+
+            {/* Secondary keyword */}
+            <span className="block text-slate-400 text-3xl md:text-4xl lg:text-5xl mb-4">
+              para empresas
+            </span>
+
+            {/* Benefit highlight - visual impact */}
+            <span className="block">
+              <span className="text-emerald-400">Ahorra 40%</span>
+              <span className="text-slate-300 text-3xl md:text-4xl lg:text-5xl"> en costes</span>
+            </span>
+          </h1>
         </BlurFade>
 
         <BlurFade delay={0.4} inView>
-          <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mt-6 mb-12">
-            Implementamos inteligencia artificial que automatiza procesos en tu empresa. Atención al cliente 24/7, tareas repetitivas eliminadas. Empresas españolas ya ahorran 2.500€/mes con nuestras soluciones.
-          </p>
+          <div className="max-w-3xl mx-auto mt-8 mb-12 space-y-4">
+            {/* Benefit bullets - scaneable */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-base md:text-lg">
+              <div className="flex items-center gap-2 text-slate-300">
+                <div className="flex-shrink-0 w-1.5 h-1.5 bg-emerald-400 rounded-full" />
+                <span>Atención cliente <span className="text-emerald-400 font-semibold">24/7</span></span>
+              </div>
+              <div className="hidden sm:block w-px h-4 bg-slate-700" />
+              <div className="flex items-center gap-2 text-slate-300">
+                <div className="flex-shrink-0 w-1.5 h-1.5 bg-emerald-400 rounded-full" />
+                <span>Tareas <span className="text-emerald-400 font-semibold">automatizadas</span></span>
+              </div>
+              <div className="hidden sm:block w-px h-4 bg-slate-700" />
+              <div className="flex items-center gap-2 text-slate-300">
+                <div className="flex-shrink-0 w-1.5 h-1.5 bg-emerald-400 rounded-full" />
+                <span>Ahorra <span className="text-emerald-400 font-semibold">2.500€/mes</span></span>
+              </div>
+            </div>
+
+            {/* Supporting copy - shorter */}
+            <p className="text-slate-400 text-sm md:text-base">
+              Implementamos soluciones de IA que empresas españolas ya usan para reducir costes operativos
+            </p>
+          </div>
         </BlurFade>
 
         {/* AI Chat Input - Centro del Hero */}
