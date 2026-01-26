@@ -1,6 +1,6 @@
 ---
-description: "Genera planificacion multi-agente con soporte de loop automatico Ralph Wiggum."
-argument-hint: "<descripcion-de-tarea> [--issue=N] [--phase=N] [--loop] [--max-iterations=N] [--completion-promise='TEXT'] [--overnight]"
+description: "Planificacion multi-agente: genera plan detallado con TDD, seguridad y review. NO ejecuta."
+argument-hint: "<descripcion-tarea> [--issue=N] [--mode=auto|fast|full]"
 context: fork
 model: opus
 ultrathink: true
@@ -8,10 +8,8 @@ tools:
   - read
   - write
   - edit
-  - bash
-  - task
-  - askuserquestion
-  - todowrite
+  - glob
+  - grep
   - mcp__server-sequential-thinking__sequentialthinking
   - mcp__serena__read_file
   - mcp__serena__search_for_pattern
@@ -22,486 +20,451 @@ hooks:
   Stop:
     - prompt: |
         Valida que el plan generado incluye:
-        1. Fases con agentes expertos asignados (@frontend, @backend, etc.)
-        2. Checkpoints de validacion con comandos ejecutables
-        3. Code Structure (CREATE/MODIFY/TESTS)
-        4. WORKFLOW con instrucciones para Task tool
-        5. user_prompt.md actualizado
-        6. CADA fase tiene PRE-TAREA con lectura de domain-experts/{domain}.yaml y long_term.yaml
-        7. CADA fase tiene POST-TAREA con actualización de domain-experts/{domain}.yaml
+        1. WORKFLOW-STATUS.yaml con fases y checkpoints
+        2. Plan .md con Code Structure (CREATE/MODIFY/TESTS)
+        3. TDD Test Plan
+        4. Security Checklist (OWASP Top 10)
+        5. user_prompt.md actualizado con estado READY
+        6. Instrucciones para ejecutar con /ralph-execute [--max-iterations=N] [--resume]
         Responde: VALID si todo presente, o INVALID: <razon> si falta algo.
       model: haiku
       once: true
 ---
 
-# /plan-task
-
-Generador de Planificaciones Multi-Agente v3.0
+# /plan-task v5.0 - Planificacion Multi-Agente (Solo Planifica)
 
 ## Purpose
 
-Genera un plan de ejecución estructurado para orquestación multi-agente donde:
+Comando de **planificacion solamente**. Genera un plan detallado y estructurado para ejecutar tareas complejas con agentes especializados.
 
-1. **Este comando** analiza la tarea y genera el plan en `.claude/plans/{workflow_id}.md`
-2. **Cada fase del plan** será ejecutada por un subagente experto en contexto aislado
-3. **La sesión principal** permanece limpia y solo recibe informes
+**IMPORTANTE:** Este comando NO ejecuta el plan. Solo genera los documentos necesarios.
+
+
+## Arquitectura
+
+```
+/plan-task "descripcion" [--mode=auto|fast|full]
+        |
+        +--- Fase -3: Context Acquisition
+        +--- Fase -2: Complexity Detection + Domain Analysis
+        +--- Fase -1: Sequential Thinking (minimo 8 thoughts)
+        |
+        +--- OUTPUT:
+        |     +--- ai_docs/plans/{workflow_id}.md
+        |     +--- ai_docs/state/WORKFLOW-STATUS.yaml
+        |     +--- user_prompt.md
+        |
+        +--- FIN: Instrucciones para ejecutar con /ralph-execute [--max-iterations=N] [--resume]
+```
 
 ## Variables
 
 ```yaml
-# Argumentos del comando
-ISSUE_ID: "Número del issue (--issue=N)"
-PHASE: "Número de fase (--phase=N)"
-DESCRIPTION: "Descripción de la tarea"
+# Argumentos
+ISSUE_ID: "Numero del issue (--issue=N)"
+MODE: "auto | fast | full (default: auto)"
+DESCRIPTION: "Descripcion de la tarea"
 
 # Paths de salida
-PLAN_FILE: ".claude/plans/{workflow_id}.md"
+PLAN_FILE: "ai_docs/plans/{workflow_id}.md"
+WORKFLOW_STATUS: "ai_docs/state/WORKFLOW-STATUS.yaml"
 USER_PROMPT: "user_prompt.md"
 
 # Formato workflow_id
 WORKFLOW_ID: "{YYYY-MM-DD}_{descripcion-kebab-case}"
 ```
 
-**Ejemplo:** `2026-01-10_phase7-drag-drop-calendar`
+## Deteccion Automatica de Complejidad
 
-## Code Structure
+| Factor | Puntos | Descripcion |
+|--------|--------|-------------|
+| **Keywords criticos** | +2 | auth, migration, security, payment |
+| **Multi-dominio** | +2 | frontend + backend, fullstack |
+| **Archivos afectados** | +1 por cada 5 | Mas de 5 archivos = +1 |
+| **Dependencias externas** | +1 | APIs externas, servicios |
+| **Base de datos** | +1 | Cambios de schema, RLS |
+| **Tests existentes** | -1 | Ya hay cobertura |
 
-**Archivos de Entrada (Leer):**
-
-```
-ai_docs/
-├── continue_session/CONTINUE_SESSION.md
-├── state/PROGRESS.yaml
-├── state/DECISIONS.md
-├── state/GOAL.md
-├── state/PROGRESS.json
-└── expertise/
-    ├── expert-registry.yaml
-    ├── WORKFLOW_EXPERTISE.yaml
-    └── domain-experts/
-        └── {domain}.yaml
-
-
-.claude/skills/workflow-task/
-├── memoria/long_term.yaml
-├── memoria/short_term.json
-└── agents/registry.yaml
-```
-
-**Archivos de Salida (Escribir):**
-
-```
-.claude/plans/{workflow_id}.md
-user_prompt.md
-```
-
-## Instructions
-
-**Step 1:** Cargar contexto del proyecto (CONTINUE_SESSION.md, PROGRESS.yaml, GOAL.md, DECISIONS.md, PROGRESS.json)
-
-**Step 2:** Cargar memoria del skill (long_term.yaml, registry.yaml)
-
-**Step 3:** Detectar dominio según keywords, cargar expertise correspondiente Y carga memoria de experto (domain-experts/{domain}.yaml)
-
-**Step 4:** Ejecutar Sequential Thinking con mínimo 8 thoughts
-
-**Step 5:** Generar plan en `.claude/plans/{workflow_id}.md`
-
-> **CRÍTICO - PRE/POST-TAREA:**
->
-> - TODAS las fases DEBEN incluir PRE-TAREA y POST-TAREA completas
-> - El {domain} debe coincidir con el agente de la fase (ver tabla Mapeo Agente → Domain Expert)
-> - Nunca omitir la actualización de domain-experts/{domain}.yaml en POST-TAREA
-> - Si una fase no tiene PRE/POST-TAREA, el plan es INVÁLIDO
-
-**Step 6:** Actualizar `user_prompt.md` con resumen ejecutivo
-
-**Step 7:** Mostrar output con próximos pasos
+**Umbral:** Complejidad > 4 -> Modo FULL
 
 ## Workflow
 
-### Step 1: Cargar Contexto
+### Fase -3: Context Acquisition
 
-Leer estos archivos en paralelo:
+Leer en paralelo:
 
-| Archivo                                               | Propósito           |
-| ----------------------------------------------------- | ------------------- |
-| `ai_docs/continue_session/CONTINUE_SESSION.md`        | Estado del proyecto |
-| `ai_docs/state/PROGRESS.yaml`                         | Progreso actual     |
-| `ai_docs/state/GOAL.md`                               | Objetivo actual     |
-| `ai_docs/state/DECISIONS.md`                          | Decisiones previas  |
-| `ai_docs/state/PROGRESS.json`                         | Progreso actual     |
-| `.claude/skills/workflow-task/memoria/long_term.yaml` | Decisiones previas  |
-| `.claude/skills/workflow-task/agents/registry.yaml`   | Agentes disponibles |
+| Archivo | Proposito |
+|---------|-----------|
+| `ai_docs/memoria/long_term.yaml` | Decisiones previas (Dxxx) |
+| `ai_docs/expertise/expert-registry.yaml` | Agentes disponibles |
 
-### Step 2: Detectar Dominio
+### Fase -2: Complexity Detection + Domain Analysis
 
-Identificar el dominio según keywords en la descripción:
+1. **Calcular complejidad** usando la tabla de factores
+2. **Detectar dominio(s)** segun keywords:
 
-| Dominio  | Keywords                              | Agente               | Expertise       |
-| -------- | ------------------------------------- | -------------------- | --------------- |
-| backend  | api, endpoint, fastapi, sqlalchemy    | `@backend`           | `backend.yaml`  |
-| security | auth, token, jwt, oauth, password     | `@security-reviewer` | `security.yaml` |
-| testing  | test, pytest, coverage, mock          | `@testing`           | `testing.yaml`  |
-| database | migration, sql, schema, model, rls    | `@backend`           | `database.yaml` |
-| infra    | docker, k8s, ci, terraform, deploy    | `@infra`             | `infra.yaml`    |
-| frontend | react, component, hook, tsx, tailwind | `@frontend`          | `frontend.yaml` |
+| Dominio | Keywords | Agente Principal |
+|---------|----------|------------------|
+| backend | api, endpoint, fastapi, sqlalchemy | @backend |
+| security | auth, token, jwt, oauth, password | @security-reviewer |
+| testing | test, pytest, coverage, mock | @testing |
+| database | migration, sql, schema, model, rls | @backend |
+| infra | docker, k8s, ci, terraform, deploy | @infra |
+| frontend | react, component, hook, tsx, tailwind | @frontend |
 
-### Step 3: Analizar con Sequential Thinking
+### Fase -1: Sequential Thinking (CRITICO)
 
-Usar `mcp__server-sequential-thinking__sequentialthinking` con mínimo 8 thoughts para:
+Ejecutar `mcp__server-sequential-thinking__sequentialthinking` con **minimo 8 thoughts**:
 
-1. Descomponer la tarea en subtareas atómicas
-2. Identificar archivos a crear/modificar/eliminar
+1. Descomponer tarea en subtareas atomicas
+2. Identificar archivos CREATE/MODIFY/DELETE
 3. Detectar dependencias entre subtareas
-4. Consultar decisiones previas relevantes (Dxxx de long_term.yaml)
-5. Identificar riesgos potenciales
-6. Asignar agente experto a cada fase
+4. **Pre-mortem:** Que puede fallar?
+5. Consultar decisiones previas (Dxxx de long_term.yaml)
+6. Asignar agentes a cada fase
+7. Definir checkpoints con comandos ejecutables
+8. Disenar TDD Test Plan
 
-**Si la tarea es ambigua:** Usar `AskUserQuestion` para clarificar antes de continuar.
+### Fase 0: Generar Outputs
 
-### Step 4: Generar Plan
+#### 1. Crear WORKFLOW-STATUS.yaml
 
-Crear archivo `.claude/plans/{workflow_id}.md` con esta estructura:
+```yaml
+# ai_docs/state/WORKFLOW-STATUS.yaml
+workflow_id: "{workflow_id}"
+issue: {ISSUE_ID}
+mode: {FAST|FULL}
+started_at: null
+iteration: 0
+max_iterations: 50
 
-`````markdown
-# Plan de Ejecución: {TITULO}
+phases:
+  - id: 1
+    name: "{nombre fase}"
+    agent: "@{domain}"
+    status: PENDING
+    checkpoint:
+      command: "{comando verificacion}"
+      expected: "{resultado esperado}"
+    retries: 0
+    max_retries: 3
+    prompt: |
+      # PRE-TAREA
+      Leer ai_docs/expertise/domain-experts/{domain}.yaml
+
+      # CONTEXTO
+      Issue: #{ISSUE_ID}
+
+      # TAREA
+      {descripcion detallada de la fase}
+
+      ## Archivos
+      CREATE: {lista}
+      MODIFY: {lista}
+
+      # POST-TAREA
+      1. Generar informe de progreso
+      2. Actualizar memoria del agente en ai_docs/expertise/domain-experts/{domain}.yaml:
+         - Agregar decisiones tomadas (decisions[])
+         - Agregar blockers resueltos (blockers[])
+         - Incrementar tasks_handled
+         - Actualizar updated_at
+
+  # ... mas fases ...
+
+  - id: N
+    name: "TDD Tests"
+    agent: "@testing"
+    status: PENDING
+    checkpoint:
+      command: "uv run pytest --cov --cov-fail-under=80"
+      expected: "PASSED"
+    prompt: |
+      Ejecutar tests definidos en TDD Test Plan.
+      Verificar coverage >= 80%
+      
+      # PRE-TAREA
+      Leer ai_docs/expertise/domain-experts/{domain}.yaml
+
+      # CONTEXTO
+      Issue: #{ISSUE_ID}
+
+      # TAREA
+      {descripcion detallada de la fase}
+
+      ## Archivos
+      CREATE: {lista}
+      MODIFY: {lista}
+
+      # POST-TAREA
+      1. Generar informe de progreso
+      2. Actualizar memoria del agente en ai_docs/expertise/domain-experts/{domain}.yaml:
+         - Agregar decisiones tomadas (decisions[])
+         - Agregar blockers resueltos (blockers[])
+         - Incrementar tasks_handled
+         - Actualizar updated_at
+
+  - id: N+1
+    name: "Security Validation"
+    agent: "@security-reviewer"
+    status: PENDING
+    checkpoint:
+      command: "bandit -r src/ -ll"
+      expected: "No High severity"
+    prompt: |
+      Validar OWASP checklist implementado.
+      
+      # PRE-TAREA
+      Leer ai_docs/expertise/domain-experts/{domain}.yaml
+
+      # CONTEXTO
+      Issue: #{ISSUE_ID}
+
+      # TAREA
+      {descripcion detallada de la fase}
+
+      ## Archivos
+      CREATE: {lista}
+      MODIFY: {lista}
+
+      # POST-TAREA
+      1. Generar informe de progreso
+      2. Actualizar memoria del agente en ai_docs/expertise/domain-experts/{domain}.yaml:
+         - Agregar decisiones tomadas (decisions[])
+         - Agregar blockers resueltos (blockers[])
+         - Incrementar tasks_handled
+         - Actualizar updated_at
+
+  - id: FINAL
+    name: "Code Review"
+    agent: "@gentleman"
+    status: PENDING
+    checkpoint:
+      command: "echo APPROVED"
+      expected: "APPROVED"
+    prompt: |
+      Review arquitectonico final.
+      Verdict: APPROVED | NEEDS_REVISION | REJECTED
+
+      # PRE-TAREA
+      Leer ai_docs/expertise/domain-experts/{domain}.yaml
+
+      ## Purpose
+
+      {Descripcion clara del objetivo}
+
+      # CONTEXTO
+      Issue: #{ISSUE_ID}
+
+      # TAREA
+      {descripcion detallada de la fase}
+
+      ## WORKFLOW
+
+      {Descripcion e instrucciones para ejecutar cada fase con agente asignado leyendo sus memorias y actualizando sus memorias /ai_docs/expertise/domain experts/{domain}.yaml (decisions[], blockers[], etc), ejecutando comandos de checkpoint y actualizando WORKFLOW-STATUS.yaml}
+
+      ## Archivos
+      CREATE: {lista}
+      MODIFY: {lista}
+
+      # POST-TAREA
+      1. Generar informe de progreso
+      2. Actualizar memoria del agente en ai_docs/expertise/domain-experts/{domain}.yaml:
+         - Agregar decisiones tomadas (decisions[])
+         - Agregar blockers resueltos (blockers[])
+         - Incrementar tasks_handled
+         - Actualizar updated_at
+
+completion:
+  all_completed: false
+  completion_promise: "WORKFLOW COMPLETE"
+  final_status: null
+```
+
+#### 2. Crear Plan .md
+
+```markdown
+# Plan de Ejecucion: {TITULO}
 
 > **Generado:** {FECHA}
 > **Issue:** #{ISSUE_ID}
-> **Phase:** {PHASE}
+> **Mode:** {FAST|FULL}
+> **Complejidad:** {N}/10
 
 ## Variables
 
-ISSUE_ID: "{N}"
-PHASE: "{N}"
-BRANCH: "{branch-name}"
-DOMAIN: "{frontend|backend|testing|...}"
+{yaml con workflow_id, branch, domain, etc}
 
 ## Purpose
 
-{Descripción clara del objetivo}
+{Descripcion clara del objetivo}
+
+## TDD Test Plan
+
+{Tests a crear ANTES del codigo}
+
+## Security Checklist (OWASP)
+
+| # | Vulnerabilidad | Aplica | Mitigacion |
+|---|----------------|--------|------------|
+{tabla con 10 items}
+
+## Architectural Review
+
+{Verdict inicial}
 
 ## Code Structure
 
 CREATE:
-
-- "path/to/new_file.py"
+- {archivos nuevos}
 
 MODIFY:
-
-- "path/to/existing_file.py"
+- {archivos existentes}
 
 TESTS:
-
-- "tests/test_feature.py"
+- {archivos de tests}
 
 ## WORKFLOW
 
-### FASE 1: {Nombre}
-
-**Agente:** @{domain}
-
-**Task:**
-
-```
-Task(
-  subagent_type: "{domain}",
-  description: "FASE 1: {nombre corto}",
-  prompt: """
-  # PRE-TAREA (OBLIGATORIO)
-
-  1. Leer `ai_docs/expertise/domain-experts/{domain}.yaml`:
-     - decisions: Decisiones validadas previas
-     - blockers: Problemas conocidos y soluciones
-     - file_patterns_discovered: Patrones útiles
-
-  2. Leer `.claude/skills/workflow-task/memoria/long_term.yaml`:
-     - Buscar decisiones Dxxx relevantes
-
-  # CONTEXTO
-
-  - Issue: #{ISSUE_ID}
-  - Branch: {BRANCH}
-  - Archivos: {lista de archivos}
-
-  # TAREA
-
-  {descripción detallada de la tarea}
-
-  ## Archivos
-
-  CREATE: {archivos nuevos}
-  MODIFY: {archivos existentes}
-
-  # POST-TAREA (OBLIGATORIO)
-
-  1. Generar informe:
-     - Archivos creados/modificados
-     - Problemas encontrados y soluciones
-     - Estado: SUCCESS | PARTIAL | BLOCKED
-
-  2. Actualizar `ai_docs/expertise/domain-experts/{domain}.yaml`:
-
-     En `decisions:` (si tomaste decisiones importantes):
-     - context: "{contexto}"
-       decision: "{qué y por qué}"
-       confidence: 0.XX
-       validated_in: "Issue #{ISSUE_ID}"
-
-     En `blockers:` (si encontraste problemas):
-     - type: "{tipo}"
-       description: "{problema}"
-       solution: "{solución}"
-       learned_in: "Issue #{ISSUE_ID}"
-
-     Actualizar metadata:
-     - Incrementar tasks_handled
-     - Actualizar updated_at
-  """
-)
-```
-
-**Checkpoint:**
-
-- Comando: {comando}
-- Criterio: {criterio}
-
-## Checkpoints
-
-| CP  | Fase   | Criterio   | Comando   |
-| --- | ------ | ---------- | --------- |
-| CP1 | FASE 1 | {criterio} | {comando} |
+{Descripcion e instrucciones para ejecutar cada fase con agente asignado leyendo sus memorias y actualizando sus memorias /ai_docs/expertise/domain-experts/{domain}.yaml (decisions[], blockers[], etc), ejecutando comandos de checkpoint y actualizando WORKFLOW-STATUS.yaml}
 
 ## Risk Matrix
 
-| Riesgo   | Impacto | Mitigación   |
-| -------- | ------- | ------------ |
-| {riesgo} | {nivel} | {mitigación} |
-`````
+| Riesgo | Impacto | Probabilidad | Mitigacion |
+{tabla de riesgos}
 
-### Step 5: Actualizar user_prompt.md
+## Checkpoints
 
-Generar resumen ejecutivo:
+| CP | Fase | Criterio | Comando |
+{tabla de checkpoints}
+```
+
+#### 3. Actualizar user_prompt.md
 
 ```markdown
-# Próximas Tareas - Issue #{ISSUE_ID}
+# Proximas Tareas - {TITULO}
 
 > **Fecha:** {FECHA}
-> **Branch:** {BRANCH}
-> **Plan:** .claude/plans/{workflow_id}.md
+> **Plan:** ai_docs/plans/{workflow_id}.md
+> **Mode:** {FAST|FULL}
+> **Estado:** READY FOR EXECUTION
 
-## Estado: Phase {N} READY
+## Fases
 
-| Phase | Status  | Agent    | Description |
-| ----- | ------- | -------- | ----------- |
-| 1     | PENDING | @{agent} | {desc}      |
-| N     | PENDING | @testing | Tests       |
+| Phase | Status | Agent | Description |
+|-------|--------|-------|-------------|
+{tabla con todas las fases}
+
+## Para Ejecutar
+
+Usa el comando `/ralph-execute [--max-iterations=N] [--resume]` para ejecutar este plan.
+
+El comando leera el WORKFLOW-STATUS.yaml y ejecutara cada fase
+secuencialmente con checkpoints automaticos.
 
 ## Quick Commands
 
+# Ver plan completo
+cat ai_docs/plans/{workflow_id}.md
+
+# Ver estado del workflow
+cat ai_docs/state/WORKFLOW-STATUS.yaml
+
 # Ejecutar el plan
-
-Ejecutar el plan lanzando los subagentes expertos en cada fase (y leyendo y actualizando sus memorias) y actualizando el estado de cada fase.
-
-# Development
-
-make run
-
-# Testing
-
-uv run pytest
-
-**Last Updated:** {ISO_TIMESTAMP}
+/ralph-execute [--max-iterations=N] [--resume]
 ```
 
-### Step 6: Mostrar Output
+## Mensaje Final
 
-Mostrar resumen al usuario:
+Al terminar la planificacion, mostrar:
 
 ```
-Plan generado exitosamente
+============================================================
+PLAN GENERADO EXITOSAMENTE
+============================================================
 
-Archivos:
-- .claude/plans/{workflow_id}.md (NUEVO)
-- user_prompt.md (ACTUALIZADO)
+Archivos creados:
+- ai_docs/plans/{workflow_id}.md
+- ai_docs/state/WORKFLOW-STATUS.yaml
+- user_prompt.md (actualizado)
 
-Fases: {N}
-Agentes: @{agent1}, @{agent2}, @testing
+Fases planificadas: {N}
+Agentes involucrados: {lista de @agentes}
+Modo: {FAST|FULL}
 
-Ejecutar: /workflow-task
+------------------------------------------------------------
+SIGUIENTE PASO
+------------------------------------------------------------
+
+Para ejecutar este plan, usa:
+
+  /ralph-execute [--max-iterations=N] [--resume]
+
+El comando ejecutara cada fase secuencialmente con:
+- TodoList tracking en tiempo real
+- Checkpoints automaticos por fase
+- Self-correction con retries (max 3)
+- Actualizacion de memorias de expertos
+
+============================================================
 ```
+
+## Diferencias con v4.x
+
+| Aspecto | v4.x | v5.0 |
+|---------|------|------|
+| Ejecuta fases | Si (en fork) | No |
+| Ralph Loop | Integrado | Separado en /ralph-execute |
+| Hooks funcionan | No (fork aislado) | Si (en /ralph-execute) |
+| Memorias actualizan | No | Si (en /ralph-execute) |
+| Tiempo | 20-30 min | 1-5 min (solo plan) |
 
 ## Examples
 
-### Ejemplo 1: Feature Backend
+### Ejemplo 1: Tarea Simple
 
 ```bash
-/plan-task "Implementar endpoint de disponibilidad" --issue=70 --phase=5
+/plan-task "Agregar boton de logout" --issue=80
 ```
 
 **Output:**
+- ai_docs/plans/2026-01-16_boton-logout.md
+- ai_docs/state/WORKFLOW-STATUS.yaml (4 fases)
+- user_prompt.md actualizado
 
-```
-Plan generado exitosamente
-
-Archivos:
-- .claude/plans/2026-01-10_phase5-availability-endpoint.md (NUEVO)
-- user_prompt.md (ACTUALIZADO)
-
-Fases: 3
-Agentes: @backend, @testing
-
-Ejecutar: Ejecutar el plan lanzando los subagentes expertos en cada fase, leyendo y actualizando sus memorias y actualizando el estado de cada fase.
-```
-
-### Ejemplo 2: Feature Frontend
+### Ejemplo 2: Feature Compleja
 
 ```bash
-/plan-task "Agregar drag and drop al calendario" --issue=70 --phase=7
+/plan-task "Implementar autenticacion OAuth2 con Google" --issue=85
 ```
 
 **Output:**
-
-```
-Plan generado exitosamente
-
-Archivos:
-- .claude/plans/2026-01-10_phase7-drag-drop-calendar.md (NUEVO)
-- user_prompt.md (ACTUALIZADO)
-
-Fases: 4
-Agentes: @frontend, @testing
-
-Ejecutar: Ejecutar el plan lanzando los subagentes expertos en cada fase, leyendo y actualizando sus memorias y actualizando el estado de cada fase.
-```
-
-## Ralph Mode (Loop Automático)
-
-Activa ejecución autónoma con self-correction basada en el plugin [Ralph Wiggum](https://github.com/anthropics/claude-code/tree/main/plugins/ralph-wiggum).
-
-### Uso
-
-```bash
-# Loop básico
-/plan-task "Implementar feature X" --issue=70 --loop
-
-# Con límite de iteraciones
-/plan-task "Feature X" --loop --max-iterations=30
-
-# Con completion promise personalizado
-/plan-task "Feature X" --loop --completion-promise="FEATURE DONE"
-
-# Modo overnight (sin interacción)
-/plan-task "Feature X" --loop --overnight
-```
-
-### Parámetros
-
-| Flag | Default | Descripción |
-|------|---------|-------------|
-| `--loop` | false | Activa modo Ralph Wiggum |
-| `--max-iterations` | 50 | Límite máximo de iteraciones |
-| `--completion-promise` | "WORKFLOW COMPLETE" | Frase que indica éxito |
-| `--overnight` | false | Modo desatendido sin prompts |
-
-### Self-Correction
-
-El sistema detecta automáticamente fallos y retoma desde la fase apropiada:
-
-| Fallo Detectado | Acción | Fase Destino |
-|-----------------|--------|--------------|
-| Tests fallan | Retry | FASE 3 (Review) |
-| Lint falla | Retry | FASE 3 (Review) |
-| Build falla | Retry | FASE 2 (Execution) |
-
-### Límites de Seguridad
-
-- **Max 3 reintentos por fase** - Evita loops infinitos en una fase
-- **Max 50 iteraciones por defecto** - Límite global de seguridad
-- **Logging en modo overnight** - `.claude/skills/workflow-task/logs/`
-
-### Ejemplo con Ralph Mode
-
-```bash
-/plan-task "Implementar autenticación JWT con tests" --issue=85 --loop --max-iterations=20 --completion-promise="AUTH COMPLETE"
-```
-
-**Flujo:**
-1. Genera plan multi-agente
-2. Ejecuta fases 0-5
-3. Si tests fallan → retry desde fase 3
-4. Si lint falla → retry desde fase 3
-5. Si build falla → retry desde fase 2
-6. Cuando output incluye "AUTH COMPLETE" → EXIT SUCCESS
-7. Si alcanza 20 iteraciones → EXIT TIMEOUT
-
-## Report
-
-### Plan Generado
-
-El archivo `.claude/plans/{workflow_id}.md` incluye:
-
-- **Variables:** ISSUE_ID, PHASE, BRANCH, DOMAIN
-- **Purpose:** Objetivo claro de la tarea
-- **Code Structure:** Archivos CREATE/MODIFY/TESTS
-- **WORKFLOW:** Fases con Task() para cada agente (y leyendo y actualizando sus memorias)
-- **Checkpoints:** Validaciones con comandos ejecutables
-- **Risk Matrix:** Riesgos identificados y mitigaciones
-
-### user_prompt.md
-
-El archivo `user_prompt.md` contiene:
-
-- Estado actual de las fases
-- Tabla de phases con agentes asignados
-- Quick Commands para desarrollo y testing
-- Link al plan generado
-
-## Agentes Disponibles
-
-| Agente               | Dominio  | Especialidad                            |
-| -------------------- | -------- | --------------------------------------- |
-| `@frontend`          | frontend | React, TypeScript, Tailwind             |
-| `@backend`           | backend  | FastAPI, SQLAlchemy, Clean Architecture |
-| `@testing`           | testing  | Pytest, mocking, coverage               |
-| `@infra`             | infra    | Docker, K8s, CI/CD                      |
-| `@security-reviewer` | security | OWASP, auth, validation                 |
-| `@gentleman`         | review   | Code review, arquitectura               |
-
-## Mapeo Agente → Domain Expert
-
-| Agente               | domain.yaml     | Notas                        |
-| -------------------- | --------------- | ---------------------------- |
-| `@backend`           | `backend.yaml`  | APIs, servicios, modelos     |
-| `@frontend`          | `frontend.yaml` | Componentes, hooks, UI       |
-| `@testing`           | `testing.yaml`  | Tests unitarios, integración |
-| `@infra`             | `infra.yaml`    | Docker, CI/CD, deploy        |
-| `@security-reviewer` | `security.yaml` | Auth, validación, OWASP      |
-| `@gentleman`         | `backend.yaml`  | Default para code review     |
-
-**IMPORTANTE:** El `{domain}` en PRE/POST-TAREA DEBE coincidir con el agente asignado a la fase:
-
-- Si la fase usa `@backend` → PRE/POST-TAREA usa `backend.yaml`
-- Si la fase usa `@testing` → PRE/POST-TAREA usa `testing.yaml`
-- Y así sucesivamente según la tabla anterior
+- Plan con 8 fases
+- TDD Test Plan detallado
+- Security Checklist OWASP completo
+- Mensaje: "Para ejecutar: /ralph-execute"
 
 ## Notes
 
-- **context: fork** - Este comando corre en contexto aislado
-- **Sequential Thinking** - Mínimo 8 thoughts para análisis profundo
-- **Memoria** - Carga y actualiza archivos de expertise por dominio (y las memorias de los subagentes) - ver `ai_docs/expertise/domain-experts/{domain}.yaml` - OBLIGATORIO
-
-## Convención de Formato (Anti-Conflicto Backticks)
-
-Para evitar errores de sintaxis markdown en los planes generados:
-
-1. **Bloque exterior con código anidado:** Usar 5 tildes `~~~~~`
-2. **Bloque Task() interno:** Usar 4 backticks
-3. **Bloques simples sin anidación:** Usar 3 backticks normales
-
-**Regla:** Si un bloque contiene otros bloques de código, usar tildes para el exterior.
+- **context: fork** - Planificacion aislada, no contamina sesion
+- **ultrathink: true** - Sequential thinking con minimo 8 thoughts
+- **NO ejecuta** - Solo genera documentos
+- **Separacion de responsabilidades** - Planificar != Ejecutar
 
 ---
 
-**Versión:** 3.2 | **Actualizado:** 2026-01-12
+**Version:** 5.0.0 | **Actualizado:** 2026-01-16
+
+### Changelog
+
+#### v5.0.0 (2026-01-16)
+- **BREAKING:** Separacion completa de planificacion y ejecucion
+- Removed: Ejecucion de fases (movido a /ralph-execute)
+- Removed: Flags --loop, --overnight, --max-iterations
+- Added: Mensaje final con instrucciones para /ralph-execute
+- Added: Campo `prompt` en cada fase de WORKFLOW-STATUS.yaml
+- Optimized: Solo genera documentos, no ejecuta Task()
+- Fixed: Hooks ahora funcionan (en /ralph-execute)
+
+#### v4.1.0 (2026-01-15)
+- Previous version with integrated execution

@@ -1,122 +1,134 @@
 ## Purpose
-Sincronizar el estado del proyecto al inicio de cada sesión de trabajo. Este skill lee las entradas (user_prompt, notificaciones) y actualiza los archivos de estado para mantener continuidad entre sesiones de Claude. Garantiza que el asistente tenga contexto actualizado del sprint, issues, decisiones y progreso.
+Sincronizar el estado del proyecto al inicio de cada sesión de trabajo. Este skill lee los archivos de estado y actualiza el contexto para mantener continuidad entre sesiones de Claude. Garantiza que el asistente tenga contexto actualizado del progreso, decisiones y próximos pasos.
 
 ## Variables
 ```yaml
-PROJECT_ROOT: '~/Documents/GitHub/studiotek-landing'
-USER_PROMPT_PATH: 'user_prompt.md'
+PROJECT_ROOT: '/Users/cristianbejaranomendez/Documents/GitHub/claude-code-template'
 CONTINUE_SESSION_PATH: 'ai_docs/continue_session/CONTINUE_SESSION.md'
 PROGRESS_YAML_PATH: 'ai_docs/state/PROGRESS.yaml'
 GOAL_PATH: 'ai_docs/state/GOAL.md'
 PROGRESS_JSON_PATH: 'ai_docs/state/PROGRESS.json'
 DECISIONS_PATH: 'ai_docs/state/DECISIONS.md'
+SKILLS_ROADMAP_PATH: '.claude/SKILLS_ROADMAP.md'
 MAX_CONTEXT_TOKENS: 2500
 ```
 
 ## Code Structure
+```
 ai_docs/
+├── state/
+│   ├── PROGRESS.yaml        # Estado estructurado del workflow
+│   ├── GOAL.md              # Objetivo actual con detalles
+│   ├── PROGRESS.json        # Histórico y estadísticas
+│   └── DECISIONS.md         # Registro de decisiones (append-only)
 ├── continue_session/
-│   └── CONTINUE_SESSION.md # Salida: contexto compacto para LLM
-└── state/
-    ├── PROGRESS.yaml       # Salida: estado estructurado del workflow
-    ├── GOAL.md             # Salida: objetivo actual con detalles
-    ├── PROGRESS.json       # Salida: histórico y estadísticas
-    └── DECISIONS.md        # Salida: registro de decisiones (append-only)
+│   └── CONTINUE_SESSION.md  # Contexto compacto para LLM
+├── plan/                    # Planes de implementación
+├── analysis/                # Reportes de análisis
+└── review/                  # Reportes de review
+
+.claude/
+├── SKILLS_ROADMAP.md        # Roadmap de skills a crear
+├── agents/                  # Agentes especializados
+├── commands/                # Comandos slash
+└── skills/                  # Skills disponibles
+```
 
 ## Instructions
-1. **Leer entradas primarias**
-   - Parsear `user_prompt.md` para extraer: sprint actual, issues pendientes, issue recomendado, blockers
+1. **Leer estado actual del proyecto**
+   - Leer `ai_docs/state/PROGRESS.yaml` para estado del workflow
+   - Leer `ai_docs/state/GOAL.md` para objetivo actual
+   - Leer `.claude/SKILLS_ROADMAP.md` para próximos skills a crear
 
-2. **Procesar notificaciones**
-   - Extraer cambios de API que impactan el frontend
-   - Identificar issues desbloqueados por cambios del backend
-   - Actualizar estado de dependencias BE→FE
+2. **Verificar archivos de estado**
+   - Si no existen, inicializarlos con valores por defecto
+   - Mantener consistencia entre PROGRESS.yaml y GOAL.md
 
 3. **Actualizar CONTINUE_SESSION.md**
    - Generar contexto compacto (máx 2500 tokens)
-   - Incluir: estado del sprint, último issue completado, próximo recomendado
-   - Incluir: cambios de backend relevantes, quick start commands
+   - Incluir: estado del proyecto, último progreso, próximo objetivo
+   - Incluir: skills pendientes del roadmap, quick start commands
    - Formato: `<compact_context>` tag con metadata
 
 4. **Actualizar PROGRESS.yaml**
    - Schema version: "1.0"
-   - Campos: current_phase, status (IDLE/IN_PROGRESS/BLOCKED), mode, complexity_score
+   - Campos: current_phase, status (IDLE/IN_PROGRESS/BLOCKED), mode
    - Incluir summary con objective y result
-   - Registrar PRs e issues relacionados
-   - Agregar comentarios con contexto del último workflow completado
+   - Agregar comentarios con contexto
 
 5. **Actualizar GOAL.md**
    - Status actual (IDLE, IN_PROGRESS, BLOCKED)
-   - Tabla del sprint con issues y estados
-   - Detalles del issue recomendado (si hay)
-   - Backend updates recientes
+   - Próximo skill a crear del roadmap
    - Quick start commands
 
-6. **Actualizar PROGRESS.json**
-   - Mantener `current_workflow` con estado actual
-   - Actualizar `quick_restore` con objetivo y next_tasks
-   - Actualizar `next_recommended` con issues prioritarios
-   - Agregar entrada a `workflows_history` si se completó un workflow
-   - Mantener `cumulative_stats` actualizadas
-
-7. **Actualizar DECISIONS.md (append-only)**
+6. **Actualizar DECISIONS.md (append-only)**
    - NO modificar decisiones existentes
    - Agregar nuevas decisiones al final con formato estándar:
      - ID: DXXX (incremental)
      - Date, Context, Decision, Rationale, Tags
-   - Solo agregar si hay decisiones nuevas del workflow actual
+   - Solo agregar si hay decisiones nuevas
 
 ## Workflow
-1. Leer `user_prompt.md`
-2. Actualizar `ai_docs/continue_session/CONTINUE_SESSION.md`
-3. Actualizar `ai_docs/state/PROGRESS.yaml`
-4. Actualizar `ai_docs/state/GOAL.md`
-5. Actualizar `ai_docs/state/PROGRESS.json`
-6. Actualizar `ai_docs/state/DECISIONS.md`
+1. Leer archivos de estado existentes
+2. Actualizar `.claude/SKILLS_ROADMAP.md` para próximos skills
+3. Actualizar `ai_docs/continue_session/CONTINUE_SESSION.md`
+4. Actualizar `ai_docs/state/PROGRESS.yaml`
+5. Actualizar `ai_docs/state/GOAL.md`
+6. Actualizar `ai_docs/state/DECISIONS.md` (si hay nuevas)
 
 ## Examples
-- **user_prompt.md** indica Issue #74 UNBLOCKED, backend PR #131 merged:
-  - CONTINUE_SESSION: Incluir API change de opening_hours, marcar #74 como READY
-  - GOAL: Actualizar status a "IDLE - Issue #74 NOW UNBLOCKED!"
-  - PROGRESS.yaml: status=IDLE, agregar nota sobre último completado
+- **Inicio de nueva sesión sin estado previo:**
+  - Inicializar PROGRESS.yaml con status=IDLE
+  - GOAL: Leer SKILLS_ROADMAP y recomendar primer skill
+  - CONTINUE_SESSION: Incluir resumen del roadmap
 
-- **Notificación BE_FEATURE indica nuevo endpoint**:
-  - Extraer endpoint, método, campos nuevos
-  - Identificar qué issue FE desbloquea
-  - Actualizar GOAL con implementation steps sugeridos
+- **Continuar trabajo en skill:**
+  - PROGRESS.yaml: status=IN_PROGRESS, current skill
+  - GOAL: Próximos pasos del skill actual
+  - CONTINUE_SESSION: Contexto del skill en progreso
 
-- **Workflow completado (PR merged)**:
-  - PROGRESS.json: Agregar entrada a workflows_history
+- **Skill completado:**
   - PROGRESS.yaml: Reset a IDLE, actualizar completed_at
-  - DECISIONS.md: Agregar decisiones tomadas durante implementación
+  - DECISIONS.md: Agregar decisiones del skill implementado
+  - GOAL: Recomendar siguiente skill del roadmap
 
 ## Report
 Al finalizar, mostrar resumen:
 ```
 ## Session Sync Complete
 
-### Inputs Processed
-- user_prompt.md: ✅ (Sprint X, Y issues)
+### Project Status
+- Repo: claude-code-template
+- Status: IDLE/IN_PROGRESS/BLOCKED
+- Current Focus: [skill name or "Ready for new task"]
 
 ### Files Updated
 - CONTINUE_SESSION.md: ✅ (XXX tokens)
 - PROGRESS.yaml: ✅ (status: IDLE/IN_PROGRESS)
-- GOAL.md: ✅ (Issue #N recommended)
-- PROGRESS.json: ✅ (X workflows history)
-- DECISIONS.md: ✅ (N new decisions added)
+- GOAL.md: ✅
+- DECISIONS.md: ✅ (N decisions total)
 
-### Sprint Status
-| Issue | Title | Status |
-|-------|-------|--------|
-| #XXX | ... | DONE/READY/BLOCKED |
+### Skills Roadmap Status
+| Sprint | Skills | Status |
+|--------|--------|--------|
+| Sprint 0 | /pydantic-ai, /agent-builder, /mcp-tools | Pending |
+| Sprint 1 | /fastapi, /pytest, /clean-arch | Pending |
+| ... | ... | ... |
 
 ### Recommended Next
-Issue #N - [Title] (Complexity: X/10)
+Skill: /pydantic-ai
+Priority: ⭐ CRÍTICO
+Context7 ID: /pydantic/pydantic-ai
 
 ### Quick Start
 ```bash
-/primer
-gh issue view N
-/workflow-task
+# Ver roadmap completo
+cat .claude/SKILLS_ROADMAP.md
+
+# Crear próximo skill
+/plan-task crear skill /pydantic-ai con Context7
+
+# Ver agentes disponibles
+ls .claude/agents/
 ```
 ```
