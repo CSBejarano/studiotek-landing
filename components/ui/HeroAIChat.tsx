@@ -41,6 +41,70 @@ export function HeroAIChat() {
     }
   }, [lastResponse]);
 
+  // Unlock audio context on iOS - must be called during user interaction
+  const unlockAudioContext = useCallback(() => {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioContextClass) return;
+
+      // Create or resume the audio context
+      if (!audioContextRef.current) {
+        audioContextRef.current = new AudioContextClass();
+      }
+
+      if (audioContextRef.current.state === 'suspended') {
+        audioContextRef.current.resume();
+      }
+
+      // Play a silent buffer to fully unlock audio on iOS
+      const buffer = audioContextRef.current.createBuffer(1, 1, 22050);
+      const source = audioContextRef.current.createBufferSource();
+      source.buffer = buffer;
+      source.connect(audioContextRef.current.destination);
+      source.start(0);
+
+      console.log('[Audio] Audio context unlocked for iOS');
+    } catch (error) {
+      console.warn('[Audio] Could not unlock audio context:', error);
+    }
+  }, []);
+
+  // Play audio using Web Audio API - works on iOS Safari
+  const playAudioViaWebAudio = useCallback(async (audioBlob: Blob) => {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioContextClass) {
+        console.warn('[TTS] Web Audio API not supported');
+        return;
+      }
+
+      // Create or resume audio context
+      if (!audioContextRef.current) {
+        audioContextRef.current = new AudioContextClass();
+      }
+
+      if (audioContextRef.current.state === 'suspended') {
+        await audioContextRef.current.resume();
+      }
+
+      // Convert blob to ArrayBuffer and decode
+      const arrayBuffer = await audioBlob.arrayBuffer();
+      const audioBuffer = await audioContextRef.current.decodeAudioData(arrayBuffer);
+
+      // Create source and play
+      const source = audioContextRef.current.createBufferSource();
+      source.buffer = audioBuffer;
+      source.connect(audioContextRef.current.destination);
+      source.start(0);
+
+      console.log('[TTS] Audio playback started via Web Audio API');
+    } catch (error) {
+      console.error('[TTS] Web Audio API playback error:', error);
+    }
+  }, []);
+
   const handleSend = useCallback(async (userText: string) => {
     if (!userText.trim() || isProcessing) return;
 
@@ -127,27 +191,8 @@ export function HeroAIChat() {
         if (ttsResponse.ok) {
           const audioBlob = await ttsResponse.blob();
           console.log('[TTS] Audio blob received, size:', audioBlob.size);
-
-          const audioUrl = URL.createObjectURL(audioBlob);
-          const audio = new Audio(audioUrl);
-
-          // iOS needs these attributes for reliable playback
-          audio.setAttribute('playsinline', 'true');
-          audio.preload = 'auto';
-
-          audio.onended = () => {
-            console.log('[TTS] Audio playback ended');
-            URL.revokeObjectURL(audioUrl);
-          };
-
-          audio.onerror = (e) => {
-            console.error('[TTS] Audio playback error:', e);
-            URL.revokeObjectURL(audioUrl);
-          };
-
-          // Try to play
-          await audio.play();
-          console.log('[TTS] Audio playback started');
+          // Use Web Audio API for iOS compatibility - Bug #1 fix
+          await playAudioViaWebAudio(audioBlob);
         } else {
           console.warn('[TTS] TTS API error:', ttsResponse.status);
         }
@@ -167,36 +212,7 @@ export function HeroAIChat() {
     }
 
     setIsProcessing(false);
-  }, [messages, isProcessing]);
-
-  // Unlock audio context on iOS - must be called during user interaction
-  const unlockAudioContext = useCallback(() => {
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
-      if (!AudioContextClass) return;
-
-      // Create or resume the audio context
-      if (!audioContextRef.current) {
-        audioContextRef.current = new AudioContextClass();
-      }
-
-      if (audioContextRef.current.state === 'suspended') {
-        audioContextRef.current.resume();
-      }
-
-      // Play a silent buffer to fully unlock audio on iOS
-      const buffer = audioContextRef.current.createBuffer(1, 1, 22050);
-      const source = audioContextRef.current.createBufferSource();
-      source.buffer = buffer;
-      source.connect(audioContextRef.current.destination);
-      source.start(0);
-
-      console.log('[Audio] Audio context unlocked for iOS');
-    } catch (error) {
-      console.warn('[Audio] Could not unlock audio context:', error);
-    }
-  }, []);
+  }, [messages, isProcessing, playAudioViaWebAudio]);
 
   const handleVoiceStart = useCallback(() => {
     setLastResponse(null);

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, Send, Loader2, MicOff } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -151,6 +151,9 @@ export function AIChatInput({
       const currentTranscript = transcriptRef.current;
       if (currentTranscript && onVoiceEndRef.current) {
         onVoiceEndRef.current(currentTranscript);
+        // Reset input after sending - Bug #4 fix
+        setValue('');
+        transcriptRef.current = '';
       }
     };
 
@@ -282,6 +285,9 @@ export function AIChatInput({
         setValue(data.transcript);
         transcriptRef.current = data.transcript;
         onVoiceEndRef.current?.(data.transcript);
+        // Reset input after sending - Bug #4 fix
+        setValue('');
+        transcriptRef.current = '';
       } else {
         setVoiceError(data.error || 'Error al transcribir');
       }
@@ -446,6 +452,18 @@ export function AIChatInput({
   const displayPlaceholder = placeholder || placeholders[currentPlaceholder];
   const isVoiceActive = isListening || isTranscribing;
 
+  // Computed status for single AnimatePresence - mutually exclusive states
+  type StatusType = 'listening-native' | 'listening-whisper' | 'transcribing' | 'processing' | 'error' | null;
+
+  const currentStatus: StatusType = useMemo(() => {
+    if (isListening && !useWhisperFallback) return 'listening-native';
+    if (isListening && useWhisperFallback) return 'listening-whisper';
+    if (isTranscribing) return 'transcribing';
+    if (isProcessing && !isTranscribing) return 'processing';
+    if (voiceError && !isListening && !isTranscribing) return 'error';
+    return null;
+  }, [isListening, useWhisperFallback, isTranscribing, isProcessing, voiceError]);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -546,68 +564,61 @@ export function AIChatInput({
         </div>
       </div>
 
-      {/* Status indicator */}
-      <AnimatePresence>
-        {isListening && !useWhisperFallback && (
+      {/* Status indicator - Positioned in document flow to avoid overlap */}
+      <AnimatePresence mode="wait">
+        {currentStatus && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 text-sm text-green-400"
+            key={currentStatus}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="overflow-hidden"
           >
-            <span className="flex gap-1">
-              <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-              <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-              <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-            </span>
-            Escuchando...
-          </motion.div>
-        )}
-        {isListening && useWhisperFallback && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 text-sm text-red-400"
-          >
-            <span className="flex gap-1">
-              <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-              <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-              <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-            </span>
-            Grabando... (toca para detener)
-          </motion.div>
-        )}
-        {isTranscribing && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 text-sm text-blue-400"
-          >
-            <Loader2 className="w-4 h-4 animate-spin" />
-            Transcribiendo...
-          </motion.div>
-        )}
-        {isProcessing && !isTranscribing && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 text-sm text-blue-500"
-          >
-            <Loader2 className="w-4 h-4 animate-spin" />
-            Procesando...
-          </motion.div>
-        )}
-        {voiceError && !isListening && !isTranscribing && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 text-sm text-red-400"
-          >
-            {voiceError}
+            <div
+              className={cn(
+                "flex items-center justify-center gap-2 text-sm mt-3",
+                currentStatus === 'listening-native' && "text-green-400",
+                currentStatus === 'listening-whisper' && "text-red-400",
+                currentStatus === 'transcribing' && "text-blue-400",
+                currentStatus === 'processing' && "text-blue-500",
+                currentStatus === 'error' && "text-red-400"
+              )}
+            >
+              {currentStatus === 'listening-native' && (
+                <>
+                  <span className="flex gap-1">
+                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                  </span>
+                  Escuchando...
+                </>
+              )}
+              {currentStatus === 'listening-whisper' && (
+                <>
+                  <span className="flex gap-1">
+                    <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                    <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                    <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                  </span>
+                  Grabando... (toca para detener)
+                </>
+              )}
+              {currentStatus === 'transcribing' && (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  Transcribiendo...
+                </>
+              )}
+              {currentStatus === 'processing' && (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  Procesando...
+                </>
+              )}
+              {currentStatus === 'error' && voiceError}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

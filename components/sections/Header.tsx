@@ -13,11 +13,15 @@ export function Header() {
     }
   };
 
+  const handleLogoClick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-slate-950/80 border-b border-slate-800">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-        {/* Logo - D037: href = '/' no '#' */}
-        <Link href="/" className="flex items-center">
+        {/* Logo - Click to scroll to top */}
+        <button onClick={handleLogoClick} className="flex items-center cursor-pointer">
           <Image
             src="/logo.svg"
             alt="StudioTek"
@@ -25,7 +29,7 @@ export function Header() {
             height={30}
             priority
           />
-        </Link>
+        </button>
 
         {/* CTA Button */}
         <Button

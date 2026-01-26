@@ -1,11 +1,10 @@
 import { Hero } from '@/components/sections/Hero';
-import { PainPointsSection, SolutionSection } from '@/components/storytelling';
+import { PainPointsParallax } from '@/components/sections/PainPointsParallax';
 import { Benefits } from '@/components/sections/Benefits';
 import { Stats } from '@/components/sections/Stats';
 import { Services } from '@/components/sections/Services';
 import { HowItWorks } from '@/components/sections/HowItWorks';
 import { ContactForm } from '@/components/sections/ContactForm';
-import { SectionDivider } from '@/components/ui/SectionDivider';
 
 export default function Home() {
   return (
@@ -13,24 +12,20 @@ export default function Home() {
       {/* 1. Hero con Asistente IA central */}
       <Hero />
 
-      {/* 2. ¿Te identificas? - Problemas del cliente */}
-      <PainPointsSection />
+      {/* 2. Pain Points - 4 Parallax Separados */}
+      <PainPointsParallax />
 
-      {/* 3. Nuestra solucion (menos espacio con PainPoints) */}
-      <SolutionSection />
-
-      {/* 4. ¿Por que automatizar? - Beneficios */}
+      {/* 3. Por que automatizar? - Beneficios */}
       <Benefits />
 
-      {/* 5. Nuestros servicios */}
+      {/* 4. Nuestros servicios */}
       <Services />
 
-      {/* 6. Resultados que hablan - Stats */}
-      <SectionDivider color="blue" variant="line" />
-      <Stats />
-
-      {/* 7. Como trabajamos */}
+      {/* 5. Como trabajamos */}
       <HowItWorks />
+
+      {/* 7. Resultados que hablan - Stats */}
+      <Stats />
 
       {/* 8. Formulario de contacto */}
       <ContactForm />

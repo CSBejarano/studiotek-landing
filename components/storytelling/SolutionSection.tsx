@@ -1,6 +1,6 @@
 "use client";
 
-import { Zap, Target, Rocket, BarChart } from "lucide-react";
+import { Zap, Headphones, BarChart, TrendingUp } from "lucide-react";
 import { Card3D } from "./Card3D";
 import { BlurFade } from "@/components/magicui/blur-fade";
 import { TextAnimate } from "@/components/magicui/text-animate";
@@ -9,29 +9,33 @@ import { DotPattern } from "@/components/magicui/dot-pattern";
 const solutions = [
   {
     icon: Zap,
-    title: "Automatizacion inteligente",
-    description: "Liberamos tu tiempo automatizando lo repetitivo",
+    title: "Automatizacion que trabaja por ti",
+    description:
+      "Reservas, confirmaciones, recordatorios... todo automatico. Tu equipo se enfoca en atender, no en gestionar.",
     gradient: "from-blue-500 to-cyan-500",
     glowColor: "blue" as const,
   },
   {
-    icon: Target,
-    title: "Enfoque estrategico",
-    description: "Tomas decisiones informadas con IA como aliado",
+    icon: Headphones,
+    title: "Atencion 24/7 sin contratar",
+    description:
+      "Un asistente IA responde WhatsApp, email y web a cualquier hora. Tus clientes siempre atendidos.",
     gradient: "from-cyan-500 to-emerald-500",
     glowColor: "cyan" as const,
   },
   {
-    icon: Rocket,
-    title: "Ventaja competitiva",
-    description: "Te adelantas al mercado con tecnologia de punta",
+    icon: BarChart,
+    title: "Datos que generan ventas",
+    description:
+      "Dashboard en tiempo real con metricas que importan. Sabes exactamente que funciona y que mejorar.",
     gradient: "from-emerald-500 to-blue-500",
     glowColor: "emerald" as const,
   },
   {
-    icon: BarChart,
-    title: "Datos que hablan",
-    description: "Transformamos tu informacion en insights accionables",
+    icon: TrendingUp,
+    title: "Escalas sin limites",
+    description:
+      "Atiende el doble de clientes con los mismos recursos. La IA crece contigo.",
     gradient: "from-blue-500 to-indigo-500",
     glowColor: "indigo" as const,
   },
@@ -78,13 +82,13 @@ export function SolutionSection() {
               delay={0.1}
               duration={0.6}
             >
-              Asi lo resolvemos
+              Asi transformamos tu negocio
             </TextAnimate>
           </BlurFade>
 
           <BlurFade delay={0.2} inView>
             <p className="text-xl text-slate-400 mt-4 max-w-2xl mx-auto">
-              Transformamos cada desafio en una oportunidad
+              Resultados reales en las primeras 4 semanas
             </p>
           </BlurFade>
         </div>

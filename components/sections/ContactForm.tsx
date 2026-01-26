@@ -22,15 +22,15 @@ const presupuestoOptions = [
   { value: '3000-10000', label: '3.000 EUR - 10.000 EUR' },
   { value: '10000-25000', label: '10.000 EUR - 25.000 EUR' },
   { value: '25000-50000', label: '25.000 EUR - 50.000 EUR' },
-  { value: 'mas-50000', label: 'Mas de 50.000 EUR' },
+  { value: 'mas-50000', label: 'Más de 50.000 EUR' },
   { value: 'no-seguro', label: 'No estoy seguro' },
 ];
 
 const serviciosOptions = [
   { value: '', label: 'Selecciona un servicio (opcional)' },
-  { value: 'implementacion', label: 'Implementacion de IA' },
-  { value: 'consultoria', label: 'Consultoria Estrategica' },
-  { value: 'formacion', label: 'Formacion y Capacitacion' },
+  { value: 'implementacion', label: 'Implementación de IA' },
+  { value: 'consultoria', label: 'Consultoría Estratégica' },
+  { value: 'formacion', label: 'Formación y Capacitación' },
   { value: 'ia-personalizada', label: 'Procesos de IA Personalizada' },
 ];
 
@@ -133,10 +133,10 @@ export function ContactForm() {
               delay={0.1}
               duration={0.6}
             >
-              Hablemos de tu proyecto
+              Hablemos de cómo automatizar tu negocio
             </TextAnimate>
             <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-              Cuentanos sobre tu negocio y te contactaremos en menos de 24 horas
+              Cuéntanos sobre tu empresa y te contactamos en menos de 24 horas
             </p>
           </div>
         </BlurFade>
@@ -165,7 +165,7 @@ export function ContactForm() {
                     role="alert"
                   >
                     <p className="text-red-400 font-medium">
-                      Ha ocurrido un error. Por favor, intentalo de nuevo.
+                      Ha ocurrido un error. Por favor, inténtalo de nuevo.
                     </p>
                   </div>
                 ) : null}
@@ -230,7 +230,7 @@ export function ContactForm() {
                           <Phone size={18} />
                         </div>
                         <Input
-                          label="Telefono (opcional)"
+                          label="Teléfono (opcional)"
                           type="tel"
                           placeholder="+34 600 000 000"
                           error={errors.telefono?.message}
@@ -260,7 +260,7 @@ export function ContactForm() {
                           <Briefcase size={18} />
                         </div>
                         <Select
-                          label="Servicio de interes"
+                          label="Servicio de interés"
                           options={serviciosOptions}
                           error={errors.servicioInteres?.message}
                           className="pl-11 bg-slate-800/50 border-slate-700 text-white focus:border-blue-500 focus:ring-blue-500/20"
@@ -276,7 +276,7 @@ export function ContactForm() {
                       </div>
                       <Textarea
                         label="Mensaje"
-                        placeholder="Cuentanos brevemente que necesitas..."
+                        placeholder="Cuéntanos brevemente qué necesitas..."
                         error={errors.mensaje?.message}
                         className="pl-11 bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500/20 min-h-[120px]"
                         {...register('mensaje')}
@@ -287,11 +287,11 @@ export function ContactForm() {
                     <div className="text-xs text-slate-400 bg-slate-800/30 p-3 rounded-lg border border-slate-700/50">
                       <p><strong className="text-slate-300">Responsable:</strong> StudioTek</p>
                       <p><strong className="text-slate-300">Finalidad:</strong> Gestionar tu consulta y, si lo autorizas, enviarte comunicaciones comerciales</p>
-                      <p><strong className="text-slate-300">Derechos:</strong> Acceso, rectificacion, supresion, oposicion, portabilidad, limitacion</p>
+                      <p><strong className="text-slate-300">Derechos:</strong> Acceso, rectificación, supresión, oposición, portabilidad, limitación</p>
                       <p>
-                        <strong className="text-slate-300">Mas info:</strong>{' '}
+                        <strong className="text-slate-300">Más info:</strong>{' '}
                         <Link href="/politica-privacidad" className="text-blue-400 hover:underline">
-                          Politica de Privacidad
+                          Política de Privacidad
                         </Link>
                       </p>
                     </div>
@@ -301,9 +301,9 @@ export function ContactForm() {
                       {...register('privacyAccepted')}
                       label={
                         <>
-                          He leido y acepto la{' '}
+                          He leído y acepto la{' '}
                           <Link href="/politica-privacidad" className="text-blue-400 hover:underline">
-                            Politica de Privacidad
+                            Política de Privacidad
                           </Link>
                           {' '}*
                         </>
@@ -356,7 +356,7 @@ export function ContactForm() {
                             Enviando...
                           </span>
                         ) : (
-                          'Enviar mensaje'
+                          'Solicitar consulta gratuita'
                         )}
                       </ShimmerButton>
                     </div>

@@ -2,9 +2,10 @@
 
 import { useState, useEffect, useCallback, Fragment } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { Search, FileText, Cog, CheckCircle, Check, Eye, Settings } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { BlurFade } from '@/components/magicui/blur-fade';
 import { TextAnimate } from '@/components/magicui/text-animate';
+import Image from 'next/image';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -26,57 +27,57 @@ const itemVariants = {
 const steps = [
   {
     number: '01',
-    title: 'Analisis',
-    description: 'Entendemos tu problema y contexto actual',
-    icon: Search,
+    title: 'Analizamos tu negocio',
+    description: 'Identificamos los procesos que más tiempo te quitan y diseñamos la solución perfecta.',
     gradient: 'from-blue-500 to-cyan-500',
     cardGradient: 'from-blue-500/20 to-cyan-500/20',
     glowColor: '59, 130, 246',
+    image: '/images/generated/step-analisis.webp',
   },
   {
     number: '02',
-    title: 'Planificacion',
-    description: 'Diseñamos la estrategia personalizada',
-    icon: FileText,
+    title: 'Diseñamos la estrategia',
+    description: 'Creamos un plan de automatización con objetivos claros y ROI definido.',
     gradient: 'from-violet-500 to-purple-500',
     cardGradient: 'from-violet-500/20 to-purple-500/20',
     glowColor: '139, 92, 246',
+    image: '/images/generated/step-planificacion.webp',
   },
   {
     number: '03',
-    title: 'Implementacion',
-    description: 'Desarrollamos la solucion',
-    icon: Cog,
+    title: 'Implementamos la IA',
+    description: 'Desarrollamos y desplegamos tu solución en semanas, no meses.',
     gradient: 'from-amber-500 to-orange-500',
     cardGradient: 'from-amber-500/20 to-orange-500/20',
     glowColor: '245, 158, 11',
+    image: '/images/generated/step-implementacion.webp',
   },
   {
     number: '04',
-    title: 'Monitoreo',
-    description: 'Seguimiento continuo del rendimiento',
-    icon: Eye,
+    title: 'Monitorizamos resultados',
+    description: 'Seguimiento continuo para asegurar que todo funciona perfectamente.',
     gradient: 'from-emerald-500 to-green-500',
     cardGradient: 'from-emerald-500/20 to-green-500/20',
     glowColor: '16, 185, 129',
+    image: '/images/generated/step-monitoreo.webp',
   },
   {
     number: '05',
-    title: 'Optimizacion',
-    description: 'Mejoras basadas en datos reales',
-    icon: Settings,
+    title: 'Optimizamos sin parar',
+    description: 'Mejoras constantes basadas en datos reales de tu negocio.',
     gradient: 'from-pink-500 to-rose-500',
     cardGradient: 'from-pink-500/20 to-rose-500/20',
     glowColor: '236, 72, 153',
+    image: '/images/generated/step-optimizacion.webp',
   },
   {
     number: '06',
-    title: 'Entrega',
-    description: 'Solucion adaptada y funcionando',
-    icon: CheckCircle,
+    title: 'Tu negocio transformado',
+    description: 'Disfrutas de un negocio más eficiente, rentable y escalable.',
     gradient: 'from-teal-500 to-cyan-500',
     cardGradient: 'from-teal-500/20 to-cyan-500/20',
     glowColor: '20, 184, 166',
+    image: '/images/generated/step-entrega.webp',
   },
 ];
 
@@ -139,7 +140,7 @@ export function HowItWorks() {
             delay={0.1}
             duration={0.6}
           >
-            Como Trabajamos
+            Cómo Trabajamos
           </TextAnimate>
         </BlurFade>
 
@@ -159,7 +160,6 @@ export function HowItWorks() {
           aria-label="Pasos de nuestro proceso de trabajo"
         >
           {steps.map((step, index) => {
-            const Icon = step.icon;
             const isIlluminated = illuminatedSteps.includes(index);
             const isLatest = illuminatedSteps.length > 0 && illuminatedSteps[illuminatedSteps.length - 1] === index;
 
@@ -200,6 +200,20 @@ export function HowItWorks() {
                       min-h-[280px]
                       h-full
                     `}>
+                      {/* Background image */}
+                      {step.image && (
+                        <div className="absolute inset-0 opacity-90 overflow-hidden rounded-2xl">
+                          <Image
+                            src={step.image}
+                            alt=""
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            className="object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/50 to-slate-900/80" />
+                        </div>
+                      )}
+
                       {/* Dot pattern inside card */}
                       <div
                         className="absolute inset-0 opacity-30 pointer-events-none"
@@ -224,10 +238,10 @@ export function HowItWorks() {
                       />
 
                       {/* Content */}
-                      <div className="relative z-10 h-full flex flex-col items-center text-center">
+                      <div className="relative z-10 h-full flex flex-col items-center text-center pt-4">
                         {/* Step number badge with check when illuminated */}
                         <motion.div
-                          className={`w-10 h-10 rounded-full bg-gradient-to-br ${step.gradient} flex items-center justify-center text-white font-bold text-sm shadow-lg mb-4`}
+                          className={`w-10 h-10 rounded-full bg-gradient-to-br ${step.gradient} flex items-center justify-center text-white font-bold text-sm shadow-lg mb-6`}
                           animate={{
                             scale: isLatest ? [1, 1.1, 1] : 1,
                           }}
@@ -243,26 +257,13 @@ export function HowItWorks() {
                           )}
                         </motion.div>
 
-                        {/* Icon */}
-                        <motion.div
-                          className={`w-16 h-16 flex items-center justify-center rounded-2xl bg-gradient-to-br ${step.gradient} shadow-lg mb-5`}
-                          animate={{
-                            boxShadow: isIlluminated
-                              ? `0 10px 30px rgba(${step.glowColor}, 0.4)`
-                              : '0 10px 20px rgba(0, 0, 0, 0.3)',
-                          }}
-                          transition={{ duration: 0.5 }}
-                        >
-                          <Icon size={28} strokeWidth={1.5} className="text-white" />
-                        </motion.div>
-
                         {/* Title */}
-                        <h3 className={`text-xl font-semibold mb-3 transition-colors duration-500 ${isIlluminated ? 'text-white' : 'text-white/80'}`}>
+                        <h3 className={`text-2xl font-semibold mb-4 transition-colors duration-500 ${isIlluminated ? 'text-white' : 'text-white/80'}`}>
                           {step.title}
                         </h3>
 
                         {/* Description */}
-                        <p className={`text-sm leading-relaxed transition-colors duration-500 ${isIlluminated ? 'text-white/80' : 'text-white/50'}`}>
+                        <p className={`text-base leading-relaxed transition-colors duration-500 ${isIlluminated ? 'text-slate-300' : 'text-slate-400'}`}>
                           {step.description}
                         </p>
                       </div>
@@ -306,11 +307,8 @@ export function HowItWorks() {
                   setTimeout(() => setIsPaused(false), 5000);
                 }}
                 className={`
-                  w-3 h-3 rounded-full transition-all duration-300
-                  ${isIlluminated
-                    ? `bg-gradient-to-r ${step.gradient} scale-125`
-                    : 'bg-white/20'
-                  }
+                  w-3 h-3 rounded-full transition-all duration-300 bg-slate-500
+                  ${isIlluminated ? 'scale-125 opacity-100' : 'opacity-50'}
                 `}
                 aria-label={`Go to step ${index + 1}: ${step.title}`}
               />

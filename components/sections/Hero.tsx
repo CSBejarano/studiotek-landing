@@ -87,13 +87,13 @@ export function Hero() {
             delay={0.2}
             duration={0.8}
           >
-            Automatiza tu negocio con Inteligencia Artificial
+            Automatiza tu negocio con IA y ahorra un 40% en costes
           </TextAnimate>
         </BlurFade>
 
         <BlurFade delay={0.4} inView>
           <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mt-6 mb-12">
-            Cuéntanos qué procesos te quitan más tiempo. Nuestro asistente de IA te ayudará a encontrar la solución perfecta.
+            En 4 semanas, tu negocio funciona 24/7. Sin contratar más personal. Sin tareas manuales.
           </p>
         </BlurFade>
 

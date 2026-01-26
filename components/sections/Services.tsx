@@ -5,69 +5,68 @@ import { createPortal } from 'react-dom';
 import { Rocket, Lightbulb, GraduationCap, Cpu } from 'lucide-react';
 import { BlurFade } from '@/components/magicui/blur-fade';
 import { TextAnimate } from '@/components/magicui/text-animate';
-import { AppleCarousel } from '@/components/ui/AppleCarousel';
 import { CarouselCard, CardData } from '@/components/ui/CarouselCard';
 import { ServiceModal } from '@/components/ui/ServiceModal';
 
 const services = [
   {
-    title: 'Implementacion de IA',
+    title: 'Implementación de IA',
     description:
-      'Desplegamos soluciones de automatizacion e inteligencia artificial adaptadas a las necesidades especificas de tu negocio. Desde chatbots conversacionales hasta sistemas de automatizacion complejos, transformamos tus operaciones.',
+      'Automatizamos tus procesos clave en 4 semanas. Desde chatbots que responden 24/7 hasta sistemas que eliminan el trabajo manual repetitivo.',
     icon: Rocket,
     gradient: 'from-blue-600 to-indigo-600',
     features: [
       'Chatbots inteligentes con IA conversacional',
-      'Automatizacion de procesos repetitivos',
+      'Automatización de procesos repetitivos',
       'Integraciones con tu stack existente',
       'Dashboards de monitoreo en tiempo real',
       'APIs personalizadas para tu negocio',
-      'Soporte tecnico 24/7'
+      'Soporte técnico 24/7'
     ],
     benefits: ['Reduce hasta 70% el tiempo en tareas manuales', 'Disponibilidad 24/7 para tus clientes'],
     shimmerGradient: { from: '#2563eb', to: '#4f46e5' },
-    // image: '/images/services/implementacion-ia.jpg', // Descomentar cuando tengas imagenes
+    image: '/images/generated/service-implementacion-ia.webp',
   },
   {
-    title: 'Consultoria Estrategica',
+    title: 'Consultoría Estratégica',
     description:
-      'Analizamos en profundidad tus procesos actuales e identificamos oportunidades de mejora. Creamos un roadmap claro de implementacion con metricas de exito definidas y ROI proyectado.',
+      'Analizamos tu negocio y diseñamos un plan de automatización con ROI claro. Sabrás exactamente cuánto vas a ahorrar antes de empezar.',
     icon: Lightbulb,
     gradient: 'from-amber-500 to-orange-600',
     features: [
-      'Auditoria completa de procesos',
-      'Identificacion de cuellos de botella',
-      'Roadmap de implementacion detallado',
-      'Calculo de ROI proyectado',
-      'Priorizacion de iniciativas',
+      'Auditoría completa de procesos',
+      'Identificación de cuellos de botella',
+      'Roadmap de implementación detallado',
+      'Cálculo de ROI proyectado',
+      'Priorización de iniciativas',
       'Benchmarking con la industria'
     ],
-    benefits: ['Claridad total sobre donde invertir', 'Decisiones basadas en datos'],
+    benefits: ['Claridad total sobre dónde invertir', 'Decisiones basadas en datos'],
     shimmerGradient: { from: '#f59e0b', to: '#ea580c' },
-    // image: '/images/services/consultoria-estrategica.jpg',
+    image: '/images/generated/service-consultoria.webp',
   },
   {
-    title: 'Formacion y Capacitacion',
+    title: 'Formación y Capacitación',
     description:
-      'Formamos a tu equipo en el uso efectivo de herramientas de IA. Desde conceptos basicos hasta tecnicas avanzadas, aseguramos que tu equipo pueda aprovechar al maximo las nuevas tecnologias.',
+      'Tu equipo domina las herramientas de IA en días, no meses. Formación práctica con casos reales de tu sector.',
     icon: GraduationCap,
     gradient: 'from-emerald-500 to-teal-600',
     features: [
-      'Workshops practicos hands-on',
+      'Workshops prácticos hands-on',
       'Certificaciones oficiales',
-      'Material de formacion actualizado',
+      'Material de formación actualizado',
       'Sesiones de seguimiento',
       'Casos de uso reales de tu industria',
-      'Soporte post-formacion'
+      'Soporte post-formación'
     ],
-    benefits: ['Equipo autonomo y capacitado', 'Adopcion rapida de nuevas herramientas'],
+    benefits: ['Equipo autónomo y capacitado', 'Adopción rápida de nuevas herramientas'],
     shimmerGradient: { from: '#10b981', to: '#0d9488' },
-    // image: '/images/services/formacion-ia.jpg',
+    image: '/images/generated/service-formacion.webp',
   },
   {
     title: 'Procesos de IA Personalizada',
     description:
-      'Desarrollamos modelos de IA completamente a medida para resolver los desafios unicos de tu negocio. Desde el entrenamiento hasta el despliegue gestionado, te acompanamos en todo el proceso.',
+      'Desarrollamos soluciones a medida para los desafíos únicos de tu negocio. IA entrenada con tus datos, funcionando en tu infraestructura.',
     icon: Cpu,
     gradient: 'from-rose-500 to-pink-600',
     features: [
@@ -78,9 +77,9 @@ const services = [
       'Monitoreo y reentrenamiento',
       'Escalabilidad garantizada'
     ],
-    benefits: ['Solucion 100% adaptada a ti', 'Ventaja competitiva unica'],
+    benefits: ['Solución 100% adaptada a ti', 'Ventaja competitiva única'],
     shimmerGradient: { from: '#f43f5e', to: '#ec4899' },
-    // image: '/images/services/ia-personalizada.jpg',
+    image: '/images/generated/service-ia-personalizada.webp',
   },
 ];
 
@@ -88,8 +87,8 @@ const services = [
 function getCategoryFromGradient(gradient: string): string {
   if (gradient.includes('blue') || gradient.includes('indigo')) return 'Desarrollo';
   if (gradient.includes('amber') || gradient.includes('orange')) return 'Estrategia';
-  if (gradient.includes('emerald') || gradient.includes('teal')) return 'Educacion';
-  if (gradient.includes('rose') || gradient.includes('pink')) return 'Innovacion';
+  if (gradient.includes('emerald') || gradient.includes('teal')) return 'Educación';
+  if (gradient.includes('rose') || gradient.includes('pink')) return 'Innovación';
   return 'Servicio';
 }
 
@@ -99,7 +98,7 @@ const servicesCarouselData: CardData[] = services.map((service) => ({
   category: getCategoryFromGradient(service.gradient),
   gradient: service.gradient,
   icon: service.icon,
-  // image: service.image, // Descomentar cuando tengas imagenes
+  image: service.image,
   content: (
     <div className="space-y-6">
       {/* Description */}
@@ -121,7 +120,7 @@ const servicesCarouselData: CardData[] = services.map((service) => ({
 
       {/* Features list */}
       <div className="space-y-3">
-        <h4 className="font-semibold text-white text-lg">Que incluye:</h4>
+        <h4 className="font-semibold text-white text-lg">¿Qué incluye?</h4>
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {service.features.map((feature) => (
             <li key={feature} className="flex items-center gap-3">
@@ -148,7 +147,7 @@ const servicesCarouselData: CardData[] = services.map((service) => ({
             background: `linear-gradient(to right, ${service.shimmerGradient.from}, ${service.shimmerGradient.to})`
           }}
         >
-          Solicitar informacion
+          Solicitar información
         </button>
         <button
           onClick={() => {
@@ -169,6 +168,28 @@ export function Services() {
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  // Listen for voice agent custom event to open service modal
+  useEffect(() => {
+    const handleVoiceOpenModal = (event: CustomEvent<{ index: number }>) => {
+      const { index } = event.detail;
+      if (index >= 0 && index < servicesCarouselData.length) {
+        setOpenIndex(index);
+      }
+    };
+
+    document.addEventListener(
+      'voice-open-service-modal',
+      handleVoiceOpenModal as EventListener
+    );
+
+    return () => {
+      document.removeEventListener(
+        'voice-open-service-modal',
+        handleVoiceOpenModal as EventListener
+      );
+    };
   }, []);
 
   // Body scroll lock cuando modal abierto
@@ -222,25 +243,16 @@ export function Services() {
         </div>
 
         <BlurFade delay={0.3} inView>
-          <div className="mt-12">
-            <AppleCarousel>
-              {servicesCarouselData.map((card, index) => (
-                <CarouselCard
-                  key={card.title}
-                  card={card}
-                  index={index}
-                  onClick={() => handleOpen(index)}
-                />
-              ))}
-            </AppleCarousel>
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 px-6">
+            {servicesCarouselData.map((card, index) => (
+              <CarouselCard
+                key={card.title}
+                card={card}
+                index={index}
+                onClick={() => handleOpen(index)}
+              />
+            ))}
           </div>
-        </BlurFade>
-
-        {/* Hint text for mobile */}
-        <BlurFade delay={0.4} inView>
-          <p className="text-center text-slate-500 text-sm mt-4 md:hidden">
-            Desliza para ver mas servicios
-          </p>
         </BlurFade>
       </div>
 

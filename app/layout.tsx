@@ -15,18 +15,11 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://studiotek.es'),
-  title: 'StudioTek | Automatizacion e Inteligencia Artificial para PYMEs',
+  title: 'StudioTek | Automatización con IA para PYMEs en España',
   description:
-    'Ayudamos a empresas espanolas a automatizar procesos y reducir costes con soluciones de IA personalizadas. Consultoria, implementacion y formacion.',
-  keywords: [
-    'automatizacion',
-    'inteligencia artificial',
-    'IA',
-    'PYME',
-    'reduccion costes',
-    'eficiencia',
-    'consultoria',
-  ],
+    'Automatiza tu negocio con IA. Reduce un 40% los costes operativos y atiende clientes 24/7. Consulta gratuita sin compromiso.',
+  keywords:
+    'automatización IA, inteligencia artificial empresas, chatbot WhatsApp, reducir costes, PYMEs España, automatizar procesos',
   authors: [{ name: 'StudioTek' }],
   openGraph: {
     title: 'StudioTek | Automatizacion e IA para PYMEs',

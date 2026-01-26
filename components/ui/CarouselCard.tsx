@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export interface CardData {
@@ -25,12 +26,29 @@ export function CarouselCard({ card, index, onClick }: CarouselCardProps) {
   return (
     <motion.div
       onClick={onClick}
-      whileHover={{ scale: 1.02, y: -6 }}
+      whileHover={{ scale: 1.02, y: -4 }}
       whileTap={{ scale: 0.98 }}
       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-      className="rounded-3xl bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 h-[22rem] w-64 md:h-[30rem] md:w-80 lg:h-[32rem] lg:w-[22rem] overflow-hidden flex flex-col cursor-pointer hover:border-slate-600/50 hover:shadow-xl hover:shadow-indigo-500/20 flex-shrink-0 group"
+      className={cn(
+        "relative flex flex-col",
+        "aspect-[9/16] w-full",
+        "rounded-3xl bg-black overflow-hidden",
+        "cursor-pointer group",
+        "shadow-xl shadow-black/40",
+        "hover:shadow-2xl hover:shadow-black/50"
+      )}
     >
-      {/* Image or Gradient Background */}
+      {/* Texto ARRIBA */}
+      <div className="relative z-10 p-6 pt-8">
+        <p className="text-[11px] text-slate-400 uppercase tracking-widest font-medium mb-2">
+          {card.category}
+        </p>
+        <h3 className="text-2xl md:text-3xl font-semibold text-white leading-tight">
+          {card.title}
+        </h3>
+      </div>
+
+      {/* Imagen ABAJO */}
       <div className={cn(
         "relative flex-1 overflow-hidden",
         !card.image && `bg-gradient-to-br ${card.gradient}`
@@ -41,24 +59,39 @@ export function CarouselCard({ card, index, onClick }: CarouselCardProps) {
               src={card.image}
               alt={card.title}
               fill
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+              className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/20" />
           </>
         ) : (
-          <Icon className="absolute bottom-4 right-4 text-white/20 transition-transform duration-300 group-hover:scale-110" size={100} strokeWidth={1} />
+          <Icon
+            className="absolute bottom-8 right-8 text-white/20 transition-transform duration-500 group-hover:scale-110"
+            size={120}
+            strokeWidth={0.8}
+          />
         )}
       </div>
 
-      {/* Card Info */}
-      <div className="p-5 md:p-6">
-        <p className="text-xs text-slate-400 uppercase tracking-wider mb-1.5">
-          {card.category}
-        </p>
-        <p className="text-xl md:text-2xl font-semibold text-white">
-          {card.title}
-        </p>
-      </div>
+      {/* Boton "+" */}
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onClick?.();
+        }}
+        className={cn(
+          "absolute bottom-4 right-4 z-20",
+          "w-10 h-10 rounded-full",
+          "bg-slate-800/80 backdrop-blur-sm",
+          "flex items-center justify-center",
+          "text-white/90",
+          "transition-all duration-300",
+          "hover:bg-slate-700 hover:scale-110"
+        )}
+        aria-label={`Ver detalles de ${card.title}`}
+      >
+        <Plus size={20} strokeWidth={2} />
+      </button>
     </motion.div>
   );
 }

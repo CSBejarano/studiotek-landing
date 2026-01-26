@@ -8,26 +8,26 @@ const stats = [
   {
     value: 40,
     suffix: '%',
-    label: 'Reduccion de costes',
-    description: 'promedio en operaciones',
+    label: 'menos costes',
+    description: 'operativos de media',
   },
   {
     value: 150,
     suffix: '+',
-    label: 'Proyectos completados',
-    description: 'con exito',
+    label: 'proyectos',
+    description: 'completados con éxito',
   },
   {
     value: 98,
     suffix: '%',
-    label: 'Satisfaccion del cliente',
-    description: 'indice de retencion',
+    label: 'satisfacción',
+    description: 'de nuestros clientes',
   },
   {
     value: 24,
     suffix: '/7',
-    label: 'Soporte disponible',
-    description: 'para tu negocio',
+    label: 'disponibilidad',
+    description: 'atención automatizada',
   },
 ];
 
@@ -48,10 +48,10 @@ export function Stats() {
       <div className="relative z-10 max-w-7xl mx-auto px-4">
         <BlurFade delay={0.1} inView>
           <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-4">
-            Resultados que hablan por si solos
+            Resultados que hablan por sí solos
           </h2>
           <p className="text-slate-400 text-center max-w-xl mx-auto mb-16">
-            Numeros reales de clientes que han transformado su negocio con nuestras soluciones
+            Números reales de clientes que han transformado su negocio con nuestras soluciones
           </p>
         </BlurFade>
 
