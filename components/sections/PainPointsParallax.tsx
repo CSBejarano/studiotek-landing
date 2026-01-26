@@ -21,8 +21,8 @@ const painPoints: PainPoint[] = [
     subheading: 'Automatiza',
     heading: 'Pierdes 15+ horas/semana en tareas repetitivas',
     contentTitle: 'El tiempo perdido no vuelve',
-    description: 'Cada minuto en tareas manuales es un minuto menos para crecer tu negocio. Las PYMEs pierden una media de 15 horas semanales en procesos que podrían automatizarse.',
-    secondaryDescription: 'Con la automatización adecuada, tu equipo puede enfocarse en lo que realmente importa: hacer crecer el negocio.',
+    description: 'Cada minuto en tareas manuales es tiempo que no dedicas a crecer. Las PYMEs pierden 15 horas semanales en procesos automatizables.',
+    secondaryDescription: 'Automatiza y enfoca a tu equipo en lo que realmente importa: hacer crecer el negocio.',
     image: '/images/generated/pain-sin-tiempo.webp',
   },
   {
@@ -31,8 +31,8 @@ const painPoints: PainPoint[] = [
     subheading: 'Colabora',
     heading: 'Tu equipo está quemado',
     contentTitle: 'El burnout afecta a todos',
-    description: 'El burnout no es solo un problema de bienestar, es un problema de negocio. Empleados agotados cometen más errores, son menos productivos y tienen mayor rotación.',
-    secondaryDescription: 'La automatización elimina las tareas repetitivas que drenan la energia de tu equipo.',
+    description: 'Empleados agotados cometen más errores, rinden menos y rotan más. El burnout no es solo bienestar, es un problema de negocio.',
+    secondaryDescription: 'La automatización elimina las tareas repetitivas que drenan la energía de tu equipo.',
     image: '/images/generated/pain-procesos-manuales.webp',
   },
   {
@@ -42,7 +42,7 @@ const painPoints: PainPoint[] = [
     heading: 'Pierdes clientes fuera de horario',
     contentTitle: 'Tu competencia nunca duerme',
     description: 'Mientras duermes, tu competencia cierra ventas. Los clientes esperan respuestas inmediatas, sin importar la hora.',
-    secondaryDescription: 'Un asistente IA puede atender consultas 24/7, cualificando leads y cerrando citas automaticamente.',
+    secondaryDescription: 'Un asistente IA atiende 24/7, cualifica leads y cierra citas automáticamente.',
     image: '/images/generated/pain-competencia.webp',
   },
   {
@@ -50,9 +50,9 @@ const painPoints: PainPoint[] = [
     icon: Database,
     subheading: 'Analiza',
     heading: 'Datos dispersos, decisiones a ciegas',
-    contentTitle: 'Sin datos, solo intuicion',
-    description: 'Sin datos unificados, cada decisión es una apuesta. La información dispersa en hojas de cálculo, emails y sistemas desconectados impide ver el panorama completo.',
-    secondaryDescription: 'Centraliza tus datos y toma decisiones basadas en información real, no en corazonadas.',
+    contentTitle: 'Sin datos, solo intuición',
+    description: 'Información dispersa en Excel, emails y sistemas desconectados. Sin visión completa, cada decisión es una apuesta.',
+    secondaryDescription: 'Centraliza tus datos y decide con información real, no con corazonadas.',
     image: '/images/generated/pain-datos.webp',
   }
 ];

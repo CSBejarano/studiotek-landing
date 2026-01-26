@@ -12,68 +12,68 @@ const services = [
   {
     title: 'Implementación de IA',
     description:
-      'Automatizamos tus procesos clave en 4 semanas. Desde chatbots que responden 24/7 hasta sistemas que eliminan el trabajo manual repetitivo.',
+      'Automatiza tus procesos clave en 4 semanas. Chatbots 24/7, flujos automáticos y cero trabajo manual repetitivo.',
     icon: Rocket,
     gradient: 'from-blue-600 to-indigo-600',
     features: [
-      'Chatbots inteligentes con IA conversacional',
+      'Chatbots con IA conversacional',
       'Automatización de procesos repetitivos',
       'Integraciones con tu stack existente',
-      'Dashboards de monitoreo en tiempo real',
-      'APIs personalizadas para tu negocio',
+      'Dashboards en tiempo real',
+      'APIs personalizadas',
       'Soporte técnico 24/7'
     ],
-    benefits: ['Reduce hasta 70% el tiempo en tareas manuales', 'Disponibilidad 24/7 para tus clientes'],
+    benefits: ['Reduce 70% el tiempo en tareas manuales', 'Disponibilidad 24/7'],
     shimmerGradient: { from: '#2563eb', to: '#4f46e5' },
     image: '/images/generated/service-implementacion-ia.webp',
   },
   {
     title: 'Consultoría Estratégica',
     description:
-      'Analizamos tu negocio y diseñamos un plan de automatización con ROI claro. Sabrás exactamente cuánto vas a ahorrar antes de empezar.',
+      'Analizamos tu negocio y diseñamos un plan con ROI claro. Sabrás cuánto ahorrarás antes de empezar.',
     icon: Lightbulb,
     gradient: 'from-amber-500 to-orange-600',
     features: [
       'Auditoría completa de procesos',
       'Identificación de cuellos de botella',
-      'Roadmap de implementación detallado',
+      'Roadmap de implementación',
       'Cálculo de ROI proyectado',
       'Priorización de iniciativas',
       'Benchmarking con la industria'
     ],
-    benefits: ['Claridad total sobre dónde invertir', 'Decisiones basadas en datos'],
+    benefits: ['Claridad sobre dónde invertir', 'Decisiones basadas en datos'],
     shimmerGradient: { from: '#f59e0b', to: '#ea580c' },
     image: '/images/generated/service-consultoria.webp',
   },
   {
     title: 'Formación y Capacitación',
     description:
-      'Tu equipo domina las herramientas de IA en días, no meses. Formación práctica con casos reales de tu sector.',
+      'Tu equipo domina la IA en días, no meses. Formación práctica con casos reales de tu sector.',
     icon: GraduationCap,
     gradient: 'from-emerald-500 to-teal-600',
     features: [
       'Workshops prácticos hands-on',
       'Certificaciones oficiales',
-      'Material de formación actualizado',
+      'Material actualizado',
       'Sesiones de seguimiento',
-      'Casos de uso reales de tu industria',
+      'Casos de uso de tu industria',
       'Soporte post-formación'
     ],
-    benefits: ['Equipo autónomo y capacitado', 'Adopción rápida de nuevas herramientas'],
+    benefits: ['Equipo autónomo y capacitado', 'Adopción rápida'],
     shimmerGradient: { from: '#10b981', to: '#0d9488' },
     image: '/images/generated/service-formacion.webp',
   },
   {
-    title: 'Procesos de IA Personalizada',
+    title: 'IA Personalizada',
     description:
-      'Desarrollamos soluciones a medida para los desafíos únicos de tu negocio. IA entrenada con tus datos, funcionando en tu infraestructura.',
+      'Soluciones a medida para tus desafíos únicos. IA entrenada con tus datos, en tu infraestructura.',
     icon: Cpu,
     gradient: 'from-rose-500 to-pink-600',
     features: [
-      'Modelos de ML personalizados',
+      'Modelos ML personalizados',
       'Fine-tuning de LLMs',
       'Entrenamiento con tus datos',
-      'Deploy en cloud o on-premise',
+      'Deploy en cloud u on-premise',
       'Monitoreo y reentrenamiento',
       'Escalabilidad garantizada'
     ],

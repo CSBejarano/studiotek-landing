@@ -11,16 +11,16 @@ const painPoints = [
     icon: Clock,
     title: "Pierdes 15+ horas/semana en tareas repetitivas",
     description:
-      "Mientras gestionas emails, WhatsApps y reservas manualmente, tu competencia automatiza y escala. Cada hora perdida son clientes que no atiendes.",
+      "Tu competencia automatiza mientras gestionas emails y reservas a mano. Cada hora perdida son clientes que no atiendes.",
     gradient: "from-slate-500 to-slate-600",
     glowColor: "purple" as const,
     image: "/images/generated/pain-procesos-manuales.png",
   },
   {
     icon: Users,
-    title: "Tu equipo esta quemado",
+    title: "Tu equipo está quemado",
     description:
-      "Responder los mismos mensajes una y otra vez agota. La automatizacion libera a tu equipo para lo que realmente importa: atender bien a los clientes.",
+      "Responder lo mismo una y otra vez agota. La automatización libera a tu equipo para lo importante: atender bien.",
     gradient: "from-slate-500 to-slate-600",
     glowColor: "indigo" as const,
     image: "/images/generated/pain-sin-tiempo.png",
@@ -29,7 +29,7 @@ const painPoints = [
     icon: Moon,
     title: "Pierdes clientes fuera de horario",
     description:
-      "El 60% de las consultas llegan fuera de horario laboral. Sin atencion 24/7, esos clientes se van a la competencia.",
+      "El 60% de las consultas llegan fuera de horario. Sin atención 24/7, esos clientes se van a la competencia.",
     gradient: "from-slate-500 to-slate-600",
     glowColor: "violet" as const,
     image: "/images/generated/pain-competencia.png",
@@ -38,7 +38,7 @@ const painPoints = [
     icon: Database,
     title: "Datos dispersos, decisiones a ciegas",
     description:
-      "Tienes informacion valiosa en hojas de calculo, WhatsApp y emails. Sin unificarla, pierdes oportunidades de venta.",
+      "Información valiosa en Excel, WhatsApp y emails. Sin unificarla, pierdes oportunidades de venta.",
     gradient: "from-slate-500 to-slate-600",
     glowColor: "purple" as const,
     image: "/images/generated/pain-datos.png",

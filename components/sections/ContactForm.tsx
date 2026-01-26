@@ -83,7 +83,7 @@ export function ContactForm() {
         console.error('Lead save failed, continuing...');
       }
 
-      // 2. Enviar email de confirmacion
+      // 2. Enviar email de confirmación
       await fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -97,7 +97,7 @@ export function ContactForm() {
       reset();
     } catch (error) {
       console.error(error);
-      // UX: mostrar exito de todas formas
+      // UX: mostrar éxito de todas formas
       setStatus('success');
       reset();
     }

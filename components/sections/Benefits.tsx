@@ -8,9 +8,9 @@ import { ShimmerButton } from '@/components/magicui/shimmer-button';
 
 const benefits = [
   {
-    title: 'Ahorra 2.500€/mes en operativa',
+    title: 'Ahorra 2.500 euros/mes',
     description:
-      'Reduce un 40% los costes automatizando tareas repetitivas. Sin errores, sin horas extra, sin estrés.',
+      'Reduce un 40% los costes automatizando tareas repetitivas. Cero errores, cero horas extra.',
     gradient: 'from-blue-500 to-cyan-500',
     shimmerGradient: { from: '#3b82f6', to: '#06b6d4' },
     shineColor: ['#06b6d4', '#3b82f6', '#06b6d4'],
@@ -20,7 +20,7 @@ const benefits = [
   {
     title: 'Atiende 3x más clientes',
     description:
-      'Procesos 5x más rápidos significan más clientes atendidos al día. Crece sin contratar.',
+      'Procesos 5x más rápidos = más clientes atendidos al día. Crece sin contratar.',
     gradient: 'from-purple-500 to-pink-500',
     shimmerGradient: { from: '#a855f7', to: '#ec4899' },
     shineColor: ['#ec4899', '#a855f7', '#ec4899'],
@@ -30,7 +30,7 @@ const benefits = [
   {
     title: 'Nunca pierdas un cliente',
     description:
-      'Respuesta instantánea 24/7. El 98% de nuestros clientes reportan mayor satisfacción de sus usuarios.',
+      'Respuesta instantánea 24/7. El 98% de clientes reporta mayor satisfacción de usuarios.',
     gradient: 'from-orange-500 to-red-500',
     shimmerGradient: { from: '#f97316', to: '#ef4444' },
     shineColor: ['#ef4444', '#f97316', '#ef4444'],

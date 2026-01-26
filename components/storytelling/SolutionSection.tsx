@@ -9,17 +9,17 @@ import { DotPattern } from "@/components/magicui/dot-pattern";
 const solutions = [
   {
     icon: Zap,
-    title: "Automatizacion que trabaja por ti",
+    title: "Automatización que trabaja por ti",
     description:
-      "Reservas, confirmaciones, recordatorios... todo automatico. Tu equipo se enfoca en atender, no en gestionar.",
+      "Reservas, confirmaciones, recordatorios... todo automático. Tu equipo atiende, no gestiona.",
     gradient: "from-blue-500 to-cyan-500",
     glowColor: "blue" as const,
   },
   {
     icon: Headphones,
-    title: "Atencion 24/7 sin contratar",
+    title: "Atención 24/7 sin contratar",
     description:
-      "Un asistente IA responde WhatsApp, email y web a cualquier hora. Tus clientes siempre atendidos.",
+      "Un asistente IA responde WhatsApp, email y web a cualquier hora. Clientes siempre atendidos.",
     gradient: "from-cyan-500 to-emerald-500",
     glowColor: "cyan" as const,
   },
@@ -27,13 +27,13 @@ const solutions = [
     icon: BarChart,
     title: "Datos que generan ventas",
     description:
-      "Dashboard en tiempo real con metricas que importan. Sabes exactamente que funciona y que mejorar.",
+      "Dashboard en tiempo real con métricas clave. Sabrás qué funciona y qué mejorar.",
     gradient: "from-emerald-500 to-blue-500",
     glowColor: "emerald" as const,
   },
   {
     icon: TrendingUp,
-    title: "Escalas sin limites",
+    title: "Escala sin límites",
     description:
       "Atiende el doble de clientes con los mismos recursos. La IA crece contigo.",
     gradient: "from-blue-500 to-indigo-500",
@@ -82,7 +82,7 @@ export function SolutionSection() {
               delay={0.1}
               duration={0.6}
             >
-              Asi transformamos tu negocio
+              Así transformamos tu negocio
             </TextAnimate>
           </BlurFade>
 

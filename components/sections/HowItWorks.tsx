@@ -28,7 +28,7 @@ const steps = [
   {
     number: '01',
     title: 'Analizamos tu negocio',
-    description: 'Identificamos los procesos que más tiempo te quitan y diseñamos la solución perfecta.',
+    description: 'Identificamos qué procesos te roban más tiempo y diseñamos la solución ideal.',
     gradient: 'from-blue-500 to-cyan-500',
     cardGradient: 'from-blue-500/20 to-cyan-500/20',
     glowColor: '59, 130, 246',
@@ -37,7 +37,7 @@ const steps = [
   {
     number: '02',
     title: 'Diseñamos la estrategia',
-    description: 'Creamos un plan de automatización con objetivos claros y ROI definido.',
+    description: 'Plan de automatización con objetivos claros y ROI definido.',
     gradient: 'from-violet-500 to-purple-500',
     cardGradient: 'from-violet-500/20 to-purple-500/20',
     glowColor: '139, 92, 246',
@@ -46,7 +46,7 @@ const steps = [
   {
     number: '03',
     title: 'Implementamos la IA',
-    description: 'Desarrollamos y desplegamos tu solución en semanas, no meses.',
+    description: 'Tu solución lista en semanas, no meses.',
     gradient: 'from-amber-500 to-orange-500',
     cardGradient: 'from-amber-500/20 to-orange-500/20',
     glowColor: '245, 158, 11',
@@ -55,7 +55,7 @@ const steps = [
   {
     number: '04',
     title: 'Monitorizamos resultados',
-    description: 'Seguimiento continuo para asegurar que todo funciona perfectamente.',
+    description: 'Seguimiento continuo para garantizar el rendimiento.',
     gradient: 'from-emerald-500 to-green-500',
     cardGradient: 'from-emerald-500/20 to-green-500/20',
     glowColor: '16, 185, 129',
@@ -64,7 +64,7 @@ const steps = [
   {
     number: '05',
     title: 'Optimizamos sin parar',
-    description: 'Mejoras constantes basadas en datos reales de tu negocio.',
+    description: 'Mejoras constantes basadas en datos reales.',
     gradient: 'from-pink-500 to-rose-500',
     cardGradient: 'from-pink-500/20 to-rose-500/20',
     glowColor: '236, 72, 153',
@@ -73,7 +73,7 @@ const steps = [
   {
     number: '06',
     title: 'Tu negocio transformado',
-    description: 'Disfrutas de un negocio más eficiente, rentable y escalable.',
+    description: 'Más eficiente, rentable y listo para escalar.',
     gradient: 'from-teal-500 to-cyan-500',
     cardGradient: 'from-teal-500/20 to-cyan-500/20',
     glowColor: '20, 184, 166',
