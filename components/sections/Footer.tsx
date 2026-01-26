@@ -20,8 +20,8 @@ const navigationLinks = [
 ];
 
 const legalLinks = [
-  { label: 'Politica de Privacidad', href: '/politica-privacidad' },
-  { label: 'Politica de Cookies', href: '/politica-cookies' },
+  { label: 'Política de Privacidad', href: '/politica-privacidad' },
+  { label: 'Política de Cookies', href: '/politica-cookies' },
 ];
 
 export function Footer() {

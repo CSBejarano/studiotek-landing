@@ -87,13 +87,13 @@ export function Hero() {
             delay={0.2}
             duration={0.8}
           >
-            Automatiza tu negocio con IA y ahorra un 40% en costes
+            Automatización IA para empresas: ahorra 40% en costes operativos
           </TextAnimate>
         </BlurFade>
 
         <BlurFade delay={0.4} inView>
           <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mt-6 mb-12">
-            En 4 semanas, tu negocio funciona 24/7. Sin contratar más personal. Sin tareas manuales.
+            Implementamos inteligencia artificial que automatiza procesos en tu empresa. Atención al cliente 24/7, tareas repetitivas eliminadas. Empresas españolas ya ahorran 2.500€/mes con nuestras soluciones.
           </p>
         </BlurFade>
 
