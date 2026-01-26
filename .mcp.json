@@ -2,7 +2,26 @@
   "mcpServers": {
     "server-sequential-thinking": {
       "command": "npx",
-      "args": ["@modelcontextprotocol/server-sequential-thinking"],
+      "args": [
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "approvals": {
+        "ReadApplicationState": "approved",
+        "ChangeApplicationState": "approved",
+        "RunCommands": "approved"
+      }
+    },
+    "serena": {
+      "command": "/opt/homebrew/bin/uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--project",
+        "ideas-frontend"
+      ],
+      "description": "Serena with auto-activation for Ideas project",
       "approvals": {
         "ReadApplicationState": "approved",
         "ChangeApplicationState": "approved",
@@ -15,11 +34,54 @@
     },
     "shadcn": {
       "command": "npx",
-      "args": ["shadcn@latest", "mcp"]
+      "args": [
+        "shadcn@latest",
+        "mcp"
+      ]
     },
     "@magicuidesign/mcp": {
       "command": "npx",
-      "args": ["-y", "@magicuidesign/mcp@latest"]
+      "args": [
+        "-y",
+        "@magicuidesign/mcp@latest"
+      ]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest"
+      ]
     }
+  },
+  "_comments": {
+    "serena_version": "2.0 - Enhanced",
+    "serena_info": "Auto-activates Ideas project with expanded toolset",
+    "serena_loaded_tools": [
+      "--- Navigation ---",
+      "read_file, find_symbol, get_symbols_overview",
+      "search_for_pattern, list_dir, find_file",
+      "--- Editing ---",
+      "replace_symbol_body, replace_content, replace_lines",
+      "insert_at_line, delete_lines, create_text_file",
+      "--- Project Management ---",
+      "check_onboarding_performed, get_current_config, switch_modes",
+      "--- Memory ---",
+      "write_memory, read_memory, list_memories",
+      "--- Analysis ---",
+      "find_referencing_symbols"
+    ],
+    "serena_excluded_count": "15 tools excluded",
+    "token_summary": {
+      "loaded": "18 tools, ~12k tokens",
+      "excluded": "15 tools, ~11k tokens",
+      "balance": "Optimized for functionality over minimal tokens"
+    },
+    "auto_activation": {
+      "enabled": true,
+      "project": "/Users/cristianbejaranomendez/Documents/GitHub/ideas-frontend",
+      "settings_dir": ".serena/"
+    },
+    "restart_required": "Restart Claude Code after modifying this file or .serena/project.yml"
   }
 }

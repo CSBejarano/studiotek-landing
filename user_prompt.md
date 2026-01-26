@@ -1,97 +1,113 @@
-# Modal Navigation Carousel - COMPLETADO
+# Proximas Tareas - Unificar PainPoints + Solution con Parallax Scroll
 
-> **Fecha:** 2026-01-15
-> **Branch:** main
-> **Plan:** .claude/plans/2026-01-15_modal-navigation-carousel.md
-> **Modo:** WORKFLOW COMPLETE
+> **Fecha:** 2026-01-26
+> **Plan:** ai_docs/plans/2026-01-26_unificar-painpoints-solution-parallax.md
+> **Mode:** FAST
+> **Estado:** READY FOR EXECUTION
 
-## Estado: COMPLETE + HOTFIX APLICADO
+## Resumen del Proyecto
 
-| Phase | Status   | Agent     | Description                                            |
-| ----- | -------- | --------- | ------------------------------------------------------ |
-| 0     | COMPLETE | @infra    | Pre-flight check - verificar archivos y build          |
-| 1     | COMPLETE | @frontend | Crear ServiceModal.tsx con navegacion                  |
-| 2     | COMPLETE | @frontend | Simplificar CarouselCard.tsx (sin modal)               |
-| 3     | COMPLETE | @frontend | Integrar modal en Services.tsx con estado centralizado |
-| 4     | COMPLETE | @testing  | QA y build final                                       |
-| 5     | COMPLETE | @frontend | Hotfix: botones dentro de containerRef                 |
+Mejora visual de la landing page unificando las secciones PainPoints y Solution:
+- Crear componente TextParallaxContent con framer-motion
+- Crear componente ProblemSolutionParallax que unifica problema y solucion
+- Eliminar SocialProof (redundante con Stats)
+- Eliminar imports de PainPointsSection y SolutionSection
+- Efecto parallax scroll con sticky images y text overlays
 
-## Completion Promise ACHIEVED
+## Fases
 
-```
-Modal navigation implementado - usuario puede navegar entre servicios sin cerrar modal
-```
-
-## Features Implementadas
-
-### Navegacion en Modal
-- Botones de flecha a los lados del modal (izquierda/derecha)
-- Estilo consistente con botones del carousel
-- Transicion suave entre servicios (AnimatePresence mode="wait")
-
-### Keyboard Navigation
-- ArrowLeft -> servicio anterior
-- ArrowRight -> servicio siguiente
-- Escape -> cerrar modal
-
-### Accesibilidad
-- aria-label en botones de navegacion
-- role="dialog" en modal
-- aria-modal="true"
-
-### Hotfix Aplicado
-- Botones de navegacion movidos dentro de containerRef
-- Fix: useOutsideClick ya no cierra modal al clickear botones de navegacion
-
-## Arquitectura Final
-
-```
-Services.tsx (estado centralizado: openIndex)
-    |
-    +-- CarouselCard (solo tarjeta, onClick -> handleOpen)
-    |
-    +-- Portal -> ServiceModal (navegacion: onNext, onPrev)
-                  |
-                  +-- Botones navegacion (DENTRO de containerRef)
-```
+| Phase | Status | Agent | Description |
+|-------|--------|-------|-------------|
+| 1 | PENDING | @frontend | Crear TextParallaxContent.tsx |
+| 2 | PENDING | @frontend | Crear ProblemSolutionParallax.tsx |
+| 3 | PENDING | @frontend | Actualizar app/page.tsx |
+| 4 | PENDING | @testing | Testing Visual |
+| 5 | PENDING | @gentleman | Code Review Final |
 
 ## Archivos
 
 ```yaml
-CREATED:
-  - components/ui/ServiceModal.tsx
+CREATE:
+  - components/sections/TextParallaxContent.tsx
+  - components/sections/ProblemSolutionParallax.tsx
 
-MODIFIED:
-  - components/ui/CarouselCard.tsx (simplificado 68%)
-  - components/sections/Services.tsx (estado + portal)
+MODIFY:
+  - app/page.tsx
+
+REMOVE_FROM_PAGE (imports):
+  - SocialProof
+  - PainPointsSection
+  - SolutionSection
 ```
 
-## Decisiones Implementadas
+## Para Ejecutar
 
-| ID    | Decision                                                              |
-| ----- | --------------------------------------------------------------------- |
-| SL044 | Estado centralizado en padre, modal unico via portal                  |
-| SL045 | ArrowLeft/ArrowRight para navegar, Escape para cerrar                 |
-| SL046 | AnimatePresence mode="wait" para transiciones suaves                  |
-| SL047 | Botones de navegacion dentro de containerRef para evitar useOutsideClick |
+Usa el comando `/ralph-execute` para ejecutar este plan.
+
+```bash
+/ralph-execute
+```
+
+Opciones disponibles:
+- `--max-iterations=N` - Limitar numero de iteraciones
+- `--resume` - Continuar desde ultima fase completada
 
 ## Quick Commands
 
 ```bash
-# Development
-npm run dev
+# Ver plan completo
+cat ai_docs/plans/2026-01-26_unificar-painpoints-solution-parallax.md
 
-# Test modal navigation
-# 1. Ir a seccion Services
-# 2. Click en cualquier card -> modal se abre
-# 3. Click en flechas laterales -> navegar entre servicios
-# 4. Teclas ←/→ -> navegacion por teclado
-# 5. Escape o click fuera -> cerrar modal
+# Ver estado del workflow
+cat ai_docs/state/WORKFLOW-STATUS.yaml
 
-# Build
-npm run build
+# Ejecutar el plan
+/ralph-execute
 ```
 
----
+## Checkpoints de Verificacion
 
-**Last Updated:** 2026-01-15T17:30:00Z
+| Fase | Checkpoint | Comando |
+|------|------------|---------|
+| 1 | TextParallaxContent compila | `npm run build` |
+| 2 | ProblemSolutionParallax compila | `npm run build` |
+| 3 | page.tsx actualizado | `npm run build` |
+| 4 | Visual test pass | `npm run dev` |
+| 5 | Review approved | `echo APPROVED` |
+
+## Nuevo Orden de Secciones (post-ejecucion)
+
+1. Hero
+2. **ProblemSolutionParallax** (NUEVO - reemplaza SocialProof + PainPoints + Solution)
+3. Benefits
+4. Services
+5. SectionDivider
+6. HowItWorks
+7. Stats
+8. ContactForm
+
+## Estimaciones
+
+- **Tiempo total:** 10-20 minutos de ejecucion
+- **Complejidad:** 5/10 (FAST mode)
+- **Fases:** 5
+- **Agentes:** @frontend (3 fases), @testing (1 fase), @gentleman (1 fase)
+- **Archivos creados:** 2
+- **Archivos modificados:** 1
+
+## Dependencias Verificadas
+
+- framer-motion: ^12.26.2 (instalado)
+- lucide-react: ^0.562.0 (instalado)
+
+## Riesgos Identificados
+
+| Riesgo | Probabilidad | Mitigacion |
+|--------|--------------|------------|
+| framer-motion API changed | Baja | Verificar docs v12.x |
+| Sticky positioning fails | Media | Probar overflow settings |
+| Performance jank on mobile | Media | Test en dispositivos |
+| Import paths incorrect | Baja | Usar @/ alias |
+
+---
+*Generado por /plan-task v5.0 - 2026-01-26*
