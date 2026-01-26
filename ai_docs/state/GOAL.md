@@ -1,8 +1,8 @@
 # GOAL - Estado Actual del Proyecto
 
-## Status: IDLE - LANDING COMPLETE + AI CHAT ENHANCED
+## Status: IDLE - LANDING COMPLETE
 
-La landing page de StudioTek esta funcionalmente completa con AI chat mejorado.
+La landing page de StudioTek esta funcionalmente completa con todas las features implementadas.
 
 **Production URL:** https://studiotek-landing-fsw63i0gi-csbejaranos-projects.vercel.app
 **GitHub:** https://github.com/CSBejarano/studiotek-landing
@@ -12,71 +12,42 @@ La landing page de StudioTek esta funcionalmente completa con AI chat mejorado.
 
 | Campo | Valor |
 |-------|-------|
-| ID | `2026-01-19_ai-chat-enhancement` |
-| Duracion | ~90 minutos |
-| Resultado | AI Chat con reconocimiento hibrido de voz |
+| ID | `2026-01-24_fix-chat-ia-movil-4bugs` |
+| Duracion | ~135 minutos |
+| Resultado | TTS funciona en todos los casos + Placeholder optimizado |
 
-## AI Chat Enhancement - Feature Principal
+## Features Completos
 
-### Arquitectura de Reconocimiento de Voz
-```
-┌─────────────────────────────────────────────────────┐
-│                  AI CHAT INPUT                      │
-├─────────────────────────────────────────────────────┤
-│                                                     │
-│  ┌─────────────────┐    ┌─────────────────┐        │
-│  │  Web Speech API │    │  OpenAI Whisper │        │
-│  │   (PRIMARY)     │ OR │   (FALLBACK)    │        │
-│  │   Green LED     │    │    Red LED      │        │
-│  └────────┬────────┘    └────────┬────────┘        │
-│           │                      │                  │
-│           │   Network Error?     │                  │
-│           └──────────────────────┘                  │
-│                      │                              │
-│                      v                              │
-│              Transcription                          │
-│       (Real-time or 2.5s intervals)                │
-│                      │                              │
-│                      v                              │
-│           Expandable Textarea                       │
-│            (max 150px height)                       │
-└─────────────────────────────────────────────────────┘
-```
+### PRD Progress
 
-### Cambios Implementados
+| Phase | Status |
+|-------|--------|
+| 1-10. Landing Base | COMPLETE |
+| Apple Cards Carousel | COMPLETE |
+| Cookie Banner + RGPD | COMPLETE |
+| Supabase Integration | COMPLETE |
+| Images Generation | COMPLETE (15 imgs) |
+| Voice Agent | COMPLETE |
+| AI Chat Enhanced | COMPLETE |
+| Mobile Fixes | COMPLETE |
 
-| Cambio | Descripcion |
-|--------|-------------|
-| **Whisper Fallback** | Auto-activacion cuando Web Speech falla |
-| **STT Endpoint** | Nuevo `/api/voice/stt` con Whisper API |
-| **Real-time Whisper** | Transcripcion cada 2.5s durante grabacion |
-| **Expandable Input** | Textarea auto-resize (max 150px) |
-| **UI Centering** | Input y placeholder centrados |
-| **Visual Indicators** | Verde = Web Speech, Rojo = Whisper |
+### Ultimo Fix - Mobile Chat IA
 
-### Archivos Modificados/Creados
+| Bug | Solucion | Commit |
+|-----|----------|--------|
+| TTS no funcionaba para voz | Habilitar TTS para todos los inputs | 220f1db |
+| Placeholder se truncaba | Remover padding derecho innecesario | 1cf9f86 |
+| Placeholder visible procesando | Ocultar durante isProcessing | 655f36c |
+| Microfono iOS/Android | Permisos MediaRecorder correctos | 59eaa20 |
 
-**Nuevo:**
-- `app/api/voice/stt/route.ts` - Endpoint Whisper STT
+## Git - Ultimos Commits
 
-**Modificado:**
-- `components/ui/ai-chat-input.tsx` - Reescritura mayor:
-  - Reconocimiento hibrido
-  - Textarea expandible
-  - Transcripcion periodica
-  - UI centrada
-
-## Git - Ultimo Commit
-
-```
-f728e1e feat: enhance AI chat with hybrid voice recognition and expandable input
-
-- Add Whisper fallback for Web Speech API network errors
-- Implement real-time periodic transcription in Whisper mode (every 2.5s)
-- Change input to auto-resizing textarea for long messages
-- Center input and placeholder in container
-- Add new /api/voice/stt endpoint for Whisper transcription
-- Visual indicators: green for Web Speech, red for Whisper mode
+```text
+b8dda91 feat: Apple-style service cards + performance optimization
+655f36c fix: TTS for voice input + hide placeholder during processing
+220f1db fix: enable TTS for all responses (voice and text input)
+1cf9f86 fix: placeholder truncation - remove unnecessary right padding
+39fad9e fix: TTS response for voice input + placeholder overflow on mobile
 ```
 
 ## Integraciones Activas
@@ -89,18 +60,6 @@ f728e1e feat: enhance AI chat with hybrid voice recognition and expandable input
 | GitHub | ACTIVO | Repositorio de codigo |
 | Gemini | ACTIVO | Generacion de imagenes |
 | Resend | PENDIENTE | Emails de confirmacion |
-
-## PRD Progress
-
-| Phase | Status |
-|-------|--------|
-| 1-10. Landing Base | COMPLETE |
-| Apple Cards Carousel | COMPLETE |
-| Cookie Banner + RGPD | COMPLETE |
-| Supabase Integration | COMPLETE |
-| Images Generation | COMPLETE (15 imgs) |
-| Voice Agent | COMPLETE |
-| **AI Chat Enhanced** | **COMPLETE** |
 
 ## Quick Start
 
@@ -123,6 +82,6 @@ vercel deploy --prod
 
 ---
 
-**AI Chat Enhanced - Hybrid Voice Recognition + Whisper Fallback + Expandable Input**
+**Landing Complete - Ready for New Features**
 
-**Ultima actualizacion:** 2026-01-19T15:30:00Z
+**Ultima actualizacion:** 2026-01-26

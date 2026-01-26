@@ -5,14 +5,14 @@
 domain_id: "testing"
 display_name: "Testing Engineer"
 version: "1.0"
-updated_at: "2026-01-15T12:00:00Z"
-tasks_handled: 3
+updated_at: "2026-01-26T10:35:00Z"
+tasks_handled: 5
 success_rate: 1.0
 
 # Configuracion de clasificacion
 keywords:
   primary: ["test", "lint", "build", "validation", "qa"]
-  secondary: ["eslint", "typescript", "responsive"]
+  secondary: ["eslint", "typescript", "responsive", "parallax", "playwright"]
   file_patterns: ["**/*.test.ts", "**/*.spec.ts"]
   exclude: []
 
@@ -23,17 +23,23 @@ context:
     - "npm run lint para codigo limpio"
     - "Verificacion visual de componentes"
     - "Responsive testing en DevTools"
+    - "Parallax scroll con Framer Motion"
+    - "Playwright para E2E testing automatizado"
   common_patterns:
     - "Build antes de merge"
     - "Lint check despues de cada cambio"
     - "Visual inspection para landing pages"
+    - "Verificar animaciones scroll-based"
+    - "Playwright para verificacion automatizada de UI"
   anti_patterns:
     - "No ignorar errores de lint"
     - "No saltar verificacion responsive"
+    - "No confiar solo en build - verificar visualmente parallax"
   preferred_tools:
     - "Bash para npm commands"
     - "Read para verificar codigo"
     - "Glob para listar archivos"
+    - "Playwright para E2E visual testing"
 
 # Decisiones del dominio (StudioTek Landing)
 decisions:
@@ -51,9 +57,36 @@ decisions:
     decision: "Ignorar errores en .claude/skills/*/examples/ - no son codigo de produccion"
     rationale: "Ejemplos de documentacion, no afectan el build"
     confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-13"
+    validated_count: 2
+    last_used: "2026-01-26"
     tags: ["lint", "examples", "ignore"]
+
+  - id: "SLT003"
+    context: "React 19 setState-in-effect warnings"
+    decision: "Warnings de setState en useEffect para hydration son aceptables"
+    rationale: "Es un patron comun de Next.js para manejar SSR hydration mismatch"
+    confidence: 0.85
+    validated_count: 1
+    last_used: "2026-01-26"
+    tags: ["lint", "react-19", "hydration"]
+
+  - id: "SLT004"
+    context: "Parallax scroll testing strategy"
+    decision: "Verificar implementacion en codigo + visual manual; Framer Motion maneja animaciones"
+    rationale: "useScroll y useTransform de Framer Motion son confiables, focus en visual check"
+    confidence: 0.90
+    validated_count: 2
+    last_used: "2026-01-26"
+    tags: ["parallax", "framer-motion", "visual"]
+
+  - id: "SLT005"
+    context: "Playwright E2E testing para landing pages"
+    decision: "Usar Playwright headless para verificacion automatizada de componentes UI"
+    rationale: "Permite verificar DOM, sticky elements, console errors y tomar screenshots de evidencia"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-26"
+    tags: ["playwright", "e2e", "visual", "automation"]
 
 # Blockers del dominio
 blockers: []
@@ -74,53 +107,82 @@ validation_checklist:
   responsive:
     - "Clases sm: presentes para mobile"
     - "Clases md: presentes para desktop"
+  parallax:
+    - "Imagen sticky con scale 1 -> 0.85"
+    - "Texto con opacity 0 -> 1 -> 0"
+    - "Seccion Problema con gradiente rojo"
+    - "Seccion Solucion con gradiente azul"
+    - "Grid responsive: 1 col mobile, 2 cols desktop"
+  playwright:
+    - "Page Load verificado"
+    - "Hero con 40% en H1"
+    - "ProblemSolutionParallax con sticky elements"
+    - "SocialProof NO presente"
+    - "Benefits section con cards"
+    - "ContactForm con form fields"
+    - "Console sin errores"
+    - "Parallax scroll funciona"
 
 # Last validation results
 last_validation:
-  date: "2026-01-15"
-  phase: "MODAL_NAVIGATION"
+  date: "2026-01-26"
+  phase: "PLAYWRIGHT_E2E_VERIFICATION"
   result: "SUCCESS"
-  criteria_passed: 5
-  criteria_total: 5
-  notes: "Modal navigation feature verificada. Build OK, ServiceModal.tsx existe con navegacion, CarouselCard.tsx sin createPortal, Services.tsx con ServiceModal integrado via portal"
+  criteria_passed: 8
+  criteria_total: 8
+  notes: |
+    Playwright E2E verification: ALL TESTS PASSED (8/8)
+
+    Test Results:
+    [PASS] Page Load: Page loaded successfully
+    [PASS] Hero Section: H1 found with "40%" text
+    [PASS] ProblemSolutionParallax: Section found, 2 sticky elements, overflow hidden
+    [PASS] SocialProof Removed: NOT FOUND (expected)
+    [PASS] Benefits Section: Found with 3 cards
+    [PASS] ContactForm Section: Found with form and 9 input fields
+    [PASS] Console Errors: No console errors
+    [PASS] Parallax Scroll: Sticky elements detected during scroll
+
+    Screenshots captured:
+    - evidence/screenshot-initial.png (full page initial)
+    - evidence/screenshot-parallax.png (parallax section)
+    - evidence/screenshot-final.png (full page after scroll)
+
+    Results JSON: evidence/verification-results.json
 
 # Final validation report
 final_report:
-  date: "2026-01-13T18:30:00Z"
+  date: "2026-01-26T10:35:00Z"
   criteria:
-    - id: "BUILD"
-      description: "npm run build: SUCCESS"
+    - id: "PAGE_LOAD"
+      description: "Pagina carga sin errores"
       status: "PASS"
-      details: "Next.js 16.1.1 Turbopack - Compiled successfully in 1467ms"
-    - id: "LINT"
-      description: "npm run lint: 0 errors en codigo de produccion"
-      status: "PASS"
-      details: "6 errores/warnings SOLO en .claude/skills/*/examples/ - no afecta produccion"
-    - id: "FILES"
-      description: "Todos los archivos requeridos existen"
-      status: "PASS"
-      details: "11 archivos de componentes + 2 archivos app + 1 lib verificados"
+      details: "localhost:3000 respondiendo HTTP 200, networkidle alcanzado"
     - id: "HERO"
-      description: "Hero con H1 correcto y 2 CTAs"
+      description: "Hero muestra 40% en el titulo"
       status: "PASS"
-      details: "H1='Automatiza tu negocio con Inteligencia Artificial', CTAs: Solicita consulta + Ver servicios"
+      details: "H1='Automatiza tu negocio con IA y ahorra un 40% en costos operativos'"
+    - id: "PARALLAX"
+      description: "ProblemSolutionParallax renderiza correctamente"
+      status: "PASS"
+      details: "Section bg-slate-950 encontrada, 2 sticky elements, overflow hidden"
+    - id: "SOCIAL_PROOF_REMOVED"
+      description: "SocialProof NO esta presente"
+      status: "PASS"
+      details: "No se encontro elemento con data-testid='social-proof'"
     - id: "BENEFITS"
-      description: "Benefits con 3 cards e iconos"
+      description: "Benefits section funciona"
       status: "PASS"
-      details: "Ahorro (PiggyBank), Eficiencia (Zap), Escalabilidad (TrendingUp)"
-    - id: "SERVICES"
-      description: "Services con 3 cards e iconos"
+      details: "Section #benefits encontrada con 3 cards"
+    - id: "CONTACT_FORM"
+      description: "ContactForm funciona"
       status: "PASS"
-      details: "Implementacion (Rocket), Consultoria (Lightbulb), Formacion (GraduationCap)"
-    - id: "CONTACTFORM"
-      description: "ContactForm con 5 campos y validacion Zod"
+      details: "Section #contact con form y 9 campos de input"
+    - id: "CONSOLE_CLEAN"
+      description: "Consola de Chrome sin errores"
       status: "PASS"
-      details: "nombre, email, empresa, presupuesto, mensaje - todos con validacion"
-    - id: "FOOTER"
-      description: "Footer con copyright 2026 y email"
+      details: "0 errores de consola capturados"
+    - id: "PARALLAX_SCROLL"
+      description: "Parallax scroll funciona (elementos sticky presentes)"
       status: "PASS"
-      details: "Copyright 2026 StudioTek, comunicacion@studiotek.es"
-    - id: "NAVIGATION"
-      description: "Smooth scroll funciona"
-      status: "PASS"
-      details: "Header CTA -> #contact, Hero CTAs -> #contact y #services con scrollIntoView smooth"
+      details: "Sticky elements detectados en posiciones de scroll 500-2500px"

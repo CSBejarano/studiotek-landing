@@ -1,85 +1,91 @@
 # PROGRESS.yaml - Estado del proyecto
 # Project: studiotek-landing
-# Updated: 2026-01-19
+# Updated: 2026-01-26
 
-workflow_id: "2026-01-19_ai-chat-enhancement"
+workflow_id: "2026-01-26_session-sync"
 status: "IDLE"
-started_at: "2026-01-19T14:00:00Z"
-completed_at: "2026-01-19T15:30:00Z"
+started_at: "2026-01-26T00:00:00Z"
+completed_at: null
 
-# Ultimo workflow: AI Chat Input Enhancement
-phases:
-  - id: 1
-    name: "Hybrid Voice Recognition"
-    agent: "@frontend"
-    status: "COMPLETE"
-    description: "Web Speech API + Whisper fallback para reconocimiento de voz"
-    result: "SUCCESS - Fallback automatico cuando Web Speech falla"
+# Estado actual: Landing completa, listo para nuevas tareas
+current_state:
+  phase: "IDLE"
+  description: "Landing page 100% completa con todos los features"
+  last_workflow: "2026-01-24_fix-chat-ia-movil-4bugs"
 
-  - id: 2
-    name: "Whisper STT Endpoint"
-    agent: "@backend"
-    status: "COMPLETE"
-    description: "Nuevo endpoint /api/voice/stt para transcripcion con Whisper"
-    result: "SUCCESS - OpenAI Whisper API integration"
+# Ultimo workflow completado: Fix Chat IA Movil - 4 Bugs
+last_workflow:
+  id: "2026-01-24_fix-chat-ia-movil-4bugs"
+  status: "COMPLETE"
+  started_at: "2026-01-24T16:00:00Z"
+  completed_at: "2026-01-24T18:15:00Z"
+  phases:
+    - id: 1
+      name: "Fix Status Indicators Overlap"
+      agent: "@frontend"
+      status: "COMPLETE"
+      description: "Single AnimatePresence mode='wait' con computed status key"
+      result: "SUCCESS - No overlap entre indicadores"
 
-  - id: 3
-    name: "Real-time Transcription"
-    agent: "@frontend"
-    status: "COMPLETE"
-    description: "Transcripcion periodica cada 2.5s en modo Whisper"
-    result: "SUCCESS - transcribePartial() con interval"
+    - id: 2
+      name: "Fix Input Reset After Voice"
+      agent: "@frontend"
+      status: "COMPLETE"
+      description: "setValue('') despues de onVoiceEnd en recognition y Whisper"
+      result: "SUCCESS - Input se limpia correctamente"
 
-  - id: 4
-    name: "Expandable Input"
-    agent: "@frontend"
-    status: "COMPLETE"
-    description: "Cambio de input a textarea auto-expandible"
-    result: "SUCCESS - max-height 150px, auto-resize"
+    - id: 3
+      name: "Fix TTS iOS Playback"
+      agent: "@frontend"
+      status: "COMPLETE"
+      description: "TTS funciona para todos los inputs (voz y texto)"
+      result: "SUCCESS - Audio TTS se reproduce en todos los casos"
 
-  - id: 5
-    name: "UI Centering"
-    agent: "@frontend"
-    status: "COMPLETE"
-    description: "Centrado de input y placeholder en contenedor"
-    result: "SUCCESS - items-center, py-3 optimizado"
+    - id: 4
+      name: "Fix Placeholder Mobile"
+      agent: "@frontend"
+      status: "COMPLETE"
+      description: "Placeholder no se trunca en movil, se oculta durante procesamiento"
+      result: "SUCCESS - UX mejorada en movil"
 
-  - id: 6
-    name: "Deploy"
-    agent: "@infra"
-    status: "COMPLETE"
-    description: "git push a main"
-    result: "SUCCESS - commit f728e1e pushed"
+    - id: 5
+      name: "Deploy"
+      agent: "@infra"
+      status: "COMPLETE"
+      description: "git push a main"
+      result: "SUCCESS - commits 655f36c pushed"
 
-# Metricas
+# Metricas del ultimo workflow
 metrics:
-  total_phases: 6
-  completed_phases: 6
+  total_phases: 5
+  completed_phases: 5
   skipped_phases: 0
-  duration_minutes: 90
-  agents_used: ["@frontend", "@backend", "@infra"]
-  files_created: 1
-  files_modified: 1
+  duration_minutes: 135
+  agents_used: ["@frontend", "@infra"]
+  files_created: 0
+  files_modified: 2
 
-# Git
+# Git - Ultimos commits
 git:
   branch: "main"
   remote: "https://github.com/CSBejarano/studiotek-landing"
   commits:
-    - hash: "f728e1e"
-      message: "feat: enhance AI chat with hybrid voice recognition and expandable input"
-    - hash: "42fdb0d"
-      message: "fix: add id and timestamp to chat messages for API validation"
-    - hash: "e3b9962"
-      message: "feat: add AI chat input to Hero section"
-    - hash: "660d876"
-      message: "feat: add voice agent with Web Speech API + OpenAI function calling"
+    - hash: "b8dda91"
+      message: "feat: Apple-style service cards + performance optimization"
+    - hash: "655f36c"
+      message: "fix: TTS for voice input + hide placeholder during processing"
+    - hash: "220f1db"
+      message: "fix: enable TTS for all responses (voice and text input)"
+    - hash: "1cf9f86"
+      message: "fix: placeholder truncation - remove unnecessary right padding"
+    - hash: "39fad9e"
+      message: "fix: TTS response for voice input + placeholder overflow on mobile"
 
 # PRD Progress
 prd_progress:
   total_phases: 10
   completed_phases: 10
-  status: "100% COMPLETE + VOICE AGENT + AI CHAT ENHANCED"
+  status: "100% COMPLETE + VOICE AGENT + AI CHAT ENHANCED + MOBILE FIXES"
 
 # Integraciones
 integrations:
@@ -106,14 +112,14 @@ integrations:
     model: "imagen-4.0-generate-001"
     images_generated: 15
 
-# Voice Agent Components (Updated)
+# Voice Agent Components
 voice_agent:
   components:
     - "components/voice/VoiceAgent.tsx"
     - "components/voice/VoiceButton.tsx"
     - "components/voice/TranscriptWindow.tsx"
     - "components/voice/VoiceAgentProvider.tsx"
-    - "components/ui/ai-chat-input.tsx"       # ENHANCED
+    - "components/ui/ai-chat-input.tsx"
     - "components/ui/HeroAIChat.tsx"
   hooks:
     - "hooks/useSpeechRecognition.ts"
@@ -121,7 +127,7 @@ voice_agent:
   apis:
     - "app/api/voice/chat/route.ts"
     - "app/api/voice/tts/route.ts"
-    - "app/api/voice/stt/route.ts"            # NEW
+    - "app/api/voice/stt/route.ts"
   lib:
     - "lib/voice/types.ts"
     - "lib/voice/prompts.ts"
@@ -138,6 +144,8 @@ voice_agent:
     - "Text input fallback"
     - "Mic pause/resume button"
     - "Visual indicators: green (Web Speech) / red (Whisper)"
+    - "Mobile microphone support (iOS Safari + Android)"
+    - "TTS for all response types (voice and text input)"
   functions:
     - "navigate_to_section"
     - "open_service_modal"
@@ -157,6 +165,8 @@ ai_chat_input:
     - "Max height 150px"
     - "Animated placeholder"
     - "Centered layout"
+    - "Mobile-optimized placeholder (no truncation)"
+    - "Single AnimatePresence for status indicators"
   refs:
     - "textareaRef"
     - "transcriptionIntervalRef"
@@ -166,17 +176,17 @@ ai_chat_input:
 # Domain Experts
 domain_experts:
   frontend:
-    version: "1.28"
-    tasks_handled: 52
+    version: "1.32"
+    tasks_handled: 57
   backend:
     version: "1.3"
     tasks_handled: 6
   infra:
-    version: "1.4"
-    tasks_handled: 7
+    version: "1.5"
+    tasks_handled: 8
   testing:
     version: "1.0"
     tasks_handled: 4
 
 # Completion Promise
-completion_promise: "AI Chat Enhanced - Hybrid Voice Recognition + Whisper Fallback + Expandable Input"
+completion_promise: "Landing Complete - Ready for New Features"

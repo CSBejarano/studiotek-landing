@@ -4,9 +4,9 @@
 
 domain_id: "frontend"
 display_name: "Frontend Engineer"
-version: "1.26"
-updated_at: "2026-01-24T12:00:00+00:00"
-tasks_handled: 77
+version: "1.31"
+updated_at: '2026-01-26T22:23:04.044028+00:00'
+tasks_handled: 85
 success_rate: 1.0
 
 # Configuracion de clasificacion
@@ -451,6 +451,51 @@ decisions:
     validated_count: 1
     last_used: "2026-01-24"
     tags: ["mobile", "touch", "ux", "voice-button"]
+
+  - id: "SL054"
+    context: "Parallax scroll with framer-motion"
+    decision: "Usar useScroll + useTransform para efectos de parallax: StickyImage con scale/opacity transforms, OverlayCopy con y/opacity basados en scrollYProgress"
+    rationale: "useScroll con target ref y offset permite controlar cuando inicia/termina la animacion; useTransform mapea el progreso a valores de CSS; sticky positioning para efecto de imagen fija mientras el contenido se desplaza"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-26"
+    tags: ["framer-motion", "parallax", "scroll", "animation", "useScroll", "useTransform"]
+
+  - id: "SL055"
+    context: "Problem/Solution parallax storytelling"
+    decision: "Componer ProblemSolutionParallax usando TextParallaxContent repetido para cada seccion (problema/solucion), con ContentSection interna que renderiza grids de items con iconos Lucide y gradientes diferenciados por variant"
+    rationale: "Reutiliza TextParallaxContent existente; variant pain usa from-red-500/20, solution usa from-blue-500/20; ContentItem tipado con icon: React.ComponentType para TypeScript correcto"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-26"
+    tags: ["parallax", "storytelling", "composition", "lucide", "typescript"]
+
+  - id: "SL056"
+    context: "Unificacion de secciones PainPoints + Solution en parallax"
+    decision: "Reemplazar SocialProof, PainPointsSection y SolutionSection con unico ProblemSolutionParallax en page.tsx"
+    rationale: "ProblemSolutionParallax combina storytelling de pain points y soluciones con efecto parallax inmersivo; SocialProof redundante con Stats que ya muestra metricas de confianza"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-26"
+    tags: ["page-structure", "parallax", "refactor", "simplification"]
+
+  - id: "SL057"
+    context: "Eliminacion de SocialProof section"
+    decision: "Remover SocialProof de la pagina principal"
+    rationale: "Stats section ya cumple funcion de social proof con metricas de proyectos completados, clientes satisfechos, etc. SocialProof con logos era redundante y agregaba ruido visual"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-26"
+    tags: ["page-structure", "ux", "simplification"]
+
+  - id: "SL058"
+    context: "Services section layout change from carousel to grid"
+    decision: "Reemplazar AppleCarousel por grid responsive (grid-cols-1 sm:grid-cols-2 lg:grid-cols-4) para mostrar las 4 cards de servicios sin scroll"
+    rationale: "Carousel mostraba 3.5 cards y requeria deslizar; grid de 4 columnas permite ver todos los servicios de un vistazo en desktop. Responsive con 1 col mobile, 2 tablet, 4 desktop"
+    confidence: 0.95
+    validated_count: 1
+    last_used: "2026-01-26"
+    tags: ["services", "layout", "grid", "carousel", "responsive"]
 
 # Blockers del dominio
 blockers:

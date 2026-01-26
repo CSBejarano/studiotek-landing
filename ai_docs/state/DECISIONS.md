@@ -322,10 +322,40 @@
 
 ---
 
+---
+
+## Session: 2026-01-24 Mobile Chat IA Fixes
+
+### D048: TTS para Todos los Inputs
+- **Contexto:** TTS solo funcionaba para input de texto, no para voz
+- **Decision:** Habilitar TTS en HeroAIChat para todos los inputs (voz y texto)
+- **Confianza:** 0.99
+- **Validado en:** User testing en iOS Safari y Android Chrome
+
+### D049: Placeholder Oculto Durante Procesamiento
+- **Contexto:** Placeholder visible detras del indicador "Procesando..."
+- **Decision:** Agregar condicion `!isProcessing` al renderizado del placeholder
+- **Confianza:** 0.99
+- **Validado en:** Visual verification
+
+### D050: Mobile Microphone MediaRecorder
+- **Contexto:** Microfono no funcionaba en iOS Safari y algunos Android
+- **Decision:** Usar MediaRecorder con mimeType correcto para cada plataforma
+- **Confianza:** 0.95
+- **Validado en:** Testing en iPhone (Safari) y Android (Chrome)
+
+### D051: Placeholder Sin Padding Derecho
+- **Contexto:** Placeholder se truncaba innecesariamente en movil
+- **Decision:** Remover pr-28 del placeholder, usar solo left padding
+- **Confianza:** 0.99
+- **Validado en:** Visual verification en viewport movil
+
+---
+
 ## Decisiones Pendientes
 
 Ninguna decision pendiente de validacion.
 
 ---
 
-**Ultima actualizacion:** 2026-01-19T15:30:00Z
+**Ultima actualizacion:** 2026-01-24T18:15:00Z
