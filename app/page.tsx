@@ -12,10 +12,10 @@ export default function Home() {
       {/* 1. Hero con Asistente IA central */}
       <Hero />
 
-      {/* 2. Pain Points - 4 Parallax Separados */}
+      {/* 2. Pain Points - Parallax sections */}
       <PainPointsParallax />
 
-      {/* 3. Por que automatizar? - Beneficios */}
+      {/* 3. Beneficios de automatizar */}
       <Benefits />
 
       {/* 4. Nuestros servicios */}
@@ -24,10 +24,10 @@ export default function Home() {
       {/* 5. Como trabajamos */}
       <HowItWorks />
 
-      {/* 7. Resultados que hablan - Stats */}
+      {/* 6. Resultados - Stats */}
       <Stats />
 
-      {/* 8. Formulario de contacto */}
+      {/* 7. Formulario de contacto */}
       <ContactForm />
     </main>
   );
