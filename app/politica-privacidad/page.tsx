@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { BlurFade } from '@/components/magicui/blur-fade';
+import { STUDIOTEK_LEGAL } from '@/lib/legal-config';
 
 export default function PoliticaPrivacidad() {
   return (
@@ -37,7 +38,7 @@ export default function PoliticaPrivacidad() {
             Politica de Privacidad
           </h1>
           <p className="text-slate-400">
-            Ultima actualizacion: Enero 2026
+            Ultima actualizacion: {STUDIOTEK_LEGAL.lastUpdated}
           </p>
         </BlurFade>
       </div>
@@ -55,24 +56,24 @@ export default function PoliticaPrivacidad() {
                 <dl className="space-y-3 text-slate-300">
                   <div className="flex flex-col sm:flex-row sm:gap-4">
                     <dt className="font-medium text-white min-w-[140px]">Responsable:</dt>
-                    <dd>StudioTek Soluciones Digitales S.L.</dd>
+                    <dd>{STUDIOTEK_LEGAL.companyName}</dd>
                   </div>
                   <div className="flex flex-col sm:flex-row sm:gap-4">
                     <dt className="font-medium text-white min-w-[140px]">CIF/NIF:</dt>
-                    <dd>B12345678</dd>
+                    <dd>{STUDIOTEK_LEGAL.cif}</dd>
                   </div>
                   <div className="flex flex-col sm:flex-row sm:gap-4">
                     <dt className="font-medium text-white min-w-[140px]">Domicilio:</dt>
-                    <dd>Calle Innovacion 42, 28001 Madrid, Espana</dd>
+                    <dd>{STUDIOTEK_LEGAL.address}, {STUDIOTEK_LEGAL.postalCode} {STUDIOTEK_LEGAL.city}, {STUDIOTEK_LEGAL.country}</dd>
                   </div>
                   <div className="flex flex-col sm:flex-row sm:gap-4">
                     <dt className="font-medium text-white min-w-[140px]">Email:</dt>
                     <dd>
                       <a
-                        href="mailto:contacto@studiotek.es"
+                        href={`mailto:${STUDIOTEK_LEGAL.privacyEmail}`}
                         className="text-primary hover:text-primary-hover transition-colors"
                       >
-                        contacto@studiotek.es
+                        {STUDIOTEK_LEGAL.privacyEmail}
                       </a>
                     </dd>
                   </div>
@@ -105,6 +106,15 @@ export default function PoliticaPrivacidad() {
                   <strong className="text-white">Analisis del sitio web:</strong> Analizar el uso
                   del sitio web mediante cookies analiticas para mejorar su experiencia de
                   navegacion, siempre que haya aceptado estas cookies.
+                </li>
+                <li>
+                  <strong className="text-white">Asistente de IA:</strong> Procesar las consultas
+                  realizadas a traves del asistente virtual con inteligencia artificial integrado
+                  en el sitio web. Los datos de texto y voz proporcionados se envian a OpenAI para
+                  su procesamiento. Para mas informacion, consulte nuestra{' '}
+                  <Link href="/politica-ia" className="text-primary hover:text-primary-hover transition-colors">
+                    Politica de IA
+                  </Link>.
                 </li>
               </ul>
             </section>
@@ -155,6 +165,17 @@ export default function PoliticaPrivacidad() {
                   de Clausulas Contractuales Tipo aprobadas por la Comision Europea.
                 </li>
                 <li>
+                  <strong className="text-white">Proveedor de IA:</strong> OpenAI, L.L.C. (USA),
+                  para el procesamiento de consultas realizadas al asistente virtual. La
+                  transferencia se realiza al amparo de Clausulas Contractuales Tipo. Los datos se
+                  procesan en tiempo real y no se almacenan de forma permanente por el proveedor.
+                  Consulte nuestra{' '}
+                  <Link href="/politica-ia" className="text-primary hover:text-primary-hover transition-colors">
+                    Politica de IA
+                  </Link>{' '}
+                  para mas detalles.
+                </li>
+                <li>
                   <strong className="text-white">Autoridades publicas:</strong> Cuando exista una
                   obligacion legal de comunicar los datos.
                 </li>
@@ -177,13 +198,21 @@ export default function PoliticaPrivacidad() {
                 Economico Europeo (EEE):
               </p>
               <div className="bg-slate-900/50 rounded-xl p-6 border border-slate-700/50">
-                <dl className="space-y-3 text-slate-300">
+                <dl className="space-y-4 text-slate-300">
                   <div>
                     <dt className="font-medium text-white">Vercel Inc. (Estados Unidos)</dt>
                     <dd className="text-sm text-slate-400 mt-1">
                       Transferencia realizada al amparo de las Clausulas Contractuales Tipo (SCCs)
                       aprobadas por la Comision Europea, que garantizan un nivel adecuado de
                       proteccion de sus datos personales.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="font-medium text-white">OpenAI, L.L.C. (Estados Unidos)</dt>
+                    <dd className="text-sm text-slate-400 mt-1">
+                      Procesamiento de consultas del asistente virtual con IA. Transferencia al
+                      amparo de Clausulas Contractuales Tipo (SCCs). Los datos de texto y voz se
+                      procesan en tiempo real sin almacenamiento permanente por parte del proveedor.
                     </dd>
                   </div>
                 </dl>
@@ -276,10 +305,10 @@ export default function PoliticaPrivacidad() {
                 <p className="text-slate-300 text-sm">
                   Puede ejercer sus derechos enviando un correo electronico a{' '}
                   <a
-                    href="mailto:contacto@studiotek.es"
+                    href={`mailto:${STUDIOTEK_LEGAL.privacyEmail}`}
                     className="text-primary hover:text-primary-hover transition-colors"
                   >
-                    contacto@studiotek.es
+                    {STUDIOTEK_LEGAL.privacyEmail}
                   </a>
                   , indicando el derecho que desea ejercer y adjuntando copia de su DNI o documento
                   equivalente que acredite su identidad.
@@ -287,8 +316,13 @@ export default function PoliticaPrivacidad() {
               </div>
 
               <p className="text-slate-400 text-sm mt-4">
-                <strong>Nota:</strong> No aplicamos decisiones automatizadas ni elaboramos perfiles
-                con sus datos personales.
+                <strong>Nota:</strong> No adoptamos decisiones automatizadas con efectos juridicos
+                ni elaboramos perfiles con sus datos personales. El asistente virtual con IA
+                integrado en el sitio web procesa consultas en tiempo real pero no toma decisiones
+                que le afecten juridicamente. Puede consultar mas detalles en nuestra{' '}
+                <Link href="/politica-ia" className="text-primary hover:text-primary-hover transition-colors">
+                  Politica de IA
+                </Link>.
               </p>
             </section>
           </BlurFade>
@@ -345,7 +379,7 @@ export default function PoliticaPrivacidad() {
                 entrada en vigor.
               </p>
               <p className="text-slate-400 mt-4">
-                <strong>Ultima revision:</strong> Enero 2026
+                <strong>Ultima revision:</strong> {STUDIOTEK_LEGAL.lastUpdated}
               </p>
             </section>
           </BlurFade>

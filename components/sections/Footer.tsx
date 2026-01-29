@@ -17,11 +17,28 @@ const navigationLinks = [
       { label: 'comunicacion@studiotek.es', href: 'mailto:comunicacion@studiotek.es' },
     ],
   },
-];
-
-const legalLinks = [
-  { label: 'Política de Privacidad', href: '/politica-privacidad' },
-  { label: 'Política de Cookies', href: '/politica-cookies' },
+  {
+    title: 'Legal',
+    links: [
+      { label: 'Aviso Legal', href: '/aviso-legal' },
+      { label: 'Politica de Privacidad', href: '/politica-privacidad' },
+      { label: 'Politica de Cookies', href: '/politica-cookies' },
+      { label: 'Condiciones de Contratacion', href: '/condiciones-contratacion' },
+    ],
+  },
+  {
+    title: 'Compliance',
+    links: [
+      { label: 'Canal de Denuncias', href: '/canal-denuncias' },
+      { label: 'Informacion al Informante', href: '/informacion-informante' },
+    ],
+  },
+  {
+    title: 'IA y Tecnologia',
+    links: [
+      { label: 'Politica de IA', href: '/politica-ia' },
+    ],
+  },
 ];
 
 export function Footer() {
@@ -46,7 +63,7 @@ export function Footer() {
           </div>
 
           {/* Navigation columns */}
-          <div className="flex flex-wrap gap-12 md:gap-16">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 md:gap-10">
             {navigationLinks.map((column) => (
               <div key={column.title}>
                 <h4 className="text-white font-medium text-sm mb-4">
@@ -81,15 +98,24 @@ export function Footer() {
             © 2026 StudioTek. Todos los derechos reservados.
           </p>
           <nav className="flex flex-wrap justify-center items-center gap-6 md:gap-8">
-            {legalLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="text-slate-500 hover:text-white transition-colors duration-200 text-xs"
-              >
-                {link.label}
-              </Link>
-            ))}
+            <Link
+              href="/politica-privacidad"
+              className="text-slate-500 hover:text-white transition-colors duration-200 text-xs"
+            >
+              Privacidad
+            </Link>
+            <Link
+              href="/politica-cookies"
+              className="text-slate-500 hover:text-white transition-colors duration-200 text-xs"
+            >
+              Cookies
+            </Link>
+            <Link
+              href="/aviso-legal"
+              className="text-slate-500 hover:text-white transition-colors duration-200 text-xs"
+            >
+              Aviso Legal
+            </Link>
             <CookieSettingsButton />
           </nav>
         </div>

@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Desactivar caché persistente de Turbopack en dev para evitar
+  // corrupción de archivos SST por symlinks externos (.claude/)
+  experimental: {
+    turbopackFileSystemCacheForDev: false,
+  },
+
   // Optimización de imágenes
   images: {
     formats: ['image/avif', 'image/webp'],
@@ -13,6 +19,7 @@ const nextConfig: NextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
+
 };
 
 export default nextConfig;

@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { BlurFade } from '@/components/magicui/blur-fade';
 import { CookieDetailsList } from '@/components/cookies/CookieDetailsList';
+import { STUDIOTEK_LEGAL } from '@/lib/legal-config';
 
 export default function PoliticaCookies() {
   return (
@@ -38,7 +39,7 @@ export default function PoliticaCookies() {
             Politica de Cookies
           </h1>
           <p className="text-slate-400">
-            Ultima actualizacion: Enero 2026
+            Ultima actualizacion: {STUDIOTEK_LEGAL.lastUpdated}
           </p>
         </BlurFade>
       </div>
@@ -213,6 +214,12 @@ export default function PoliticaCookies() {
                 Ten en cuenta que si desactivas las cookies, algunas funcionalidades del sitio web
                 podrian no estar disponibles o no funcionar correctamente.
               </p>
+              <p className="text-slate-400 text-sm mt-3">
+                Para mas informacion sobre como tratamos tus datos personales, consulta nuestra{' '}
+                <Link href="/politica-privacidad" className="text-primary hover:text-primary-hover transition-colors">
+                  Politica de Privacidad
+                </Link>.
+              </p>
             </section>
           </BlurFade>
 
@@ -229,7 +236,7 @@ export default function PoliticaCookies() {
                 antelacion a su puesta en practica.
               </p>
               <p className="text-slate-400 mt-4">
-                <strong>Ultima revision:</strong> Enero 2026
+                <strong>Ultima revision:</strong> {STUDIOTEK_LEGAL.lastUpdated}
               </p>
             </section>
           </BlurFade>
