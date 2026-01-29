@@ -60,3 +60,6 @@ __pycache__/
 
 # Watchman
 .watchmanconfig
+
+# Prevent dual lockfiles (project uses yarn.lock)
+package-lock.json
