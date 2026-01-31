@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
@@ -134,7 +134,7 @@ export function ServiceModal({
               stiffness: 400,
               damping: 35
             }}
-            className="w-full max-w-4xl max-h-[92vh] min-h-[70vh] bg-slate-900 rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border border-slate-700/50 flex flex-col"
+            className="w-full max-w-4xl max-h-[92dvh] min-h-[60dvh] md:min-h-[70dvh] bg-slate-900 rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border border-slate-700/50 flex flex-col"
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-title"

@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import Image from 'next/image';
 import { Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -31,7 +31,7 @@ export function CarouselCard({ card, index, onClick }: CarouselCardProps) {
       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
       className={cn(
         "relative flex flex-col",
-        "aspect-[9/16] w-full",
+        "aspect-[3/4] sm:aspect-[9/16] w-full",
         "rounded-3xl bg-black overflow-hidden",
         "cursor-pointer group",
         "shadow-xl shadow-black/40",
@@ -81,7 +81,7 @@ export function CarouselCard({ card, index, onClick }: CarouselCardProps) {
         }}
         className={cn(
           "absolute bottom-4 right-4 z-20",
-          "w-10 h-10 rounded-full",
+          "w-11 h-11 min-h-[44px] min-w-[44px] rounded-full",
           "bg-slate-800/80 backdrop-blur-sm",
           "flex items-center justify-center",
           "text-white/90",

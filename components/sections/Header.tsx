@@ -68,7 +68,7 @@ export function Header() {
       className="fixed top-0 left-0 z-50 backdrop-blur-md bg-[#0A0A0A]/80 border-b border-white/10 transition-[right] duration-300 ease-in-out"
       style={{ right: isPanelOpen && isDesktop ? '440px' : '0px' }}
     >
-      <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 md:px-3 lg:px-4 h-16 flex items-center justify-between">
         {/* Logo */}
         <button onClick={handleLogoClick} className="flex items-center cursor-pointer">
           <Image
@@ -81,20 +81,20 @@ export function Header() {
         </button>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8" aria-label="Navegacion principal">
+        <nav className="hidden md:flex items-center gap-3 lg:gap-8" aria-label="Navegacion principal">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={(e) => handleNavClick(e, link.href)}
-              className="text-sm font-medium text-[#9CA3AF] hover:text-white transition-colors duration-200"
+              className="text-xs lg:text-sm font-medium text-[#9CA3AF] hover:text-white transition-colors duration-200 whitespace-nowrap"
             >
               {link.label}
             </a>
           ))}
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 lg:gap-4">
           {/* CTA Button - always visible */}
           <Button
             variant="primary"

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, Fragment } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion } from 'motion/react';
 import { Check, Shield, Eye, Lock, Users } from 'lucide-react';
 import { BlurFade } from '@/components/magicui/blur-fade';
 import { TextAnimate } from '@/components/magicui/text-animate';
@@ -243,7 +243,7 @@ export function HowItWorks() {
                       border transition-colors duration-500
                       ${isIlluminated ? 'border-white/30' : 'border-white/10'}
                       p-8
-                      min-h-[280px]
+                      min-h-[220px] md:min-h-[280px]
                       h-full
                     `}>
                       {/* Background image */}
@@ -340,7 +340,7 @@ export function HowItWorks() {
         </motion.div>
 
         {/* Progress dots */}
-        <div className="flex justify-center gap-2 mt-8">
+        <div className="flex justify-center gap-0 mt-8">
           {steps.map((step, index) => {
             const isIlluminated = illuminatedSteps.includes(index);
             return (
@@ -352,12 +352,16 @@ export function HowItWorks() {
                   setIsPaused(true);
                   setTimeout(() => setIsPaused(false), 5000);
                 }}
-                className={`
-                  w-3 h-3 rounded-full transition-all duration-300 bg-slate-500
-                  ${isIlluminated ? 'scale-125 opacity-100' : 'opacity-50'}
-                `}
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center"
                 aria-label={`Go to step ${index + 1}: ${step.title}`}
-              />
+              >
+                <span
+                  className={`
+                    w-3 h-3 rounded-full transition-all duration-300 bg-slate-500
+                    ${isIlluminated ? 'scale-125 opacity-100' : 'opacity-50'}
+                  `}
+                />
+              </button>
             );
           })}
         </div>

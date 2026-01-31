@@ -120,7 +120,7 @@ export function PainPointsPAS() {
       data-section="pain-points-pas"
       role="region"
       aria-label="Problemas que resolvemos"
-      className="relative h-screen w-full overflow-hidden"
+      className="relative min-h-screen-safe w-full overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -146,14 +146,14 @@ export function PainPointsPAS() {
         </motion.div>
       </AnimatePresence>
 
-      {/* ---- Dark overlay ---- */}
+      {/* ---- Dark overlay – heavier on mobile for text legibility ---- */}
       <div
-        className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80"
+        className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/85 sm:from-black/60 sm:via-black/40 sm:to-black/80"
         aria-hidden="true"
       />
 
       {/* ---- Content layer ---- */}
-      <div className="relative z-10 h-full flex flex-col">
+      <div className="relative z-10 min-h-screen-safe flex flex-col">
         {/* Top: headline + subheadline + CTA */}
         <div className="flex-1 flex flex-col items-center justify-center px-6 pt-16 pb-4">
           <AnimatePresence mode="wait">
@@ -175,7 +175,7 @@ export function PainPointsPAS() {
 
               <button
                 onClick={scrollToContact}
-                className="mt-2 px-8 py-3.5 rounded-full bg-white text-[#0A0A0A] font-semibold text-sm sm:text-base hover:bg-white/90 transition-colors duration-200 cursor-pointer shadow-lg"
+                className="mt-2 px-8 py-3.5 min-h-[48px] w-full sm:w-auto rounded-full bg-white text-[#0A0A0A] font-semibold text-sm sm:text-base hover:bg-white/90 transition-colors duration-200 cursor-pointer shadow-lg"
               >
                 Descubre cómo
               </button>
@@ -204,7 +204,7 @@ export function PainPointsPAS() {
                 <div key={currentScene.id}>
                   {currentScene.stat.value !== null ? (
                     <div className="flex items-baseline justify-center gap-1">
-                      <span className="text-5xl sm:text-6xl font-extrabold text-white tracking-tight">
+                      <span className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight">
                         <NumberTicker
                           value={currentScene.stat.value}
                           className="text-white"
@@ -212,13 +212,13 @@ export function PainPointsPAS() {
                         />
                       </span>
                       {currentScene.stat.suffix && (
-                        <span className="text-3xl sm:text-4xl font-bold text-white/40">
+                        <span className="text-xl sm:text-3xl md:text-4xl font-bold text-white/40">
                           {currentScene.stat.suffix}
                         </span>
                       )}
                     </div>
                   ) : (
-                    <span className="text-5xl sm:text-6xl font-extrabold text-white tracking-tight">
+                    <span className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight">
                       {currentScene.stat.text}
                     </span>
                   )}
@@ -244,7 +244,7 @@ export function PainPointsPAS() {
 
         {/* Tabs */}
         <nav
-          className="flex justify-center gap-2 sm:gap-3 px-4 pb-8 sm:pb-10 pt-2"
+          className="flex justify-start sm:justify-center gap-2 sm:gap-3 px-4 pb-8 sm:pb-10 pt-2 overflow-x-auto scrollbar-hide snap-x snap-mandatory"
           aria-label="Seleccionar problema"
         >
           {scenes.map((scene, index) => {
@@ -257,7 +257,7 @@ export function PainPointsPAS() {
                 aria-pressed={isActive}
                 aria-label={`Ver: ${scene.tabLabel}`}
                 className={`
-                  px-4 py-2 sm:px-6 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium
+                  flex-shrink-0 snap-start px-4 py-2 sm:px-6 sm:py-2.5 min-h-[44px] rounded-full text-xs sm:text-sm font-medium
                   transition-all duration-300 cursor-pointer
                   ${
                     isActive

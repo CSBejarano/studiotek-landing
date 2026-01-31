@@ -142,7 +142,7 @@ const servicesCarouselData: CardData[] = services.map((service) => ({
           onClick={() => {
             document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
           }}
-          className="px-8 py-3 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg"
+          className="px-8 py-3 min-h-[44px] rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg"
           style={{
             background: `linear-gradient(to right, ${service.shimmerGradient.from}, ${service.shimmerGradient.to})`
           }}
@@ -153,7 +153,7 @@ const servicesCarouselData: CardData[] = services.map((service) => ({
           onClick={() => {
             document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
           }}
-          className="px-8 py-3 rounded-xl font-semibold text-white transition-all duration-300 hover:bg-white/10 border border-white/20"
+          className="px-8 py-3 min-h-[44px] rounded-xl font-semibold text-white transition-all duration-300 hover:bg-white/10 border border-white/20"
         >
           Agendar llamada
         </button>

@@ -225,3 +225,45 @@ button.voice-highlight {
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
+
+/* ============================================================================
+   Mobile Optimization Utilities
+   ============================================================================ */
+
+/* Dynamic viewport height (address bar safe) */
+.h-screen-safe { height: 100dvh; }
+.min-h-screen-safe { min-height: 100dvh; }
+
+/* Safe area padding (notch/home indicator) */
+.pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+.pt-safe { padding-top: env(safe-area-inset-top); }
+
+/* Touch target - opt-in class for interactive elements that need 44px minimum */
+@media (pointer: coarse) {
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Prevent iOS input zoom (font-size < 16px triggers zoom) */
+@media screen and (max-width: 767px) {
+  input, textarea, select {
+    font-size: max(16px, 1em);
+  }
+}
+
+/* Smooth scroll iOS */
+.scroll-smooth-ios {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

@@ -106,7 +106,7 @@ export function ContactForm() {
   };
 
   return (
-    <section id="contact" className="relative bg-slate-950 pt-32 pb-24">
+    <section id="contact" className="relative bg-slate-950 pt-20 pb-16 md:pt-32 md:pb-24">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-950 to-slate-950 pointer-events-none" />
 
@@ -124,12 +124,12 @@ export function ContactForm() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4">
         <BlurFade delay={0.1} inView>
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 md:mb-12">
             <TextAnimate
               as="h2"
               animation="blurInUp"
               by="word"
-              className="text-4xl md:text-5xl font-bold text-white mb-4"
+              className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-4"
               delay={0.1}
               duration={0.6}
             >
@@ -144,7 +144,7 @@ export function ContactForm() {
         <BlurFade delay={0.3} inView>
           <div className="max-w-2xl mx-auto relative">
             <VitaEonCard variant="form" glowColor="blue" showAccentLine className="relative z-10">
-              <div className="p-10 md:p-12">
+              <div className="p-4 md:p-10 lg:p-12">
                 {status === 'success' ? (
                   <div
                     className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-8 text-center"
@@ -173,12 +173,12 @@ export function ContactForm() {
                 {status !== 'success' && (
                   <form
                     onSubmit={handleSubmit(onSubmit)}
-                    className="space-y-6"
+                    className="space-y-4 md:space-y-6"
                     aria-label="Formulario de contacto"
                     noValidate
                   >
                     {/* Row 1: Nombre y Email */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                       <div className="relative">
                         <div className="absolute left-4 top-[42px] text-slate-500 pointer-events-none">
                           <User size={18} />
@@ -210,7 +210,7 @@ export function ContactForm() {
                     </div>
 
                     {/* Row 2: Empresa y Telefono */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                       <div className="relative">
                         <div className="absolute left-4 top-[42px] text-slate-500 pointer-events-none">
                           <Building2 size={18} />
@@ -241,7 +241,7 @@ export function ContactForm() {
                     </div>
 
                     {/* Row 3: Presupuesto y Servicio de interes */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                       <div className="relative">
                         <div className="absolute left-4 top-[42px] text-slate-500 pointer-events-none">
                           <Wallet size={18} />
@@ -326,7 +326,7 @@ export function ContactForm() {
                         background="rgba(59, 130, 246, 1)"
                         shineColor={["#60a5fa", "#3b82f6", "#60a5fa"]}
                         borderRadius="12px"
-                        className="w-full md:w-auto text-lg px-12 py-4 font-semibold"
+                        className="w-full min-h-[48px] text-base md:text-lg px-8 md:px-12 py-4 font-semibold"
                         type="submit"
                         disabled={status === 'loading'}
                       >

@@ -2,14 +2,19 @@ interface WatermarkStatProps {
   value: string;
   isDark?: boolean;
   align?: 'left' | 'right' | 'center';
+  mobile?: boolean;
 }
 
-export function WatermarkStat({ value, isDark = true, align = 'right' }: WatermarkStatProps) {
+export function WatermarkStat({ value, isDark = true, align = 'right', mobile = false }: WatermarkStatProps) {
   const alignClass = {
     left: 'justify-start pl-[14%]',
     right: 'justify-end pr-4',
     center: 'justify-center',
   }[align];
+
+  const sizeClass = mobile
+    ? 'text-[15vw]'
+    : 'text-[18vw] sm:text-[20vw]';
 
   return (
     <div
@@ -17,7 +22,7 @@ export function WatermarkStat({ value, isDark = true, align = 'right' }: Waterma
       aria-hidden="true"
     >
       <span
-        className={`font-mono font-black text-[18vw] sm:text-[20vw] leading-none pb-4
+        className={`font-mono font-black ${sizeClass} leading-none pb-4
           ${isDark ? 'text-white/[0.03]' : 'text-black/[0.05]'}`}
       >
         {value}

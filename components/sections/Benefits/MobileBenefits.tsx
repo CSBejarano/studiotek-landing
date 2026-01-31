@@ -20,91 +20,118 @@ interface MobileBenefitsProps {
 
 export function MobileBenefits({ panels, scrollToContact }: MobileBenefitsProps) {
   return (
-    <div className="md:hidden absolute top-0 left-0 w-full">
-      <div className="bg-[#0A0A0A] min-h-screen px-6 py-16">
+    <div className="md:hidden">
+      <div className="bg-[#0A0A0A] px-5 py-14 space-y-16">
         {panels.map((panel, index) => {
           const isDark = panel.bgVariant === 'dark';
           const isEven = index % 2 === 0;
 
           const textColor = isDark ? 'text-white' : 'text-[#0A0A0A]';
           const textMutedColor = isDark ? 'text-white/70' : 'text-[#0A0A0A]/70';
-          const textMutedMoreColor = isDark ? 'text-white/50' : 'text-[#0A0A0A]/50';
-          const bgClasses = isDark ? '' : 'bg-[#F5F5F5] -mx-6 px-6 py-16';
+          const bgClasses = isDark ? '' : 'bg-[#F5F5F5] -mx-5 px-5 py-14 rounded-2xl';
 
           return (
-            <div key={panel.id} className={`mb-20 relative overflow-hidden ${bgClasses}`}>
-              {/* Watermark - subtle on mobile */}
+            <article
+              key={panel.id}
+              className={`relative overflow-hidden ${bgClasses}`}
+            >
+              {/* Watermark - scaled down for mobile */}
               <WatermarkStat
                 value={panel.watermarkValue}
                 isDark={isDark}
                 align={index === 2 ? 'center' : isEven ? 'right' : 'left'}
+                mobile
               />
 
-              <div className="relative z-10">
+              <div className="relative z-10 space-y-5">
+                {/* 1. Headline */}
                 <h2
-                  className={`text-4xl font-black uppercase tracking-tight ${textColor} leading-[0.9] mb-6 ${!isEven ? 'text-right' : ''}`}
+                  className={`text-[2rem] font-black uppercase tracking-tight ${textColor} leading-[0.9] ${!isEven ? 'text-right' : ''}`}
                 >
                   {panel.headline.split('\n').map((line, i) => (
-                    <span key={i}>
+                    <span key={i} className="block">
                       {line}
-                      {i < panel.headline.split('\n').length - 1 && <br />}
                     </span>
                   ))}
                 </h2>
 
-                <p
-                  className={`text-base ${textMutedColor} leading-relaxed mb-6 max-w-sm ${!isEven ? 'ml-auto text-right' : ''}`}
-                >
-                  {panel.copyBlocks[0]?.text}
-                </p>
+                {/* 2. Stat ticker - centered, big for impact */}
+                <div className="flex items-baseline justify-center gap-2 py-2">
+                  <span className={`text-4xl font-black ${textColor}`}>
+                    <NumberTicker value={panel.stat.value} className={textColor} />
+                  </span>
+                  <span className="text-2xl font-bold text-[#2563EB]">
+                    {panel.stat.suffix}
+                  </span>
+                  <span className={`text-xs ${isDark ? 'text-white/50' : 'text-[#0A0A0A]/50'} ml-1 uppercase tracking-wider`}>
+                    {panel.stat.label}
+                  </span>
+                </div>
 
-                {/* First image */}
-                {panel.images[0] && (
-                  <div className="relative w-full aspect-video rounded-xl overflow-hidden mb-6">
+                {/* 3. Images - 2-column grid when 2 images available */}
+                {panel.images.length >= 2 ? (
+                  <div className="grid grid-cols-2 gap-3">
+                    {panel.images.slice(0, 2).map((img, imgIdx) => (
+                      <div
+                        key={imgIdx}
+                        className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-lg"
+                      >
+                        <Image
+                          src={img.src}
+                          alt={img.alt}
+                          fill
+                          className="object-cover"
+                          loading={imgIdx === 0 && index === 0 ? 'eager' : 'lazy'}
+                          sizes="(max-width: 768px) 45vw"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ) : panel.images[0] ? (
+                  <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg">
                     <Image
                       src={panel.images[0].src}
                       alt={panel.images[0].alt}
                       fill
                       className="object-cover"
+                      loading={index === 0 ? 'eager' : 'lazy'}
+                      sizes="(max-width: 768px) 90vw"
                     />
                   </div>
-                )}
+                ) : null}
 
-                {/* Stat ticker */}
-                <div className={`flex items-baseline gap-2 ${!isEven ? 'justify-end' : index === 2 ? 'justify-center' : ''}`}>
-                  <span className={`text-3xl font-black ${textColor}`}>
-                    <NumberTicker value={panel.stat.value} className={textColor} />
-                  </span>
-                  <span className="text-xl font-bold text-[#2563EB]">
-                    {panel.stat.suffix}
-                  </span>
-                  <span className={`text-sm ${textMutedMoreColor} ml-2 uppercase`}>
-                    {panel.stat.label}
-                  </span>
-                </div>
+                {/* 4. Description */}
+                <p
+                  className={`text-[0.95rem] ${textMutedColor} leading-relaxed ${!isEven ? 'text-right' : ''}`}
+                >
+                  {panel.copyBlocks[0]?.text}
+                </p>
               </div>
-            </div>
+            </article>
           );
         })}
 
         {/* CTA Mobile */}
-        <div className="text-center py-12">
-          <h2 className="text-2xl font-black uppercase tracking-tight text-white leading-[0.95] mb-6">
+        <div className="text-center pt-4 pb-8 space-y-5">
+          <h2 className="text-2xl font-black uppercase tracking-tight text-white leading-[0.95]">
             SI HAS LLEGADO HASTA AQUI
             <br />
             ES PORQUE SABES QUE
             <br />
             NECESITAS <span className="text-[#2563EB]">AUTOMATIZAR.</span>
           </h2>
+
           <button
             onClick={scrollToContact}
-            className="px-8 py-4 rounded-full bg-white text-[#0A0A0A] font-bold text-base hover:bg-white/90 transition-colors cursor-pointer"
+            aria-label="Ir a formulario de contacto"
+            className="w-full min-h-[48px] px-8 py-4 rounded-full bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] text-white font-bold text-base hover:from-[#3B82F6] hover:to-[#2563EB] transition-all duration-200 cursor-pointer shadow-[0_0_24px_rgba(37,99,235,0.3)]"
           >
             Empieza ahora
           </button>
+
           <a
             href="mailto:hola@studiotek.es"
-            className="block mt-4 text-sm text-white/50 hover:text-white/80"
+            className="block text-sm text-white/50 hover:text-white/80 transition-colors"
           >
             O escribenos a hola@studiotek.es
           </a>

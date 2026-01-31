@@ -45,16 +45,18 @@ export function Footer() {
   return (
     <footer className="bg-slate-950">
       {/* Main content */}
-      <div className="max-w-7xl mx-auto px-4 md:px-16 pt-12 pb-8">
-        <div className="flex flex-col md:flex-row justify-between gap-10">
+      <div className="max-w-7xl mx-auto px-4 md:px-16 pt-10 pb-8 md:pt-12">
+        <div className="flex flex-col md:flex-row justify-between gap-8 md:gap-10">
           {/* Logo and Tagline */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col items-center md:items-start gap-2">
             <Link href="/" className="flex items-center">
               <Image
                 src="/logo.svg"
                 alt="StudioTek"
-                width={140}
-                height={35}
+                width={120}
+                height={30}
+                sizes="140px"
+                className="md:w-[140px] md:h-[35px]"
               />
             </Link>
             <p className="text-slate-500 text-sm mt-1">
@@ -63,18 +65,18 @@ export function Footer() {
           </div>
 
           {/* Navigation columns */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 md:gap-10">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-10">
             {navigationLinks.map((column) => (
               <div key={column.title}>
                 <h4 className="text-white font-medium text-sm mb-4">
                   {column.title}
                 </h4>
-                <nav className="flex flex-col gap-3">
+                <nav className="flex flex-col gap-1">
                   {column.links.map((link) => (
                     <Link
                       key={link.label}
                       href={link.href}
-                      className="text-slate-400 hover:text-white transition-colors duration-200 text-sm"
+                      className="text-slate-400 hover:text-white transition-colors duration-200 text-sm py-1.5 md:py-1"
                     >
                       {link.label}
                     </Link>
@@ -97,26 +99,26 @@ export function Footer() {
           <p className="text-slate-500 text-xs">
             © 2026 StudioTek. Todos los derechos reservados.
           </p>
-          <nav className="flex flex-wrap justify-center items-center gap-6 md:gap-8">
+          <nav className="flex flex-wrap justify-center items-center gap-4 md:gap-8">
             <Link
               href="/politica-privacidad"
-              className="text-slate-500 hover:text-white transition-colors duration-200 text-xs"
+              className="text-slate-500 hover:text-white transition-colors duration-200 text-xs py-2"
             >
               Privacidad
             </Link>
             <Link
               href="/politica-cookies"
-              className="text-slate-500 hover:text-white transition-colors duration-200 text-xs"
+              className="text-slate-500 hover:text-white transition-colors duration-200 text-xs py-2"
             >
               Cookies
             </Link>
             <Link
               href="/aviso-legal"
-              className="text-slate-500 hover:text-white transition-colors duration-200 text-xs"
+              className="text-slate-500 hover:text-white transition-colors duration-200 text-xs py-2"
             >
               Aviso Legal
             </Link>
-            <CookieSettingsButton />
+            <CookieSettingsButton className="text-slate-500 hover:text-white transition-colors duration-200 text-xs py-2" />
           </nav>
         </div>
       </div>
