@@ -192,7 +192,7 @@ export function HowItWorks() {
 
         <BlurFade delay={0.2} inView>
           <p className="text-xl text-slate-400 text-center mt-4 max-w-2xl mx-auto">
-            Un proceso probado para transformar tu negocio
+            De la primera llamada a tu negocio automatizado
           </p>
         </BlurFade>
 

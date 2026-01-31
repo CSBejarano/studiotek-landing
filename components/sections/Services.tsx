@@ -12,7 +12,7 @@ const services = [
   {
     title: 'Implementación de IA',
     description:
-      'Automatiza tus procesos clave en 4 semanas. Chatbots 24/7, flujos automáticos y cero trabajo manual repetitivo.',
+      'Chatbots WhatsApp con IA, reservas automáticas y flujos sin intervención. Para clínicas, barberías, estudios de tatuaje e inmobiliarias.',
     icon: Rocket,
     gradient: 'from-blue-600 to-indigo-600',
     features: [
@@ -30,7 +30,7 @@ const services = [
   {
     title: 'Consultoría Estratégica',
     description:
-      'Analizamos tu negocio y diseñamos un plan con ROI claro. Sabrás cuánto ahorrarás antes de empezar.',
+      'Analizamos tu negocio y diseñamos un plan de automatización con ROI claro. Sabrás cuánto ahorrarás antes de empezar.',
     icon: Lightbulb,
     gradient: 'from-amber-500 to-orange-600',
     features: [
@@ -39,7 +39,7 @@ const services = [
       'Roadmap de implementación',
       'Cálculo de ROI proyectado',
       'Priorización de iniciativas',
-      'Benchmarking con la industria'
+      'Benchmarking con tu sector'
     ],
     benefits: ['Claridad sobre dónde invertir', 'Decisiones basadas en datos'],
     shimmerGradient: { from: '#f59e0b', to: '#ea580c' },
@@ -48,7 +48,7 @@ const services = [
   {
     title: 'Formación y Capacitación',
     description:
-      'Tu equipo domina la IA en días, no meses. Formación práctica con casos reales de tu sector.',
+      'Tu equipo domina la IA en días, no meses. Formación práctica con casos reales de salud, belleza e inmobiliaria.',
     icon: GraduationCap,
     gradient: 'from-emerald-500 to-teal-600',
     features: [
@@ -56,7 +56,7 @@ const services = [
       'Certificaciones oficiales',
       'Material actualizado',
       'Sesiones de seguimiento',
-      'Casos de uso de tu industria',
+      'Casos de uso reales del sector',
       'Soporte post-formación'
     ],
     benefits: ['Equipo autónomo y capacitado', 'Adopción rápida'],
@@ -237,7 +237,7 @@ export function Services() {
 
           <BlurFade delay={0.2} inView>
             <p className="text-xl text-slate-400 text-center mt-4 max-w-2xl mx-auto">
-              Soluciones adaptadas a las necesidades de tu negocio
+              Automatización real para negocios de servicios
             </p>
           </BlurFade>
         </div>

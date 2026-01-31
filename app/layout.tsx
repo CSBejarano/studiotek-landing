@@ -6,6 +6,10 @@ import { Footer } from '@/components/sections/Footer';
 import { CookieProvider } from '@/components/cookies/CookieContext';
 import { CookieBanner } from '@/components/cookies/CookieBanner';
 import { VoiceAgentProvider } from '@/components/voice/VoiceAgentProvider';
+import { AIChatPanelProvider } from '@/components/ui/AIChatPanelContext';
+import { MainContentWrapper } from '@/components/ui/MainContentWrapper';
+import { AIChatPanel } from '@/components/ui/AIChatPanel';
+import { HeroAIChat } from '@/components/ui/HeroAIChat';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -174,10 +178,16 @@ export default function RootLayout({
       <body className={`${inter.variable} antialiased`}>
         <CookieProvider>
           <VoiceAgentProvider>
-            <Header />
-            <main className="pt-16">{children}</main>
-            <Footer />
-            <CookieBanner />
+            <AIChatPanelProvider>
+              <MainContentWrapper>
+                <Header />
+                <main className="pt-16">{children}</main>
+                <Footer />
+              </MainContentWrapper>
+              <HeroAIChat />
+              <AIChatPanel />
+              <CookieBanner />
+            </AIChatPanelProvider>
           </VoiceAgentProvider>
         </CookieProvider>
       </body>

@@ -24,6 +24,31 @@ Este proyecto es parte del ecosistema **StudioTek**:
 
 ---
 
+## Node.js Version
+
+**IMPORTANTE: Este proyecto requiere Node.js 22 (LTS).** El archivo `.nvmrc` especifica `22`.
+
+Node 25+ **NO es compatible** y produce errores de `ERR_INVALID_PACKAGE_CONFIG` en node_modules.
+
+```bash
+# Si tienes Homebrew con node@22 instalado:
+export PATH="/opt/homebrew/opt/node@22/bin:$PATH"
+
+# Si tienes nvm:
+nvm use 22
+
+# Verificar versión antes de trabajar:
+node --version  # Debe mostrar v22.x.x
+```
+
+Si cambias de versión de Node, **debes reinstalar node_modules**:
+```bash
+rm -rf node_modules .next package-lock.json
+npm install
+```
+
+---
+
 ## Commands
 
 ```bash
@@ -227,4 +252,93 @@ RESEND_API_KEY=re_...
 
 ---
 
-*Last updated: 2026-01-28*
+## Skills Disponibles
+
+Los siguientes skills especializados están disponibles mediante comandos `/skill-name`:
+
+### Frontend & UI
+| Skill | Comando | Descripción |
+|-------|---------|-------------|
+| **Next.js** | `/nextjs` | Framework React full-stack con App Router, Server Components, SSR/ISR |
+| **React 19** | `/react-19` | Server Components, Server Actions, hook use(), Suspense |
+| **Tailwind CSS** | `/tailwind` | Patrones v4, dark mode, componentes tipados, theming |
+| **Playwright MCP** | `/playwright-mcp` | Testing E2E, UI/UX validation, accessibility, browser automation |
+
+### Backend & APIs
+| Skill | Comando | Descripción |
+|-------|---------|-------------|
+| **FastAPI** | `/fastapi` | APIs REST Python, Pydantic, OpenAPI, dependency injection |
+| **Clean Architecture** | `/clean-arch` | Capas domain/application/infrastructure, DDD, repository pattern |
+| **Supabase** | `/supabase` | PostgreSQL, auth, storage, edge functions, RLS, realtime |
+| **PydanticAI** | `/pydantic-ai` | Agentes IA con type safety, tools tipados, multi-modelo |
+
+### Testing & Quality
+| Skill | Comando | Descripción |
+|-------|---------|-------------|
+| **Pytest** | `/pytest` | Unit tests, integration tests, fixtures, mocking, coverage |
+| **OWASP** | `/owasp` | Auditoría OWASP Top 10:2025, vulnerability scan, hardening |
+| **RLS** | `/rls` | Row Level Security PostgreSQL/Supabase, multi-tenancy |
+| **Code Analysis** | `/code-analysis` | Análisis estático, métricas, anti-patterns, refactoring |
+
+### Marketing & Content
+| Skill | Comando | Descripción |
+|-------|---------|-------------|
+| **SEO Toolkit** | `/seo-toolkit` | 10 módulos: audit, meta tags, schema, Core Web Vitals, keywords |
+| **Marketing Content** | `/marketing-content` | Blog posts, social media, email campaigns, copywriting |
+| **Landing Images** | `/landing-image-generator` | Imágenes profesionales con Gemini Imagen 4.0 |
+| **LinkedIn Publisher** | `/linkedin-publisher` | Posts, videos, carruseles y copy para LinkedIn |
+
+### Compliance & Legal
+| Skill | Comando | Descripción |
+|-------|---------|-------------|
+| **AEPD Privacidad** | `/aepd-privacidad` | RGPD, LOPDGDD, ENS, AI Act, auditorías, DPO, brechas, cookies |
+
+### Project-Specific
+| Skill | Comando | Descripción |
+|-------|---------|-------------|
+| **StudioTek Enhancer** | `/studiotek-landing-enhancer` | Mejorar landing StudioTek: secciones, animaciones, conversión, AI chat |
+
+### DevOps & Tools
+| Skill | Comando | Descripción |
+|-------|---------|-------------|
+| **GitHub** | `/github` | Integración GitHub CLI y API: repos, issues, PRs, actions |
+| **MCP Tools** | `/mcp-tools` | Patrones Anthropic MCP: tool chaining, code execution |
+| **Hooks** | `/hooks` | Gestión del sistema de hooks de Claude Code |
+| **Session Memory** | `/session-memory` | Persistencia de contexto entre sesiones |
+
+---
+
+## Agents Disponibles
+
+Los siguientes agentes especializados están disponibles mediante `@agent-name`:
+
+### Desarrollo
+| Agente | Invocación | Especialidad |
+|--------|------------|--------------|
+| **@frontend** | `@frontend` | Senior Frontend Engineer - React, TypeScript, Tailwind, UI/UX, accesibilidad |
+| **@backend** | `@backend` | Senior Backend Engineer - FastAPI, SQLAlchemy, Clean Architecture, RLS |
+| **@testing** | `@testing` | Senior QA Engineer - pytest, fixtures, mocking, coverage, E2E |
+| **@gentleman** | `@gentleman` | Senior Full-Stack Engineer - arquitectura, patrones, trade-offs |
+
+### Revisión y Calidad
+| Agente | Invocación | Especialidad |
+|--------|------------|--------------|
+| **@security-reviewer** | `@security-reviewer` | Security Engineer - OWASP, vulnerabilidades, auth/authz, secrets |
+| **@quality-reviewer** | `@quality-reviewer` | Code Quality - patrones, performance, mantenibilidad |
+
+### Análisis y Marketing
+| Agente | Invocación | Especialidad |
+|--------|------------|--------------|
+| **@codebase-analyst** | `@codebase-analyst` | Análisis de codebase - arquitectura, dependencias, complejidad |
+| **@seo-expert** | `@seo-expert` | SEO Expert - technical SEO, content optimization, analytics |
+| **@marketing-expert** | `@marketing-expert` | Marketing - content marketing, copywriting, sales outreach |
+
+### Especialistas
+| Agente | Invocación | Especialidad |
+|--------|------------|--------------|
+| **@aepd-consultant** | `@aepd-consultant` | Experto Protección de Datos - RGPD, LOPDGDD, AEPD, ENS, AI Act |
+| **@claude-skills-architect** | `@claude-skills-architect` | Diseño de nuevos skills y workflows |
+
+---
+
+*Last updated: 2026-01-31*

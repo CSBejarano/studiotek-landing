@@ -1,164 +1,174 @@
 'use client';
 
-import { AnimatedGridPattern } from '../magicui/animated-grid-pattern';
+import { useRef } from 'react';
+import { useReducedMotion } from 'motion/react';
+import dynamic from 'next/dynamic';
 import { TextAnimate } from '../magicui/text-animate';
 import { BlurFade } from '../magicui/blur-fade';
-import { FloatingOrbs } from '../ui/FloatingOrbs';
-import { OrbitingCircles } from '../magicui/orbiting-circles';
-import { HeroAIChat } from '../ui/HeroAIChat';
+import RotatingText from '../magicui/rotating-text';
+import { ShimmerButton } from '../magicui/shimmer-button';
+import { BorderBeam } from '../magicui/border-beam';
+
+
+// Dynamic import for heavy canvas component (perf optimization)
+const Particles = dynamic(
+  () => import('../magicui/particles').then((mod) => ({ default: mod.Particles })),
+  { ssr: false }
+);
 
 export function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section
+      ref={sectionRef}
       id="hero"
-      className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 overflow-hidden py-20"
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#0A0A0A] pt-20 pb-16"
+      aria-label="Hero principal de StudioTek"
     >
-      {/* Animated Grid Background */}
-      <AnimatedGridPattern
-        numSquares={30}
-        maxOpacity={0.3}
-        duration={3}
-        className="absolute inset-0 h-full w-full [mask-image:radial-gradient(600px_circle_at_center,white,transparent)]"
-      />
+      {/* Particles Background - conditionally rendered */}
+      {!shouldReduceMotion && (
+        <Particles
+          className="absolute inset-0 z-0"
+          quantity={80}
+          color="#2563EB"
+          ease={80}
+          size={0.6}
+          staticity={40}
+          refresh
+        />
+      )}
 
-      {/* Floating decorative orbs */}
-      <FloatingOrbs color="blue" count={2} className="opacity-50" />
+      {/* Gradient Overlay for depth */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0A0A0A]/50 to-[#0A0A0A] z-[1]" />
 
-      {/* Orbiting circles decoration - left side */}
-      <div className="absolute top-1/3 left-10 lg:left-1/6 opacity-20 pointer-events-none z-0">
-        <div className="relative h-32 w-32">
-          <OrbitingCircles
-            radius={50}
-            duration={18}
-            path={false}
-          >
-            <div className="h-2.5 w-2.5 rounded-full bg-cyan-400/50" />
-          </OrbitingCircles>
-          <OrbitingCircles
-            radius={70}
-            duration={22}
-            reverse
-            path={false}
-          >
-            <div className="h-2 w-2 rounded-full bg-blue-500/40" />
-          </OrbitingCircles>
-        </div>
-      </div>
+      {/* Main Content */}
+      <div className="relative z-10 flex flex-col items-center text-center max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      {/* Orbiting circles decoration - right side */}
-      <div className="absolute top-1/4 right-10 lg:right-1/6 opacity-20 pointer-events-none z-0">
-        <div className="relative h-40 w-40">
-          <OrbitingCircles
-            radius={60}
-            duration={20}
-            path={false}
-          >
-            <div className="h-3 w-3 rounded-full bg-blue-500/40" />
-          </OrbitingCircles>
-          <OrbitingCircles
-            radius={80}
-            duration={25}
-            reverse
-            path={false}
-          >
-            <div className="h-2 w-2 rounded-full bg-cyan-400/40" />
-          </OrbitingCircles>
-        </div>
-      </div>
+        {/* Badge */}
+        <BlurFade delay={0.1} inView>
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-[#9CA3AF] mb-6 backdrop-blur-sm">
+            <span className="h-2 w-2 rounded-full bg-[#2563EB] animate-pulse" />
+            Automatización con IA
+          </span>
+        </BlurFade>
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/60 pointer-events-none" />
+        {/* H1: Static + WordRotate (max 8 words visible at any time) */}
+        <TextAnimate
+          animation="blurInUp"
+          by="word"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-white"
+        >
+          Automatiza tu
+        </TextAnimate>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
-        {/* Logo badge */}
-        <BlurFade delay={0.05} inView>
-          <div className="inline-flex items-center gap-2 bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-full px-4 py-2 mb-8">
-            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-            <span className="text-sm text-slate-300">Asistente IA disponible 24/7</span>
+        <BlurFade delay={0.1} inView>
+          <RotatingText
+            texts={[
+              'reservas y citas',
+              'atención al cliente',
+              'facturación',
+              'gestión de leads',
+              'procesos internos',
+            ]}
+            initial={{ x: '100%', opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: '-100%', opacity: 0 }}
+            mainClassName="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mt-2 text-[#3B82F6]"
+            staggerDuration={0.03}
+            rotationInterval={3000}
+          />
+        </BlurFade>
+
+        {/* Gradient accent line */}
+        <BlurFade delay={0.2} inView>
+          <p className="mt-4 text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#2563EB] via-[#3B82F6] to-[#2563EB] bg-clip-text text-transparent">
+            Menos tareas manuales. Más crecimiento.
+          </p>
+        </BlurFade>
+
+        {/* Subheadline (max 20 words) */}
+        <BlurFade delay={0.3} inView>
+          <p className="mt-6 text-lg sm:text-xl text-[#9CA3AF] max-w-2xl mx-auto leading-relaxed">
+            Chatbots con IA, reservas automáticas y flujos sin intervención manual
+            para clínicas, barberías, inmobiliarias y más.
+          </p>
+        </BlurFade>
+
+        {/* Primary CTA + Secondary CTA */}
+        <BlurFade delay={0.4} inView>
+          <div className="mt-8 flex flex-col sm:flex-row items-center gap-4">
+            <div className="relative rounded-full">
+              <ShimmerButton
+                shimmerColor="#2563EB"
+                background="#1D4ED8"
+                className="px-8 py-4 text-lg font-semibold"
+                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Empieza Ahora
+              </ShimmerButton>
+              <BorderBeam
+                size={25}
+                duration={4}
+                borderWidth={1.5}
+                colorFrom="#2563EB"
+                colorTo="transparent"
+              />
+            </div>
+            <button
+              className="px-8 py-4 text-lg font-semibold text-white border border-white/20 rounded-lg hover:bg-white/5 transition-colors"
+              onClick={() => {
+                document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              Ver Demo
+            </button>
           </div>
         </BlurFade>
 
-        <BlurFade delay={0.1} inView>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight">
-            {/* Main keyword - SEO critical */}
-            <TextAnimate
-              animation="blurInUp"
-              by="word"
-              className="block mb-2"
-              delay={0.2}
-              duration={0.8}
-            >
-              Automatización IA
-            </TextAnimate>
+        {/* Social Proof Bar */}
+        <BlurFade delay={0.45} inView>
+          <div className="mt-10 w-full max-w-3xl mx-auto border-t border-white/10 pt-8">
+            {/* Headline */}
+            <p className="text-sm text-[#9CA3AF] text-center mb-6">
+              Resultados reales de negocios que ya automatizan con nosotros
+            </p>
 
-            {/* Secondary keyword */}
-            <span className="block text-slate-400 text-3xl md:text-4xl lg:text-5xl mb-4">
-              para empresas
-            </span>
-
-            {/* Benefit highlight - visual impact */}
-            <span className="block">
-              <span className="text-emerald-400">Ahorra 40%</span>
-              <span className="text-slate-300 text-3xl md:text-4xl lg:text-5xl"> en costes</span>
-            </span>
-          </h1>
-        </BlurFade>
-
-        <BlurFade delay={0.4} inView>
-          <div className="max-w-3xl mx-auto mt-8 mb-12 space-y-4">
-            {/* Benefit bullets - scaneable */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-base md:text-lg">
-              <div className="flex items-center gap-2 text-slate-300">
-                <div className="flex-shrink-0 w-1.5 h-1.5 bg-emerald-400 rounded-full" />
-                <span>Atención cliente <span className="text-emerald-400 font-semibold">24/7</span></span>
-              </div>
-              <div className="hidden sm:block w-px h-4 bg-slate-700" />
-              <div className="flex items-center gap-2 text-slate-300">
-                <div className="flex-shrink-0 w-1.5 h-1.5 bg-emerald-400 rounded-full" />
-                <span>Tareas <span className="text-emerald-400 font-semibold">automatizadas</span></span>
-              </div>
-              <div className="hidden sm:block w-px h-4 bg-slate-700" />
-              <div className="flex items-center gap-2 text-slate-300">
-                <div className="flex-shrink-0 w-1.5 h-1.5 bg-emerald-400 rounded-full" />
-                <span>Ahorra <span className="text-emerald-400 font-semibold">2.500€/mes</span></span>
-              </div>
+            {/* Stats Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
+              {[
+                { value: '15h', label: 'Ahorradas por semana' },
+                { value: '3x', label: 'Más capacidad de atención' },
+                { value: '98%', label: 'Satisfacción clientes' },
+                { value: '24/7', label: 'Disponibilidad IA' },
+              ].map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <p className="text-2xl sm:text-3xl font-bold text-white">{stat.value}</p>
+                  <p className="text-xs sm:text-sm text-[#9CA3AF] mt-1">{stat.label}</p>
+                </div>
+              ))}
             </div>
 
-            {/* Supporting copy - shorter */}
-            <p className="text-slate-400 text-sm md:text-base">
-              Implementamos soluciones de IA que empresas españolas ya usan para reducir costes operativos
+            {/* Sector Pills */}
+            <div className="flex flex-wrap items-center justify-center gap-2 mb-4">
+              {['Clínicas y Salud', 'Barbería', 'Tatuajes', 'Inmobiliaria'].map((sector) => (
+                <span
+                  key={sector}
+                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-[#9CA3AF]"
+                >
+                  {sector}
+                </span>
+              ))}
+            </div>
+
+            {/* Trust Line */}
+            <p className="text-xs text-[#9CA3AF]/60 text-center">
+              Certificados en IA responsable y RGPD compliant
             </p>
           </div>
         </BlurFade>
 
-        {/* AI Chat Input - Centro del Hero */}
-        <BlurFade delay={0.6} inView>
-          <HeroAIChat />
-        </BlurFade>
-
-        {/* Trust indicators */}
-        <BlurFade delay={0.8} inView>
-          <div className="flex flex-wrap justify-center items-center gap-6 mt-16 text-slate-500 text-sm">
-            <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              <span>Sin compromiso</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              <span>Respuesta inmediata</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              <span>Consulta gratuita</span>
-            </div>
-          </div>
-        </BlurFade>
       </div>
     </section>
   );

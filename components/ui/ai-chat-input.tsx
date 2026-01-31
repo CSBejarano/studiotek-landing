@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { Mic, Send, Loader2, MicOff } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -49,6 +49,7 @@ interface AIChatInputProps {
   onSend?: (message: string) => void;
   onVoiceStart?: () => void;
   onVoiceEnd?: (transcript: string) => void;
+  onFocus?: () => void;
   placeholder?: string;
   placeholders?: string[];
   className?: string;
@@ -68,6 +69,7 @@ export function AIChatInput({
   onSend,
   onVoiceStart,
   onVoiceEnd,
+  onFocus,
   placeholder,
   placeholders = defaultPlaceholders,
   className,
@@ -474,25 +476,31 @@ export function AIChatInput({
         className
       )}
     >
-      {/* Glow effect */}
-      <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-500 rounded-full opacity-20 blur-lg" />
 
-      {/* Main container */}
+      {/* Main container con glassmorphism */}
       <div
         className={cn(
-          "relative flex items-center gap-3 bg-slate-900/90 backdrop-blur-xl rounded-3xl px-6 py-3 transition-all duration-300",
-          isFocused && "shadow-lg shadow-blue-500/10",
-          isListening && !useWhisperFallback && "shadow-lg shadow-green-500/20",
-          isListening && useWhisperFallback && "shadow-lg shadow-red-500/20"
+          "relative flex items-center gap-3 rounded-2xl px-5 py-3 transition-all duration-300",
+          // Glassmorphism base
+          "bg-white/[0.04] backdrop-blur-xl",
+          "border border-white/[0.08]",
+          // Focus state con glow de marca
+          isFocused && cn(
+            "border-[#2563EB]/30",
+            "shadow-[0_0_40px_rgba(37,99,235,0.12),0_8px_32px_rgba(0,0,0,0.3)]"
+          ),
+          // Voice states
+          isListening && !useWhisperFallback && "border-[#2563EB]/30 shadow-lg shadow-[#2563EB]/20",
+          isListening && useWhisperFallback && "border-red-500/30 shadow-lg shadow-red-500/20"
         )}
       >
         {/* Input area */}
-        <div className="relative flex-1 flex items-center min-h-[24px] pl-4 py-1">
+        <div className="relative flex-1 flex items-center min-h-[24px] py-1">
           <textarea
             ref={textareaRef}
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            onFocus={() => setIsFocused(true)}
+            onFocus={() => { setIsFocused(true); onFocus?.(); }}
             onBlur={() => setIsFocused(false)}
             onKeyDown={handleKeyDown}
             disabled={disabled || isProcessing || isTranscribing}
@@ -512,7 +520,7 @@ export function AIChatInput({
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.25 }}
-                className="absolute left-4 right-0 top-1/2 -translate-y-1/2 text-base leading-6 text-slate-400 pointer-events-none truncate"
+                className="absolute left-0 right-0 top-1/2 -translate-y-1/2 text-base leading-6 text-[#9CA3AF] pointer-events-none truncate"
               >
                 {displayPlaceholder}
               </motion.span>
@@ -529,10 +537,10 @@ export function AIChatInput({
             className={cn(
               "p-2 rounded-full transition-all duration-200",
               isListening && !useWhisperFallback
-                ? "text-green-400 bg-green-500/20"
+                ? "text-[#2563EB] bg-[#2563EB]/20 border border-[#2563EB]/30"
                 : isListening && useWhisperFallback
-                ? "text-red-400 bg-red-500/20 animate-pulse"
-                : "text-slate-400 hover:text-slate-200 hover:bg-slate-700/50"
+                ? "text-red-400 bg-red-500/20 border border-red-500/30 animate-pulse"
+                : "text-[#9CA3AF] hover:text-white hover:bg-white/[0.06]"
             )}
             aria-label={isListening ? "Detener grabación" : "Iniciar grabación de voz"}
           >
@@ -550,8 +558,8 @@ export function AIChatInput({
             className={cn(
               "p-3 rounded-full transition-all duration-200",
               value.trim() && !disabled && !isProcessing && !isTranscribing
-                ? "bg-blue-500 text-white hover:bg-blue-400 shadow-md shadow-blue-500/30 hover:shadow-lg"
-                : "bg-slate-700 text-slate-500 cursor-not-allowed"
+                ? "bg-[#2563EB] text-white hover:bg-[#3B82F6] shadow-lg shadow-[#2563EB]/25"
+                : "bg-white/[0.06] text-white/25 cursor-not-allowed"
             )}
             aria-label="Enviar mensaje"
           >
@@ -578,19 +586,19 @@ export function AIChatInput({
             <div
               className={cn(
                 "flex items-center justify-center gap-2 text-sm mt-3",
-                currentStatus === 'listening-native' && "text-green-400",
+                currentStatus === 'listening-native' && "text-[#2563EB]",
                 currentStatus === 'listening-whisper' && "text-red-400",
-                currentStatus === 'transcribing' && "text-blue-400",
-                currentStatus === 'processing' && "text-blue-500",
+                currentStatus === 'transcribing' && "text-[#3B82F6]",
+                currentStatus === 'processing' && "text-[#2563EB]",
                 currentStatus === 'error' && "text-red-400"
               )}
             >
               {currentStatus === 'listening-native' && (
                 <>
                   <span className="flex gap-1">
-                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                    <span className="w-1.5 h-1.5 bg-[#2563EB] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                    <span className="w-1.5 h-1.5 bg-[#2563EB] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                    <span className="w-1.5 h-1.5 bg-[#2563EB] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                   </span>
                   Escuchando...
                 </>

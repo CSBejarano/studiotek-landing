@@ -9,10 +9,12 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "@hookform/resolvers": "^5.2.2",
     "@supabase/supabase-js": "^2.90.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.26.2",
+    "gsap": "^3.14.2",
     "lucide-react": "^0.562.0",
     "motion": "^12.26.2",
     "next": "16.1.1",
