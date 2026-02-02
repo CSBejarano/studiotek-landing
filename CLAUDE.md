@@ -81,7 +81,7 @@ npm run lint             # Linting
 
 ## Structure
 
-```
+```text
 studiotek-landing/
 ├── app/                          # Next.js App Router
 │   ├── page.tsx                  # Landing principal
@@ -185,7 +185,7 @@ studiotek-landing/
 **StudioTek** es una agencia de automatización de negocios con Inteligencia Artificial.
 
 **Modelo de negocio:**
-```
+```text
 StudioTek (Marca paraguas + Servicios)
 ├── KairosAI (Producto SaaS principal)
 ├── Servicios Custom (desarrollo a medida)
@@ -252,93 +252,52 @@ RESEND_API_KEY=re_...
 
 ---
 
-## Skills Disponibles
+## Agentes y Skills de este Proyecto
 
-Los siguientes skills especializados están disponibles mediante comandos `/skill-name`:
+**Agentes principales:** @frontend, @seo-expert, @marketing-expert, @aepd-consultant
+**Skills principales:** `/nextjs`, `/react-19`, `/tailwind`, `/seo-toolkit`, `/studiotek-landing-enhancer`, `/marketing-content`, `/landing-image-generator`, `/aepd-privacidad`
+**Referencia completa:** Ver `~/.claude/CLAUDE.md` para routing table y lista completa de agentes y skills.
 
-### Frontend & UI
-| Skill | Comando | Descripción |
-|-------|---------|-------------|
-| **Next.js** | `/nextjs` | Framework React full-stack con App Router, Server Components, SSR/ISR |
-| **React 19** | `/react-19` | Server Components, Server Actions, hook use(), Suspense |
-| **Tailwind CSS** | `/tailwind` | Patrones v4, dark mode, componentes tipados, theming |
-| **Playwright MCP** | `/playwright-mcp` | Testing E2E, UI/UX validation, accessibility, browser automation |
+### Ejemplos de uso en este proyecto
 
-### Backend & APIs
-| Skill | Comando | Descripción |
-|-------|---------|-------------|
-| **FastAPI** | `/fastapi` | APIs REST Python, Pydantic, OpenAPI, dependency injection |
-| **Clean Architecture** | `/clean-arch` | Capas domain/application/infrastructure, DDD, repository pattern |
-| **Supabase** | `/supabase` | PostgreSQL, auth, storage, edge functions, RLS, realtime |
-| **PydanticAI** | `/pydantic-ai` | Agentes IA con type safety, tools tipados, multi-modelo |
+**Mejorar sección de la landing:**
+```text
+"Mejora la sección hero para móvil"
+→ Task(subagent_type="frontend") con /studiotek-landing-enhancer + /tailwind
+```
 
-### Testing & Quality
-| Skill | Comando | Descripción |
-|-------|---------|-------------|
-| **Pytest** | `/pytest` | Unit tests, integration tests, fixtures, mocking, coverage |
-| **OWASP** | `/owasp` | Auditoría OWASP Top 10:2025, vulnerability scan, hardening |
-| **RLS** | `/rls` | Row Level Security PostgreSQL/Supabase, multi-tenancy |
-| **Code Analysis** | `/code-analysis` | Análisis estático, métricas, anti-patterns, refactoring |
+**Optimización SEO:**
+```text
+"Auditoría SEO completa de la landing"
+→ Task(subagent_type="seo-expert") con /seo-toolkit (módulos: audit, meta tags, schema, Core Web Vitals)
+```
 
-### Marketing & Content
-| Skill | Comando | Descripción |
-|-------|---------|-------------|
-| **SEO Toolkit** | `/seo-toolkit` | 10 módulos: audit, meta tags, schema, Core Web Vitals, keywords |
-| **Marketing Content** | `/marketing-content` | Blog posts, social media, email campaigns, copywriting |
-| **Landing Images** | `/landing-image-generator` | Imágenes profesionales con Gemini Imagen 4.0 |
-| **LinkedIn Publisher** | `/linkedin-publisher` | Posts, videos, carruseles y copy para LinkedIn |
+**Contenido marketing:**
+```text
+"Crea un post de LinkedIn sobre los servicios de StudioTek"
+→ Task(subagent_type="marketing-expert") con /marketing-content + /linkedin-publisher
+```
 
-### Compliance & Legal
-| Skill | Comando | Descripción |
-|-------|---------|-------------|
-| **AEPD Privacidad** | `/aepd-privacidad` | RGPD, LOPDGDD, ENS, AI Act, auditorías, DPO, brechas, cookies |
+**Generar imágenes:**
+```text
+"Genera imágenes profesionales para la sección de servicios"
+→ Skill(skill="landing-images") directo
+```
 
-### Project-Specific
-| Skill | Comando | Descripción |
-|-------|---------|-------------|
-| **StudioTek Enhancer** | `/studiotek-landing-enhancer` | Mejorar landing StudioTek: secciones, animaciones, conversión, AI chat |
+**Compliance RGPD:**
+```text
+"Revisa las cookies y política de privacidad"
+→ Task(subagent_type="aepd-consultant") con /aepd-privacidad
+```
 
-### DevOps & Tools
-| Skill | Comando | Descripción |
-|-------|---------|-------------|
-| **GitHub** | `/github` | Integración GitHub CLI y API: repos, issues, PRs, actions |
-| **MCP Tools** | `/mcp-tools` | Patrones Anthropic MCP: tool chaining, code execution |
-| **Hooks** | `/hooks` | Gestión del sistema de hooks de Claude Code |
-| **Session Memory** | `/session-memory` | Persistencia de contexto entre sesiones |
+**Flujo completo (secuencial):**
+```text
+"Crea nueva sección de casos de éxito con SEO optimizado"
+→ 1. @frontend (implementa sección con /studiotek-landing-enhancer)
+  2. @seo-expert (optimiza meta tags y schema con /seo-toolkit)
+  3. @marketing-expert (genera copy y CTA con /marketing-content)
+```
 
 ---
 
-## Agents Disponibles
-
-Los siguientes agentes especializados están disponibles mediante `@agent-name`:
-
-### Desarrollo
-| Agente | Invocación | Especialidad |
-|--------|------------|--------------|
-| **@frontend** | `@frontend` | Senior Frontend Engineer - React, TypeScript, Tailwind, UI/UX, accesibilidad |
-| **@backend** | `@backend` | Senior Backend Engineer - FastAPI, SQLAlchemy, Clean Architecture, RLS |
-| **@testing** | `@testing` | Senior QA Engineer - pytest, fixtures, mocking, coverage, E2E |
-| **@gentleman** | `@gentleman` | Senior Full-Stack Engineer - arquitectura, patrones, trade-offs |
-
-### Revisión y Calidad
-| Agente | Invocación | Especialidad |
-|--------|------------|--------------|
-| **@security-reviewer** | `@security-reviewer` | Security Engineer - OWASP, vulnerabilidades, auth/authz, secrets |
-| **@quality-reviewer** | `@quality-reviewer` | Code Quality - patrones, performance, mantenibilidad |
-
-### Análisis y Marketing
-| Agente | Invocación | Especialidad |
-|--------|------------|--------------|
-| **@codebase-analyst** | `@codebase-analyst` | Análisis de codebase - arquitectura, dependencias, complejidad |
-| **@seo-expert** | `@seo-expert` | SEO Expert - technical SEO, content optimization, analytics |
-| **@marketing-expert** | `@marketing-expert` | Marketing - content marketing, copywriting, sales outreach |
-
-### Especialistas
-| Agente | Invocación | Especialidad |
-|--------|------------|--------------|
-| **@aepd-consultant** | `@aepd-consultant` | Experto Protección de Datos - RGPD, LOPDGDD, AEPD, ENS, AI Act |
-| **@claude-skills-architect** | `@claude-skills-architect` | Diseño de nuevos skills y workflows |
-
----
-
-*Last updated: 2026-01-31*
+*Last updated: 2026-02-02 | Agents & Skills Registry*
