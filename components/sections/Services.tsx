@@ -248,21 +248,21 @@ export function Services() {
           <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-bold leading-[1.15] tracking-tight text-center text-white">
             Nuestros Servicios
           </h2>
-          <p className="text-[clamp(1rem,1.5vw,1.125rem)] font-normal leading-relaxed text-white/60 text-center mt-3 max-w-2xl mx-auto">
+          <p className="text-[clamp(1rem,1.5vw,1.125rem)] font-normal leading-relaxed text-white/60 text-center mt-1 max-w-2xl mx-auto">
             Automatizacion real para negocios de servicios
           </p>
 
           {/* Mobile: horizontal swipe carousel */}
-          <div className="mt-10 sm:hidden">
+          <div className="mt-8 sm:hidden">
             <div
               ref={carouselRef}
               onScroll={handleCarouselScroll}
-              className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-3 pb-2"
+              className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-3 pb-2 px-4"
             >
               {servicesCardData.map((card, index) => (
                 <div
                   key={card.title}
-                  className="flex-shrink-0 w-[46%] snap-start first:ml-4 last:mr-4"
+                  className="flex-shrink-0 w-[78%] snap-center"
                 >
                   <CarouselCard
                     card={card}
@@ -272,8 +272,17 @@ export function Services() {
                 </div>
               ))}
             </div>
-            {/* Dot indicators */}
-            <div className="flex justify-center gap-2 mt-4">
+            {/* Swipe hint - fades out after first scroll */}
+            <p
+              className={`text-center text-white/40 text-xs mt-3 transition-opacity duration-500 ${
+                activeSlide > 0 ? 'opacity-0' : 'opacity-100'
+              }`}
+              aria-hidden="true"
+            >
+              Desliza para ver mas &rarr;
+            </p>
+            {/* Dot indicators - 44px touch target with small visual dot */}
+            <div className="flex justify-center gap-0 mt-2">
               {servicesCardData.map((card, i) => (
                 <button
                   key={card.title}
@@ -283,8 +292,8 @@ export function Services() {
                     const cardWidth = el.scrollWidth / servicesCardData.length;
                     el.scrollTo({ left: cardWidth * i, behavior: 'smooth' });
                   }}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 min-w-[44px] min-h-[44px] flex items-center justify-center`}
-                  aria-label={`Ir a servicio ${i + 1}`}
+                  className="w-11 h-11 flex items-center justify-center"
+                  aria-label={`Ir a servicio ${i + 1}: ${card.title}`}
                 >
                   <span
                     className={`block rounded-full transition-all duration-300 ${
@@ -298,8 +307,8 @@ export function Services() {
             </div>
           </div>
 
-          {/* Tablet+: 3-col grid */}
-          <div className="mt-10 hidden sm:grid grid-cols-3 gap-5">
+          {/* Tablet: 2-col, Desktop: 3-col grid */}
+          <div className="mt-10 hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {servicesCardData.map((card, index) => (
               <CarouselCard
                 key={card.title}

@@ -1,11 +1,10 @@
 'use client';
 
 import { useCallback } from 'react';
-import { useScroll } from 'motion/react';
+import { useReducedMotion } from 'motion/react';
 import { useHorizontalScroll } from './hooks/useHorizontalScroll';
-import { panels, NUM_PANELS } from './data/benefits-data';
-import { BenefitPanel } from './BenefitPanel';
-import { CTAPanel } from './CTAPanel';
+import { surfaceElements, SURFACE_WIDTH } from './data/surface-layout';
+import { SurfaceElement } from './SurfaceElement';
 import { MobileBenefits } from './MobileBenefits';
 import { ProgressIndicator } from './ProgressIndicator';
 
@@ -14,18 +13,26 @@ import { ProgressIndicator } from './ProgressIndicator';
 // ---------------------------------------------------------------------------
 
 export function Benefits() {
-  // containerRef is the GSAP pin trigger (desktop wrapper only)
-  const { containerRef, trackRef } = useHorizontalScroll(NUM_PANELS);
-
-  // useScroll for the progress indicator
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end'],
-  });
+  const { containerRef, trackRef, scrollProgress } = useHorizontalScroll();
+  const reducedMotion = useReducedMotion();
 
   const scrollToContact = useCallback(() => {
     document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' });
   }, []);
+
+  // Si reduced motion, mostrar layout vertical en todos los breakpoints
+  if (reducedMotion) {
+    return (
+      <section
+        id="benefits"
+        data-section="benefits"
+        role="region"
+        aria-label="Beneficios de automatizar con IA"
+      >
+        <MobileBenefits scrollToContact={scrollToContact} />
+      </section>
+    );
+  }
 
   return (
     <section
@@ -34,29 +41,24 @@ export function Benefits() {
       role="region"
       aria-label="Beneficios de automatizar con IA"
     >
-      {/* Desktop horizontal scroll - GSAP pins this wrapper */}
-      <div ref={containerRef} className="hidden md:block relative">
-        {/* Horizontal track - controlled by GSAP */}
+      {/* Desktop: superficie horizontal continua */}
+      <div ref={containerRef} className="hidden md:block relative overflow-visible">
         <div
           ref={trackRef}
-          className="flex h-screen will-change-transform"
-          style={{ width: `${NUM_PANELS * 100}vw` }}
+          className="relative h-screen bg-[#0A0A0A] will-change-transform overflow-visible"
+          style={{ width: `${SURFACE_WIDTH}vw` }}
         >
-          {/* Benefit Panels */}
-          {panels.map((panel, index) => (
-            <BenefitPanel key={panel.id} panel={panel} index={index} />
+          {surfaceElements.map((el) => (
+            <SurfaceElement key={el.id} element={el} scrollYProgress={scrollProgress} />
           ))}
-
-          {/* CTA Panel */}
-          <CTAPanel scrollToContact={scrollToContact} />
         </div>
-
-        {/* Progress indicator */}
-        <ProgressIndicator scrollYProgress={scrollYProgress} numPanels={NUM_PANELS} />
+        <ProgressIndicator scrollYProgress={scrollProgress} />
       </div>
 
-      {/* Mobile Fallback */}
-      <MobileBenefits panels={panels} scrollToContact={scrollToContact} />
+      {/* Mobile: fallback vertical */}
+      <div className="md:hidden">
+        <MobileBenefits scrollToContact={scrollToContact} />
+      </div>
     </section>
   );
 }

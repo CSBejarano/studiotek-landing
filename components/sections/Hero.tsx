@@ -2,6 +2,7 @@
 
 import { useRef } from 'react';
 import { useReducedMotion } from 'motion/react';
+import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { TextAnimate } from '../magicui/text-animate';
 import { BlurFade } from '../magicui/blur-fade';
@@ -25,9 +26,20 @@ export function Hero() {
     <section
       ref={sectionRef}
       id="hero"
-      className="relative min-h-screen-safe flex flex-col items-center justify-center overflow-hidden bg-[#0A0A0A] pt-16 pb-10 sm:pt-20 sm:pb-16"
+      className="relative min-h-[calc(100svh-2rem)] sm:min-h-screen-safe flex flex-col items-center justify-center overflow-hidden bg-[#0A0A0A] pt-16 pb-4 sm:pt-20 sm:pb-16"
       aria-label="Hero principal de StudioTek"
     >
+      {/* Hero Background Image - subtle neural network */}
+      <Image
+        src="/images/generated/hero-bg-neural-network.webp"
+        alt=""
+        fill
+        className="absolute inset-0 z-[0] object-cover opacity-[0.15] pointer-events-none"
+        priority={false}
+        quality={75}
+        aria-hidden="true"
+      />
+
       {/* Particles Background - conditionally rendered */}
       {!shouldReduceMotion && (
         <Particles
@@ -111,14 +123,14 @@ export function Hero() {
 
         {/* Social Proof Bar */}
         <BlurFade delay={0.45} inView>
-          <div className="mt-6 sm:mt-10 w-full max-w-3xl mx-auto pt-5 sm:pt-8">
+          <div className="mt-4 sm:mt-10 w-full max-w-3xl mx-auto pt-3 sm:pt-8">
             {/* Headline */}
             <p className="text-[clamp(0.75rem,1vw,0.875rem)] font-medium tracking-widest uppercase text-white/60 text-center mb-4 sm:mb-6">
               Resultados reales de negocios que ya automatizan con nosotros
             </p>
 
             {/* Stats Grid - flex wrap on mobile for better 375px fit */}
-            <div className="flex flex-wrap justify-center gap-x-6 gap-y-4 sm:grid sm:grid-cols-4 sm:gap-6 mb-4 sm:mb-6">
+            <div className="flex flex-wrap justify-center gap-x-4 gap-y-3 sm:grid sm:grid-cols-4 sm:gap-6 mb-4 sm:mb-6">
               {[
                 { value: '15h', label: 'Ahorradas por semana' },
                 { value: '3x', label: 'Más capacidad' },
@@ -133,7 +145,7 @@ export function Hero() {
             </div>
 
             {/* Sector Pills - scrollable on very narrow screens */}
-            <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mb-3 sm:mb-4">
+            <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mb-2 sm:mb-4">
               {['Clínicas y Salud', 'Barbería', 'Tatuajes', 'Inmobiliaria'].map((sector) => (
                 <span
                   key={sector}
