@@ -1,111 +1,93 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
-import { Rocket, Lightbulb, GraduationCap, Cpu } from 'lucide-react';
-import { BlurFade } from '@/components/magicui/blur-fade';
-import { TextAnimate } from '@/components/magicui/text-animate';
+import { Rocket, Lightbulb, GraduationCap } from 'lucide-react';
+import { useReducedMotion } from 'motion/react';
 import { CarouselCard, CardData } from '@/components/ui/CarouselCard';
+import { HeroServiceCard } from '@/components/ui/HeroServiceCard';
 import { ServiceModal } from '@/components/ui/ServiceModal';
+import { useExpandingCard } from '@/hooks/useExpandingCard';
+
+// ---------------------------------------------------------------------------
+// Services Data (3 cards)
+// ---------------------------------------------------------------------------
 
 const services = [
   {
-    title: 'Implementación de IA',
+    title: 'Consultoria Estrategica',
     description:
-      'Chatbots WhatsApp con IA, reservas automáticas y flujos sin intervención. Para clínicas, barberías, estudios de tatuaje e inmobiliarias.',
+      'Analizamos tu negocio y disenamos un plan de automatizacion con ROI claro. Sabras cuanto ahorraras antes de empezar.',
+    icon: Lightbulb,
+    gradient: 'from-amber-500 to-orange-600',
+    category: 'Estrategia',
+    features: [
+      'Auditoria completa de procesos',
+      'Identificacion de cuellos de botella',
+      'Roadmap de implementacion',
+      'Calculo de ROI proyectado',
+      'Priorizacion de iniciativas',
+      'Benchmarking con tu sector',
+    ],
+    benefits: ['Claridad sobre donde invertir', 'Decisiones basadas en datos'],
+    shimmerGradient: { from: '#f59e0b', to: '#ea580c' },
+    image: '/images/generated/service-consultoria.webp',
+  },
+  {
+    title: 'Implementacion de IA',
+    description:
+      'Chatbots WhatsApp con IA, reservas automaticas y flujos sin intervencion. Para clinicas, barberias, estudios de tatuaje e inmobiliarias.',
     icon: Rocket,
     gradient: 'from-blue-600 to-indigo-600',
+    category: 'Desarrollo',
     features: [
       'Chatbots con IA conversacional',
-      'Automatización de procesos repetitivos',
+      'Automatizacion de procesos repetitivos',
       'Integraciones con tu stack existente',
       'Dashboards en tiempo real',
       'APIs personalizadas',
-      'Soporte técnico 24/7'
+      'Soporte tecnico 24/7',
     ],
     benefits: ['Reduce 70% el tiempo en tareas manuales', 'Disponibilidad 24/7'],
     shimmerGradient: { from: '#2563eb', to: '#4f46e5' },
     image: '/images/generated/service-implementacion-ia.webp',
   },
   {
-    title: 'Consultoría Estratégica',
+    title: 'Formacion y Capacitacion',
     description:
-      'Analizamos tu negocio y diseñamos un plan de automatización con ROI claro. Sabrás cuánto ahorrarás antes de empezar.',
-    icon: Lightbulb,
-    gradient: 'from-amber-500 to-orange-600',
-    features: [
-      'Auditoría completa de procesos',
-      'Identificación de cuellos de botella',
-      'Roadmap de implementación',
-      'Cálculo de ROI proyectado',
-      'Priorización de iniciativas',
-      'Benchmarking con tu sector'
-    ],
-    benefits: ['Claridad sobre dónde invertir', 'Decisiones basadas en datos'],
-    shimmerGradient: { from: '#f59e0b', to: '#ea580c' },
-    image: '/images/generated/service-consultoria.webp',
-  },
-  {
-    title: 'Formación y Capacitación',
-    description:
-      'Tu equipo domina la IA en días, no meses. Formación práctica con casos reales de salud, belleza e inmobiliaria.',
+      'Tu equipo domina la IA en dias, no meses. Formacion practica con casos reales de salud, belleza e inmobiliaria.',
     icon: GraduationCap,
     gradient: 'from-emerald-500 to-teal-600',
+    category: 'Educacion',
     features: [
-      'Workshops prácticos hands-on',
+      'Workshops practicos hands-on',
       'Certificaciones oficiales',
       'Material actualizado',
       'Sesiones de seguimiento',
       'Casos de uso reales del sector',
-      'Soporte post-formación'
+      'Soporte post-formacion',
     ],
-    benefits: ['Equipo autónomo y capacitado', 'Adopción rápida'],
+    benefits: ['Equipo autonomo y capacitado', 'Adopcion rapida'],
     shimmerGradient: { from: '#10b981', to: '#0d9488' },
     image: '/images/generated/service-formacion.webp',
   },
-  {
-    title: 'IA Personalizada',
-    description:
-      'Soluciones a medida para tus desafíos únicos. IA entrenada con tus datos, en tu infraestructura.',
-    icon: Cpu,
-    gradient: 'from-rose-500 to-pink-600',
-    features: [
-      'Modelos ML personalizados',
-      'Fine-tuning de LLMs',
-      'Entrenamiento con tus datos',
-      'Deploy en cloud u on-premise',
-      'Monitoreo y reentrenamiento',
-      'Escalabilidad garantizada'
-    ],
-    benefits: ['Solución 100% adaptada a ti', 'Ventaja competitiva única'],
-    shimmerGradient: { from: '#f43f5e', to: '#ec4899' },
-    image: '/images/generated/service-ia-personalizada.webp',
-  },
 ];
 
-// Helper function to get category from gradient
-function getCategoryFromGradient(gradient: string): string {
-  if (gradient.includes('blue') || gradient.includes('indigo')) return 'Desarrollo';
-  if (gradient.includes('amber') || gradient.includes('orange')) return 'Estrategia';
-  if (gradient.includes('emerald') || gradient.includes('teal')) return 'Educación';
-  if (gradient.includes('rose') || gradient.includes('pink')) return 'Innovación';
-  return 'Servicio';
-}
+// ---------------------------------------------------------------------------
+// Transform to CardData format
+// ---------------------------------------------------------------------------
 
-// Transform services to CardData format - COMPACT for modal fit
-const servicesCarouselData: CardData[] = services.map((service) => ({
+const servicesCardData: CardData[] = services.map((service) => ({
   title: service.title,
-  category: getCategoryFromGradient(service.gradient),
+  category: service.category,
   gradient: service.gradient,
   icon: service.icon,
   image: service.image,
   content: (
     <div className="space-y-6">
-      {/* Description */}
       <p className="text-slate-200 text-lg leading-relaxed">{service.description}</p>
 
-      {/* Benefits highlight */}
-      {'benefits' in service && service.benefits && (
+      {service.benefits && (
         <div className="flex flex-wrap gap-3">
           {service.benefits.map((benefit: string) => (
             <span
@@ -118,16 +100,15 @@ const servicesCarouselData: CardData[] = services.map((service) => ({
         </div>
       )}
 
-      {/* Features list */}
       <div className="space-y-3">
-        <h4 className="font-semibold text-white text-lg">¿Qué incluye?</h4>
+        <h4 className="font-semibold text-white text-lg">Que incluye?</h4>
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {service.features.map((feature) => (
             <li key={feature} className="flex items-center gap-3">
               <div
                 className="w-2 h-2 rounded-full flex-shrink-0"
                 style={{
-                  background: `linear-gradient(to right, ${service.shimmerGradient.from}, ${service.shimmerGradient.to})`
+                  background: `linear-gradient(to right, ${service.shimmerGradient.from}, ${service.shimmerGradient.to})`,
                 }}
               />
               <span className="text-slate-300">{feature}</span>
@@ -136,7 +117,6 @@ const servicesCarouselData: CardData[] = services.map((service) => ({
         </ul>
       </div>
 
-      {/* CTA */}
       <div className="pt-4 flex flex-col sm:flex-row gap-4">
         <button
           onClick={() => {
@@ -144,10 +124,10 @@ const servicesCarouselData: CardData[] = services.map((service) => ({
           }}
           className="px-8 py-3 min-h-[44px] rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg"
           style={{
-            background: `linear-gradient(to right, ${service.shimmerGradient.from}, ${service.shimmerGradient.to})`
+            background: `linear-gradient(to right, ${service.shimmerGradient.from}, ${service.shimmerGradient.to})`,
           }}
         >
-          Solicitar información
+          Solicitar informacion
         </button>
         <button
           onClick={() => {
@@ -162,19 +142,60 @@ const servicesCarouselData: CardData[] = services.map((service) => ({
   ),
 }));
 
+// Hero card data (index 1 = Implementacion de IA)
+const heroCardData = servicesCardData[1];
+
+// Indices: 0=Consultoria(left), 1=Implementacion(hero/center), 2=Formacion(right)
+const HERO_INDEX = 1;
+
+// ---------------------------------------------------------------------------
+// Component
+// ---------------------------------------------------------------------------
+
 export function Services() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+
+  // Track active slide on scroll
+  const handleCarouselScroll = useCallback(() => {
+    const el = carouselRef.current;
+    if (!el) return;
+    const scrollLeft = el.scrollLeft;
+    const cardWidth = el.scrollWidth / servicesCardData.length;
+    const index = Math.round(scrollLeft / cardWidth);
+    setActiveSlide(Math.min(index, servicesCardData.length - 1));
+  }, []);
+
+  const {
+    sectionRef,
+    overlayRef,
+    bgHeroRef,
+    sideCardLeftRef,
+    sideCardRightRef,
+    centerCardRef,
+    titleRef,
+    heroTitleRef,
+  } = useExpandingCard(isDesktop);
 
   useEffect(() => {
     setMounted(true);
+    // Check if desktop (expanding card only on md+)
+    const mql = window.matchMedia('(min-width: 768px)');
+    setIsDesktop(mql.matches);
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
   }, []);
 
-  // Listen for voice agent custom event to open service modal
+  // Voice agent custom event listener
   useEffect(() => {
     const handleVoiceOpenModal = (event: CustomEvent<{ index: number }>) => {
       const { index } = event.detail;
-      if (index >= 0 && index < servicesCarouselData.length) {
+      if (index >= 0 && index < servicesCardData.length) {
         setOpenIndex(index);
       }
     };
@@ -192,7 +213,7 @@ export function Services() {
     };
   }, []);
 
-  // Body scroll lock cuando modal abierto
+  // Body scroll lock for modal
   useEffect(() => {
     if (openIndex !== null) {
       document.body.style.overflow = 'hidden';
@@ -205,7 +226,7 @@ export function Services() {
   const handleOpen = (index: number) => setOpenIndex(index);
   const handleClose = () => setOpenIndex(null);
   const handleNext = () => {
-    if (openIndex !== null && openIndex < servicesCarouselData.length - 1) {
+    if (openIndex !== null && openIndex < servicesCardData.length - 1) {
       setOpenIndex(openIndex + 1);
     }
   };
@@ -215,36 +236,69 @@ export function Services() {
     }
   };
 
-  return (
-    <section id="services" className="relative bg-slate-950 py-24 overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-800/20 via-slate-900/30 to-slate-950 pointer-events-none" />
+  // ─── MOBILE / REDUCED-MOTION LAYOUT ─────────────────────────────────
+  if (!isDesktop || prefersReducedMotion) {
+    return (
+      <section id="services" className="relative bg-slate-950 py-16 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-800/20 via-slate-900/30 to-slate-950 pointer-events-none" />
 
-      <div className="relative z-10 max-w-7xl mx-auto">
-        <div className="px-4">
-          <BlurFade delay={0.1} inView>
-            <TextAnimate
-              as="h2"
-              animation="blurInUp"
-              by="word"
-              className="text-4xl md:text-5xl font-bold text-center text-white"
-              delay={0.1}
-              duration={0.6}
+        <div className="relative z-10 max-w-7xl mx-auto px-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-center text-white">
+            Nuestros Servicios
+          </h2>
+          <p className="text-lg text-slate-400 text-center mt-3 max-w-2xl mx-auto">
+            Automatizacion real para negocios de servicios
+          </p>
+
+          {/* Mobile: horizontal swipe carousel */}
+          <div className="mt-10 sm:hidden">
+            <div
+              ref={carouselRef}
+              onScroll={handleCarouselScroll}
+              className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-3 pb-2"
             >
-              Nuestros Servicios
-            </TextAnimate>
-          </BlurFade>
+              {servicesCardData.map((card, index) => (
+                <div
+                  key={card.title}
+                  className="flex-shrink-0 w-[46%] snap-start first:ml-4 last:mr-4"
+                >
+                  <CarouselCard
+                    card={card}
+                    index={index}
+                    onClick={() => handleOpen(index)}
+                  />
+                </div>
+              ))}
+            </div>
+            {/* Dot indicators */}
+            <div className="flex justify-center gap-2 mt-4">
+              {servicesCardData.map((card, i) => (
+                <button
+                  key={card.title}
+                  onClick={() => {
+                    const el = carouselRef.current;
+                    if (!el) return;
+                    const cardWidth = el.scrollWidth / servicesCardData.length;
+                    el.scrollTo({ left: cardWidth * i, behavior: 'smooth' });
+                  }}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 min-w-[44px] min-h-[44px] flex items-center justify-center`}
+                  aria-label={`Ir a servicio ${i + 1}`}
+                >
+                  <span
+                    className={`block rounded-full transition-all duration-300 ${
+                      activeSlide === i
+                        ? 'w-6 h-2 bg-[#2563EB]'
+                        : 'w-2 h-2 bg-white/30'
+                    }`}
+                  />
+                </button>
+              ))}
+            </div>
+          </div>
 
-          <BlurFade delay={0.2} inView>
-            <p className="text-xl text-slate-400 text-center mt-4 max-w-2xl mx-auto">
-              Automatización real para negocios de servicios
-            </p>
-          </BlurFade>
-        </div>
-
-        <BlurFade delay={0.3} inView>
-          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 px-6">
-            {servicesCarouselData.map((card, index) => (
+          {/* Tablet+: 3-col grid */}
+          <div className="mt-10 hidden sm:grid grid-cols-3 gap-5">
+            {servicesCardData.map((card, index) => (
               <CarouselCard
                 key={card.title}
                 card={card}
@@ -253,21 +307,126 @@ export function Services() {
               />
             ))}
           </div>
-        </BlurFade>
+        </div>
+
+        {mounted &&
+          createPortal(
+            <ServiceModal
+              card={openIndex !== null ? servicesCardData[openIndex] : null}
+              onClose={handleClose}
+              onNext={handleNext}
+              onPrev={handlePrev}
+              hasNext={openIndex !== null && openIndex < servicesCardData.length - 1}
+              hasPrev={openIndex !== null && openIndex > 0}
+            />,
+            document.body
+          )}
+      </section>
+    );
+  }
+
+  // ─── DESKTOP LAYOUT (>= 768px) -- Expanding Card ──────────────
+  return (
+    <section
+      ref={sectionRef}
+      id="services"
+      className="relative h-screen overflow-hidden"
+    >
+      {/* ── CAPA 0: Hero Card de Fondo (z-0) ── */}
+      <div
+        ref={bgHeroRef}
+        className="absolute inset-0 z-0"
+      >
+        <HeroServiceCard card={heroCardData} />
+
+        {/* Gradiente semi-transparente para legibilidad del texto */}
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/40 to-transparent pointer-events-none" />
+
+        {/* Marco decorativo glass-morphism (estilo Revolut) */}
+        <div className="absolute top-[8%] right-[8%] bottom-[8%] left-[38%] md:left-[25%] lg:left-[38%] border border-white/15 rounded-3xl pointer-events-none" />
       </div>
 
-      {/* Service Modal Portal */}
-      {mounted && createPortal(
-        <ServiceModal
-          card={openIndex !== null ? servicesCarouselData[openIndex] : null}
-          onClose={handleClose}
-          onNext={handleNext}
-          onPrev={handlePrev}
-          hasNext={openIndex !== null && openIndex < servicesCarouselData.length - 1}
-          hasPrev={openIndex !== null && openIndex > 0}
-        />,
-        document.body
-      )}
+      {/* ── Hero Title (z-5) - Visible in initial state, top-left ── */}
+      <div
+        ref={heroTitleRef}
+        className="absolute z-15 top-[15%] left-[5%] lg:left-[6%] max-w-[35%] pointer-events-none"
+      >
+        <p className="text-sm md:text-base text-white/50 uppercase tracking-widest font-medium mb-4">
+          {heroCardData.category}
+        </p>
+        <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-6">
+          {heroCardData.title}
+        </h2>
+        <p className="text-lg md:text-xl text-white/60 leading-relaxed max-w-md">
+          Chatbots con IA, reservas automaticas y flujos sin intervencion humana.
+        </p>
+      </div>
+
+      {/* ── CAPA 1: Overlay con clip-path (z-10) ── */}
+      <div
+        ref={overlayRef}
+        className="absolute inset-0 z-10 bg-slate-950"
+      >
+        {/* Background gradient */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-800/20 via-slate-900/30 to-slate-950 pointer-events-none" />
+
+        {/* Content container */}
+        <div className="relative z-10 h-full flex flex-col items-center justify-center max-w-7xl mx-auto px-6">
+          {/* Section Title */}
+          <div ref={titleRef} className="text-center mb-10">
+            <h2 className="text-4xl md:text-5xl font-bold text-white">
+              Nuestros Servicios
+            </h2>
+            <p className="text-xl text-slate-400 mt-4 max-w-2xl mx-auto">
+              Automatizacion real para negocios de servicios
+            </p>
+          </div>
+
+          {/* Grid of 3 Cards */}
+          <div className="grid grid-cols-3 gap-5 w-full max-w-5xl">
+            {/* Card 0: Consultoria (Left) */}
+            <div ref={sideCardLeftRef}>
+              <CarouselCard
+                card={servicesCardData[0]}
+                index={0}
+                onClick={() => handleOpen(0)}
+              />
+            </div>
+
+            {/* Card 1: Implementacion (Center - Hero) */}
+            <div ref={centerCardRef}>
+              <CarouselCard
+                card={servicesCardData[HERO_INDEX]}
+                index={HERO_INDEX}
+                onClick={() => handleOpen(HERO_INDEX)}
+              />
+            </div>
+
+            {/* Card 2: Formacion (Right) */}
+            <div ref={sideCardRightRef}>
+              <CarouselCard
+                card={servicesCardData[2]}
+                index={2}
+                onClick={() => handleOpen(2)}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── ServiceModal Portal ── */}
+      {mounted &&
+        createPortal(
+          <ServiceModal
+            card={openIndex !== null ? servicesCardData[openIndex] : null}
+            onClose={handleClose}
+            onNext={handleNext}
+            onPrev={handlePrev}
+            hasNext={openIndex !== null && openIndex < servicesCardData.length - 1}
+            hasPrev={openIndex !== null && openIndex > 0}
+          />,
+          document.body
+        )}
     </section>
   );
 }
