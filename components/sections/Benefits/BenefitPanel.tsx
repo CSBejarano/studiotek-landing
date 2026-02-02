@@ -30,13 +30,12 @@ const imgEntrance = (delay: number) => ({
 // ---------------------------------------------------------------------------
 
 export function BenefitPanel({ panel, index }: BenefitPanelProps) {
-  const isDark = panel.bgVariant === 'dark';
-
-  const bgColor = isDark ? 'bg-[#0A0A0A]' : 'bg-[#F5F5F5]';
-  const textColor = isDark ? 'text-white' : 'text-[#0A0A0A]';
-  const textMutedColor = isDark ? 'text-white/70' : 'text-[#0A0A0A]/70';
-  const textMutedMoreColor = isDark ? 'text-white/50' : 'text-[#0A0A0A]/50';
-  const borderColor = isDark ? 'border-white/10' : 'border-black/10';
+  // Unified dark background -- no light variant
+  const bgColor = 'bg-[#0A0A0A]';
+  const textColor = 'text-white';
+  const textMutedColor = 'text-white/70';
+  const textMutedMoreColor = 'text-white/50';
+  const borderColor = 'border-white/10';
 
   // Headline renderer
   const headline = (
@@ -60,7 +59,7 @@ export function BenefitPanel({ panel, index }: BenefitPanelProps) {
       <span className="text-xl sm:text-2xl font-bold text-[#2563EB]">
         {panel.stat.suffix}
       </span>
-      <span className={`text-sm ${textMutedMoreColor} ml-2 uppercase tracking-wider`}>
+      <span className={`text-[clamp(0.75rem,1vw,0.875rem)] font-medium tracking-widest uppercase ${textMutedMoreColor} ml-2`}>
         {panel.stat.label}
       </span>
     </div>
@@ -73,13 +72,13 @@ export function BenefitPanel({ panel, index }: BenefitPanelProps) {
   if (panel.layoutVariant === 'editorial-left') {
     return (
       <div className={`h-full flex-shrink-0 relative ${bgColor} overflow-hidden`} style={{ width: '100vw' }}>
-        <WatermarkStat value={panel.watermarkValue} isDark={isDark} align="right" />
+        <WatermarkStat value={panel.watermarkValue} align="right" />
 
         <div className="relative h-full w-full px-8 sm:px-14 md:px-20 lg:px-28 pt-12 sm:pt-16 pb-20 sm:pb-24 flex flex-col justify-between">
           {/* Top: Headline + Copy 1 */}
           <div className="max-w-[55%]">
             {headline}
-            <p className={`mt-6 max-w-sm text-base sm:text-lg ${textMutedColor} leading-relaxed z-10 relative`}>
+            <p className={`mt-6 max-w-sm text-[clamp(1rem,1.5vw,1.125rem)] font-normal leading-relaxed ${textMutedColor} z-10 relative`}>
               {panel.copyBlocks[0]?.text}
             </p>
           </div>
@@ -135,7 +134,7 @@ export function BenefitPanel({ panel, index }: BenefitPanelProps) {
 
           {/* Bottom: Copy 2 (right-aligned) + Stat */}
           <div className="flex flex-col items-end gap-4">
-            <p className={`max-w-sm text-base sm:text-lg ${textMutedColor} leading-relaxed text-right z-10 relative`}>
+            <p className={`max-w-sm text-[clamp(1rem,1.5vw,1.125rem)] font-normal leading-relaxed ${textMutedColor} text-right z-10 relative`}>
               {panel.copyBlocks[1]?.text}
             </p>
             {statTicker()}
@@ -152,7 +151,7 @@ export function BenefitPanel({ panel, index }: BenefitPanelProps) {
   if (panel.layoutVariant === 'editorial-right') {
     return (
       <div className={`h-full flex-shrink-0 relative ${bgColor} overflow-hidden`} style={{ width: '100vw' }}>
-        <WatermarkStat value={panel.watermarkValue} isDark={isDark} align="left" />
+        <WatermarkStat value={panel.watermarkValue} align="left" />
 
         <div className="relative h-full w-full px-8 sm:px-14 md:px-20 lg:px-28 pt-12 sm:pt-16 pb-20 sm:pb-24 flex flex-col justify-between">
           {/* Top: Headline right-aligned */}
@@ -186,7 +185,7 @@ export function BenefitPanel({ panel, index }: BenefitPanelProps) {
           )}
 
           {/* Copy 1 - left-center, below image area */}
-          <p className={`max-w-sm text-base sm:text-lg ${textMutedColor} leading-relaxed z-10 relative ml-[15%]`}>
+          <p className={`max-w-sm text-[clamp(1rem,1.5vw,1.125rem)] font-normal leading-relaxed ${textMutedColor} z-10 relative ml-[15%]`}>
             {panel.copyBlocks[0]?.text}
           </p>
 
@@ -215,7 +214,7 @@ export function BenefitPanel({ panel, index }: BenefitPanelProps) {
           )}
 
           {/* Copy 2 - right of image, no overlap */}
-          <p className={`absolute bottom-[24%] right-[5%] max-w-[26%] text-base sm:text-lg ${textMutedColor} leading-relaxed text-right z-20`}>
+          <p className={`absolute bottom-[24%] right-[5%] max-w-[26%] text-[clamp(1rem,1.5vw,1.125rem)] font-normal leading-relaxed ${textMutedColor} text-right z-20`}>
             {panel.copyBlocks[1]?.text}
           </p>
 
@@ -234,7 +233,7 @@ export function BenefitPanel({ panel, index }: BenefitPanelProps) {
   // ---------------------------------------------------------------------------
   return (
     <div className={`h-full flex-shrink-0 relative ${bgColor} overflow-hidden`} style={{ width: '100vw' }}>
-      <WatermarkStat value={panel.watermarkValue} isDark={isDark} align="center" />
+      <WatermarkStat value={panel.watermarkValue} align="center" />
 
       <div className="relative h-full w-full px-8 sm:px-14 md:px-20 lg:px-28 pt-12 sm:pt-16 pb-20 sm:pb-24 flex flex-col items-center justify-between">
         {/* Top: Headline centered */}
@@ -293,10 +292,10 @@ export function BenefitPanel({ panel, index }: BenefitPanelProps) {
 
         {/* Center: Copy blocks */}
         <div className="text-center max-w-md z-10 relative">
-          <p className={`text-base sm:text-lg ${textMutedColor} leading-relaxed mb-4`}>
+          <p className={`text-[clamp(1rem,1.5vw,1.125rem)] font-normal leading-relaxed ${textMutedColor} mb-4`}>
             {panel.copyBlocks[0]?.text}
           </p>
-          <p className={`text-base sm:text-lg ${textMutedColor} leading-relaxed`}>
+          <p className={`text-[clamp(1rem,1.5vw,1.125rem)] font-normal leading-relaxed ${textMutedColor}`}>
             {panel.copyBlocks[1]?.text}
           </p>
         </div>

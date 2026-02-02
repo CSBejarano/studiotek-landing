@@ -1,8 +1,8 @@
 import { Hero } from '@/components/sections/Hero';
-import { PainPointsPAS } from '@/components/sections/PainPointsPAS';
+// import { PainPointsPAS } from '@/components/sections/PainPointsPAS';
 import { Benefits } from '@/components/sections/Benefits';
 import { Services } from '@/components/sections/Services';
-import { HowItWorks } from '@/components/sections/HowItWorks';
+// import { HowItWorks } from '@/components/sections/HowItWorks';
 import { ContactForm } from '@/components/sections/ContactForm';
 
 export default function Home() {
@@ -11,8 +11,8 @@ export default function Home() {
       {/* 1. Hero con Asistente IA central */}
       <Hero />
 
-      {/* 2. Pain Points - Parallax sections */}
-      <PainPointsPAS />
+      {/* 2. Pain Points - TEMPORALMENTE DESACTIVADO */}
+      {/* <PainPointsPAS /> */}
 
       {/* 3. Beneficios de automatizar */}
       <Benefits />
@@ -20,8 +20,8 @@ export default function Home() {
       {/* 4. Nuestros servicios */}
       <Services />
 
-      {/* 5. Como trabajamos */}
-      <HowItWorks />
+      {/* 5. Como trabajamos - TEMPORALMENTE DESACTIVADO */}
+      {/* <HowItWorks /> */}
 
       {/* 6. Formulario de contacto */}
       <ContactForm />

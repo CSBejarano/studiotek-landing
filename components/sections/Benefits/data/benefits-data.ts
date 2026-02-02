@@ -26,7 +26,7 @@ export interface PanelData {
     label: string;
   };
   images: ImageData[];
-  bgVariant: 'dark' | 'light';
+  bgVariant: 'dark';
   layoutVariant: 'editorial-left' | 'editorial-right' | 'editorial-center';
   watermarkValue: string;
 }

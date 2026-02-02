@@ -12,12 +12,16 @@ interface AIChatPanelContextType {
   closePanel: () => void;
   focusInput: () => void;
   collapse: () => void;
+  pendingMessage: string | null;
+  sendMessageAndOpen: (text: string) => void;
+  clearPendingMessage: () => void;
 }
 
 const AIChatPanelContext = createContext<AIChatPanelContextType | null>(null);
 
 export function AIChatPanelProvider({ children }: { children: React.ReactNode }) {
   const [chatState, setChatState] = useState<ChatState>('COLLAPSED');
+  const [pendingMessage, setPendingMessage] = useState<string | null>(null);
 
   const isPanelOpen = chatState === 'PANEL_OPEN';
 
@@ -25,6 +29,15 @@ export function AIChatPanelProvider({ children }: { children: React.ReactNode })
   const closePanel = useCallback(() => setChatState('COLLAPSED'), []);
   const focusInput = useCallback(() => setChatState('FOCUSED'), []);
   const collapse = useCallback(() => setChatState('COLLAPSED'), []);
+
+  const sendMessageAndOpen = useCallback((text: string) => {
+    setPendingMessage(text);
+    setChatState('PANEL_OPEN');
+  }, []);
+
+  const clearPendingMessage = useCallback(() => {
+    setPendingMessage(null);
+  }, []);
 
   const value = useMemo(
     () => ({
@@ -35,8 +48,11 @@ export function AIChatPanelProvider({ children }: { children: React.ReactNode })
       closePanel,
       focusInput,
       collapse,
+      pendingMessage,
+      sendMessageAndOpen,
+      clearPendingMessage,
     }),
-    [chatState, isPanelOpen, openPanel, closePanel, focusInput, collapse]
+    [chatState, isPanelOpen, openPanel, closePanel, focusInput, collapse, pendingMessage, sendMessageAndOpen, clearPendingMessage]
   );
 
   return (

@@ -106,9 +106,9 @@ export function ContactForm() {
   };
 
   return (
-    <section id="contact" className="relative bg-slate-950 pt-20 pb-16 md:pt-32 md:pb-24">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-950 to-slate-950 pointer-events-none" />
+    <section id="contact" className="relative bg-[#0A0A0A] py-[clamp(4rem,8vw,8rem)]">
+      {/* Glow connector from Services - very subtle radial at top */}
+      <div className="absolute top-0 left-0 right-0 h-32 pointer-events-none" style={{ background: 'radial-gradient(ellipse 50% 70% at center top, rgba(59,130,246,0.015) 0%, transparent 50%)' }} />
 
       {/* Dot Pattern Background */}
       <DotPattern
@@ -117,8 +117,8 @@ export function ContactForm() {
         cr={1.5}
         glow={true}
         className={cn(
-          "fill-blue-500/30",
-          "[mask-image:radial-gradient(600px_circle_at_center,white,transparent)]"
+          "fill-blue-500/15",
+          "[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]"
         )}
       />
 
@@ -129,13 +129,13 @@ export function ContactForm() {
               as="h2"
               animation="blurInUp"
               by="word"
-              className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-4"
+              className="text-[clamp(2rem,4vw,3.5rem)] font-bold leading-[1.15] tracking-tight text-white mb-4"
               delay={0.1}
               duration={0.6}
             >
               Hablemos de cómo automatizar tu negocio
             </TextAnimate>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+            <p className="text-[clamp(1rem,1.5vw,1.125rem)] font-normal leading-relaxed text-white/60 max-w-2xl mx-auto">
               Cuéntanos sobre tu empresa y te contactamos en menos de 24 horas
             </p>
           </div>
@@ -180,7 +180,7 @@ export function ContactForm() {
                     {/* Row 1: Nombre y Email */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                       <div className="relative">
-                        <div className="absolute left-4 top-[42px] text-slate-500 pointer-events-none">
+                        <div className="absolute left-4 top-[42px] text-white/40 pointer-events-none">
                           <User size={18} />
                         </div>
                         <Input
@@ -189,12 +189,12 @@ export function ContactForm() {
                           placeholder="Tu nombre"
                           required
                           error={errors.nombre?.message}
-                          className="pl-11 bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500/20"
+                          className="pl-11 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-blue-500 focus:ring-blue-500/20"
                           {...register('nombre')}
                         />
                       </div>
                       <div className="relative">
-                        <div className="absolute left-4 top-[42px] text-slate-500 pointer-events-none">
+                        <div className="absolute left-4 top-[42px] text-white/40 pointer-events-none">
                           <Mail size={18} />
                         </div>
                         <Input
@@ -203,7 +203,7 @@ export function ContactForm() {
                           placeholder="tu@empresa.com"
                           required
                           error={errors.email?.message}
-                          className="pl-11 bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500/20"
+                          className="pl-11 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-blue-500 focus:ring-blue-500/20"
                           {...register('email')}
                         />
                       </div>
@@ -212,7 +212,7 @@ export function ContactForm() {
                     {/* Row 2: Empresa y Telefono */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                       <div className="relative">
-                        <div className="absolute left-4 top-[42px] text-slate-500 pointer-events-none">
+                        <div className="absolute left-4 top-[42px] text-white/40 pointer-events-none">
                           <Building2 size={18} />
                         </div>
                         <Input
@@ -221,12 +221,12 @@ export function ContactForm() {
                           placeholder="Nombre de tu empresa"
                           required
                           error={errors.empresa?.message}
-                          className="pl-11 bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500/20"
+                          className="pl-11 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-blue-500 focus:ring-blue-500/20"
                           {...register('empresa')}
                         />
                       </div>
                       <div className="relative">
-                        <div className="absolute left-4 top-[42px] text-slate-500 pointer-events-none">
+                        <div className="absolute left-4 top-[42px] text-white/40 pointer-events-none">
                           <Phone size={18} />
                         </div>
                         <Input
@@ -234,7 +234,7 @@ export function ContactForm() {
                           type="tel"
                           placeholder="+34 600 000 000"
                           error={errors.telefono?.message}
-                          className="pl-11 bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500/20"
+                          className="pl-11 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-blue-500 focus:ring-blue-500/20"
                           {...register('telefono')}
                         />
                       </div>
@@ -243,7 +243,7 @@ export function ContactForm() {
                     {/* Row 3: Presupuesto y Servicio de interes */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                       <div className="relative">
-                        <div className="absolute left-4 top-[42px] text-slate-500 pointer-events-none">
+                        <div className="absolute left-4 top-[42px] text-white/40 pointer-events-none">
                           <Wallet size={18} />
                         </div>
                         <Select
@@ -251,19 +251,19 @@ export function ContactForm() {
                           options={presupuestoOptions}
                           required
                           error={errors.presupuesto?.message}
-                          className="pl-11 bg-slate-800/50 border-slate-700 text-white focus:border-blue-500 focus:ring-blue-500/20"
+                          className="pl-11 bg-white/5 border-white/10 text-white focus:border-blue-500 focus:ring-blue-500/20"
                           {...register('presupuesto')}
                         />
                       </div>
                       <div className="relative">
-                        <div className="absolute left-4 top-[42px] text-slate-500 pointer-events-none">
+                        <div className="absolute left-4 top-[42px] text-white/40 pointer-events-none">
                           <Briefcase size={18} />
                         </div>
                         <Select
                           label="Servicio de interés"
                           options={serviciosOptions}
                           error={errors.servicioInteres?.message}
-                          className="pl-11 bg-slate-800/50 border-slate-700 text-white focus:border-blue-500 focus:ring-blue-500/20"
+                          className="pl-11 bg-white/5 border-white/10 text-white focus:border-blue-500 focus:ring-blue-500/20"
                           {...register('servicioInteres')}
                         />
                       </div>
@@ -271,25 +271,25 @@ export function ContactForm() {
 
                     {/* Row 4: Mensaje (full width) */}
                     <div className="relative">
-                      <div className="absolute left-4 top-[42px] text-slate-500 pointer-events-none">
+                      <div className="absolute left-4 top-[42px] text-white/40 pointer-events-none">
                         <MessageSquare size={18} />
                       </div>
                       <Textarea
                         label="Mensaje"
                         placeholder="Cuéntanos brevemente qué necesitas..."
                         error={errors.mensaje?.message}
-                        className="pl-11 bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500/20 min-h-[120px]"
+                        className="pl-11 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-blue-500 focus:ring-blue-500/20 min-h-[120px]"
                         {...register('mensaje')}
                       />
                     </div>
 
                     {/* Primera capa informativa RGPD - OBLIGATORIA */}
-                    <div className="text-xs text-slate-400 bg-slate-800/30 p-3 rounded-lg border border-slate-700/50">
-                      <p><strong className="text-slate-300">Responsable:</strong> StudioTek</p>
-                      <p><strong className="text-slate-300">Finalidad:</strong> Gestionar tu consulta y, si lo autorizas, enviarte comunicaciones comerciales</p>
-                      <p><strong className="text-slate-300">Derechos:</strong> Acceso, rectificación, supresión, oposición, portabilidad, limitación</p>
+                    <div className="text-xs text-white/60 bg-white/5 p-3 rounded-lg border border-white/10">
+                      <p><strong className="text-white/70">Responsable:</strong> StudioTek</p>
+                      <p><strong className="text-white/70">Finalidad:</strong> Gestionar tu consulta y, si lo autorizas, enviarte comunicaciones comerciales</p>
+                      <p><strong className="text-white/70">Derechos:</strong> Acceso, rectificación, supresión, oposición, portabilidad, limitación</p>
                       <p>
-                        <strong className="text-slate-300">Más info:</strong>{' '}
+                        <strong className="text-white/70">Más info:</strong>{' '}
                         <Link href="/politica-privacidad" className="text-blue-400 hover:underline">
                           Política de Privacidad
                         </Link>

@@ -62,7 +62,7 @@ const quickReplies = [
 ];
 
 export function AIChatPanel() {
-  const { isPanelOpen, openPanel, closePanel } = useAIChatPanel();
+  const { isPanelOpen, openPanel, closePanel, pendingMessage, clearPendingMessage } = useAIChatPanel();
 
   // Chat state
   const [messages, setMessages] = useState<Message[]>([]);
@@ -71,11 +71,20 @@ export function AIChatPanel() {
   const abortControllerRef = useRef<AbortController | null>(null);
   const isVoiceInputRef = useRef(false);
   const audioContextRef = useRef<AudioContext | null>(null);
+  const handleSendRef = useRef<((text: string) => void) | null>(null);
 
   // Auto-scroll to bottom
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  // Process pending message from HeroAIChat
+  useEffect(() => {
+    if (pendingMessage && isPanelOpen && handleSendRef.current) {
+      handleSendRef.current(pendingMessage);
+      clearPendingMessage();
+    }
+  }, [pendingMessage, isPanelOpen, clearPendingMessage]);
 
   // Keyboard shortcuts - solo Escape para cerrar
   useEffect(() => {
@@ -212,6 +221,9 @@ export function AIChatPanel() {
     }
     setIsProcessing(false);
   }, [messages, isProcessing, isPanelOpen, openPanel, playAudioViaWebAudio]);
+
+  // Keep ref in sync for pending message processing
+  handleSendRef.current = handleSend;
 
   const handleVoiceStart = useCallback(() => {
     isVoiceInputRef.current = true;

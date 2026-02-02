@@ -7,8 +7,8 @@ import { Menu, X } from 'lucide-react';
 import { useAIChatPanel } from '../ui/AIChatPanelContext';
 
 const NAV_LINKS = [
+  { label: 'Beneficios', href: '#benefits' },
   { label: 'Servicios', href: '#services' },
-  { label: 'Proceso', href: '#how-it-works' },
   { label: 'Contacto', href: '#contact' },
   { label: 'Política IA', href: '/politica-ia' },
 ];
@@ -87,7 +87,7 @@ export function Header() {
               key={link.href}
               href={link.href}
               onClick={(e) => handleNavClick(e, link.href)}
-              className="text-xs lg:text-sm font-medium text-[#9CA3AF] hover:text-white transition-colors duration-200 whitespace-nowrap"
+              className="text-xs lg:text-sm font-medium text-white/60 hover:text-white transition-colors duration-200 whitespace-nowrap"
             >
               {link.label}
             </a>
@@ -106,7 +106,7 @@ export function Header() {
 
           {/* Mobile hamburger */}
           <button
-            className="md:hidden flex items-center justify-center w-10 h-10 text-[#9CA3AF] hover:text-white transition-colors"
+            className="md:hidden flex items-center justify-center w-10 h-10 text-white/60 hover:text-white transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? 'Cerrar menu' : 'Abrir menu'}
             aria-expanded={mobileMenuOpen}
@@ -128,7 +128,7 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className="text-base font-medium text-[#9CA3AF] hover:text-white transition-colors duration-200 py-2"
+                className="text-base font-medium text-white/60 hover:text-white transition-colors duration-200 py-2"
               >
                 {link.label}
               </a>

@@ -85,7 +85,7 @@ const servicesCardData: CardData[] = services.map((service) => ({
   image: service.image,
   content: (
     <div className="space-y-6">
-      <p className="text-slate-200 text-lg leading-relaxed">{service.description}</p>
+      <p className="text-white/80 text-[clamp(1rem,1.5vw,1.125rem)] leading-relaxed">{service.description}</p>
 
       {service.benefits && (
         <div className="flex flex-wrap gap-3">
@@ -101,7 +101,7 @@ const servicesCardData: CardData[] = services.map((service) => ({
       )}
 
       <div className="space-y-3">
-        <h4 className="font-semibold text-white text-lg">Que incluye?</h4>
+        <h4 className="text-[clamp(1.25rem,2vw,1.75rem)] font-semibold leading-[1.3] text-white">Que incluye?</h4>
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {service.features.map((feature) => (
             <li key={feature} className="flex items-center gap-3">
@@ -111,7 +111,7 @@ const servicesCardData: CardData[] = services.map((service) => ({
                   background: `linear-gradient(to right, ${service.shimmerGradient.from}, ${service.shimmerGradient.to})`,
                 }}
               />
-              <span className="text-slate-300">{feature}</span>
+              <span className="text-white/70">{feature}</span>
             </li>
           ))}
         </ul>
@@ -239,14 +239,16 @@ export function Services() {
   // ─── MOBILE / REDUCED-MOTION LAYOUT ─────────────────────────────────
   if (!isDesktop || prefersReducedMotion) {
     return (
-      <section id="services" className="relative bg-slate-950 py-16 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-800/20 via-slate-900/30 to-slate-950 pointer-events-none" />
+      <section id="services" className="relative bg-[#0A0A0A] py-[clamp(4rem,8vw,8rem)] overflow-hidden">
+        {/* Glow connector from Benefits - very subtle radial at top */}
+        <div className="absolute top-0 left-0 right-0 h-40 pointer-events-none" style={{ background: 'radial-gradient(ellipse 60% 80% at center top, rgba(59,130,246,0.02) 0%, transparent 60%)' }} />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/[0.015] via-transparent to-transparent pointer-events-none" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center text-white">
+          <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-bold leading-[1.15] tracking-tight text-center text-white">
             Nuestros Servicios
           </h2>
-          <p className="text-lg text-slate-400 text-center mt-3 max-w-2xl mx-auto">
+          <p className="text-[clamp(1rem,1.5vw,1.125rem)] font-normal leading-relaxed text-white/60 text-center mt-3 max-w-2xl mx-auto">
             Automatizacion real para negocios de servicios
           </p>
 
@@ -340,7 +342,7 @@ export function Services() {
         <HeroServiceCard card={heroCardData} />
 
         {/* Gradiente semi-transparente para legibilidad del texto */}
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/40 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A]/80 via-[#0A0A0A]/40 to-transparent pointer-events-none" />
 
         {/* Marco decorativo glass-morphism (estilo Revolut) */}
         <div className="absolute top-[8%] right-[8%] bottom-[8%] left-[38%] md:left-[25%] lg:left-[38%] border border-white/15 rounded-3xl pointer-events-none" />
@@ -351,13 +353,13 @@ export function Services() {
         ref={heroTitleRef}
         className="absolute z-15 top-[15%] left-[5%] lg:left-[6%] max-w-[35%] pointer-events-none"
       >
-        <p className="text-sm md:text-base text-white/50 uppercase tracking-widest font-medium mb-4">
+        <p className="text-[clamp(0.75rem,1vw,0.875rem)] font-medium tracking-widest uppercase text-white/50 mb-4">
           {heroCardData.category}
         </p>
-        <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-6">
+        <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-bold leading-[1.1] tracking-tight text-white mb-6">
           {heroCardData.title}
         </h2>
-        <p className="text-lg md:text-xl text-white/60 leading-relaxed max-w-md">
+        <p className="text-[clamp(1rem,1.5vw,1.125rem)] font-normal leading-relaxed text-white/60 max-w-md">
           Chatbots con IA, reservas automaticas y flujos sin intervencion humana.
         </p>
       </div>
@@ -365,19 +367,19 @@ export function Services() {
       {/* ── CAPA 1: Overlay con clip-path (z-10) ── */}
       <div
         ref={overlayRef}
-        className="absolute inset-0 z-10 bg-slate-950"
+        className="absolute inset-0 z-10 bg-[#0A0A0A]"
       >
         {/* Background gradient */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-800/20 via-slate-900/30 to-slate-950 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/[0.015] via-transparent to-transparent pointer-events-none" />
 
         {/* Content container */}
         <div className="relative z-10 h-full flex flex-col items-center justify-center max-w-7xl mx-auto px-6">
           {/* Section Title */}
           <div ref={titleRef} className="text-center mb-10">
-            <h2 className="text-4xl md:text-5xl font-bold text-white">
+            <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-bold leading-[1.15] tracking-tight text-white">
               Nuestros Servicios
             </h2>
-            <p className="text-xl text-slate-400 mt-4 max-w-2xl mx-auto">
+            <p className="text-[clamp(1rem,1.5vw,1.125rem)] font-normal leading-relaxed text-white/60 mt-4 max-w-2xl mx-auto">
               Automatizacion real para negocios de servicios
             </p>
           </div>

@@ -21,24 +21,22 @@ interface MobileBenefitsProps {
 export function MobileBenefits({ panels, scrollToContact }: MobileBenefitsProps) {
   return (
     <div className="md:hidden">
-      <div className="bg-[#0A0A0A] px-5 py-14 space-y-16">
+      <div className="bg-[#0A0A0A] px-5 pt-14 pb-8 space-y-16">
         {panels.map((panel, index) => {
-          const isDark = panel.bgVariant === 'dark';
           const isEven = index % 2 === 0;
 
-          const textColor = isDark ? 'text-white' : 'text-[#0A0A0A]';
-          const textMutedColor = isDark ? 'text-white/70' : 'text-[#0A0A0A]/70';
-          const bgClasses = isDark ? '' : 'bg-[#F5F5F5] -mx-5 px-5 py-14 rounded-2xl';
+          // Unified dark background -- no light variant
+          const textColor = 'text-white';
+          const textMutedColor = 'text-white/70';
 
           return (
             <article
               key={panel.id}
-              className={`relative overflow-hidden ${bgClasses}`}
+              className="relative overflow-hidden"
             >
               {/* Watermark - scaled down for mobile */}
               <WatermarkStat
                 value={panel.watermarkValue}
-                isDark={isDark}
                 align={index === 2 ? 'center' : isEven ? 'right' : 'left'}
                 mobile
               />
@@ -63,7 +61,7 @@ export function MobileBenefits({ panels, scrollToContact }: MobileBenefitsProps)
                   <span className="text-2xl font-bold text-[#2563EB]">
                     {panel.stat.suffix}
                   </span>
-                  <span className={`text-xs ${isDark ? 'text-white/50' : 'text-[#0A0A0A]/50'} ml-1 uppercase tracking-wider`}>
+                  <span className="text-[clamp(0.75rem,1vw,0.875rem)] font-medium tracking-widest uppercase text-white/50 ml-1">
                     {panel.stat.label}
                   </span>
                 </div>
@@ -102,7 +100,7 @@ export function MobileBenefits({ panels, scrollToContact }: MobileBenefitsProps)
 
                 {/* 4. Description */}
                 <p
-                  className={`text-[0.95rem] ${textMutedColor} leading-relaxed ${!isEven ? 'text-right' : ''}`}
+                  className={`text-[clamp(1rem,1.5vw,1.125rem)] font-normal leading-relaxed ${textMutedColor} ${!isEven ? 'text-right' : ''}`}
                 >
                   {panel.copyBlocks[0]?.text}
                 </p>
@@ -113,7 +111,7 @@ export function MobileBenefits({ panels, scrollToContact }: MobileBenefitsProps)
 
         {/* CTA Mobile */}
         <div className="text-center pt-4 pb-8 space-y-5">
-          <h2 className="text-2xl font-black uppercase tracking-tight text-white leading-[0.95]">
+          <h2 className="text-[clamp(1.5rem,3vw,2.25rem)] font-semibold leading-[1.2] text-white uppercase tracking-tight">
             SI HAS LLEGADO HASTA AQUI
             <br />
             ES PORQUE SABES QUE

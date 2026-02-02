@@ -8,7 +8,6 @@ const navigationLinks = [
     links: [
       { label: 'Beneficios', href: '#benefits' },
       { label: 'Servicios', href: '#services' },
-      { label: 'Proceso', href: '#how-it-works' },
     ],
   },
   {
@@ -43,7 +42,10 @@ const navigationLinks = [
 
 export function Footer() {
   return (
-    <footer className="bg-slate-950">
+    <footer className="relative bg-[#0A0A0A]">
+      {/* Subtle top gradient connector from ContactForm */}
+      <div className="absolute top-0 left-0 right-0 h-16 pointer-events-none" style={{ background: 'radial-gradient(ellipse 40% 60% at center top, rgba(59,130,246,0.01) 0%, transparent 50%)' }} />
+
       {/* Main content */}
       <div className="max-w-7xl mx-auto px-4 md:px-16 pt-10 pb-8 md:pt-12">
         <div className="flex flex-col md:flex-row justify-between gap-8 md:gap-10">
@@ -59,7 +61,7 @@ export function Footer() {
                 className="md:w-[140px] md:h-[35px]"
               />
             </Link>
-            <p className="text-slate-500 text-sm mt-1">
+            <p className="text-white/40 text-sm mt-1">
               Automatización e Inteligencia Artificial
             </p>
           </div>
@@ -76,7 +78,7 @@ export function Footer() {
                     <Link
                       key={link.label}
                       href={link.href}
-                      className="text-slate-400 hover:text-white transition-colors duration-200 text-sm py-1.5 md:py-1"
+                      className="text-white/60 hover:text-white transition-colors duration-200 text-sm py-1.5 md:py-1"
                     >
                       {link.label}
                     </Link>
@@ -88,37 +90,37 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Divider */}
+      {/* Divider - subtle gradient instead of hard border */}
       <div className="max-w-7xl mx-auto px-4 md:px-16">
-        <div className="border-t border-white/5" />
+        <div className="h-px bg-gradient-to-r from-transparent via-white/8 to-transparent" />
       </div>
 
       {/* Bottom section: Copyright + Legal */}
       <div className="max-w-7xl mx-auto px-4 md:px-16 py-6">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-slate-500 text-xs">
+          <p className="text-white/40 text-xs">
             © 2026 StudioTek. Todos los derechos reservados.
           </p>
           <nav className="flex flex-wrap justify-center items-center gap-4 md:gap-8">
             <Link
               href="/politica-privacidad"
-              className="text-slate-500 hover:text-white transition-colors duration-200 text-xs py-2"
+              className="text-white/40 hover:text-white transition-colors duration-200 text-xs py-2"
             >
               Privacidad
             </Link>
             <Link
               href="/politica-cookies"
-              className="text-slate-500 hover:text-white transition-colors duration-200 text-xs py-2"
+              className="text-white/40 hover:text-white transition-colors duration-200 text-xs py-2"
             >
               Cookies
             </Link>
             <Link
               href="/aviso-legal"
-              className="text-slate-500 hover:text-white transition-colors duration-200 text-xs py-2"
+              className="text-white/40 hover:text-white transition-colors duration-200 text-xs py-2"
             >
               Aviso Legal
             </Link>
-            <CookieSettingsButton className="text-slate-500 hover:text-white transition-colors duration-200 text-xs py-2" />
+            <CookieSettingsButton className="text-white/40 hover:text-white transition-colors duration-200 text-xs py-2" />
           </nav>
         </div>
       </div>

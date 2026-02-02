@@ -6,9 +6,8 @@ import dynamic from 'next/dynamic';
 import { TextAnimate } from '../magicui/text-animate';
 import { BlurFade } from '../magicui/blur-fade';
 import RotatingText from '../magicui/rotating-text';
-import { ShimmerButton } from '../magicui/shimmer-button';
-import { BorderBeam } from '../magicui/border-beam';
 import { useResponsiveParticles } from '@/hooks/useResponsiveParticles';
+import { HeroAIChat } from '../ui/HeroAIChat';
 
 
 // Dynamic import for heavy canvas component (perf optimization)
@@ -45,12 +44,15 @@ export function Hero() {
       {/* Gradient Overlay for depth */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0A0A0A]/50 to-[#0A0A0A] z-[1]" />
 
+      {/* Bottom fade - ensures particles dissolve smoothly into next section */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-[#0A0A0A] z-[2]" />
+
       {/* Main Content */}
       <div className="relative z-10 flex flex-col items-center text-center max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Badge */}
         <BlurFade delay={0.1} inView>
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-[#9CA3AF] mb-4 sm:mb-6 backdrop-blur-sm">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-[clamp(0.75rem,1vw,0.875rem)] font-medium tracking-widest uppercase text-white/60 mb-4 sm:mb-6 backdrop-blur-sm">
             <span className="h-2 w-2 rounded-full bg-[#2563EB] animate-pulse" />
             Automatización con IA
           </span>
@@ -60,7 +62,7 @@ export function Hero() {
         <TextAnimate
           animation="blurInUp"
           by="word"
-          className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-white"
+          className="text-[clamp(2.5rem,5vw,4.5rem)] font-bold leading-[1.1] tracking-tight text-white"
         >
           Automatiza tu
         </TextAnimate>
@@ -78,7 +80,7 @@ export function Hero() {
               initial={{ x: '100%', opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: '-100%', opacity: 0 }}
-              mainClassName="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mt-1 sm:mt-2 text-[#3B82F6] whitespace-nowrap"
+              mainClassName="text-[clamp(2.5rem,5vw,4.5rem)] font-bold leading-[1.1] tracking-tight mt-1 sm:mt-2 text-[#3B82F6] whitespace-nowrap"
               staggerDuration={0.03}
               rotationInterval={3000}
             />
@@ -87,55 +89,31 @@ export function Hero() {
 
         {/* Gradient accent line */}
         <BlurFade delay={0.2} inView>
-          <p className="mt-3 sm:mt-4 text-xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#2563EB] via-[#3B82F6] to-[#2563EB] bg-clip-text text-transparent">
+          <p className="mt-3 sm:mt-4 text-[clamp(1.5rem,3vw,2.25rem)] font-semibold leading-[1.2] bg-gradient-to-r from-[#2563EB] via-[#3B82F6] to-[#2563EB] bg-clip-text text-transparent">
             Menos tareas manuales. Más crecimiento.
           </p>
         </BlurFade>
 
         {/* Subheadline (max 20 words) */}
         <BlurFade delay={0.3} inView>
-          <p className="mt-4 sm:mt-6 text-base sm:text-xl text-[#9CA3AF] max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-4 sm:mt-6 text-[clamp(1rem,1.5vw,1.125rem)] font-normal leading-relaxed text-white/60 max-w-2xl mx-auto">
             Chatbots con IA, reservas automáticas y flujos sin intervención manual
             para clínicas, barberías, inmobiliarias y más.
           </p>
         </BlurFade>
 
-        {/* Primary CTA + Secondary CTA */}
-        <BlurFade delay={0.4} inView>
-          <div className="mt-5 sm:mt-8 flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto">
-            <div className="relative rounded-full w-full sm:w-auto">
-              <ShimmerButton
-                shimmerColor="#2563EB"
-                background="#1D4ED8"
-                className="w-full sm:w-auto min-h-[48px] px-8 py-4 text-lg font-semibold"
-                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              >
-                Empieza Ahora
-              </ShimmerButton>
-              <BorderBeam
-                size={25}
-                duration={4}
-                borderWidth={1.5}
-                colorFrom="#2563EB"
-                colorTo="transparent"
-              />
-            </div>
-            <button
-              className="w-full sm:w-auto min-h-[48px] px-8 py-4 text-lg font-semibold text-white border border-white/20 rounded-lg hover:bg-white/5 transition-colors"
-              onClick={() => {
-                document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              Ver Demo
-            </button>
+        {/* AI Chat Input - Centro del Hero */}
+        <BlurFade delay={0.4} inView className="w-full">
+          <div className="mt-5 sm:mt-8 w-full">
+            <HeroAIChat />
           </div>
         </BlurFade>
 
         {/* Social Proof Bar */}
         <BlurFade delay={0.45} inView>
-          <div className="mt-6 sm:mt-10 w-full max-w-3xl mx-auto border-t border-white/10 pt-5 sm:pt-8">
+          <div className="mt-6 sm:mt-10 w-full max-w-3xl mx-auto pt-5 sm:pt-8">
             {/* Headline */}
-            <p className="text-xs sm:text-sm text-[#9CA3AF] text-center mb-4 sm:mb-6">
+            <p className="text-[clamp(0.75rem,1vw,0.875rem)] font-medium tracking-widest uppercase text-white/60 text-center mb-4 sm:mb-6">
               Resultados reales de negocios que ya automatizan con nosotros
             </p>
 
@@ -149,7 +127,7 @@ export function Hero() {
               ].map((stat) => (
                 <div key={stat.label} className="text-center min-w-[70px]">
                   <p className="text-xl sm:text-3xl font-bold text-white">{stat.value}</p>
-                  <p className="text-[10px] sm:text-sm text-[#9CA3AF] mt-0.5 sm:mt-1">{stat.label}</p>
+                  <p className="text-[10px] sm:text-sm text-white/60 mt-0.5 sm:mt-1">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -159,7 +137,7 @@ export function Hero() {
               {['Clínicas y Salud', 'Barbería', 'Tatuajes', 'Inmobiliaria'].map((sector) => (
                 <span
                   key={sector}
-                  className="rounded-full border border-white/10 bg-white/5 px-2.5 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs text-[#9CA3AF]"
+                  className="rounded-full border border-white/10 bg-white/5 px-2.5 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs text-white/60"
                 >
                   {sector}
                 </span>
@@ -167,7 +145,7 @@ export function Hero() {
             </div>
 
             {/* Trust Line */}
-            <p className="text-[10px] sm:text-xs text-[#9CA3AF]/60 text-center">
+            <p className="text-[10px] sm:text-xs text-white/40 text-center">
               Certificados en IA responsable y RGPD compliant
             </p>
           </div>
