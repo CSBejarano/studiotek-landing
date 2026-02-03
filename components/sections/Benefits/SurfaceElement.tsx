@@ -7,6 +7,7 @@ import { NumberTicker } from '@/components/magicui/number-ticker';
 import { useParallaxElement } from './hooks/useParallaxElement';
 import type {
   SurfaceElement as SurfaceElementType,
+  AttributionLink,
 } from './data/surface-layout';
 
 // ---------------------------------------------------------------------------
@@ -42,6 +43,30 @@ export function SurfaceElement({ element, scrollYProgress }: SurfaceElementProps
     >
       {renderContent(element, scrollToContact)}
     </motion.div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Attribution Links
+// ---------------------------------------------------------------------------
+
+function AttributionLinks({ links, className }: { links: AttributionLink[]; className?: string }) {
+  return (
+    <span className={className}>
+      {links.map((link, i) => (
+        <span key={i}>
+          <a
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline decoration-white/20 hover:text-white/50 hover:decoration-white/40 transition-colors"
+          >
+            {link.text}
+          </a>
+          {i < links.length - 1 && <span className="mx-1">·</span>}
+        </span>
+      ))}
+    </span>
   );
 }
 
@@ -90,12 +115,17 @@ function renderContent(
 
     case 'copy': {
       return (
-        <p
-          className="text-[clamp(1rem,1.5vw,1.125rem)] font-normal leading-relaxed text-white/70"
-          style={{ maxWidth: `${element.content.maxWidth}vw` }}
-        >
-          {element.content.text}
-        </p>
+        <div style={{ maxWidth: `${element.content.maxWidth}vw` }}>
+          <p className="text-[clamp(1rem,1.5vw,1.125rem)] font-normal leading-relaxed text-white/70">
+            {element.content.text}
+          </p>
+          {element.content.attribution && (
+            <AttributionLinks
+              links={element.content.attribution}
+              className="block mt-1.5 text-[10px] font-normal text-white/25 tracking-wide italic"
+            />
+          )}
+        </div>
       );
     }
 
@@ -112,16 +142,24 @@ function renderContent(
 
     case 'stat-ticker': {
       return (
-        <div className="flex items-baseline gap-2">
-          <span className="text-3xl sm:text-4xl md:text-5xl font-black text-white">
-            <NumberTicker value={element.content.value} className="text-white" />
-          </span>
-          <span className="text-xl sm:text-2xl font-bold text-[#2563EB]">
-            {element.content.suffix}
-          </span>
-          <span className="text-xs font-medium tracking-widest uppercase text-white/50 ml-2">
-            {element.content.label}
-          </span>
+        <div className="flex flex-col gap-1">
+          <div className="flex items-baseline gap-2">
+            <span className="text-3xl sm:text-4xl md:text-5xl font-black text-white">
+              <NumberTicker value={element.content.value} className="text-white" />
+            </span>
+            <span className="text-xl sm:text-2xl font-bold text-[#2563EB]">
+              {element.content.suffix}
+            </span>
+            <span className="text-xs font-medium tracking-widest uppercase text-white/50 ml-2">
+              {element.content.label}
+            </span>
+          </div>
+          {element.content.attribution && (
+            <AttributionLinks
+              links={element.content.attribution}
+              className="text-[10px] font-normal text-white/30 tracking-wide"
+            />
+          )}
         </div>
       );
     }

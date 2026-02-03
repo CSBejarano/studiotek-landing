@@ -29,6 +29,13 @@ export type ElementType =
 
 export type Zone = 'ahorro' | 'clientes' | 'satisfaccion' | 'cta';
 
+// --- Attribution link ---
+
+export interface AttributionLink {
+  text: string;
+  url: string;
+}
+
 // --- Content interfaces per element type ---
 
 export interface HeadlineContent {
@@ -44,12 +51,14 @@ export interface ImageContent {
 export interface CopyContent {
   text: string;
   maxWidth: number; // in vw
+  attribution?: AttributionLink[];
 }
 
 export interface StatContent {
   value: number;
   suffix: string;
   label: string;
+  attribution?: AttributionLink[];
 }
 
 export interface CTAContent {
@@ -189,8 +198,12 @@ export const surfaceElements: SurfaceElement[] = [
     parallaxSpeed: 1.0,
     zIndex: 15,
     content: {
-      text: 'Si tu equipo pierde 15 horas a la semana en tareas manuales, no es un problema de personas. Es un problema de procesos.',
+      text: 'Si tu equipo pierde 12 horas a la semana en tareas manuales, no es un problema de personas. Es un problema de procesos.',
       maxWidth: 22,
+      attribution: [
+        { text: 'HR Magazine, 2024', url: 'https://www.businesswire.com/news/home/20170628005817/en/Office-workers-lose-a-third-of-their-work-time-to-admin-according-to-independent-research' },
+        { text: 'Smartsheet, 2024', url: 'https://www.smartsheet.com/content-center/product-news/automation/workers-waste-quarter-work-week-manual-repetitive-tasks' },
+      ],
     },
   },
   {
@@ -218,6 +231,11 @@ export const surfaceElements: SurfaceElement[] = [
       value: 2500,
       suffix: 'EUR',
       label: 'ahorro medio/mes',
+      attribution: [
+        { text: 'McKinsey, 2024', url: 'https://www.makebot.ai/blog-en/mckinsey-report-how-generative-ai-is-reshaping-global-productivity-and-the-future-of-work' },
+        { text: 'Deloitte, 2024', url: 'https://blogs.vorecol.com/blog-how-can-process-automation-significantly-reduce-operational-costs-and-improve-efficiency-151724' },
+        { text: 'Kit Digital, Gob. España', url: 'https://www.acelerapyme.gob.es/en/kit-digital' },
+      ],
     },
   },
   {
@@ -319,6 +337,10 @@ export const surfaceElements: SurfaceElement[] = [
       value: 3,
       suffix: 'x',
       label: 'm\u00E1s capacidad',
+      attribution: [
+        { text: 'Gartner, 2025', url: 'https://www.gartner.com/en/newsroom/press-releases/2025-03-05-gartner-predicts-agentic-ai-will-autonomously-resolve-80-percent-of-common-customer-service-issues-without-human-intervention-by-20290' },
+        { text: 'HubSpot, 2024', url: 'https://blog.hubspot.com/service/customer-service-chatbots' },
+      ],
     },
   },
   {
@@ -405,8 +427,12 @@ export const surfaceElements: SurfaceElement[] = [
     parallaxSpeed: 1.0,
     zIndex: 15,
     content: {
-      text: 'El 98% de clientes reporta mayor satisfacci\u00F3n con atenci\u00F3n automatizada.',
+      text: 'El 95% de clientes reporta mayor satisfacci\u00F3n con atenci\u00F3n automatizada.',
       maxWidth: 22,
+      attribution: [
+        { text: 'IBM Think, 2024', url: 'https://agentiveaiq.com/blog/how-ai-is-revolutionizing-customer-service-in-2024' },
+        { text: 'Zendesk, 2025', url: 'https://www.usepylon.com/blog/50-customer-support-statistics-trends-for-2025' },
+      ],
     },
   },
   {
@@ -431,9 +457,13 @@ export const surfaceElements: SurfaceElement[] = [
     parallaxSpeed: 1.0,
     zIndex: 15,
     content: {
-      value: 98,
+      value: 95,
       suffix: '%',
       label: 'satisfacci\u00F3n',
+      attribution: [
+        { text: 'IBM Think, 2024', url: 'https://agentiveaiq.com/blog/how-ai-is-revolutionizing-customer-service-in-2024' },
+        { text: 'Zendesk CX Trends, 2025', url: 'https://www.usepylon.com/blog/50-customer-support-statistics-trends-for-2025' },
+      ],
     },
   },
   {
@@ -445,9 +475,9 @@ export const surfaceElements: SurfaceElement[] = [
     parallaxSpeed: 0.5,
     zIndex: 0,
     content: {
-      value: 98,
+      value: 95,
       suffix: '%',
-      label: '98%',
+      label: '95%',
     },
   },
 
