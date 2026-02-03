@@ -22,10 +22,12 @@ function getCalendarClient(): calendar_v3.Calendar | null {
       Buffer.from(keyBase64, 'base64').toString('utf-8')
     )
 
+    const calendarOwner = process.env.GOOGLE_CALENDAR_ID
     const auth = new google.auth.JWT({
       email: credentials.client_email,
       key: credentials.private_key,
       scopes: ['https://www.googleapis.com/auth/calendar'],
+      ...(calendarOwner && { subject: calendarOwner }),
     })
 
     return google.calendar({ version: 'v3', auth })
