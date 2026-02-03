@@ -178,7 +178,7 @@ export async function createMeetingEvent(
     return {
       eventId: `dev-event-${Date.now()}`,
       meetLink: 'https://meet.google.com/dev-test-link',
-      calendarLink: 'https://calendar.google.com/calendar/event?eid=dev-test',
+      calendarLink: 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Dev+Test',
       startTime: `${params.date}T${params.time}:00`,
       endTime: `${params.date}T${String(endHour).padStart(2, '0')}:${String(endMin).padStart(2, '0')}:00`,
     }
@@ -264,10 +264,15 @@ export async function createMeetingEvent(
       (ep: { entryPointType?: string; uri?: string }) => ep.entryPointType === 'video'
     )?.uri ?? ''
 
+  // Build "Add to Calendar" link that works for the lead's own calendar
+  const startUTC = startDateTime.replace(/[-:]/g, '')
+  const endUTC = endDateTime.replace(/[-:]/g, '')
+  const calendarLink = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(summary)}&dates=${startUTC}/${endUTC}&ctz=${encodeURIComponent(TIMEZONE)}&details=${encodeURIComponent(description)}`
+
   return {
     eventId: event.data.id ?? '',
     meetLink,
-    calendarLink: (event.data.htmlLink as string) ?? '',
+    calendarLink,
     startTime: startDateTime,
     endTime: endDateTime,
   }

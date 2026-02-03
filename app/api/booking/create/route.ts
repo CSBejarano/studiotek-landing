@@ -227,7 +227,7 @@ async function sendBookingConfirmationEmail(data: BookingEmailData) {
               ${data.meetLink
                 ? `<a href="${data.meetLink}" class="meet-link">Unirse a Google Meet</a>`
                 : data.calendarLink
-                  ? `<a href="${data.calendarLink}" class="meet-link" style="background: #059669;">Ver evento en Google Calendar</a>`
+                  ? `<a href="${data.calendarLink}" class="meet-link" style="background: #059669;">Añadir a mi Google Calendar</a>`
                   : ''}
             </div>
             <p>En esta reunion hablaremos sobre como la IA puede transformar tu negocio. No necesitas preparar nada especial, solo tener claros tus principales retos.</p>
