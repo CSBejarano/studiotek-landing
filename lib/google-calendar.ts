@@ -204,25 +204,31 @@ export async function createMeetingEvent(
     .filter(Boolean)
     .join('\n')
 
-  // Try with Meet link first (requires Google Workspace), fallback without
+  // Try with Meet + attendees first, then without Meet, then without attendees
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let event: any
 
+  const baseEvent = {
+    summary,
+    description,
+    start: { dateTime: startDateTime, timeZone: TIMEZONE },
+    end: { dateTime: endDateTime, timeZone: TIMEZONE },
+    reminders: {
+      useDefault: false,
+      overrides: [
+        { method: 'email' as const, minutes: 60 },
+        { method: 'popup' as const, minutes: 15 },
+      ],
+    },
+  }
+
   try {
+    // Level 1: With Meet + attendees (requires Google Workspace)
     event = await calendar.events.insert({
       calendarId,
       conferenceDataVersion: 1,
       requestBody: {
-        summary,
-        description,
-        start: {
-          dateTime: startDateTime,
-          timeZone: TIMEZONE,
-        },
-        end: {
-          dateTime: endDateTime,
-          timeZone: TIMEZONE,
-        },
+        ...baseEvent,
         attendees: [{ email: params.leadEmail }],
         conferenceData: {
           createRequest: {
@@ -230,41 +236,27 @@ export async function createMeetingEvent(
             conferenceSolutionKey: { type: 'hangoutsMeet' },
           },
         },
-        reminders: {
-          useDefault: false,
-          overrides: [
-            { method: 'email', minutes: 60 },
-            { method: 'popup', minutes: 15 },
-          ],
-        },
       },
     })
   } catch (meetError) {
-    // Fallback: create event without Meet (works with personal Gmail)
-    console.warn('[CALENDAR] Meet link creation failed, creating event without Meet:', meetError)
-    event = await calendar.events.insert({
-      calendarId,
-      requestBody: {
-        summary,
-        description,
-        start: {
-          dateTime: startDateTime,
-          timeZone: TIMEZONE,
+    console.warn('[CALENDAR] Meet creation failed, trying without Meet:', meetError)
+    try {
+      // Level 2: Without Meet, with attendees
+      event = await calendar.events.insert({
+        calendarId,
+        requestBody: {
+          ...baseEvent,
+          attendees: [{ email: params.leadEmail }],
         },
-        end: {
-          dateTime: endDateTime,
-          timeZone: TIMEZONE,
-        },
-        attendees: [{ email: params.leadEmail }],
-        reminders: {
-          useDefault: false,
-          overrides: [
-            { method: 'email', minutes: 60 },
-            { method: 'popup', minutes: 15 },
-          ],
-        },
-      },
-    })
+      })
+    } catch (attendeeError) {
+      console.warn('[CALENDAR] Attendees failed, creating basic event:', attendeeError)
+      // Level 3: Basic event without Meet or attendees
+      event = await calendar.events.insert({
+        calendarId,
+        requestBody: baseEvent,
+      })
+    }
   }
 
   const meetLink =
