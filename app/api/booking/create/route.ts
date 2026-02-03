@@ -115,21 +115,17 @@ export async function POST(request: NextRequest) {
       console.error('[BOOKING] Failed to log meeting event:', err)
     )
 
-    // 7. Send confirmation email
-    let emailError: string | null = null
-    try {
-      await sendBookingConfirmationEmail({
-        to: lead.email as string,
-        name: lead.name as string,
-        date,
-        time,
-        meetLink: booking.meetLink,
-        calendarLink: booking.calendarLink,
-      })
-    } catch (err) {
-      emailError = err instanceof Error ? err.message : String(err)
+    // 7. Send confirmation email (fire-and-forget)
+    sendBookingConfirmationEmail({
+      to: lead.email as string,
+      name: lead.name as string,
+      date,
+      time,
+      meetLink: booking.meetLink,
+      calendarLink: booking.calendarLink,
+    }).catch((err) =>
       console.error('[BOOKING] Failed to send confirmation email:', err)
-    }
+    )
 
     return NextResponse.json(
       {
@@ -141,7 +137,6 @@ export async function POST(request: NextRequest) {
           startTime: booking.startTime,
           endTime: booking.endTime,
         },
-        ...(emailError && { emailError }),
       },
       { status: 201 }
     )
