@@ -1,560 +1,1627 @@
-# TIER 3: Agent memory for @frontend domain
-# Project: studiotek-landing
-# Path: ai_docs/expertise/domain-experts/frontend.yaml
-
-domain_id: "frontend"
-display_name: "Frontend Engineer"
-version: "1.31"
-updated_at: '2026-01-26T22:23:04.044028+00:00'
-tasks_handled: 85
+domain_id: frontend
+display_name: Frontend Engineer
+version: '1.42'
+updated_at: '2026-02-02T16:31:24.903422+00:00'
+tasks_handled: 366
 success_rate: 1.0
-
-# Configuracion de clasificacion
 keywords:
-  primary: ["react", "next.js", "tailwind", "component", "ui", "ux"]
-  secondary: ["typescript", "css", "responsive", "layout"]
-  file_patterns: ["components/**", "app/**", "*.tsx"]
-  exclude: ["api/", "lib/email.ts"]
-
-# Contexto del dominio
+  primary:
+  - react
+  - next.js
+  - tailwind
+  - component
+  - ui
+  - ux
+  secondary:
+  - typescript
+  - css
+  - responsive
+  - layout
+  file_patterns:
+  - components/**
+  - app/**
+  - '*.tsx'
+  exclude:
+  - api/
+  - lib/email.ts
 context:
   key_concepts:
-    - "Next.js 16 App Router"
-    - "Tailwind CSS 4 (inline @theme en globals.css)"
-    - "React 19"
-    - "Lucide React icons"
+  - Next.js 16 App Router
+  - Tailwind CSS 4 (inline @theme en globals.css)
+  - React 19
+  - Lucide React icons
   common_patterns:
-    - "Client components con 'use client' para event handlers"
-    - "next/font/google para tipografia"
-    - "next/image para optimizacion de imagenes"
-    - "Smooth scroll con scrollIntoView({ behavior: 'smooth' })"
+  - Client components con 'use client' para event handlers
+  - next/font/google para tipografia
+  - next/image para optimizacion de imagenes
+  - 'Smooth scroll con scrollIntoView({ behavior: ''smooth'' })'
   anti_patterns:
-    - "No usar tailwind.config.ts en Tailwind 4 - usar @theme inline"
-    - "No usar # para href de logo - usar /"
+  - No usar tailwind.config.ts en Tailwind 4 - usar @theme inline
+  - 'No usar # para href de logo - usar /'
   preferred_tools:
-    - "Edit para modificaciones"
-    - "Write para archivos nuevos"
-    - "Bash solo para npm commands"
-
-# Decisiones del dominio (StudioTek Landing)
+  - Edit para modificaciones
+  - Write para archivos nuevos
+  - Bash solo para npm commands
 decisions:
-  - id: "SL001"
-    context: "Tailwind 4 color configuration"
-    decision: "Usar @theme inline en globals.css en lugar de tailwind.config.ts"
-    rationale: "Next.js 16 + Tailwind 4 no usa archivo de config separado"
-    confidence: 0.99
-    validated_count: 1
-    last_used: "2026-01-13"
-    tags: ["tailwind", "config", "next.js"]
-
-  - id: "SL002"
-    context: "Header navigation pattern"
-    decision: "Logo href='/' no '#', solo CTA sin nav links (D037, D038 aplicadas)"
-    rationale: "SPA navigation correcta, landing single-page simplificada"
-    confidence: 0.99
-    validated_count: 1
-    last_used: "2026-01-13"
-    tags: ["navigation", "header", "ux"]
-
-  - id: "SL003"
-    context: "Hero smooth scroll implementation"
-    decision: "Use scrollIntoView with behavior: 'smooth' + CSS fallback html { scroll-behavior: smooth }"
-    rationale: "Compatibilidad cross-browser, CSS como fallback para Safari"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-13"
-    tags: ["scroll", "ux", "hero"]
-
-  - id: "SL004"
-    context: "Button component variants"
-    decision: "Crear Button.tsx con variant prop: 'primary' | 'secondary'"
-    rationale: "Reutilizable para CTAs, consistencia de estilos"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-13"
-    tags: ["components", "ui", "button"]
-
-  - id: "SL005"
-    context: "Header fixed positioning"
-    decision: "fixed top-0 z-50 con backdrop-blur-md bg-white/80"
-    rationale: "Header siempre visible, blur para legibilidad sobre contenido"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-13"
-    tags: ["header", "layout", "css"]
-
-  - id: "SL006"
-    context: "create-next-app en directorio existente"
-    decision: "Mover archivos existentes temporalmente, ejecutar create-next-app, restaurar"
-    rationale: "Evita conflictos con PRD.md y .claude/"
-    confidence: 0.99
-    validated_count: 1
-    last_used: "2026-01-13"
-    tags: ["setup", "next.js", "workaround"]
-
-  - id: "SL007"
-    context: "Benefit cards with Lucide icons"
-    decision: "Usar Card.tsx reutilizable + iconos Lucide con size={48} strokeWidth={1.5}"
-    rationale: "Card component reutilizable para Benefits y futuros Services; iconos consistentes"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-13"
-    tags: ["components", "icons", "card"]
-
-  - id: "SL008"
-    context: "Form components pattern"
-    decision: "Usar forwardRef en Input/Select/Textarea para compatibilidad con react-hook-form register()"
-    rationale: "react-hook-form usa refs internamente; forwardRef permite que register() funcione correctamente"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-13"
-    tags: ["forms", "react-hook-form", "components"]
-
-  - id: "SL009"
-    context: "Form validation with Zod"
-    decision: "Usar Zod schema + zodResolver con react-hook-form; schema en lib/validations.ts"
-    rationale: "Tipo inferido automaticamente via z.infer<typeof schema>, validacion declarativa"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-13"
-    tags: ["forms", "zod", "validation"]
-
-  - id: "SL010"
-    context: "Button component extension"
-    decision: "Extender ButtonHTMLAttributes para heredar type, disabled, etc sin definir manualmente"
-    rationale: "Permite usar type='submit' en forms sin modificar interface"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-13"
-    tags: ["components", "typescript", "button"]
-
-  - id: "SL011"
-    context: "Accessible form error display"
-    decision: "Usar aria-invalid, aria-describedby, role='alert' en campos con error"
-    rationale: "Screen readers anuncian errores correctamente; WCAG compliance"
-    confidence: 0.90
-    validated_count: 1
-    last_used: "2026-01-13"
-    tags: ["accessibility", "forms", "a11y"]
-
-  - id: "SL012"
-    context: "Card design for dark themes"
-    decision: "Usar ShineBorder (borderWidth=1, duration=12-16s) en lugar de BorderBeam para efecto sutil"
-    rationale: "BorderBeam es muy llamativo con beam visible; ShineBorder es mas elegante con glow difuso"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-13"
-    tags: ["cards", "magic-ui", "effects", "dark-theme"]
-
-  - id: "SL013"
-    context: "MagicCard dark background support"
-    decision: "Agregar prop background='bg-slate-950' a MagicCard para eliminar fondo blanco interno"
-    rationale: "MagicCard por defecto tiene bg-white interno; prop permite customizar para dark themes"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-13"
-    tags: ["cards", "magic-ui", "dark-theme"]
-
-  - id: "SL014"
-    context: "Card hover effects for dark theme"
-    decision: "Usar hover:border-{color}-500/30 + hover:shadow-[0_0_30px_rgba(R,G,B,0.12)] para glow sutil"
-    rationale: "Combina borde sutil con sombra difusa para efecto elegante sin ser llamativo"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-13"
-    tags: ["cards", "hover", "css", "dark-theme"]
-
-  - id: "SL015"
-    context: "VitaEon-style premium card component"
-    decision: "VitaEonCard con bg-slate-900/60, border-blue-500/20, 3D transform hover, glow decorativo y accent line"
-    rationale: "Estilo copiado de ideas-frontend VitaEon; variant='form' desactiva transform 3D para no interferir con inputs"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-13"
-    tags: ["cards", "vitaeon", "premium", "3d-transform", "dark-theme"]
-
-  - id: "SL016"
-    context: "ShineBorder integration in VitaEonCard"
-    decision: "Agregar ShineBorder con shineColorMap por glowColor, borderWidth=1, duration=12s"
-    rationale: "ShineBorder usa position:absolute rounded-[inherit], hereda border-radius del padre; shineColorMap mapea glowColor a pares de colores hex para gradiente animado"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-13"
-    tags: ["cards", "vitaeon", "shine-border", "magic-ui", "dark-theme"]
-
-  - id: "SL017"
-    context: "HowItWorks glassmorphism cards"
-    decision: "Usar motion.div con stagger + glassmorphism bg-gradient backdrop-blur"
-    rationale: "Estilo consistente; mejor performance sin componentes MagicUI pesados; CSS hover effects son suficientes"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-13"
-    tags: ["cards", "glassmorphism", "framer-motion", "performance"]
-
-  - id: "SL018"
-    context: "Sequential animation state for HowItWorks"
-    decision: "useState + useEffect interval con isPaused, completedSteps y useReducedMotion"
-    rationale: "Ciclo automatico cada 3s con pause on hover, tracking de pasos completados, accesible via prefers-reduced-motion"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-13"
-    tags: ["animation", "framer-motion", "state-management", "accessibility"]
-
-  - id: "SL019"
-    context: "Dim/active visual states for animated cards"
-    decision: "scale 1.02/0.98, opacity 1/0.6, dynamic boxShadow glow con RGB del gradient"
-    rationale: "Estados claros con transiciones GPU-friendly (transform, opacity); glow color-matched al tema de cada card"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-13"
-    tags: ["animation", "visual-states", "glow", "performance"]
-
-  - id: "SL020"
-    context: "Animated connecting lines for step process"
-    decision: "Connector component con base line + animated glow line + traveling dot (lg+ breakpoint)"
-    rationale: "Muestra progreso visualmente; solo en desktop para simplicidad responsive; dot anima con opacity keyframes"
-    confidence: 0.90
-    validated_count: 1
-    last_used: "2026-01-13"
-    tags: ["animation", "connectors", "responsive", "framer-motion"]
-
-  - id: "SL021"
-    context: "Accessibility for animated process steps"
-    decision: "useReducedMotion fallback estatico, role='list', aria-current='step', aria-label descriptivo"
-    rationale: "WCAG compliance; usuarios con prefers-reduced-motion ven primer card activo sin ciclo automatico"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-13"
-    tags: ["accessibility", "a11y", "wcag", "reduced-motion"]
-
-  - id: "SL022"
-    context: "Button 3D effect with dark frame"
-    decision: "Usar border-[3px] border-[#0f172a] + ShineBorder interno + box-shadow inset para efecto relieve 3D"
-    rationale: "Marco oscuro crea contraste, ShineBorder agrega luz animada, shadows dan profundidad"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-14"
-    tags: ["button", "3d-effect", "shine-border", "ui"]
-
-  - id: "SL023"
-    context: "Card alignment with variable content heights"
-    decision: "h-full en TODOS los niveles: BlurFade wrapper, VitaEonCard wrapper externo ([perspective]), div interno, contenedor de contenido. Ademas flex-grow en descripcion y mt-auto en botones"
-    rationale: "CSS Grid/Flexbox solo iguala altura del hijo directo; h-full debe propagarse por TODA la cadena de componentes hasta el contenido"
-    confidence: 0.99
-    validated_count: 3
-    last_used: "2026-01-14"
-    tags: ["cards", "flexbox", "layout", "alignment", "height-propagation", "benefits", "services"]
-
-  - id: "SL024"
-    context: "Button consistency across all variants"
-    decision: "Todos los botones (Button, ShimmerButton) usan marco oscuro border-[3px] border-[#0f172a]. No sobrescribir con clases custom en className"
-    rationale: "Consistencia visual, efecto 3D, mejora percepcion de calidad UI"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-14"
-    tags: ["button", "consistency", "ui", "3d-effect"]
-
-  - id: "SL025"
-    context: "Decorative floating animations"
-    decision: "Definir keyframes float/float-delayed/glow-pulse en globals.css con clases animate-float, animate-float-delayed, animate-glow-pulse"
-    rationale: "Animaciones CSS reutilizables para elementos decorativos (orbs, glows); no requieren JS"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-14"
-    tags: ["animation", "css", "keyframes", "decorative"]
-
-  - id: "SL026"
-    context: "Section divider component"
-    decision: "SectionDivider con variant='gradient'|'line' y color='blue'|'indigo'|'emerald' para separar secciones"
-    rationale: "Componente reutilizable para transiciones visuales entre secciones; gradientes sutiles"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-14"
-    tags: ["components", "ui", "divider", "gradient"]
-
-  - id: "SL027"
-    context: "Floating orbs background effect"
-    decision: "FloatingOrbs component con blur-3xl, opacity baja (10%), animate-float para efecto atmosferico"
-    rationale: "Agrega profundidad visual sin distraer; pointer-events-none y aria-hidden para accesibilidad"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-14"
-    tags: ["components", "ui", "decorative", "background", "accessibility"]
-
-  - id: "SL028"
-    context: "SectionDividers usage strategy"
-    decision: "Usar SectionDivider con moderacion - solo antes de secciones importantes (ej: Stats). No poner entre CADA seccion"
-    rationale: "Demasiados dividers fragmentan la experiencia visual. Usarlos estrategicamente para destacar transiciones clave"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-14"
-    tags: ["components", "ux", "divider", "layout"]
-
-  - id: "SL029"
-    context: "Preventing horizontal scroll"
-    decision: "Agregar overflow-x: hidden a html y body en globals.css. Componentes decorativos con overflow-hidden en lugar de overflow-visible"
-    rationale: "Elementos decorativos (particles, fiber optics, orbs) pueden exceder viewport; overflow-hidden previene scroll horizontal"
-    confidence: 0.99
-    validated_count: 1
-    last_used: "2026-01-14"
-    tags: ["css", "overflow", "layout", "fix"]
-
-  - id: "SL030"
-    context: "FiberOptics SVG positioning"
-    decision: "Usar bottom-0 en lugar de -bottom-[20%] para SVG. Glow divs con bottom-0 left-0/right-0 en lugar de valores negativos (-bottom-20 -left-20)"
-    rationale: "Valores negativos causan que elementos salgan del contenedor y aparezcan debajo del footer incluso con overflow-hidden"
-    confidence: 0.99
-    validated_count: 1
-    last_used: "2026-01-14"
-    tags: ["css", "positioning", "svg", "fiber-optics", "fix"]
-
-  - id: "SL031"
-    context: "Background pattern for form sections"
-    decision: "Usar DotPattern de MagicUI con glow=true, fill-blue-500/30 y mask-image radial-gradient para efecto sutil"
-    rationale: "DotPattern es mas sutil que FiberOptics para formularios; el mask-image crea un fade circular elegante que no distrae del contenido"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-15"
-    tags: ["magic-ui", "background", "pattern", "forms", "contact"]
-
-  - id: "SL032"
-    context: "Form components dark theme support"
-    decision: "Input/Select/Textarea usan cn() con defaults dark: bg-slate-800/50, border-slate-700, text-white, label text-slate-300. Select usa [&>option] selector para estilar options con fondo oscuro"
-    rationale: "Componentes de formulario originalmente tenian bg-white y text-slate-700 hardcodeados; cn() permite merge de clases con defaults dark-friendly que pueden ser overrideados via className"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-14"
-    tags: ["forms", "dark-theme", "components", "tailwind", "cn"]
-
-  - id: "SL033"
-    context: "VitaEonCard opacity for forms"
-    decision: "Usar bg-slate-900/85 en lugar de bg-slate-900/60 para formularios que necesitan mejor contraste con inputs"
-    rationale: "Opacidad mayor mejora legibilidad de inputs y reduce distraccion del fondo; 85% es buen balance entre solidez y efecto glassmorphism"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-14"
-    tags: ["vitaeon", "cards", "opacity", "forms", "glassmorphism"]
-
-  - id: "SL034"
-    context: "3D card effect hook pattern"
-    decision: "use3DCardEffect hook: trackea mouse position, calcula rotateX/Y basado en posicion relativa al centro (max 15 grados), retorna {style, handlers, ref, isHovered}"
-    rationale: "Hook reusable para efectos 3D intensos; cubic-bezier(0.03, 0.98, 0.52, 0.99) para transiciones suaves; sombra dinamica que se mueve con rotacion"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-15"
-    tags: ["hooks", "3d-effect", "animation", "mouse-tracking"]
-
-  - id: "SL035"
-    context: "Scroll animation detection hook"
-    decision: "useScrollAnimation hook: wrapper de react-intersection-observer con {ref, isInView, hasAnimated}; triggerOnce=true por defecto"
-    rationale: "Simplifica uso de IntersectionObserver; hasAnimated permite detectar si ya se ejecuto la animacion"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-15"
-    tags: ["hooks", "animation", "scroll", "intersection-observer"]
-
-  - id: "SL036"
-    context: "Card3D storytelling component"
-    decision: "Card3D.tsx en components/storytelling/: usa use3DCardEffect, glassmorphism (bg-slate-900/60 backdrop-blur-md), glow decorativo, compatible con framer-motion"
-    rationale: "Componente estilo Apple para secciones inmersivas; intensity prop (1-20) controla rotacion max; glowColor map para colores dinamicos"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-15"
-    tags: ["components", "storytelling", "3d-effect", "glassmorphism", "cards"]
-
-  - id: "SL044"
-    context: "Modal navigation pattern for carousel"
-    decision: "Estado centralizado en padre, modal unico via portal con botones de navegacion laterales"
-    rationale: "ServiceModal recibe card actual + callbacks onNext/onPrev + flags hasNext/hasPrev; botones ChevronLeft/Right fuera del modal container"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-15"
-    tags: ["modal", "navigation", "carousel", "portal"]
-
-  - id: "SL045"
-    context: "Keyboard navigation in modal"
-    decision: "ArrowLeft/ArrowRight para navegar entre items, Escape para cerrar"
-    rationale: "useEffect con switch en keydown; previene default para evitar scroll; body overflow hidden mientras modal esta abierto"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-15"
-    tags: ["modal", "keyboard", "accessibility", "navigation"]
-
-  - id: "SL046"
-    context: "AnimatePresence for modal content transitions"
-    decision: "Usar AnimatePresence mode='wait' para transiciones entre contenidos de modal durante navegacion"
-    rationale: "mode='wait' asegura que el exit animation complete antes de enter; key en child debe ser unico (ej: card.title) para detectar cambios de contenido"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-15"
-    tags: ["framer-motion", "animatepresence", "modal", "transitions"]
-
-  - id: "SL047"
-    context: "Voice agent context provider architecture"
-    decision: "VoiceAgentProvider con estado centralizado (isActive, voiceState, messages, currentTranscript, error) + actions memoizadas + hydration safety check"
-    rationale: "Patron consistente con CookieProvider existente; mounted state evita hydration mismatch; useMemo para actions previene re-renders innecesarios"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-19"
-    tags: ["context", "voice", "state-management", "hydration"]
-
-  - id: "SL048"
-    context: "Voice agent hook pattern"
-    decision: "useVoiceAgent hook expone state + derived state (isListening, isSpeaking, lastMessage) + actions. Safe version retorna null fuera de provider"
-    rationale: "Derived state con useMemo evita recalculos; useVoiceAgentSafe para componentes que pueden estar fuera del provider; utility hooks (useVoiceState, useVoiceActive) para optimizacion"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-19"
-    tags: ["hooks", "voice", "derived-state", "optimization"]
-
-  - id: "SL049"
-    context: "Voice agent types organization"
-    decision: "Tipos en lib/voice/types.ts: VoiceState union type, Message interface con optional functionCall, FunctionDefinition para OpenAI function calling, VoiceAgentContextType completo"
-    rationale: "Separacion clara types/prompts/provider; FunctionDefinition compatible con OpenAI API; CreateMessage utility type para omitir id/timestamp"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-19"
-    tags: ["typescript", "voice", "types", "organization"]
-
-  - id: "SL050"
-    context: "TypeScript export conflict"
-    decision: "No duplicar export type cuando interface ya esta exportada. Interface con export al definir es suficiente"
-    rationale: "TypeScript error: Export declaration conflicts with exported declaration. Remover export type duplicado al final del archivo"
-    confidence: 0.99
-    validated_count: 1
-    last_used: "2026-01-19"
-    tags: ["typescript", "exports", "fix"]
-
-  - id: "SL051"
-    context: "Mobile audio MIME type detection"
-    decision: "Usar cadena de fallback ordenada: audio/webm;codecs=opus -> audio/webm -> audio/mp4 -> audio/wav"
-    rationale: "iOS Safari solo soporta audio/mp4, Android Chrome prefiere webm"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-24"
-    tags: ["mobile", "audio", "mediarecorder", "ios", "safari"]
-
-  - id: "SL052"
-    context: "Mobile speech recognition configuration"
-    decision: "Deshabilitar continuous mode en iOS Safari, usar restart manual"
-    rationale: "iOS Safari WebkitSpeechRecognition tiene bugs con continuous=true que causan que deje de escuchar"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-24"
-    tags: ["mobile", "speech-recognition", "ios", "safari", "web-speech-api"]
-
-  - id: "SL053"
-    context: "Touch optimization for voice button"
-    decision: "Agregar touch-action: manipulation y -webkit-tap-highlight-color: transparent"
-    rationale: "Elimina delay de 300ms en dispositivos moviles y previene highlight azul en iOS"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-24"
-    tags: ["mobile", "touch", "ux", "voice-button"]
-
-  - id: "SL054"
-    context: "Parallax scroll with framer-motion"
-    decision: "Usar useScroll + useTransform para efectos de parallax: StickyImage con scale/opacity transforms, OverlayCopy con y/opacity basados en scrollYProgress"
-    rationale: "useScroll con target ref y offset permite controlar cuando inicia/termina la animacion; useTransform mapea el progreso a valores de CSS; sticky positioning para efecto de imagen fija mientras el contenido se desplaza"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-26"
-    tags: ["framer-motion", "parallax", "scroll", "animation", "useScroll", "useTransform"]
-
-  - id: "SL055"
-    context: "Problem/Solution parallax storytelling"
-    decision: "Componer ProblemSolutionParallax usando TextParallaxContent repetido para cada seccion (problema/solucion), con ContentSection interna que renderiza grids de items con iconos Lucide y gradientes diferenciados por variant"
-    rationale: "Reutiliza TextParallaxContent existente; variant pain usa from-red-500/20, solution usa from-blue-500/20; ContentItem tipado con icon: React.ComponentType para TypeScript correcto"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-26"
-    tags: ["parallax", "storytelling", "composition", "lucide", "typescript"]
-
-  - id: "SL056"
-    context: "Unificacion de secciones PainPoints + Solution en parallax"
-    decision: "Reemplazar SocialProof, PainPointsSection y SolutionSection con unico ProblemSolutionParallax en page.tsx"
-    rationale: "ProblemSolutionParallax combina storytelling de pain points y soluciones con efecto parallax inmersivo; SocialProof redundante con Stats que ya muestra metricas de confianza"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-26"
-    tags: ["page-structure", "parallax", "refactor", "simplification"]
-
-  - id: "SL057"
-    context: "Eliminacion de SocialProof section"
-    decision: "Remover SocialProof de la pagina principal"
-    rationale: "Stats section ya cumple funcion de social proof con metricas de proyectos completados, clientes satisfechos, etc. SocialProof con logos era redundante y agregaba ruido visual"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-26"
-    tags: ["page-structure", "ux", "simplification"]
-
-  - id: "SL058"
-    context: "Services section layout change from carousel to grid"
-    decision: "Reemplazar AppleCarousel por grid responsive (grid-cols-1 sm:grid-cols-2 lg:grid-cols-4) para mostrar las 4 cards de servicios sin scroll"
-    rationale: "Carousel mostraba 3.5 cards y requeria deslizar; grid de 4 columnas permite ver todos los servicios de un vistazo en desktop. Responsive con 1 col mobile, 2 tablet, 4 desktop"
-    confidence: 0.95
-    validated_count: 1
-    last_used: "2026-01-26"
-    tags: ["services", "layout", "grid", "carousel", "responsive"]
-
-# Blockers del dominio
+- id: SL001
+  context: Tailwind 4 color configuration
+  decision: Usar @theme inline en globals.css en lugar de tailwind.config.ts
+  rationale: Next.js 16 + Tailwind 4 no usa archivo de config separado
+  confidence: 0.99
+  validated_count: 1
+  last_used: '2026-01-13'
+  tags:
+  - tailwind
+  - config
+  - next.js
+- id: SL002
+  context: Header navigation pattern
+  decision: Logo href='/' no '#', solo CTA sin nav links (D037, D038 aplicadas)
+  rationale: SPA navigation correcta, landing single-page simplificada
+  confidence: 0.99
+  validated_count: 1
+  last_used: '2026-01-13'
+  tags:
+  - navigation
+  - header
+  - ux
+- id: SL003
+  context: Hero smooth scroll implementation
+  decision: 'Use scrollIntoView with behavior: ''smooth'' + CSS fallback html { scroll-behavior:
+    smooth }'
+  rationale: Compatibilidad cross-browser, CSS como fallback para Safari
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-13'
+  tags:
+  - scroll
+  - ux
+  - hero
+- id: SL004
+  context: Button component variants
+  decision: 'Crear Button.tsx con variant prop: ''primary'' | ''secondary'''
+  rationale: Reutilizable para CTAs, consistencia de estilos
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-13'
+  tags:
+  - components
+  - ui
+  - button
+- id: SL005
+  context: Header fixed positioning
+  decision: fixed top-0 z-50 con backdrop-blur-md bg-white/80
+  rationale: Header siempre visible, blur para legibilidad sobre contenido
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-13'
+  tags:
+  - header
+  - layout
+  - css
+- id: SL006
+  context: create-next-app en directorio existente
+  decision: Mover archivos existentes temporalmente, ejecutar create-next-app, restaurar
+  rationale: Evita conflictos con PRD.md y .claude/
+  confidence: 0.99
+  validated_count: 1
+  last_used: '2026-01-13'
+  tags:
+  - setup
+  - next.js
+  - workaround
+- id: SL007
+  context: Benefit cards with Lucide icons
+  decision: Usar Card.tsx reutilizable + iconos Lucide con size={48} strokeWidth={1.5}
+  rationale: Card component reutilizable para Benefits y futuros Services; iconos
+    consistentes
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-13'
+  tags:
+  - components
+  - icons
+  - card
+- id: SL008
+  context: Form components pattern
+  decision: Usar forwardRef en Input/Select/Textarea para compatibilidad con react-hook-form
+    register()
+  rationale: react-hook-form usa refs internamente; forwardRef permite que register()
+    funcione correctamente
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-13'
+  tags:
+  - forms
+  - react-hook-form
+  - components
+- id: SL009
+  context: Form validation with Zod
+  decision: Usar Zod schema + zodResolver con react-hook-form; schema en lib/validations.ts
+  rationale: Tipo inferido automaticamente via z.infer<typeof schema>, validacion
+    declarativa
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-13'
+  tags:
+  - forms
+  - zod
+  - validation
+- id: SL010
+  context: Button component extension
+  decision: Extender ButtonHTMLAttributes para heredar type, disabled, etc sin definir
+    manualmente
+  rationale: Permite usar type='submit' en forms sin modificar interface
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-13'
+  tags:
+  - components
+  - typescript
+  - button
+- id: SL011
+  context: Accessible form error display
+  decision: Usar aria-invalid, aria-describedby, role='alert' en campos con error
+  rationale: Screen readers anuncian errores correctamente; WCAG compliance
+  confidence: 0.9
+  validated_count: 1
+  last_used: '2026-01-13'
+  tags:
+  - accessibility
+  - forms
+  - a11y
+- id: SL012
+  context: Card design for dark themes
+  decision: Usar ShineBorder (borderWidth=1, duration=12-16s) en lugar de BorderBeam
+    para efecto sutil
+  rationale: BorderBeam es muy llamativo con beam visible; ShineBorder es mas elegante
+    con glow difuso
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-13'
+  tags:
+  - cards
+  - magic-ui
+  - effects
+  - dark-theme
+- id: SL013
+  context: MagicCard dark background support
+  decision: Agregar prop background='bg-slate-950' a MagicCard para eliminar fondo
+    blanco interno
+  rationale: MagicCard por defecto tiene bg-white interno; prop permite customizar
+    para dark themes
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-13'
+  tags:
+  - cards
+  - magic-ui
+  - dark-theme
+- id: SL014
+  context: Card hover effects for dark theme
+  decision: Usar hover:border-{color}-500/30 + hover:shadow-[0_0_30px_rgba(R,G,B,0.12)]
+    para glow sutil
+  rationale: Combina borde sutil con sombra difusa para efecto elegante sin ser llamativo
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-13'
+  tags:
+  - cards
+  - hover
+  - css
+  - dark-theme
+- id: SL015
+  context: VitaEon-style premium card component
+  decision: VitaEonCard con bg-slate-900/60, border-blue-500/20, 3D transform hover,
+    glow decorativo y accent line
+  rationale: Estilo copiado de ideas-frontend VitaEon; variant='form' desactiva transform
+    3D para no interferir con inputs
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-13'
+  tags:
+  - cards
+  - vitaeon
+  - premium
+  - 3d-transform
+  - dark-theme
+- id: SL016
+  context: ShineBorder integration in VitaEonCard
+  decision: Agregar ShineBorder con shineColorMap por glowColor, borderWidth=1, duration=12s
+  rationale: ShineBorder usa position:absolute rounded-[inherit], hereda border-radius
+    del padre; shineColorMap mapea glowColor a pares de colores hex para gradiente
+    animado
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-13'
+  tags:
+  - cards
+  - vitaeon
+  - shine-border
+  - magic-ui
+  - dark-theme
+- id: SL017
+  context: HowItWorks glassmorphism cards
+  decision: Usar motion.div con stagger + glassmorphism bg-gradient backdrop-blur
+  rationale: Estilo consistente; mejor performance sin componentes MagicUI pesados;
+    CSS hover effects son suficientes
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-13'
+  tags:
+  - cards
+  - glassmorphism
+  - framer-motion
+  - performance
+- id: SL018
+  context: Sequential animation state for HowItWorks
+  decision: useState + useEffect interval con isPaused, completedSteps y useReducedMotion
+  rationale: Ciclo automatico cada 3s con pause on hover, tracking de pasos completados,
+    accesible via prefers-reduced-motion
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-13'
+  tags:
+  - animation
+  - framer-motion
+  - state-management
+  - accessibility
+- id: SL019
+  context: Dim/active visual states for animated cards
+  decision: scale 1.02/0.98, opacity 1/0.6, dynamic boxShadow glow con RGB del gradient
+  rationale: Estados claros con transiciones GPU-friendly (transform, opacity); glow
+    color-matched al tema de cada card
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-13'
+  tags:
+  - animation
+  - visual-states
+  - glow
+  - performance
+- id: SL020
+  context: Animated connecting lines for step process
+  decision: Connector component con base line + animated glow line + traveling dot
+    (lg+ breakpoint)
+  rationale: Muestra progreso visualmente; solo en desktop para simplicidad responsive;
+    dot anima con opacity keyframes
+  confidence: 0.9
+  validated_count: 1
+  last_used: '2026-01-13'
+  tags:
+  - animation
+  - connectors
+  - responsive
+  - framer-motion
+- id: SL021
+  context: Accessibility for animated process steps
+  decision: useReducedMotion fallback estatico, role='list', aria-current='step',
+    aria-label descriptivo
+  rationale: WCAG compliance; usuarios con prefers-reduced-motion ven primer card
+    activo sin ciclo automatico
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-13'
+  tags:
+  - accessibility
+  - a11y
+  - wcag
+  - reduced-motion
+- id: SL022
+  context: Button 3D effect with dark frame
+  decision: Usar border-[3px] border-[#0f172a] + ShineBorder interno + box-shadow
+    inset para efecto relieve 3D
+  rationale: Marco oscuro crea contraste, ShineBorder agrega luz animada, shadows
+    dan profundidad
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-14'
+  tags:
+  - button
+  - 3d-effect
+  - shine-border
+  - ui
+- id: SL023
+  context: Card alignment with variable content heights
+  decision: 'h-full en TODOS los niveles: BlurFade wrapper, VitaEonCard wrapper externo
+    ([perspective]), div interno, contenedor de contenido. Ademas flex-grow en descripcion
+    y mt-auto en botones'
+  rationale: CSS Grid/Flexbox solo iguala altura del hijo directo; h-full debe propagarse
+    por TODA la cadena de componentes hasta el contenido
+  confidence: 0.99
+  validated_count: 3
+  last_used: '2026-01-14'
+  tags:
+  - cards
+  - flexbox
+  - layout
+  - alignment
+  - height-propagation
+  - benefits
+  - services
+- id: SL024
+  context: Button consistency across all variants
+  decision: Todos los botones (Button, ShimmerButton) usan marco oscuro border-[3px]
+    border-[#0f172a]. No sobrescribir con clases custom en className
+  rationale: Consistencia visual, efecto 3D, mejora percepcion de calidad UI
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-14'
+  tags:
+  - button
+  - consistency
+  - ui
+  - 3d-effect
+- id: SL025
+  context: Decorative floating animations
+  decision: Definir keyframes float/float-delayed/glow-pulse en globals.css con clases
+    animate-float, animate-float-delayed, animate-glow-pulse
+  rationale: Animaciones CSS reutilizables para elementos decorativos (orbs, glows);
+    no requieren JS
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-14'
+  tags:
+  - animation
+  - css
+  - keyframes
+  - decorative
+- id: SL026
+  context: Section divider component
+  decision: SectionDivider con variant='gradient'|'line' y color='blue'|'indigo'|'emerald'
+    para separar secciones
+  rationale: Componente reutilizable para transiciones visuales entre secciones; gradientes
+    sutiles
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-14'
+  tags:
+  - components
+  - ui
+  - divider
+  - gradient
+- id: SL027
+  context: Floating orbs background effect
+  decision: FloatingOrbs component con blur-3xl, opacity baja (10%), animate-float
+    para efecto atmosferico
+  rationale: Agrega profundidad visual sin distraer; pointer-events-none y aria-hidden
+    para accesibilidad
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-14'
+  tags:
+  - components
+  - ui
+  - decorative
+  - background
+  - accessibility
+- id: SL028
+  context: SectionDividers usage strategy
+  decision: 'Usar SectionDivider con moderacion - solo antes de secciones importantes
+    (ej: Stats). No poner entre CADA seccion'
+  rationale: Demasiados dividers fragmentan la experiencia visual. Usarlos estrategicamente
+    para destacar transiciones clave
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-14'
+  tags:
+  - components
+  - ux
+  - divider
+  - layout
+- id: SL029
+  context: Preventing horizontal scroll
+  decision: 'Agregar overflow-x: hidden a html y body en globals.css. Componentes
+    decorativos con overflow-hidden en lugar de overflow-visible'
+  rationale: Elementos decorativos (particles, fiber optics, orbs) pueden exceder
+    viewport; overflow-hidden previene scroll horizontal
+  confidence: 0.99
+  validated_count: 1
+  last_used: '2026-01-14'
+  tags:
+  - css
+  - overflow
+  - layout
+  - fix
+- id: SL030
+  context: FiberOptics SVG positioning
+  decision: Usar bottom-0 en lugar de -bottom-[20%] para SVG. Glow divs con bottom-0
+    left-0/right-0 en lugar de valores negativos (-bottom-20 -left-20)
+  rationale: Valores negativos causan que elementos salgan del contenedor y aparezcan
+    debajo del footer incluso con overflow-hidden
+  confidence: 0.99
+  validated_count: 1
+  last_used: '2026-01-14'
+  tags:
+  - css
+  - positioning
+  - svg
+  - fiber-optics
+  - fix
+- id: SL031
+  context: Background pattern for form sections
+  decision: Usar DotPattern de MagicUI con glow=true, fill-blue-500/30 y mask-image
+    radial-gradient para efecto sutil
+  rationale: DotPattern es mas sutil que FiberOptics para formularios; el mask-image
+    crea un fade circular elegante que no distrae del contenido
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-15'
+  tags:
+  - magic-ui
+  - background
+  - pattern
+  - forms
+  - contact
+- id: SL032
+  context: Form components dark theme support
+  decision: 'Input/Select/Textarea usan cn() con defaults dark: bg-slate-800/50, border-slate-700,
+    text-white, label text-slate-300. Select usa [&>option] selector para estilar
+    options con fondo oscuro'
+  rationale: Componentes de formulario originalmente tenian bg-white y text-slate-700
+    hardcodeados; cn() permite merge de clases con defaults dark-friendly que pueden
+    ser overrideados via className
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-14'
+  tags:
+  - forms
+  - dark-theme
+  - components
+  - tailwind
+  - cn
+- id: SL033
+  context: VitaEonCard opacity for forms
+  decision: Usar bg-slate-900/85 en lugar de bg-slate-900/60 para formularios que
+    necesitan mejor contraste con inputs
+  rationale: Opacidad mayor mejora legibilidad de inputs y reduce distraccion del
+    fondo; 85% es buen balance entre solidez y efecto glassmorphism
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-14'
+  tags:
+  - vitaeon
+  - cards
+  - opacity
+  - forms
+  - glassmorphism
+- id: SL034
+  context: 3D card effect hook pattern
+  decision: 'use3DCardEffect hook: trackea mouse position, calcula rotateX/Y basado
+    en posicion relativa al centro (max 15 grados), retorna {style, handlers, ref,
+    isHovered}'
+  rationale: Hook reusable para efectos 3D intensos; cubic-bezier(0.03, 0.98, 0.52,
+    0.99) para transiciones suaves; sombra dinamica que se mueve con rotacion
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-15'
+  tags:
+  - hooks
+  - 3d-effect
+  - animation
+  - mouse-tracking
+- id: SL035
+  context: Scroll animation detection hook
+  decision: 'useScrollAnimation hook: wrapper de react-intersection-observer con {ref,
+    isInView, hasAnimated}; triggerOnce=true por defecto'
+  rationale: Simplifica uso de IntersectionObserver; hasAnimated permite detectar
+    si ya se ejecuto la animacion
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-15'
+  tags:
+  - hooks
+  - animation
+  - scroll
+  - intersection-observer
+- id: SL036
+  context: Card3D storytelling component
+  decision: 'Card3D.tsx en components/storytelling/: usa use3DCardEffect, glassmorphism
+    (bg-slate-900/60 backdrop-blur-md), glow decorativo, compatible con framer-motion'
+  rationale: Componente estilo Apple para secciones inmersivas; intensity prop (1-20)
+    controla rotacion max; glowColor map para colores dinamicos
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-15'
+  tags:
+  - components
+  - storytelling
+  - 3d-effect
+  - glassmorphism
+  - cards
+- id: SL044
+  context: Modal navigation pattern for carousel
+  decision: Estado centralizado en padre, modal unico via portal con botones de navegacion
+    laterales
+  rationale: ServiceModal recibe card actual + callbacks onNext/onPrev + flags hasNext/hasPrev;
+    botones ChevronLeft/Right fuera del modal container
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-15'
+  tags:
+  - modal
+  - navigation
+  - carousel
+  - portal
+- id: SL045
+  context: Keyboard navigation in modal
+  decision: ArrowLeft/ArrowRight para navegar entre items, Escape para cerrar
+  rationale: useEffect con switch en keydown; previene default para evitar scroll;
+    body overflow hidden mientras modal esta abierto
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-15'
+  tags:
+  - modal
+  - keyboard
+  - accessibility
+  - navigation
+- id: SL046
+  context: AnimatePresence for modal content transitions
+  decision: Usar AnimatePresence mode='wait' para transiciones entre contenidos de
+    modal durante navegacion
+  rationale: 'mode=''wait'' asegura que el exit animation complete antes de enter;
+    key en child debe ser unico (ej: card.title) para detectar cambios de contenido'
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-15'
+  tags:
+  - framer-motion
+  - animatepresence
+  - modal
+  - transitions
+- id: SL047
+  context: Voice agent context provider architecture
+  decision: VoiceAgentProvider con estado centralizado (isActive, voiceState, messages,
+    currentTranscript, error) + actions memoizadas + hydration safety check
+  rationale: Patron consistente con CookieProvider existente; mounted state evita
+    hydration mismatch; useMemo para actions previene re-renders innecesarios
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-19'
+  tags:
+  - context
+  - voice
+  - state-management
+  - hydration
+- id: SL048
+  context: Voice agent hook pattern
+  decision: useVoiceAgent hook expone state + derived state (isListening, isSpeaking,
+    lastMessage) + actions. Safe version retorna null fuera de provider
+  rationale: Derived state con useMemo evita recalculos; useVoiceAgentSafe para componentes
+    que pueden estar fuera del provider; utility hooks (useVoiceState, useVoiceActive)
+    para optimizacion
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-19'
+  tags:
+  - hooks
+  - voice
+  - derived-state
+  - optimization
+- id: SL049
+  context: Voice agent types organization
+  decision: 'Tipos en lib/voice/types.ts: VoiceState union type, Message interface
+    con optional functionCall, FunctionDefinition para OpenAI function calling, VoiceAgentContextType
+    completo'
+  rationale: Separacion clara types/prompts/provider; FunctionDefinition compatible
+    con OpenAI API; CreateMessage utility type para omitir id/timestamp
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-19'
+  tags:
+  - typescript
+  - voice
+  - types
+  - organization
+- id: SL050
+  context: TypeScript export conflict
+  decision: No duplicar export type cuando interface ya esta exportada. Interface
+    con export al definir es suficiente
+  rationale: 'TypeScript error: Export declaration conflicts with exported declaration.
+    Remover export type duplicado al final del archivo'
+  confidence: 0.99
+  validated_count: 1
+  last_used: '2026-01-19'
+  tags:
+  - typescript
+  - exports
+  - fix
+- id: SL051
+  context: Mobile audio MIME type detection
+  decision: 'Usar cadena de fallback ordenada: audio/webm;codecs=opus -> audio/webm
+    -> audio/mp4 -> audio/wav'
+  rationale: iOS Safari solo soporta audio/mp4, Android Chrome prefiere webm
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-24'
+  tags:
+  - mobile
+  - audio
+  - mediarecorder
+  - ios
+  - safari
+- id: SL052
+  context: Mobile speech recognition configuration
+  decision: Deshabilitar continuous mode en iOS Safari, usar restart manual
+  rationale: iOS Safari WebkitSpeechRecognition tiene bugs con continuous=true que
+    causan que deje de escuchar
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-24'
+  tags:
+  - mobile
+  - speech-recognition
+  - ios
+  - safari
+  - web-speech-api
+- id: SL053
+  context: Touch optimization for voice button
+  decision: 'Agregar touch-action: manipulation y -webkit-tap-highlight-color: transparent'
+  rationale: Elimina delay de 300ms en dispositivos moviles y previene highlight azul
+    en iOS
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-24'
+  tags:
+  - mobile
+  - touch
+  - ux
+  - voice-button
+- id: SL054
+  context: Parallax scroll with framer-motion
+  decision: 'Usar useScroll + useTransform para efectos de parallax: StickyImage con
+    scale/opacity transforms, OverlayCopy con y/opacity basados en scrollYProgress'
+  rationale: useScroll con target ref y offset permite controlar cuando inicia/termina
+    la animacion; useTransform mapea el progreso a valores de CSS; sticky positioning
+    para efecto de imagen fija mientras el contenido se desplaza
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-26'
+  tags:
+  - framer-motion
+  - parallax
+  - scroll
+  - animation
+  - useScroll
+  - useTransform
+- id: SL055
+  context: Problem/Solution parallax storytelling
+  decision: Componer ProblemSolutionParallax usando TextParallaxContent repetido para
+    cada seccion (problema/solucion), con ContentSection interna que renderiza grids
+    de items con iconos Lucide y gradientes diferenciados por variant
+  rationale: 'Reutiliza TextParallaxContent existente; variant pain usa from-red-500/20,
+    solution usa from-blue-500/20; ContentItem tipado con icon: React.ComponentType
+    para TypeScript correcto'
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-26'
+  tags:
+  - parallax
+  - storytelling
+  - composition
+  - lucide
+  - typescript
+- id: SL056
+  context: Unificacion de secciones PainPoints + Solution en parallax
+  decision: Reemplazar SocialProof, PainPointsSection y SolutionSection con unico
+    ProblemSolutionParallax en page.tsx
+  rationale: ProblemSolutionParallax combina storytelling de pain points y soluciones
+    con efecto parallax inmersivo; SocialProof redundante con Stats que ya muestra
+    metricas de confianza
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-26'
+  tags:
+  - page-structure
+  - parallax
+  - refactor
+  - simplification
+- id: SL057
+  context: Eliminacion de SocialProof section
+  decision: Remover SocialProof de la pagina principal
+  rationale: Stats section ya cumple funcion de social proof con metricas de proyectos
+    completados, clientes satisfechos, etc. SocialProof con logos era redundante y
+    agregaba ruido visual
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-26'
+  tags:
+  - page-structure
+  - ux
+  - simplification
+- id: SL059
+  context: N26-style immersive section with scene tabs and auto-rotate
+  decision: useState + useEffect interval + isPaused + useReducedMotion for auto-rotate;
+    AnimatePresence mode=wait for background crossfade (0.5s) and content swap (0.4s);
+    MagicCard background=bg-white/5 for glassmorphism; tabs at absolute bottom with
+    aria-pressed
+  rationale: Consistent with SL018 (sequential animation state), SL046 (AnimatePresence
+    mode=wait), and SL013 (MagicCard dark background). useCallback for rotate prevents
+    stale closures. Tabs use aria-pressed for accessibility.
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-31'
+  tags:
+  - animation
+  - framer-motion
+  - tabs
+  - auto-rotate
+  - glassmorphism
+  - n26-style
+  - accessibility
+- id: SL060
+  context: Benefits section redesign with 3D CSS metallic discs and Revolut-style
+    tabs
+  decision: Rewrite Benefits.tsx following PainPointsPAS pattern exactly -- same auto-rotate
+    (6s), AnimatePresence mode=wait, glassmorphism card with NumberTicker+BorderBeam,
+    tabs with aria-pressed, but replacing background images with 3 conic-gradient
+    metallic discs rotating in Y-axis via motion.div animate. Counter-rotate emoji
+    with inverse rotateY to keep it readable.
+  rationale: Consistent with SL059 (N26-style pattern), reuses exact same tab/card/CTA
+    patterns. CSS conic-gradient simulates chrome without images. motion.div handles
+    continuous rotateY with will-change:transform for GPU acceleration. Responsive
+    disc sizing via Tailwind classes (w-36/w-44/w-56) with CSS transition for size
+    changes, motion for rotation/scale/opacity.
+  confidence: 0.9
+  validated_count: 1
+  last_used: '2026-01-31'
+  tags:
+  - benefits
+  - 3d-css
+  - conic-gradient
+  - revolut-style
+  - framer-motion
+  - accessibility
+- id: SL058
+  context: Services section layout change from carousel to grid
+  decision: Reemplazar AppleCarousel por grid responsive (grid-cols-1 sm:grid-cols-2
+    lg:grid-cols-4) para mostrar las 4 cards de servicios sin scroll
+  rationale: Carousel mostraba 3.5 cards y requeria deslizar; grid de 4 columnas permite
+    ver todos los servicios de un vistazo en desktop. Responsive con 1 col mobile,
+    2 tablet, 4 desktop
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-26'
+  tags:
+  - services
+  - layout
+  - grid
+  - carousel
+  - responsive
+- id: SL061
+  context: Benefits section modular architecture with GSAP horizontal scroll
+  decision: 'Descomponer Benefits en modulo con subcarpeta: index.tsx (orquestador),
+    BenefitPanel.tsx (3 layout variants), CTAPanel.tsx, MobileBenefits.tsx, WatermarkStat.tsx,
+    ProgressIndicator.tsx, hooks/useHorizontalScroll.ts, data/benefits-data.ts'
+  rationale: Separacion clara de concerns - data/types en archivo dedicado, hook GSAP
+    aislado con cleanup correcto (kill specific ScrollTrigger, no killAll), componentes
+    por responsabilidad. Patron escalable para secciones complejas con scroll hijacking
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-31'
+  tags:
+  - architecture
+  - benefits
+  - gsap
+  - modular
+  - horizontal-scroll
+- id: SL062
+  context: Editorial layout variants for fullscreen panels
+  decision: BenefitPanel usa layoutVariant discriminator (editorial-left | editorial-right
+    | editorial-center) con if/return pattern en lugar de switch o map de componentes.
+    Cada variant tiene headline, images, copy y stat posicionados distinto con absolute
+    positioning
+  rationale: 3 layouts editoriales unicos con posicionamiento absoluto de imagenes
+    que overlappean el headline. if/return es mas legible que map de componentes para
+    3 variantes con markup muy diferente. bgVariant dark/light controla paleta de
+    colores
+  confidence: 0.9
+  validated_count: 1
+  last_used: '2026-01-31'
+  tags:
+  - layout
+  - editorial
+  - benefits
+  - conditional-rendering
+  - absolute-positioning
+- id: SL063
+  context: GSAP ScrollTrigger horizontal scroll with useGSAP hook
+  decision: useHorizontalScroll hook usa useGSAP de @gsap/react con scope y dependencies,
+    pin:true + scrub:1 para scroll hijacking. Cleanup mata solo el ScrollTrigger especifico
+    (tween.scrollTrigger?.kill()) no ScrollTrigger.killAll()
+  rationale: useGSAP maneja lifecycle automaticamente con scope para limitar selectores
+    al container. invalidateOnRefresh:true recalcula en resize. Cleanup granular evita
+    matar otros ScrollTriggers en la pagina
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-31'
+  tags:
+  - gsap
+  - scrolltrigger
+  - hooks
+  - horizontal-scroll
+  - cleanup
+- id: SL064
+  context: WatermarkStat decorative background number
+  decision: WatermarkStat renderiza numero gigante (text-[18vw]) semi-transparente
+    (text-white/[0.03]) con pointer-events-none, select-none y aria-hidden=true. Align
+    prop controla justify-start/end/center
+  rationale: Efecto editorial de revista con numero watermark que refuerza la metrica
+    del panel. Opacity 3% es sutil sin distraer. aria-hidden evita que screen readers
+    lean el numero decorativo duplicado
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-31'
+  tags:
+  - decorative
+  - watermark
+  - accessibility
+  - editorial
+  - benefits
+- id: SL065
+  context: Mobile fallback for GSAP horizontal scroll section
+  decision: MobileBenefits como componente separado con hidden md:block / md:hidden
+    toggle. Mobile usa layout vertical stack con WatermarkStat, imagenes aspect-video,
+    alternancia text-right por indice par/impar
+  rationale: GSAP horizontal scroll no funciona bien en mobile - mejor experiencia
+    con scroll vertical nativo. Componente separado evita complejidad de responsive
+    dentro del panel horizontal. Alternancia izq/der mantiene interes visual
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-01-31'
+  tags:
+  - mobile
+  - responsive
+  - fallback
+  - gsap
+  - benefits
+- id: SL066
+  context: Unified background color across all sections
+  decision: Replace all bg-slate-950 with bg-[#0A0A0A] and eliminate light variant
+    from Benefits bgVariant type, hardcoding dark-only values in BenefitPanel and
+    MobileBenefits
+  rationale: Eliminates visual cuts between sections by using a single background
+    color. Dead code removal of unused light variant simplifies components and prevents
+    future inconsistencies
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-02-02'
+  tags:
+  - visual-consistency
+  - background
+  - dead-code-removal
+  - benefits
+  - footer
+  - services
+  - contact-form
+- id: SL067
+  context: Unified typography scale across all landing sections
+  decision: Use Tailwind clamp() utilities (text-[clamp(...)]) matching the globals.css
+    typography scale for Display/H1/H2/H3/Body/Caption instead of per-section ad-hoc
+    breakpoint classes (text-3xl sm:text-5xl md:text-6xl lg:text-7xl). Keep editorial
+    oversized text (Benefits BenefitPanel headlines) as intentional exceptions
+  rationale: clamp() provides fluid scaling without breakpoint jumps, ensures all
+    sections feel like the same designer created them. The globals.css classes are
+    reference only -- Tailwind utilities used in JSX for consistency with the project
+    stack
+  confidence: 0.95
+  validated_count: 1
+  last_used: '2026-02-02'
+  tags:
+  - typography
+  - design-system
+  - consistency
+  - clamp
+  - tailwind
+- id: SL068
+  context: Visual flow continuity between sections in dark landing page
+  decision: Use py-[clamp(4rem,8vw,8rem)] for standardized section spacing, radial-gradient
+    glow connectors (primary color at 0.02-0.04 opacity) at top of each section, h-32
+    bottom fade on Hero for particles, and body::after noise texture at 0.015 opacity
+    for global cohesion
+  rationale: Three CSS-only techniques create seamless scroll without JS overhead.
+    Hero bottom fade prevents particle cut-off. Radial glows create breathing between
+    sections. Noise texture unifies the flat dark background with subtle depth
+  confidence: 0.9
+  validated_count: 1
+  last_used: '2026-02-02'
+  tags:
+  - visual-flow
+  - transitions
+  - css
+  - dark-theme
+  - noise-texture
+  - radial-gradient
+- id: SL069
+  context: Unified color system across all landing sections (Phase 5 refinement)
+  decision: Replace all text-slate-* and text-[#9CA3AF] with white/opacity equivalents
+    (text-white/60 for secondary, text-white/40 for muted, text-white/70 for emphasis,
+    text-white/80 for body). Replace bg-slate-800/50 with bg-white/5, border-slate-700
+    with border-white/10, and via-slate-950 with via-[#0A0A0A] for gradient backgrounds.
+    Radial-gradient overlays use from-white/[0.03] instead of from-slate-800/20
+  rationale: slate-* colors have blue tint that clashes with the neutral #0A0A0A background.
+    white/opacity creates a neutral gray scale that is visually consistent across all
+    sections. replace_all with care since text-[#9CA3AF]/60 becomes text-white/60/60
+    (double opacity bug) when the original already had an opacity suffix
+  confidence: 0.95
+  validated_count: 1
+  failed_count: 0
+  last_used: '2026-02-02'
+  tags:
+  - color-system
+  - consistency
+  - dark-theme
+  - refinement
+  - phase5
 blockers:
-  - id: "SLB001"
-    symptom: "create-next-app falla en directorio no vacio"
-    solution: "Mover archivos existentes a /tmp, ejecutar create-next-app, restaurar"
-    domain_context: "Proyecto nuevo con PRD.md existente"
-
-  - id: "SLB002"
-    symptom: "Tailwind colors no aplican"
-    solution: "En Tailwind 4, usar @theme inline en globals.css, no tailwind.config.ts"
-    domain_context: "Next.js 16 + Tailwind 4"
-
-  - id: "SLB003"
-    symptom: "Select tiene fondo blanco en dark theme y texto no se ve"
-    root_cause: "bg-white hardcodeado en componente Select.tsx antes de className; className de Tailwind no overridea cuando bg-white esta primero en template literal"
-    solution: "Usar cn() de lib/utils para merge correcto de clases. Poner defaults dark (bg-slate-800/50) en cn() y permitir override via className. Agregar [&>option]:bg-slate-800 para options nativas"
-    prevention: "Siempre usar cn() en componentes base, nunca concatenar clases con template literals cuando hay posibilidad de override"
-    domain_context: "Componentes de formulario en dark theme"
-
-# File patterns discovered
+- id: SLB001
+  symptom: create-next-app falla en directorio no vacio
+  solution: Mover archivos existentes a /tmp, ejecutar create-next-app, restaurar
+  domain_context: Proyecto nuevo con PRD.md existente
+- id: SLB002
+  symptom: Tailwind colors no aplican
+  solution: En Tailwind 4, usar @theme inline en globals.css, no tailwind.config.ts
+  domain_context: Next.js 16 + Tailwind 4
+- id: SLB003
+  symptom: Select tiene fondo blanco en dark theme y texto no se ve
+  root_cause: bg-white hardcodeado en componente Select.tsx antes de className; className
+    de Tailwind no overridea cuando bg-white esta primero en template literal
+  solution: Usar cn() de lib/utils para merge correcto de clases. Poner defaults dark
+    (bg-slate-800/50) en cn() y permitir override via className. Agregar [&>option]:bg-slate-800
+    para options nativas
+  prevention: Siempre usar cn() en componentes base, nunca concatenar clases con template
+    literals cuando hay posibilidad de override
+  domain_context: Componentes de formulario en dark theme
 file_patterns_discovered:
-  - pattern: "components/sections/*.tsx"
-    purpose: "Secciones de pagina (Hero, Header, Footer, Benefits, Services, ContactForm, HowItWorks, Stats)"
-  - pattern: "components/ui/*.tsx"
-    purpose: "Componentes base reutilizables (Button, Card, Input, Select, Textarea, VitaEonCard, SectionDivider, FloatingOrbs)"
-  - pattern: "components/magicui/*.tsx"
-    purpose: "Magic UI components (MagicCard, ShineBorder, BorderBeam, BlurFade, TextAnimate, Particles, DotPattern, etc.)"
-  - pattern: "components/storytelling/*.tsx"
-    purpose: "Storytelling components for immersive sections (Card3D, etc.)"
-  - pattern: "hooks/*.ts"
-    purpose: "Custom React hooks (use3DCardEffect, useScrollAnimation, useVoiceAgent)"
-  - pattern: "lib/voice/*.ts"
-    purpose: "Voice agent types and prompts (types.ts, prompts.ts)"
-  - pattern: "components/voice/*.tsx"
-    purpose: "Voice agent components (VoiceAgentProvider)"
-  - pattern: "lib/validations.ts"
-    purpose: "Zod schemas para validacion de formularios"
-  - pattern: "app/layout.tsx"
-    purpose: "Root layout con font, metadata, Header + Footer"
-  - pattern: "app/page.tsx"
-    purpose: "Pagina principal con todas las secciones"
-
-# Project-specific info
+- pattern: components/sections/*.tsx
+  purpose: Secciones de pagina (Hero, Header, Footer, Benefits, Services, ContactForm,
+    HowItWorks, Stats)
+- pattern: components/ui/*.tsx
+  purpose: Componentes base reutilizables (Button, Card, Input, Select, Textarea,
+    VitaEonCard, SectionDivider, FloatingOrbs)
+- pattern: components/magicui/*.tsx
+  purpose: Magic UI components (MagicCard, ShineBorder, BorderBeam, BlurFade, TextAnimate,
+    Particles, DotPattern, etc.)
+- pattern: components/sections/Benefits/**
+  purpose: Benefits modular section (BenefitPanel, CTAPanel, MobileBenefits, WatermarkStat,
+    ProgressIndicator, useHorizontalScroll hook, benefits-data)
+- pattern: components/storytelling/*.tsx
+  purpose: Storytelling components for immersive sections (Card3D, etc.)
+- pattern: hooks/*.ts
+  purpose: Custom React hooks (use3DCardEffect, useScrollAnimation, useVoiceAgent)
+- pattern: lib/voice/*.ts
+  purpose: Voice agent types and prompts (types.ts, prompts.ts)
+- pattern: components/voice/*.tsx
+  purpose: Voice agent components (VoiceAgentProvider)
+- pattern: lib/validations.ts
+  purpose: Zod schemas para validacion de formularios
+- pattern: app/layout.tsx
+  purpose: Root layout con font, metadata, Header + Footer
+- pattern: app/page.tsx
+  purpose: Pagina principal con todas las secciones
 project_info:
-  name: "StudioTek Landing"
+  name: StudioTek Landing
   stack:
-    - "Next.js 16.1.1"
-    - "React 19.2.3"
-    - "Tailwind CSS 4"
-    - "TypeScript 5.x"
-    - "Lucide React"
+  - Next.js 16.1.1
+  - React 19.2.3
+  - Tailwind CSS 4
+  - TypeScript 5.x
+  - Lucide React
   structure:
-    app: "Next.js App Router pages"
-    components_sections: "Page sections (Hero, Header, Footer)"
-    components_ui: "Base UI components (Button)"
-    public: "Static assets (logo.svg)"
-    lib: "Utilities (email, validations)"
+    app: Next.js App Router pages
+    components_sections: Page sections (Hero, Header, Footer)
+    components_ui: Base UI components (Button)
+    public: Static assets (logo.svg)
+    lib: Utilities (email, validations)
   dependencies:
-    - "react-hook-form"
-    - "@hookform/resolvers"
-    - "zod"
+  - react-hook-form
+  - '@hookform/resolvers'
+  - zod
+learnings:
+- text: Los componentes de magicui/ en este proyecto usan motion/react (no framer-motion)
+    como import path -- es critico mantener esta consistencia para evitar duplicar
+    el bundle de motion.
+  added_at: '2026-01-30T22:20:14.819595+00:00'
+- text: El CLI de shadcn (npx shadcn@latest add) requiere un components.json configurado
+    y no puede ejecutarse en modo no-interactivo sin el. Para proyectos que no lo
+    tienen, la creacion manual siguiendo los patrones existentes es la via mas rapida
+    y segura.
+  added_at: '2026-01-30T22:20:14.819595+00:00'
+- text: useCallback para el handler del interval y dependencias correctas en useEffect
+    ([rotate, duration]) evitan stale closures y re-renders innecesarios -- patron
+    consistente con las decisiones SL018 y el anti-patron de useEffect sin dependencias
+    documentado en la memoria del agente.
+  added_at: '2026-01-30T22:20:14.819595+00:00'
+- text: 'Cuando un componente usa named export (export function Particles) y se necesita
+    dynamic import con next/dynamic (que espera default export), hay que wrappear
+    con .then((mod) => ({ default: mod.Particles })) para crear un modulo con default
+    export sintetico.'
+  added_at: '2026-01-30T22:22:47.592148+00:00'
+- text: En este proyecto, motion/react es el import path correcto para motion (no
+    framer-motion), ya que todos los componentes magicui/ usan motion/react. Mezclar
+    ambos paths duplicaria el bundle de motion. La memoria del agente en frontend.yaml
+    ya tenia este learning registrado y fue critico aplicarlo.
+  added_at: '2026-01-30T22:22:47.592148+00:00'
+- text: El glow effect de marca rgba(37,99,235,...) se puede aplicar directamente
+    en Tailwind v4 con la sintaxis shadow-[0_0_30px_rgba(37,99,235,0.15)] sin necesidad
+    de custom CSS o clases adicionales en globals.css.
+  added_at: '2026-01-30T22:22:47.592148+00:00'
+- text: 'El patron dynamic(() => import(...).then((mod) => ({ default: mod.Particles
+    })), { ssr: false }) es critico para componentes canvas pesados en Next.js --
+    evita SSR y reduce el bundle inicial. Este patron ya estaba documentado en frontend.yaml
+    (learning 4) y se aplico correctamente.'
+  added_at: '2026-01-30T22:24:31.416537+00:00'
+- text: useReducedMotion de motion/react (no framer-motion) es el import correcto
+    para este proyecto. Debe condicionar tanto elementos decorativos pesados (Particles
+    canvas) como animaciones continuas (scroll indicator), mientras que BlurFade con
+    inView once:true es aceptable porque ejecuta una sola vez.
+  added_at: '2026-01-30T22:24:31.416537+00:00'
+- text: El stagger pattern de BlurFade (0.1 increments, span total < 1.5s) y limitar
+    a maximo 3 animaciones concurrentes (particles + text-animate + shimmer-button)
+    son reglas concretas para mantener 60fps en el Hero sin profiling manual.
+  added_at: '2026-01-30T22:24:31.416537+00:00'
+- text: 'Social proof B2B requiere números creíbles, no vanidosos: Para una agencia
+    de 2 años, 300 clientes es más creíble que "5000+ empresas", y genera más confianza
+    al ser verificable.'
+  added_at: '2026-01-30T22:36:03.005844+00:00'
+- text: 'Repetir cifras clave del copy principal refuerza el mensaje: El "40% reducción
+    de costes" ya está en el subheadline del Hero, incluirlo en stats crea coherencia
+    narrativa y refuerza el beneficio principal.'
+  added_at: '2026-01-30T22:36:03.005844+00:00'
+- text: 'Sectores específicos > badges genéricos en B2B español: En el mercado hispanohablante
+    B2B, mencionar sectores concretos ("Clínicas", "Restauración") genera más identificación
+    que badges internacionales tipo "Featured in TechCrunch" que no resuenan localmente.'
+  added_at: '2026-01-30T22:36:03.005844+00:00'
+- text: WordRotate ya renderiza la primera palabra al montar (index=0) -- el problema
+    de visibilidad era el BlurFade wrapper con delay alto (0.3s), no el componente
+    en si. Siempre verificar la cadena completa de componentes wrappers antes de diagnosticar
+    el componente interno.
+  added_at: '2026-01-30T22:37:34.280313+00:00'
+- text: 'Para que nav links con smooth scroll funcionen, los IDs de las secciones
+    target deben verificarse contra el markup real (ej: services vs servicios). Asumir
+    el ID sin verificar es una fuente comun de bugs silenciosos que no rompen el build
+    pero fallan en runtime.'
+  added_at: '2026-01-30T22:37:34.280313+00:00'
+- text: Comprimir el stagger de BlurFade de 1.0s total a 0.5s (incrementos de 0.1)
+    combinado con reducir min-h-screen a min-h-[90vh] + pt-20 pb-12 resuelve el problema
+    de contenido cortado below-the-fold sin sacrificar la sensacion de animacion escalonada.
+  added_at: '2026-01-30T22:37:34.280313+00:00'
+- text: Insertar BlurFade con delays intermedios (0.45 entre 0.4 y 0.5) permite agregar
+    secciones nuevas sin reescribir la cadena de stagger existente -- util para iteraciones
+    incrementales en Hero sections con animaciones escalonadas.
+  added_at: '2026-01-30T22:38:57.105422+00:00'
+- text: El social proof bar funciona como puente visual entre CTAs y el AI Chat usando
+    border-t border-white/10 como separador sutil y max-w-3xl (ligeramente mas ancho
+    que el chat max-w-2xl) para crear jerarquia espacial sin romper el flujo vertical.
+  added_at: '2026-01-30T22:38:57.105422+00:00'
+- text: Usar .map() inline con arrays literales en JSX (tanto para stats como para
+    pills) es preferible a extraer a constantes externas cuando los datos son estaticos
+    y el componente no se va a reutilizar -- mantiene la localidad del codigo y facilita
+    la lectura sin saltar entre definiciones.
+  added_at: '2026-01-30T22:38:57.105422+00:00'
+- text: AnimatePresence mode="wait" applied twice (background + content) creates a
+    layered crossfade effect where the background transitions independently from content,
+    mimicking cinematic scene changes -- the key to the N26 immersive feel.
+  added_at: '2026-01-30T23:48:56.719639+00:00'
+- text: MagicCard's background prop accepts Tailwind classes (not CSS values), so
+    background="bg-white/5" combined with backdrop-blur-md on the parent className
+    achieves proper glassmorphism without fighting the component's internal structure.
+  added_at: '2026-01-30T23:48:56.719639+00:00'
+- text: For auto-rotate patterns with useReducedMotion, returning early from the useEffect
+    (before setInterval) is cleaner than wrapping the interval callback in a conditional
+    -- it prevents the interval from being created at all, saving resources for users
+    who prefer reduced motion.
+  added_at: '2026-01-30T23:48:56.719639+00:00'
+- text: Cuando motion.div necesita className dinamico Y propiedades style, es mejor
+    usar className con template literals para el sizing responsive (Tailwind) y style
+    solo para propiedades que no tienen equivalente en Tailwind (conic-gradient, boxShadow
+    condicional). No usar spread para overridear className porque entra en conflicto
+    con el className inline.
+  added_at: '2026-01-31T00:24:42.551376+00:00'
+- text: 'Counter-rotating contenido dentro de un disco 3D rotando (rotateY: [0, -360]
+    con misma duracion y ease que el padre) es la forma limpia de mantener legible
+    el contenido interno sin necesidad de JS adicional -- motion/react sincroniza
+    ambas animaciones automaticamente.'
+  added_at: '2026-01-31T00:24:42.551376+00:00'
+- text: La transicion de tamano de los discos se maneja mejor con CSS transition-[width,height]
+    que con motion animate width/height, porque las clases responsive de Tailwind
+    (w-36 sm:w-44 md:w-56) no se pueden expresar como valores numericos en motion
+    animate.
+  added_at: '2026-01-31T00:24:42.551376+00:00'
+- text: Elementos fixed como el Header no se afectan por margin-right del padre (MainContentWrapper)
+    -- necesitan su propio ajuste de right via inline style para responder al panel
+    lateral, lo cual requiere duplicar la logica de deteccion desktop en cada componente
+    fixed.
+  added_at: '2026-01-31T00:33:54.593683+00:00'
+- text: El import path motion/react (no framer-motion) es critico mantenerlo consistente
+    en todo el proyecto para evitar duplicar el bundle -- HeroAIChat tenia framer-motion
+    importado incorrectamente, lo cual fue corregido como parte de esta tarea.
+  added_at: '2026-01-31T00:33:54.593683+00:00'
+- text: La estrategia de "bottom bar simplificado + panel con AIChatInput completo"
+    evita complicaciones con el componente existente de reconocimiento de voz -- el
+    bottom bar usa un input nativo para texto rapido, y al abrir el panel se tiene
+    acceso completo a mic/voice/whisper via AIChatInput sin modificar su API.
+  added_at: '2026-01-31T00:33:54.593683+00:00'
+- text: 'El estilo visual del proyecto StudioTek es consistente: 3D renders isometricos
+    con glassmorphism, fondo oscuro (#0A0A0A), accent azul (#2563EB) y perspective
+    cards flotantes. Para mantener coherencia entre imagenes, el prompt debe incluir
+    explicitamente "isometric perspective, dark theme, charcoal gray glass cards,
+    blue neon edge glow, deep black background".'
+  added_at: '2026-01-31T03:22:18.793609+00:00'
+- text: 'Imagen 4.0 de Google genera texto parcialmente corrupto en las imagenes (ej:
+    "Cotumer" en vez de "Customer", "#253EB" en vez de "#2563EB") -- para dashboards
+    con texto visible, es mejor pedir "no text labels" o aceptar que el texto sera
+    decorativo y no literal.'
+  added_at: '2026-01-31T03:22:18.793609+00:00'
+- text: La conversion PNG a WebP con quality=85 reduce el tamano de ~908KB a ~41KB
+    (95% de compresion) sin perdida visual perceptible a tamanos de uso en web, lo
+    cual es critico para Core Web Vitals en landing pages.
+  added_at: '2026-01-31T03:22:18.793609+00:00'
+- text: Para secciones con GSAP horizontal scroll, el patron modular con subcarpeta
+    (index + subcomponentes + hook + data) es superior a un solo archivo monolitico
+    -- permite iterar layouts individuales sin riesgo de romper el scroll engine,
+    y el hook useHorizontalScroll es reutilizable para cualquier seccion horizontal
+    futura.
+  added_at: '2026-01-31T12:00:00.000000+00:00'
+- text: useGSAP de @gsap/react con scope + dependencies es la forma idiomatica de
+    usar GSAP en React 19 -- maneja cleanup automaticamente y el scope limita los
+    selectores al container ref, evitando conflictos con otros ScrollTriggers en la
+    pagina. El cleanup granular (tween.scrollTrigger?.kill() + tween.kill()) es critico
+    vs ScrollTrigger.killAll().
+  added_at: '2026-01-31T12:00:00.000000+00:00'
+- text: El patron editorial-magazine (WatermarkStat gigante + headline uppercase bold
+    + imagenes con rotation sutil + absolute positioning overlapping) crea impacto
+    visual premium sin dependencias adicionales -- solo Next/Image, motion/react y
+    Tailwind. La clave es la opacity ultra-baja del watermark (3%) y las rotaciones
+    pequenas (-3deg a 3deg) en las imagenes.
+  added_at: '2026-01-31T12:00:00.000000+00:00'
+- text: El prompt "no text labels" para Imagen 4.0 no siempre funciona -- la imagen
+    genero texto parcialmente correcto ("WhatoSApp" con S mayuscula) pero legible.
+    Para uso en produccion como imagen secundaria/pequena, el texto es lo suficientemente
+    pequeno para no distraer.
+  added_at: '2026-01-31T03:27:05.055781+00:00'
+- text: La conversion PNG a WebP con quality=85 mantiene el ratio de compresion consistente
+    (~95%) que ya estaba documentado en frontend.yaml -- 1104KB a 54KB es critico
+    para LCP en la seccion Benefits con GSAP horizontal scroll.
+  added_at: '2026-01-31T03:27:05.055781+00:00'
+- text: 'El aspect ratio 4:3 es el optimo para imagenes secundarias (size: ''medium'')
+    en BenefitPanel porque el contenedor usa max-w-[350px] con positioning absoluto
+    -- un ratio mas ancho (16:9) dejaria demasiado espacio vertical vacio.'
+  added_at: '2026-01-31T03:27:05.055781+00:00'
+- text: El prompt "no text labels" para Imagen 4.0 sigue sin funcionar completamente
+    -- la imagen genero texto parcialmente legible ("Catifaction", "#2563EB"). Sin
+    embargo, pedir elementos de UI especificos (NPS gauge, line chart, bar chart,
+    emojis) produce composiciones mucho mas ricas que pedir conceptos abstractos como
+    "satisfaction dashboard".
+  added_at: '2026-01-31T03:30:11.236441+00:00'
+- text: 'Para reemplazar imagenes existentes manteniendo consistencia visual, es critico
+    revisar las otras imagenes del conjunto (benefit-ahorro-dashboard.webp) antes
+    de generar el prompt -- la perspectiva isometrica, las glassmorphism cards flotantes
+    y el fondo #0A0A0A son los 3 elementos que unifican visualmente toda la seccion
+    Benefits.'
+  added_at: '2026-01-31T03:30:11.236441+00:00'
+- text: El ratio de compresion PNG-to-WebP con quality=85 se mantiene consistente
+    alrededor del 95% independientemente del contenido (889KB a 41KB), confirmando
+    que este es el setting optimo para imagenes generadas por Imagen 4.0 en landing
+    pages.
+  added_at: '2026-01-31T03:30:11.236441+00:00'
+- text: 'Next.js separa viewport de metadata como exports distintos en el layout --
+    usar export const viewport: Viewport es el approach correcto en Next.js 16, no
+    meter viewport config dentro del objeto metadata que causaria un warning en build.'
+  added_at: '2026-01-31T04:19:20.274801+00:00'
+- text: 100dvh (dynamic viewport height) es la solucion moderna al problema de la
+    barra de direccion en moviles -- 100vh incluye el area detras de la barra de direccion
+    en iOS Safari, causando contenido cortado, mientras que 100dvh se adapta dinamicamente.
+  added_at: '2026-01-31T04:19:20.274801+00:00'
+- text: '@media (pointer: coarse) es preferible a @media (hover: none) para touch
+    target rules porque es mas especifico a dispositivos con input tactil -- hover:
+    none tambien matchea dispositivos con stylus que no necesitan targets grandes.'
+  added_at: '2026-01-31T04:19:20.274801+00:00'
+- text: useResponsiveParticles con window.innerWidth + resize listener es mas liviano
+    que matchMedia para el caso simple de 3 breakpoints -- evita crear 2 MediaQueryList
+    objects y sus handlers, con el mismo resultado practico. Sin embargo, para SSR
+    safety, el state inicial debe coincidir con desktop (80) ya que window no existe
+    en server.
+  added_at: '2026-01-31T04:21:22.939050+00:00'
+- text: En 375px (iPhone SE), grid-cols-2 con 4 items y labels largos causa text wrapping
+    feo -- cambiar a flex flex-wrap justify-center con min-w por item da al navegador
+    mas flexibilidad para distribuir el espacio, y acortar labels es preferible a
+    reducir font-size por debajo de 10px que afecta legibilidad.
+  added_at: '2026-01-31T04:21:22.939050+00:00'
+- text: El patron overflow-hidden max-w-[90vw] + whitespace-nowrap en el wrapper de
+    RotatingText es la solucion mas segura para textos que varían de longitud ("facturacion"
+    vs "atencion al cliente") -- previene overflow sin necesitar calcular el ancho
+    maximo de cada texto, y el 90vw deja margen visual con los bordes del viewport.
+  added_at: '2026-01-31T04:21:22.939050+00:00'
+- text: 'min-h-screen-safe (100dvh) como min-height en vez de h-screen (100vh como
+    height fijo) es la combinacion correcta para mobile: usa dynamic viewport height
+    que se adapta a la barra de direccion de iOS Safari, Y permite que el contenido
+    fluya si excede la pantalla en vez de cortarse.'
+  added_at: '2026-01-31T04:21:58.642938+00:00'
+- text: Para tabs horizontales en mobile, la combinacion overflow-x-auto scrollbar-hide
+    snap-x snap-mandatory + flex-shrink-0 snap-start en cada tab + justify-start (no
+    center) en mobile es el patron completo -- justify-center en mobile oculta el
+    overflow porque centra los items, haciendolos parecer que no hay scroll.
+  added_at: '2026-01-31T04:21:58.642938+00:00'
+- text: El gradient overlay sobre imagenes de fondo debe ser mas oscuro en mobile
+    (from-black/70) que en desktop (from-black/60) porque las pantallas pequenas tienen
+    menor area de contraste y el texto necesita mas separacion visual del fondo para
+    mantener legibilidad WCAG.
+  added_at: '2026-01-31T04:21:58.642938+00:00'
+- text: absolute top-0 left-0 en un componente mobile dentro de un section wrapper
+    causa que el contenido se superponga con las secciones siguientes -- para fallbacks
+    mobile de secciones con GSAP horizontal scroll, usar layout de flujo normal (md:hidden
+    sin position absolute) es lo correcto porque el contenedor GSAP desktop ya tiene
+    su propio hidden md:block.
+  added_at: '2026-01-31T04:22:05.447207+00:00'
+- text: 'Cuando los datos ya incluyen 2 imagenes por panel pero el mobile solo mostraba
+    1, un grid grid-cols-2 gap-3 con aspect-[4/3] es el approach optimo para mobile:
+    aprovecha el contenido disponible, mantiene consistencia visual con aspect ratio
+    fijo, y las imagenes son lo suficientemente grandes en 2 columnas para ser legibles
+    en pantallas de 375px+.'
+  added_at: '2026-01-31T04:22:05.447207+00:00'
+- text: Para CTAs mobile en landing pages B2B oscuras, el patron gradient azul (from-[#2563EB]
+    to-[#1D4ED8]) con glow shadow y w-full min-h-[48px] supera visualmente al boton
+    blanco solido anterior -- el gradient refuerza el color de marca, el glow atrae
+    atencion, y el min-h-[48px] cumple con las guidelines de touch target de Apple/Google.
+  added_at: '2026-01-31T04:22:05.447207+00:00'
+- text: El patron de touch target con wrapper <button min-w-[44px] min-h-[44px]> +
+    inner <span> visual es preferible a agregar padding al elemento visual directamente,
+    porque preserva el tamano visual del dot/indicator mientras cumple con los 44px
+    de Apple/Google guidelines sin distorsionar el layout.
+  added_at: '2026-01-31T04:25:24.654741+00:00'
+- text: aspect-[9/16] en cards de servicio es excesivamente alto para mobile (requiere
+    mucho scroll vertical para pasar cada card) -- aspect-[3/4] en mobile da preview
+    suficiente del contenido sin ocupar mas de la mitad del viewport, y el breakpoint
+    sm:aspect-[9/16] restaura el estilo editorial en pantallas mas amplias.
+  added_at: '2026-01-31T04:25:24.654741+00:00'
+- text: Tres archivos del proyecto (HowItWorks, ServiceModal, CarouselCard) usaban
+    framer-motion en lugar de motion/react -- este tipo de inconsistencia de import
+    path se acumula silenciosamente y duplica el bundle de motion. Cada fase de mobile
+    optimization es una oportunidad para auditar y corregir estos imports en los archivos
+    que se tocan.
+  added_at: '2026-01-31T04:25:24.654741+00:00'
+- text: Cuando los componentes base (Input/Select/Textarea) ya implementan labels
+    accesibles con htmlFor+id, aria-invalid y aria-describedby, no es necesario agregar
+    labels adicionales en el form -- verificar la implementacion del componente base
+    antes de duplicar markup de accesibilidad.
+  added_at: '2026-01-31T04:25:39.333392+00:00'
+- text: Para formularios mobile en dark theme, la combinacion p-4 md:p-10 lg:p-12
+    con space-y-4 md:space-y-6 y gap-4 md:gap-6 es el sweet spot entre compacidad
+    mobile y comodidad desktop -- p-10 en mobile dentro de una VitaEonCard causa que
+    los inputs queden aplastados horizontalmente.
+  added_at: '2026-01-31T04:25:39.333392+00:00'
+- text: Los touch targets en footer links se resuelven mejor con py-1.5 en los links
+    individuales + gap-1 en el nav container, que con gap grande entre links -- el
+    padding vertical crea el area tactil de 44px sin desperdiciar espacio visual,
+    manteniendo el footer compacto.
+  added_at: '2026-01-31T04:25:39.333392+00:00'
+- text: 'El sizes attribute en <Image> de Next.js para imagenes de tamano fijo (logos,
+    thumbnails) debe especificar el tamano maximo en pixels (ej: sizes="140px") en
+    lugar de porcentajes de viewport, porque Next.js usa sizes para generar el srcset
+    y sin el descarga la imagen mas grande disponible innecesariamente.'
+  added_at: '2026-01-31T04:28:35.857799+00:00'
+- text: GSAP importado via hook estatico (useHorizontalScroll) se incluye en el bundle
+    de todos los viewports aunque el componente que lo usa tenga hidden md:block --
+    la solucion correcta es mover componentes GSAP-dependientes a dynamic imports
+    condicionales, pero requiere separar el componente en desktop/mobile wrappers
+    con carga diferida.
+  added_at: '2026-01-31T04:28:35.857799+00:00'
+- text: Cuando todas las imagenes de un proyecto ya tienen sizes correctos, el mayor
+    impacto de performance mobile viene de auditar dependencias JS pesadas (GSAP ~40KB)
+    que se cargan incondicionalmente, no de optimizar atributos HTML que ya estan
+    bien configurados.
+  added_at: '2026-01-31T04:28:35.857799+00:00'
+- text: En iPad Mini portrait (768px = exactamente md breakpoint), el desktop nav
+    se muestra pero a un ancho significativamente menor que desktop real -- la solucion
+    es usar valores intermedios (text-xs, gap-3) en md que escalan a los valores normales
+    (text-sm, gap-8) en lg, no mover el toggle de breakpoint a lg que romperia la
+    experiencia en iPads mas grandes.
+  added_at: '2026-01-31T04:28:35.947407+00:00'
+- text: 'GSAP ScrollTrigger con scrub y pin soporta touch/swipe nativamente sin configuracion
+    adicional -- la verificacion critica es buscar touch-action: none en el CSS que
+    podria bloquear el gesto, no agregar listeners de touch manuales.'
+  added_at: '2026-01-31T04:28:35.947407+00:00'
+- text: 'Antes de hacer cambios estructurales para iPad, verificar que el problema
+    realmente existe calculando el ancho total de los elementos: logo(120px) + 4 links
+    + gaps + CTA + padding. Solo cuando la suma excede el viewport se necesita intervencion
+    -- en este caso 768px era justo al limite, requiriendo ajustes de spacing pero
+    no cambios de breakpoint.'
+  added_at: '2026-01-31T04:28:35.947407+00:00'
+- text: Las utility classes CSS definidas en globals.css (min-h-screen-safe) deben
+    preferirse sobre valores inline arbitrarios (min-h-[100dvh]) para mantener consistencia
+    -- cuando existen, usarlas evita divergencias futuras y centraliza el cambio si
+    la implementacion evoluciona.
+  added_at: '2026-01-31T04:33:53.459325+00:00'
+- text: Las reglas CSS globales agresivas con selectores de elemento (button, a) en
+    media queries son peligrosas porque afectan componentes que no necesitan esos
+    estilos (pills, badges, inline links) -- el patron opt-in con clase explicita
+    (.touch-target) es siempre preferible para reglas de layout que no aplican universalmente.
+  added_at: '2026-01-31T04:33:53.459325+00:00'
+- text: Extraer hooks inline a archivos dedicados en hooks/ no solo mejora la reusabilidad
+    sino que limpia los imports del componente padre -- en este caso, Hero.tsx paso
+    de importar useState y useEffect (solo usados por el hook) a solo importar useRef,
+    haciendo explicitas las dependencias reales del componente.
+  added_at: '2026-01-31T04:33:53.459325+00:00'
+- text: El build de Next.js 16.1.1 con Turbopack compila en 2.3s y genera 19 paginas
+    estaticas en 325ms con 11 workers -- el rendimiento de build es excelente y no
+    hay degradacion de performance a pesar de las 8 fases de mobile optimization +
+    correcciones P1.
+  added_at: '2026-01-31T04:34:54.998735+00:00'
+- text: Verificar Node.js 22 antes de cada build es critico para este proyecto --
+    Node 25+ causa ERR_INVALID_PACKAGE_CONFIG y el .nvmrc con valor 22 es la fuente
+    de verdad. El comando export PATH="/opt/homebrew/opt/node@22/bin:$PATH" es el
+    approach mas rapido cuando no se usa nvm.
+  added_at: '2026-01-31T04:34:54.998735+00:00'
+- text: TypeScript check separado (tsc --noEmit) antes del build de Next.js es una
+    buena practica porque Next.js puede ignorar ciertos errores de tipos durante el
+    build (especialmente con Turbopack) -- ejecutar ambos da mayor confianza de que
+    no hay errores latentes.
+  added_at: '2026-01-31T04:34:54.998735+00:00'
+- text: 'clip-path: inset() con GSAP ScrollTrigger es superior a transform: scale()
+    para efectos de "card que se expande" porque no distorsiona contenido interno
+    y el border-radius se anima como parte del inset round, eliminando la necesidad
+    de animar propiedades separadas.'
+  added_at: '2026-01-31T12:00:20.636298+00:00'
+- text: El patron de timeline GSAP con fases solapadas (expand + fade out + fade in
+    con duraciones y offsets diferentes) permite crossfades cinematicos sincronizados
+    con scroll usando una sola ScrollTrigger instance, simplificando el cleanup.
+  added_at: '2026-01-31T12:00:20.636298+00:00'
+- text: Para proyectos que ya tienen GSAP + @gsap/react, reutilizar el mismo patron
+    de hook (useGSAP con scope, cleanup granular, invalidateOnRefresh) garantiza consistencia
+    arquitectonica y evita conflictos entre multiples ScrollTriggers en la misma pagina.
+  added_at: '2026-01-31T12:00:20.636298+00:00'
+- text: GSAP Flip genera tweens estandar compatibles con ScrollTrigger scrub, pero
+    el snapshot de Flip.getState() no se invalida con invalidateOnRefresh, haciendolo
+    fragil en resize -- para animaciones scroll-driven, transforms manuales con funciones
+    como valores son mas robustos.
+  added_at: '2026-02-02T08:21:26.945107+00:00'
+- text: Cambiar position de absolute a relative durante una animacion causa layout
+    reflow; el patron correcto para "expanding cards" es mantener todos los elementos
+    en el flujo del grid y animar solo transforms (scale + translate), reservando
+    el espacio siempre.
+  added_at: '2026-02-02T08:21:26.945107+00:00'
+- text: Cuando dos animation libraries (GSAP + Framer Motion) escriben sobre la misma
+    propiedad CSS (transform), la ultima escritura gana -- la solucion es separar
+    en elementos DOM distintos (wrapper para GSAP, inner para Framer Motion) o deshabilitar
+    una library condicionalmente.
+  added_at: '2026-02-02T08:21:26.945107+00:00'
+- text: GSAP Flip (incluido en gsap 3.14.2) devuelve un timeline estandar pero calcula
+    posiciones una sola vez via getBoundingClientRect() -- esto lo hace fragil para
+    animaciones continuas con scrub donde el layout puede cambiar (pin, resize). Para
+    scroll-driven animations, un gsap.timeline() manual con ScrollTrigger es mas predecible.
+  added_at: '2026-02-02T08:21:51.369557+00:00'
+- text: 'CSS transform: scale() aplicado a contenedores con texto e imagenes causa
+    degradacion visual (rasterizado a escala 1 y estiramiento) mientras que clip-path:
+    inset() renderiza el contenido a tamano completo y solo recorta -- siempre preferir
+    clip-path para animaciones tipo "expanding card" con contenido rico.'
+  added_at: '2026-02-02T08:21:51.369557+00:00'
+- text: Modificar componentes compartidos (CarouselCard.tsx con Framer Motion) para
+    acomodar un caso de uso especifico (hero mode con GSAP) es un anti-pattern que
+    genera conflictos entre sistemas de animacion y acopla logica especifica en un
+    componente generico -- usar composicion (nuevo componente) en lugar de modificacion.
+  added_at: '2026-02-02T08:21:51.369557+00:00'
+- text: Un plan v3.0 autocontenido debe incluir codigo completo copiar-pegar en cada
+    fase, no solo descripciones -- esto permite que otro agente ejecute sin contexto
+    adicional ni ambiguedad sobre la implementacion.
+  added_at: '2026-02-02T08:35:06.651843+00:00'
+- text: Documentar alternativas descartadas con razon especifica (no solo "no funciona")
+    es critico para evitar que futuras iteraciones re-evaluen las mismas opciones
+    ya invalidadas por revisiones tecnicas.
+  added_at: '2026-02-02T08:35:06.651843+00:00'
+- text: La separacion de concerns GSAP/Framer Motion en elementos DOM distintos (wrapper
+    para GSAP transforms, inner para FM hover/tap) es el patron correcto cuando ambas
+    libraries coexisten -- documentar esto explicitamente en el plan evita el error
+    mas comun de mezclar ambas en el mismo nodo.
+  added_at: '2026-02-02T08:35:06.651843+00:00'
+- text: Separar componentes decorativos (HeroServiceCard sin FM) de componentes interactivos
+    (CarouselCard con FM) es el patron correcto cuando GSAP y Framer Motion coexisten
+    -- evita conflictos en la propiedad transform del mismo nodo DOM.
+  added_at: '2026-02-02T09:04:29.283280+00:00'
+- text: Usar import type { CardData } en lugar de duplicar la interface garantiza
+    consistencia de tipos y single source of truth -- si CardData cambia en CarouselCard,
+    HeroServiceCard se actualiza automaticamente.
+  added_at: '2026-02-02T09:04:29.283280+00:00'
+- text: 'Para imagenes decorativas visibles al cargar la pagina (above fold durante
+    scroll-driven animation), combinar priority + alt="" + aria-hidden="true" en el
+    wrapper es el approach correcto: prioriza la descarga sin contaminar la accesibilidad.'
+  added_at: '2026-02-02T09:04:29.283280+00:00'
+- text: El patron de hook GSAP con useGSAP({ scope, dependencies }) + cleanup granular
+    (tl.scrollTrigger?.kill() + tl.kill()) es reutilizable para cualquier animacion
+    scroll-driven en el proyecto -- ya hay 2 hooks (useHorizontalScroll, useExpandingCard)
+    que lo siguen identicamente.
+  added_at: '2026-02-02T09:05:56.967377+00:00'
+- text: 'clip-path: inset() con round permite animar border-radius como parte del
+    clip sin propiedades CSS adicionales -- es superior a transform: scale() para
+    expanding cards porque no distorsiona el contenido interno.'
+  added_at: '2026-02-02T09:05:56.967377+00:00'
+- text: 'La funcion getBreakpointConfig() con guard typeof window === ''undefined''
+    es el patron SSR-safe correcto para hooks que calculan dimensiones de viewport
+    -- retornar enabled: false como default server evita que useGSAP intente crear
+    animaciones durante SSR.'
+  added_at: '2026-02-02T09:05:56.967377+00:00'
+- text: La separacion de concerns GSAP/Framer Motion mediante wrapper divs (div con
+    ref para GSAP wrapping motion.div de CarouselCard) es el patron correcto cuando
+    ambas libraries coexisten -- evita conflictos en la propiedad transform del mismo
+    nodo DOM.
+  added_at: '2026-02-02T09:08:05.352199+00:00'
+- text: El campo category como dato directo en el service object es superior a derivarlo
+    con getCategoryFromGradient() -- elimina logica fragil basada en string matching
+    de colores Tailwind y hace los datos auto-descriptivos.
+  added_at: '2026-02-02T09:08:05.352199+00:00'
+- text: 'El patron isDesktop con matchMedia(''(min-width: 768px)'') + listener para
+    render condicional (early return mobile vs desktop layout) es mas limpio que CSS
+    hidden/block cuando los layouts son fundamentalmente diferentes (grid simple vs
+    3-layer GSAP animation) -- evita montar componentes GSAP innecesarios en mobile.'
+  added_at: '2026-02-02T09:08:05.352199+00:00'
+- text: 'El patron matchMedia(''(min-width: 768px)'') con listener para render condicional
+    mobile/desktop es superior a CSS hidden/block cuando los layouts son fundamentalmente
+    diferentes (grid simple vs GSAP scroll-driven animation) -- evita montar hooks
+    y refs GSAP innecesarios en mobile, reduciendo JS ejecutado.'
+  added_at: '2026-02-02T09:09:12.050943+00:00'
+- text: La verificacion de overflow horizontal en mobile se reduce a auditar que no
+    haya fixed widths > viewport y que grid-cols-1 sea el default sin breakpoint --
+    el patron grid-cols-1 sm:grid-cols-2 es seguro porque sm (640px) nunca se activa
+    en iPhone SE (375px).
+  added_at: '2026-02-02T09:09:12.050943+00:00'
+- text: Los touch targets en CarouselCard (44x44px con aria-label) ya cumplen Apple/Google
+    guidelines y WCAG -- cuando el componente base ya esta bien implementado, la verificacion
+    es rapida y no requiere cambios.
+  added_at: '2026-02-02T09:09:12.050943+00:00'
+- text: TypeScript check separado (tsc --noEmit) antes del build de Next.js sigue
+    siendo una buena practica de verificacion -- en este caso ambos pasaron limpio,
+    confirmando que el codebase esta en buen estado despues de las iteraciones recientes
+    de Benefits/Services refactor.
+  added_at: '2026-02-02T09:10:20.037615+00:00'
+- text: El build de Next.js 16.1.1 con Turbopack mantiene tiempos consistentes (~2.6s
+    compile + ~381ms static generation con 11 workers) a pesar de la complejidad del
+    proyecto con GSAP, motion/react, y multiples secciones -- no hay degradacion de
+    performance de build.
+  added_at: '2026-02-02T09:10:20.037615+00:00'
+- text: Verificar Node.js 22 con export PATH="/opt/homebrew/opt/node@22/bin:$PATH"
+    antes de cada comando npm/npx es el approach mas confiable cuando el sistema tiene
+    multiples versiones de Node instaladas via Homebrew.
+  added_at: '2026-02-02T09:10:20.037615+00:00'
+- text: 'willChange: ''clip-path'' en GSAP se aplica via gsap.set() antes de crear
+    el timeline, no como propiedad CSS estatica -- esto permite que el browser promueva
+    el layer justo antes de que la animacion lo necesite, siguiendo la recomendacion
+    de "set just before animating, remove when done" (aunque para scroll-driven con
+    scrub, mantenerlo durante toda la animacion es aceptable).'
+  added_at: '2026-02-02T09:14:07.986930+00:00'
+- text: useReducedMotion de motion/react retorna boolean | null (null en SSR) -- al
+    usarlo en una condicion ||, null es falsy, asi que el early return solo se activa
+    cuando el usuario tiene reduced motion habilitado explicitamente, lo cual es el
+    comportamiento correcto para SSR-safety sin checks adicionales.
+  added_at: '2026-02-02T09:14:07.986930+00:00'
+- text: Para animaciones GSAP con clip-path, el will-change hint es mas importante
+    que para transform/opacity porque clip-path no se compone automaticamente en un
+    layer separado como lo hacen las propiedades de transform -- sin el hint, el browser
+    puede hacer repaint del area completa en cada frame de scroll.
+  added_at: '2026-02-02T09:14:07.986930+00:00'
+- text: Cambiar de clip-path polygon a opacity para transiciones de overlay simplifica
+    drasticamente el codigo (elimina ~30 lineas de funciones de geometria) y mejora
+    performance porque opacity es una propiedad compuesta automaticamente en GPU,
+    mientras que clip-path con polygon requiere will-change hint y puede causar repaints
+    costosos.
+  added_at: '2026-02-02T10:40:59.547126+00:00'
+- text: El patron Revolut de imagen full-viewport + gradiente lateral + marco glass-morphism
+    es visualmente superior al patron de "agujero en overlay" porque la imagen siempre
+    se ve completa sin bordes feos, y el gradiente proporciona legibilidad del texto
+    de forma organica en lugar de depender de zonas opacas con cortes abruptos.
+  added_at: '2026-02-02T10:40:59.547126+00:00'
+- text: Mantener bg-slate-950 en el overlay (que empieza en opacity:0) es correcto
+    porque cuando transiciona a opacity:1 necesita proporcionar el fondo oscuro para
+    las cards -- sin el, las cards aparecerian flotando sobre la imagen de fondo que
+    aun seria visible debajo.
+  added_at: '2026-02-02T10:40:59.547126+00:00'
+- text: Cuando las cards de servicio se cambian de grid-cols-3 a grid-cols-1 en mobile,
+    los breakpoints responsive internos de texto y padding en CarouselCard (que se
+    habian reducido para caber en 3-col) deben restaurarse a sus valores originales
+    -- la razon de las reducciones desaparece al usar 1 columna.
+  added_at: '2026-02-02T11:18:42.985232+00:00'
+- text: Los touch targets condicionales con breakpoints (w-8 sm:w-11) son un anti-pattern
+    cuando el componente se usa en layouts que varian -- es mejor mantener el minimo
+    de 44px siempre y ajustar el layout contenedor (grid-cols) en lugar de comprimir
+    los elementos interactivos.
+  added_at: '2026-02-02T11:18:42.985232+00:00'
+- text: La separacion mobile/desktop con if (!isDesktop || prefersReducedMotion) en
+    Services.tsx permite modificar el layout mobile sin riesgo de romper el expanding
+    card GSAP de desktop -- este patron de early return para mobile es robusto para
+    secciones con animaciones complejas.
+  added_at: '2026-02-02T11:18:42.985232+00:00'
+- text: Cuando todos los datos ya usan un solo valor de un union type ('dark' de 'dark'
+    | 'light'), es el momento correcto para eliminar la variante muerta del tipo --
+    simplifica 3 componentes (BenefitPanel, MobileBenefits, WatermarkStat) eliminando
+    ternarios que nunca toman la rama alternativa, reduciendo complejidad ciclomatica
+    sin ningun cambio visual.
+  added_at: '2026-02-02T11:36:56.746836+00:00'
+- text: Reemplazar border-t border-white/5 con h-px bg-gradient-to-r from-transparent
+    via-white/8 to-transparent es el patron correcto para dividers sutiles en landing
+    pages con fondo unificado -- el gradiente se desvanece en los extremos evitando
+    el corte visual duro de un border completo de borde a borde.
+  added_at: '2026-02-02T11:36:56.746836+00:00'
+- text: 'La busqueda con replace_all de bg-slate-950 es segura cuando el color de
+    reemplazo (bg-[#0A0A0A]) tiene la misma luminosidad perceptual -- en Tailwind,
+    slate-950 es #020617 que es ligeramente azulado vs #0A0A0A que es gris neutro
+    puro, lo que unifica el tono visual ademas del valor exacto.'
+  added_at: '2026-02-02T11:36:56.746836+00:00'
+- text: text-[clamp(min,preferred,max)] en Tailwind v4 es superior a cadenas de breakpoints
+    (text-3xl sm:text-5xl md:text-6xl lg:text-7xl) para tipografia fluida -- un solo
+    valor con clamp() escala suavemente sin saltos discretos y reduce la complejidad
+    del className de 4 clases a 1.
+  added_at: '2026-02-02T15:00:00.000000+00:00'
+- text: 'Los headlines editoriales oversized (text-5xl a text-9xl font-black uppercase)
+    en BenefitPanel son una excepcion valida a la escala tipografica unificada --
+    son decorativos/editorial y seguir la escala los haria genericos. La regla es:
+    escala unificada para UI, excepciones justificadas para editorial.'
+  added_at: '2026-02-02T15:00:00.000000+00:00'
+- text: Unificar tipografia en una landing requiere leer TODOS los archivos antes
+    de editar para detectar el patron actual y las excepciones intencionales -- editar
+    archivo por archivo sin vision global causa inconsistencias entre secciones que
+    es exactamente lo que se intenta resolver.
+  added_at: '2026-02-02T15:00:00.000000+00:00'
+- text: text-[clamp(min,preferred,max)] en Tailwind v4 es superior a cadenas de breakpoints
+    (text-3xl sm:text-5xl md:text-6xl lg:text-7xl) para tipografia fluida -- un solo
+    valor con clamp() escala suavemente sin saltos discretos y reduce la complejidad
+    del className de 4 clases a 1.
+  added_at: '2026-02-02T13:07:32.021340+00:00'
+- text: 'Los headlines editoriales oversized (text-5xl a text-9xl font-black uppercase)
+    en BenefitPanel son una excepcion valida a la escala tipografica unificada --
+    son decorativos/editorial y seguir la escala los haria genericos. La regla es:
+    escala unificada para UI, excepciones justificadas para editorial.'
+  added_at: '2026-02-02T13:07:32.021340+00:00'
+- text: Unificar tipografia en una landing requiere leer TODOS los archivos antes
+    de editar para detectar el patron actual y las excepciones intencionales -- editar
+    archivo por archivo sin vision global causa inconsistencias entre secciones que
+    es exactamente lo que se intenta resolver.
+  added_at: '2026-02-02T13:07:32.021340+00:00'
+- text: 'Para crear flujo visual continuo en dark landing pages con fondo unificado
+    (#0A0A0A), la combinacion de 3 tecnicas es suficiente: (1) py-[clamp(4rem,8vw,8rem)]
+    estandarizado en secciones regulares, (2) radial-gradient glows tenues (opacity
+    0.02-0.04 del color primary) en la parte superior de cada seccion como conectores,
+    (3) noise texture SVG con opacity 0.015 en body::after como cohesion global.'
+  added_at: '2026-02-02T16:30:00.000000+00:00'
+- text: El Hero necesita un div explicito h-32 con gradient from-transparent to-[#0A0A0A]
+    en z-[2] (por encima del gradient overlay z-[1]) para desvanecer las Particles
+    canvas en la parte inferior -- el gradient overlay existente (via-[#0A0A0A]/50)
+    no es suficientemente opaco en el borde inferior para evitar un corte abrupto
+    de particulas.
+  added_at: '2026-02-02T16:30:00.000000+00:00'
+- text: Los radial-gradient conectores entre secciones funcionan mejor como div con
+    inline style (no className de Tailwind) porque radial-gradient con ellipse y porcentajes
+    en el size no tiene equivalente directo en Tailwind v4 -- la sintaxis style={{
+    background colon radial-gradient(ellipse 80% 100% at center top, ...) }} es la
+    mas expresiva y legible.
+  added_at: '2026-02-02T16:30:00.000000+00:00'
+- text: 'Para crear flujo visual continuo en dark landing pages con fondo unificado
+    (#0A0A0A), la combinacion de 3 tecnicas CSS-only es suficiente: spacing estandarizado
+    con clamp(), radial-gradient glows tenues como conectores entre secciones, y noise
+    texture SVG como cohesion global -- no se necesita JS adicional.'
+  added_at: '2026-02-02T13:12:25.155704+00:00'
+- text: El Hero necesita un fade layer explicito en z superior al gradient overlay
+    existente para desvanecer correctamente las Particles canvas -- un solo gradient
+    overlay con via-50% no es suficientemente opaco en los bordes para evitar cortes
+    abruptos de elementos canvas.
+  added_at: '2026-02-02T13:12:25.155704+00:00'
+- text: Los radial-gradient con ellipse y porcentajes de tamanio no tienen equivalente
+    directo en Tailwind v4, por lo que inline style es la opcion mas expresiva y legible
+    para conectores visuales entre secciones -- intentar forzar esto en className
+    con arbitrary values seria menos legible y mas fragil.
+  added_at: '2026-02-02T13:12:25.155704+00:00'
+- text: 'En dark landing pages con fondo #0A0A0A, usar white/opacity (text-white/60,
+    bg-white/5, border-white/10) en lugar de slate-* es superior porque slate tiene
+    un tinte azulado (slate-950 es #020617) que crea discontinuidades visuales sutiles
+    entre secciones. white/opacity es neutral puro y escala mejor como sistema de color
+    unificado.'
+  added_at: '2026-02-02T17:30:00.000000+00:00'
+- text: 'Cuidado con replace_all en cadenas que contienen subcadenas con sufijos: reemplazar
+    text-[#9CA3AF] con text-white/60 tambien transforma text-[#9CA3AF]/60 en text-white/60/60
+    (doble opacity, invalido). Siempre buscar ocurrencias con sufijo despues del replace_all
+    global para detectar este tipo de corrupcion.'
+  added_at: '2026-02-02T17:30:00.000000+00:00'
+- text: 'La pasada final de refinamiento visual en una landing (Phase 5) debe enfocarse
+    exclusivamente en consistencia de color tokens y no tocar layouts ni logica -- los
+    cambios son mecanicos (search-replace de color classes) pero requieren leer todos
+    los archivos primero para mapear el patron de inconsistencia antes de editar.'
+  added_at: '2026-02-02T17:30:00.000000+00:00'

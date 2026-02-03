@@ -352,10 +352,40 @@
 
 ---
 
+---
+
+## Session: 2026-02-02 Hero Background + Mobile Optimization
+
+### D052: Hero Background Image con Gemini
+- **Contexto:** Hero necesitaba imagen de fondo sutil para dar profundidad
+- **Decision:** Generar neural network con Imagen 4.0, opacity 15%, z-[0], pointer-events-none
+- **Confianza:** 0.99
+- **Validado en:** Deploy a produccion
+
+### D053: MobileBenefits Centrado
+- **Contexto:** Headlines alternaban izquierda/derecha, inconsistente en movil
+- **Decision:** Centrar todos los headlines y copies (text-center) en MobileBenefits
+- **Confianza:** 0.95
+- **Validado en:** User feedback iterativo
+
+### D054: Services Carousel Mobile
+- **Contexto:** Cards w-[46%] demasiado estrechas, titulos truncados
+- **Decision:** w-[78%] + snap-center + gap-3, tablet sm:grid-cols-2
+- **Confianza:** 0.95
+- **Validado en:** Visual verification en 375px
+
+### D055: CTA Benefits Compacto
+- **Contexto:** Boton CTA demasiado grande, email innecesario
+- **Decision:** Headline font-black 2.25rem-3.5rem, boton compacto (no w-full), eliminar email link
+- **Confianza:** 0.99
+- **Validado en:** User feedback iterativo
+
+---
+
 ## Decisiones Pendientes
 
 Ninguna decision pendiente de validacion.
 
 ---
 
-**Ultima actualizacion:** 2026-01-24T18:15:00Z
+**Ultima actualizacion:** 2026-02-02T23:59:00Z

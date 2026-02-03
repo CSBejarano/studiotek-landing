@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import { Mail, Building2, MessageSquare, User, Wallet, Phone, Briefcase } from 'lucide-react';
 import { contactSchema, type ContactFormData } from '@/lib/validations';
@@ -34,6 +35,87 @@ const serviciosOptions = [
   { value: 'ia-personalizada', label: 'Procesos de IA Personalizada' },
 ];
 
+// --- Conditional questions per service ---
+type ServiceKey = 'implementacion' | 'consultoria' | 'formacion' | 'ia-personalizada';
+
+interface ConditionalField {
+  key: string;
+  label: string;
+  type: 'select' | 'textarea';
+  options?: { value: string; label: string }[];
+  maxLength?: number;
+  placeholder?: string;
+}
+
+const conditionalQuestions: Record<ServiceKey, ConditionalField[]> = {
+  implementacion: [
+    {
+      key: 'sector',
+      label: 'Sector de tu empresa',
+      type: 'select',
+      options: [
+        { value: '', label: 'Selecciona un sector' },
+        { value: 'salud', label: 'Salud' },
+        { value: 'hosteleria', label: 'Hosteleria' },
+        { value: 'retail', label: 'Retail' },
+        { value: 'servicios-profesionales', label: 'Servicios profesionales' },
+        { value: 'otro', label: 'Otro' },
+      ],
+    },
+    {
+      key: 'num_empleados',
+      label: 'Numero de empleados',
+      type: 'select',
+      options: [
+        { value: '', label: 'Selecciona un rango' },
+        { value: '1-5', label: '1 - 5' },
+        { value: '6-20', label: '6 - 20' },
+        { value: '21-50', label: '21 - 50' },
+        { value: '50+', label: '50+' },
+      ],
+    },
+  ],
+  consultoria: [
+    {
+      key: 'ia_previa',
+      label: 'Has implementado alguna solucion IA antes?',
+      type: 'select',
+      options: [
+        { value: '', label: 'Selecciona una opcion' },
+        { value: 'si', label: 'Si' },
+        { value: 'no', label: 'No' },
+        { value: 'en-proceso', label: 'En proceso' },
+      ],
+    },
+  ],
+  formacion: [
+    {
+      key: 'num_personas',
+      label: 'Cuantas personas se formarian?',
+      type: 'select',
+      options: [
+        { value: '', label: 'Selecciona un rango' },
+        { value: '1-5', label: '1 - 5' },
+        { value: '6-15', label: '6 - 15' },
+        { value: '16-50', label: '16 - 50' },
+        { value: '50+', label: '50+' },
+      ],
+    },
+  ],
+  'ia-personalizada': [
+    {
+      key: 'idea_descripcion',
+      label: 'Describe brevemente tu idea',
+      type: 'textarea',
+      maxLength: 500,
+      placeholder: 'Cuentanos que proceso quieres automatizar o que solucion necesitas...',
+    },
+  ],
+};
+
+const isServiceKey = (value: string): value is ServiceKey =>
+  value in conditionalQuestions;
+
 type FormStatus = 'idle' | 'loading' | 'success' | 'error';
 
 export function ContactForm() {
@@ -43,6 +125,8 @@ export function ContactForm() {
     register,
     handleSubmit,
     reset,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
@@ -56,8 +140,29 @@ export function ContactForm() {
       mensaje: '',
       privacyAccepted: undefined as unknown as true,
       commercialAccepted: false,
+      metadata: {},
     },
   });
+
+  const selectedService = watch('servicioInteres');
+  const currentMetadata = watch('metadata');
+
+  // Clear metadata when service changes
+  useEffect(() => {
+    setValue('metadata', {});
+  }, [selectedService, setValue]);
+
+  const handleMetadataChange = useCallback(
+    (key: string, value: string) => {
+      setValue('metadata', { ...currentMetadata, [key]: value });
+    },
+    [currentMetadata, setValue]
+  );
+
+  const activeQuestions =
+    selectedService && isServiceKey(selectedService)
+      ? conditionalQuestions[selectedService]
+      : null;
 
   const onSubmit = async (data: ContactFormData) => {
     setStatus('loading');
@@ -74,6 +179,9 @@ export function ContactForm() {
           budget: data.presupuesto,
           service_interest: data.servicioInteres,
           message: data.mensaje,
+          metadata: data.metadata && Object.keys(data.metadata).length > 0
+            ? data.metadata
+            : undefined,
           privacy_accepted: data.privacyAccepted,
           commercial_accepted: data.commercialAccepted || false,
         })
@@ -268,6 +376,76 @@ export function ContactForm() {
                         />
                       </div>
                     </div>
+
+                    {/* Conditional smart questions based on selected service */}
+                    <AnimatePresence mode="wait">
+                      {activeQuestions && (
+                        <motion.div
+                          key={selectedService}
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3, ease: 'easeInOut' }}
+                          className="overflow-hidden"
+                        >
+                          <div
+                            className="border border-blue-500/20 rounded-lg p-4 bg-blue-500/5 space-y-4"
+                            role="group"
+                            aria-label="Preguntas adicionales sobre tu proyecto"
+                          >
+                            <p className="text-sm text-white/50">
+                              Cuentanos mas sobre tu proyecto
+                            </p>
+
+                            <div className={cn(
+                              "grid gap-4",
+                              activeQuestions.length > 1
+                                ? "grid-cols-1 md:grid-cols-2"
+                                : "grid-cols-1"
+                            )}>
+                              {activeQuestions.map((field) => {
+                                if (field.type === 'select' && field.options) {
+                                  return (
+                                    <Select
+                                      key={field.key}
+                                      label={field.label}
+                                      options={field.options.filter((o) => o.value !== '')}
+                                      value={
+                                        (currentMetadata?.[field.key] as string) ?? ''
+                                      }
+                                      onChange={(e) =>
+                                        handleMetadataChange(field.key, e.target.value)
+                                      }
+                                      className="bg-white/5 border-white/10 text-white focus:border-blue-500 focus:ring-blue-500/20 min-h-[44px]"
+                                    />
+                                  );
+                                }
+
+                                if (field.type === 'textarea') {
+                                  return (
+                                    <Textarea
+                                      key={field.key}
+                                      label={field.label}
+                                      placeholder={field.placeholder}
+                                      maxLength={field.maxLength}
+                                      value={
+                                        (currentMetadata?.[field.key] as string) ?? ''
+                                      }
+                                      onChange={(e) =>
+                                        handleMetadataChange(field.key, e.target.value)
+                                      }
+                                      className="bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-blue-500 focus:ring-blue-500/20 min-h-[100px]"
+                                    />
+                                  );
+                                }
+
+                                return null;
+                              })}
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
 
                     {/* Row 4: Mensaje (full width) */}
                     <div className="relative">

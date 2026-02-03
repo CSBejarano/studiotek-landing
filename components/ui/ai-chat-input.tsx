@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Mic, Send, Loader2, MicOff } from 'lucide-react';
+import { Mic, Send, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 // Type definitions for Web Speech API
@@ -84,7 +84,7 @@ export function AIChatInput({
   const [voiceError, setVoiceError] = useState<string | null>(null);
   const [useWhisperFallback, setUseWhisperFallback] = useState(false);
 
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const recognitionRef = useRef<ISpeechRecognition | null>(null);
   const transcriptRef = useRef<string>('');
   const onVoiceEndRef = useRef(onVoiceEnd);
@@ -224,13 +224,7 @@ export function AIChatInput({
     }
   };
 
-  // Auto-resize textarea
-  useEffect(() => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
-      textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, 150)}px`;
-    }
-  }, [value]);
+  // No auto-resize - fixed height input
 
   // Whisper transcription (for partial/interim results)
   const transcribePartial = async () => {
@@ -472,7 +466,7 @@ export function AIChatInput({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.3 }}
       className={cn(
-        "relative w-full max-w-2xl mx-auto",
+        "relative w-full mx-auto",
         className
       )}
     >
@@ -480,33 +474,33 @@ export function AIChatInput({
       {/* Main container con glassmorphism */}
       <div
         className={cn(
-          "relative flex items-center gap-3 rounded-2xl px-5 py-3 transition-all duration-300",
+          "relative flex items-center gap-3 rounded-2xl px-5 py-4 transition-all duration-300",
           // Glassmorphism base
-          "bg-white/[0.04] backdrop-blur-xl",
-          "border border-white/[0.08]",
+          "bg-white/[0.05] backdrop-blur-xl",
+          "border border-white/[0.12]",
           // Focus state con glow de marca
           isFocused && cn(
-            "border-[#2563EB]/30",
-            "shadow-[0_0_40px_rgba(37,99,235,0.12),0_8px_32px_rgba(0,0,0,0.3)]"
+            "border-[#2563EB]/40",
+            "shadow-[0_0_40px_rgba(37,99,235,0.15),0_8px_32px_rgba(0,0,0,0.3)]"
           ),
           // Voice states
-          isListening && !useWhisperFallback && "border-[#2563EB]/30 shadow-lg shadow-[#2563EB]/20",
+          isListening && !useWhisperFallback && "border-[#2563EB]/40 shadow-lg shadow-[#2563EB]/20",
           isListening && useWhisperFallback && "border-red-500/30 shadow-lg shadow-red-500/20"
         )}
       >
         {/* Input area */}
-        <div className="relative flex-1 flex items-center min-h-[24px] py-1">
-          <textarea
-            ref={textareaRef}
+        <div className="relative flex-1 flex items-center h-[24px]">
+          <input
+            ref={inputRef}
+            type="text"
             value={value}
             onChange={(e) => setValue(e.target.value)}
             onFocus={() => { setIsFocused(true); onFocus?.(); }}
             onBlur={() => setIsFocused(false)}
             onKeyDown={handleKeyDown}
             disabled={disabled || isProcessing || isTranscribing}
-            rows={1}
             className={cn(
-              "w-full bg-transparent text-white placeholder-transparent outline-none border-0 ring-0 focus:ring-0 focus:border-0 focus:outline-none text-base leading-6 p-0 resize-none overflow-hidden my-auto",
+              "w-full bg-transparent text-white placeholder-transparent outline-none border-0 ring-0 focus:ring-0 focus:border-0 focus:outline-none text-base leading-6 p-0",
               disabled && "opacity-50 cursor-not-allowed"
             )}
           />
@@ -520,7 +514,7 @@ export function AIChatInput({
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.25 }}
-                className="absolute left-0 right-0 top-1/2 -translate-y-1/2 text-base leading-6 text-[#9CA3AF] pointer-events-none truncate"
+                className="absolute left-0 right-0 top-1/2 -translate-y-1/2 text-base leading-6 text-white/40 pointer-events-none truncate"
               >
                 {displayPlaceholder}
               </motion.span>
@@ -540,15 +534,11 @@ export function AIChatInput({
                 ? "text-[#2563EB] bg-[#2563EB]/20 border border-[#2563EB]/30"
                 : isListening && useWhisperFallback
                 ? "text-red-400 bg-red-500/20 border border-red-500/30 animate-pulse"
-                : "text-[#9CA3AF] hover:text-white hover:bg-white/[0.06]"
+                : "text-white/40 hover:text-white hover:bg-white/[0.06]"
             )}
             aria-label={isListening ? "Detener grabación" : "Iniciar grabación de voz"}
           >
-            {isListening ? (
-              <MicOff className="w-5 h-5" />
-            ) : (
-              <Mic className={cn("w-5 h-5", isListening && !useWhisperFallback && "animate-pulse")} />
-            )}
+            <Mic className={cn("w-5 h-5", isListening && "animate-pulse")} />
           </button>
 
           {/* Send button */}
@@ -559,7 +549,7 @@ export function AIChatInput({
               "p-3 rounded-full transition-all duration-200",
               value.trim() && !disabled && !isProcessing && !isTranscribing
                 ? "bg-[#2563EB] text-white hover:bg-[#3B82F6] shadow-lg shadow-[#2563EB]/25"
-                : "bg-white/[0.06] text-white/25 cursor-not-allowed"
+                : "bg-white/[0.08] text-white/30 cursor-not-allowed"
             )}
             aria-label="Enviar mensaje"
           >

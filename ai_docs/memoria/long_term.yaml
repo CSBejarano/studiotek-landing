@@ -1,27 +1,30 @@
 version: 2.0
 project_id: studiotek-landing
-updated_at: "2026-01-26T20:39:34.319171+00:00"
-workflows_completed: 13
+updated_at: "2026-02-02T21:20:35.288468+00:00"
+workflows_completed: 42
 decisions: []
 blockers: []
 velocity:
   by_phase: {}
   by_complexity:
     low:
-      avg_min: 7.865218
+      avg_min: 47.69445938333333
       success_rate: 1.0
       samples: 1
 tools:
   Bash:
-    success_count: 21
+    success_count: 1
+    fail_count: 0
+  Write:
+    success_count: 2
     fail_count: 0
   Edit:
-    success_count: 12
+    success_count: 4
     fail_count: 0
 history:
   -
-    id: 2026-01-26_workflow
+    id: 2026-02-02_workflow
     result: SUCCESS
-    duration_min: 7.87
+    duration_min: 47.69
     domain: backend
-    timestamp: "2026-01-26T20:39:34.237176+00:00"
+    timestamp: "2026-02-02T21:20:35.286989+00:00"

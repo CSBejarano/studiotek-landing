@@ -1,0 +1,71 @@
+# Prompts para Imágenes de Benefits Section - StudioTek
+# Estilo: Editorial, limpio, ligeramente desaturado, azul StudioTek (#2563EB)
+# Aspect Ratio: 4:3
+# Formato: WebP
+
+images:
+  # Panel 1: Ahorro - Imagen Principal
+  - id: "benefit-ahorro-dashboard"
+    prompt: >
+      Professional editorial dashboard mockup showing cost reduction analytics.
+      Dark theme interface with descending bar charts and line graphs in blue (#2563EB) and white.
+      Clean minimalist design, subtle shadows, floating UI cards showing "-40% costs" metrics.
+      Isometric perspective, soft lighting, tech aesthetic.
+      High-end SaaS product photography style, 4:3 aspect ratio.
+    output: "public/images/generated/benefit-ahorro-dashboard.webp"
+    aspect_ratio: "4:3"
+
+  # Panel 1: Ahorro - Imagen Secundaria
+  - id: "benefit-ahorro-equipo"
+    prompt: >
+      Diverse professional team working efficiently in modern office.
+      People focused on laptops, collaborative atmosphere, no paperwork visible.
+      Clean editorial photography style, slightly desaturated colors.
+      Blue accent lighting (#2563EB), contemporary workspace.
+      Warm but professional mood, 4:3 aspect ratio.
+    output: "public/images/generated/benefit-ahorro-equipo.webp"
+    aspect_ratio: "4:3"
+
+  # Panel 2: Capacidad - Imagen Principal
+  - id: "benefit-capacidad-chatbot"
+    prompt: >
+      Smartphone mockup showing WhatsApp chat interface with AI assistant.
+      Chat bubbles with friendly AI responses, "24/7" badge in blue (#2563EB).
+      Clean white background, floating phone at slight angle.
+      Professional product photography, soft shadows.
+      Modern tech aesthetic, conversational UI visible, 4:3 aspect ratio.
+    output: "public/images/generated/benefit-capacidad-chatbot.webp"
+    aspect_ratio: "4:3"
+
+  # Panel 2: Capacidad - Imagen Secundaria
+  - id: "benefit-capacidad-canales"
+    prompt: >
+      Abstract illustration of multi-channel customer support touchpoints.
+      Connected icons: WhatsApp, email, phone, chat, social media.
+      Network visualization with blue (#2563EB) connections on dark background.
+      Clean geometric design, editorial infographic style.
+      Modern tech aesthetic, floating elements, 4:3 aspect ratio.
+    output: "public/images/generated/benefit-capacidad-canales.webp"
+    aspect_ratio: "4:3"
+
+  # Panel 3: Satisfacción - Imagen Principal
+  - id: "benefit-satisfaccion-reviews"
+    prompt: >
+      Stack of floating review cards with 5-star ratings.
+      Customer testimonials with profile photos, 5 gold stars on each card.
+      Clean white and blue (#2563EB) design, subtle shadows.
+      Editorial product photography style, cards slightly rotated.
+      Professional SaaS aesthetic, positive sentiment, 4:3 aspect ratio.
+    output: "public/images/generated/benefit-satisfaccion-reviews.webp"
+    aspect_ratio: "4:3"
+
+  # Panel 3: Satisfacción - Imagen Secundaria
+  - id: "benefit-satisfaccion-24-7"
+    prompt: >
+      Modern clock icon merged with globe, representing 24/7 availability.
+      Blue (#2563EB) and white color scheme, dark background.
+      Clean minimalist illustration, glowing effect on clock hands.
+      Editorial tech aesthetic, floating elements with soft shadows.
+      Professional and trustworthy mood, 4:3 aspect ratio.
+    output: "public/images/generated/benefit-satisfaccion-24-7.webp"
+    aspect_ratio: "4:3"

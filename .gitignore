@@ -58,6 +58,18 @@ __pycache__/
 .claude/skills 2
 .claude/skills 3
 
+# OpenCode (contains local settings with API keys)
+.opencode/
+
+# Serena
+.serena/
+
+# Playwright MCP
+.playwright-mcp/
+
+# Logs
+logs/
+
 # Watchman
 .watchmanconfig
 

@@ -1,91 +1,111 @@
 # PROGRESS.yaml - Estado del proyecto
 # Project: studiotek-landing
-# Updated: 2026-01-26
+# Updated: 2026-02-02
 
-workflow_id: "2026-01-26_session-sync"
+workflow_id: "2026-02-02_hero-bg-mobile-optimization"
 status: "IDLE"
-started_at: "2026-01-26T00:00:00Z"
-completed_at: null
+started_at: "2026-02-02T00:00:00Z"
+completed_at: "2026-02-02T23:59:00Z"
 
-# Estado actual: Landing completa, listo para nuevas tareas
+# Estado actual
 current_state:
   phase: "IDLE"
-  description: "Landing page 100% completa con todos los features"
-  last_workflow: "2026-01-24_fix-chat-ia-movil-4bugs"
+  description: "Landing complete + mobile optimized + hero bg image"
+  last_workflow: "2026-02-02_hero-bg-mobile-optimization"
 
-# Ultimo workflow completado: Fix Chat IA Movil - 4 Bugs
+# Ultimo workflow completado
 last_workflow:
-  id: "2026-01-24_fix-chat-ia-movil-4bugs"
+  id: "2026-02-02_hero-bg-mobile-optimization"
   status: "COMPLETE"
-  started_at: "2026-01-24T16:00:00Z"
-  completed_at: "2026-01-24T18:15:00Z"
+  started_at: "2026-02-02T00:00:00Z"
+  completed_at: "2026-02-02T23:59:00Z"
   phases:
     - id: 1
-      name: "Fix Status Indicators Overlap"
-      agent: "@frontend"
+      name: "Generate Hero Background Image"
+      agent: "direct"
       status: "COMPLETE"
-      description: "Single AnimatePresence mode='wait' con computed status key"
-      result: "SUCCESS - No overlap entre indicadores"
+      description: "Neural network image via Gemini Imagen 4.0, PNG->WebP (137KB)"
+      result: "SUCCESS - hero-bg-neural-network.webp"
 
     - id: 2
-      name: "Fix Input Reset After Voice"
+      name: "Implement Hero Background"
       agent: "@frontend"
       status: "COMPLETE"
-      description: "setValue('') despues de onVoiceEnd en recognition y Whisper"
-      result: "SUCCESS - Input se limpia correctamente"
+      description: "Next.js Image with opacity 15%, z-[0], pointer-events-none"
+      result: "SUCCESS - Hero.tsx updated"
 
     - id: 3
-      name: "Fix TTS iOS Playback"
+      name: "Optimize MobileBenefits"
       agent: "@frontend"
       status: "COMPLETE"
-      description: "TTS funciona para todos los inputs (voz y texto)"
-      result: "SUCCESS - Audio TTS se reproduce en todos los casos"
+      description: "Compact spacing, centered headlines/copies, smaller CTA"
+      result: "SUCCESS - spacing reduced, text centered"
 
     - id: 4
-      name: "Fix Placeholder Mobile"
+      name: "Optimize Services Mobile"
       agent: "@frontend"
       status: "COMPLETE"
-      description: "Placeholder no se trunca en movil, se oculta durante procesamiento"
-      result: "SUCCESS - UX mejorada en movil"
+      description: "Cards w-[78%], snap-center, tablet 2-col, dot indicators fixed"
+      result: "SUCCESS - carousel improved"
 
     - id: 5
-      name: "Deploy"
+      name: "Optimize CarouselCard Mobile"
+      agent: "@frontend"
+      status: "COMPLETE"
+      description: "Touch targets 44px, text-base, active:scale-95"
+      result: "SUCCESS - accessibility improved"
+
+    - id: 6
+      name: "Optimize Hero Mobile"
+      agent: "@frontend"
+      status: "COMPLETE"
+      description: "Reduced padding, compact social proof, tighter spacing"
+      result: "SUCCESS - less vertical space"
+
+    - id: 7
+      name: "CTA Refinements"
+      agent: "direct"
+      status: "COMPLETE"
+      description: "Larger headline, smaller button, removed email link, centered text"
+      result: "SUCCESS - CTA more impactful"
+
+    - id: 8
+      name: "Deploy to Production"
       agent: "@infra"
       status: "COMPLETE"
-      description: "git push a main"
-      result: "SUCCESS - commits 655f36c pushed"
+      description: "git push + vercel --prod"
+      result: "SUCCESS - commit a8a4355 deployed"
 
-# Metricas del ultimo workflow
+# Metricas
 metrics:
-  total_phases: 5
-  completed_phases: 5
+  total_phases: 8
+  completed_phases: 8
   skipped_phases: 0
-  duration_minutes: 135
-  agents_used: ["@frontend", "@infra"]
-  files_created: 0
-  files_modified: 2
+  agents_used: ["@frontend", "@infra", "direct"]
+  files_created: 3
+  files_modified: 5
 
-# Git - Ultimos commits
+# Git
 git:
   branch: "main"
   remote: "https://github.com/CSBejarano/studiotek-landing"
   commits:
-    - hash: "b8dda91"
-      message: "feat: Apple-style service cards + performance optimization"
-    - hash: "655f36c"
-      message: "fix: TTS for voice input + hide placeholder during processing"
-    - hash: "220f1db"
-      message: "fix: enable TTS for all responses (voice and text input)"
-    - hash: "1cf9f86"
-      message: "fix: placeholder truncation - remove unnecessary right padding"
-    - hash: "39fad9e"
-      message: "fix: TTS response for voice input + placeholder overflow on mobile"
+    - hash: "a8a4355"
+      message: "feat: add hero background image + optimize mobile layout across sections"
+    - hash: "108ea6a"
+      message: "feat: unify visual design system + integrate HeroAIChat with AIChatPanel"
+    - hash: "2e35717"
+      message: "feat: add mobile swipe carousel for Services with compact N26-style cards"
+    - hash: "75d0453"
+      message: "feat: optimize landing for mobile & iPad viewports"
+    - hash: "28d2b61"
+      message: "feat: redesign Benefits (VICIO editorial), PainPoints PAS, adapt copy"
 
 # PRD Progress
 prd_progress:
   total_phases: 10
   completed_phases: 10
-  status: "100% COMPLETE + VOICE AGENT + AI CHAT ENHANCED + MOBILE FIXES"
+  status: "100% COMPLETE + BENEFITS SURFACE + MOBILE OPTIMIZED + HERO BG"
 
 # Integraciones
 integrations:
@@ -103,90 +123,29 @@ integrations:
     api_key: false
   vercel:
     status: "ACTIVE"
-    url: "https://studiotek-landing-fsw63i0gi-csbejaranos-projects.vercel.app"
+    url: "https://studiotek-landing-4e016ugql-csbejaranos-projects.vercel.app"
   github:
     status: "ACTIVE"
     repo: "https://github.com/CSBejarano/studiotek-landing"
   gemini:
     status: "ACTIVE"
     model: "imagen-4.0-generate-001"
-    images_generated: 15
-
-# Voice Agent Components
-voice_agent:
-  components:
-    - "components/voice/VoiceAgent.tsx"
-    - "components/voice/VoiceButton.tsx"
-    - "components/voice/TranscriptWindow.tsx"
-    - "components/voice/VoiceAgentProvider.tsx"
-    - "components/ui/ai-chat-input.tsx"
-    - "components/ui/HeroAIChat.tsx"
-  hooks:
-    - "hooks/useSpeechRecognition.ts"
-    - "hooks/useVoiceAgent.ts"
-  apis:
-    - "app/api/voice/chat/route.ts"
-    - "app/api/voice/tts/route.ts"
-    - "app/api/voice/stt/route.ts"
-  lib:
-    - "lib/voice/types.ts"
-    - "lib/voice/prompts.ts"
-    - "lib/voice/functions.ts"
-    - "lib/voice/functionHandlers.ts"
-  features:
-    - "Web Speech API (speech-to-text) - PRIMARY"
-    - "OpenAI Whisper (speech-to-text) - FALLBACK"
-    - "Hybrid voice recognition with auto-fallback"
-    - "Real-time transcription (2.5s intervals in Whisper mode)"
-    - "Expandable textarea input (max 150px)"
-    - "OpenAI Chat API with function calling"
-    - "OpenAI TTS API (voice: onyx)"
-    - "Text input fallback"
-    - "Mic pause/resume button"
-    - "Visual indicators: green (Web Speech) / red (Whisper)"
-    - "Mobile microphone support (iOS Safari + Android)"
-    - "TTS for all response types (voice and text input)"
-  functions:
-    - "navigate_to_section"
-    - "open_service_modal"
-    - "highlight_element"
-    - "fill_form_field"
-    - "submit_contact_form"
-
-# AI Chat Input Component
-ai_chat_input:
-  file: "components/ui/ai-chat-input.tsx"
-  features:
-    - "Hybrid voice recognition"
-    - "Web Speech API (green indicator)"
-    - "Whisper fallback (red indicator)"
-    - "Periodic transcription every 2.5s"
-    - "Auto-resizing textarea"
-    - "Max height 150px"
-    - "Animated placeholder"
-    - "Centered layout"
-    - "Mobile-optimized placeholder (no truncation)"
-    - "Single AnimatePresence for status indicators"
-  refs:
-    - "textareaRef"
-    - "transcriptionIntervalRef"
-    - "isTranscribingRef"
-    - "mimeTypeRef"
+    images_generated: 16
 
 # Domain Experts
 domain_experts:
   frontend:
-    version: "1.32"
-    tasks_handled: 57
+    version: "1.35"
+    tasks_handled: 63
   backend:
     version: "1.3"
     tasks_handled: 6
   infra:
     version: "1.5"
-    tasks_handled: 8
+    tasks_handled: 9
   testing:
     version: "1.0"
     tasks_handled: 4
 
 # Completion Promise
-completion_promise: "Landing Complete - Ready for New Features"
+completion_promise: "Landing Complete + Mobile Optimized - Ready for New Features"

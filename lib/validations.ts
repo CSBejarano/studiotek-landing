@@ -12,6 +12,8 @@ export const contactSchema = z.object({
     message: 'Debes aceptar la politica de privacidad'
   }),
   commercialAccepted: z.boolean().optional(),
+  // Smart form additional answers
+  metadata: z.record(z.string(), z.unknown()).optional(),
 });
 
 export type ContactFormData = z.infer<typeof contactSchema>;

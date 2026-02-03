@@ -1,61 +1,94 @@
-# PLAN: Deploy SEO & Google Indexación - StudioTek
+# PLAN: Unificación Visual Landing Page - StudioTek
 
 ## Purpose
 
-Desplegar los cambios de optimización SEO a producción y solicitar indexación en Google para posicionar StudioTek en búsquedas de "automatización IA para empresas".
+Unificar visualmente toda la landing page de StudioTek eliminando separaciones duras entre secciones, estandarizando la tipografía y creando un flujo visual continuo y cohesivo. Inspiración de referencia: landing page de vicio.com (adaptado al estilo dark/tech de StudioTek).
 
-> **Dominio:** Infra + SEO
-> **Prioridad:** P0 - Critical SEO Launch
-> **Complejidad:** 3/10
+> **Dominio:** Frontend
+> **Prioridad:** P0 - Visual Unification
+> **Complejidad:** 8/10
+> **Skill:** studiotek-landing-enhancer
 
 ---
 
 ## Contexto
 
-### Cambios Realizados (Pendientes de Deploy)
+### Problemas Visuales Detectados
 
 ```yaml
-Optimizaciones_SEO:
-  title_tag: "Automatización IA para Empresas | Ahorra 40% - StudioTek"
-  meta_description: "Automatización IA para empresas españolas: reduce 40% costes..."
-  h1_principal: "Automatización IA para empresas: ahorra 40% en costes operativos"
+Problemas_Actuales:
+  separaciones_duras:
+    - "Hero (#0A0A0A) → Services (slate-950): línea visual dura entre secciones"
+    - "Benefits panels: alternancia dark/light (#0A0A0A vs #F5F5F5) crea cortes abruptos"
+    - "Services → ContactForm: transición sin suavizado entre backgrounds"
+    - "Imagen 1 muestra línea recta visible entre Hero y Services"
 
-  schemas_agregados:
-    - FAQPage (4 preguntas optimizadas)
-    - Service (Automatización IA para Empresas)
+  inconsistencias_tipograficas:
+    - "Hero: mezcla de font-weights sin jerarquía clara"
+    - "Services: títulos con font-weight diferente al resto de secciones"
+    - "Benefits: WatermarkStat usa tamaños desproporcionados sin consistencia"
+    - "ContactForm vs Hero: diferentes estilos de headings"
+    - "Footer: tipografía no alineada con el resto"
 
-  keywords_nuevas:
-    - "automatización IA para empresas"
-    - "automatización inteligente"
-    - "IA para empresas España"
-    - "automatizar procesos con IA"
-    - "agentes IA empresariales"
-    - "software IA empresas"
+  colores_de_fondo:
+    hero: "#0A0A0A (custom dark)"
+    benefits_dark: "#0A0A0A"
+    benefits_light: "#F5F5F5 (rompe la cohesión dark)"
+    services: "slate-950 (#020617)"
+    contact: "slate-950"
+    footer: "slate-950"
+    nota: "Hero usa #0A0A0A mientras el resto usa slate-950 → discrepancia sutil"
 
-  ortografia_corregida:
-    - PainPointsParallax.tsx (9 errores)
-    - ProblemSolutionParallax.tsx (6 errores)
-    - Footer.tsx (2 errores)
-
-Estado_Actual:
-  build: "SUCCESS"
-  branch: "main (con cambios locales)"
-  google_cache: "Versión anterior sin tildes"
+  flujo_visual:
+    - "Cada sección se siente como un bloque independiente, no como un flujo continuo"
+    - "No hay elementos visuales que conecten secciones entre sí"
+    - "Falta sensación de 'scroll journey' unificado"
 ```
 
-### Objetivos
+### Referencia de Inspiración: vicio.com
 
 ```yaml
-Métricas_Target:
-  indexacion_google: "< 48 horas"
-  posicion_keyword: "Top 10 para 'automatización IA para empresas'"
-  rich_snippets: "FAQs visibles en SERP"
+Patrones_Vicio_A_Adaptar:
+  flujo_continuo:
+    - "Sin líneas divisorias entre secciones"
+    - "Las secciones fluyen como un lienzo continuo"
+    - "Elementos visuales se superponen sutilmente entre secciones"
+    - "Scroll se siente como un viaje, no como bloques apilados"
 
-Acciones_Requeridas:
-  - Deploy a Vercel producción
-  - Ping sitemap a Google
-  - Solicitar indexación en GSC
-  - Verificar cache de Google actualizado
+  tipografia:
+    - "Consistencia total en font-family a lo largo de toda la página"
+    - "Jerarquía tipográfica clara: display → heading → body → caption"
+    - "Uso audaz de tipografía grande como elemento de diseño"
+    - "Textos oversized que dan personalidad sin romper la cohesión"
+
+  transiciones:
+    - "Cambios de fondo sutiles con gradientes, no cortes bruscos"
+    - "Elementos decorativos (stickers, badges) que rompen la rigidez del grid"
+    - "Espaciado generoso entre contenido, sin sentirse apretado"
+
+  mobile:
+    - "Misma cohesión visual en mobile que en desktop"
+    - "Tipografía se adapta proporcionalmente sin romper la jerarquía"
+    - "Contenido fluye verticalmente de forma natural"
+
+  que_NO_copiar:
+    - "Collage caótico de imágenes → StudioTek es tech, más limpio"
+    - "Colores rojos/naranjas → StudioTek es azul/oscuro"
+    - "Estética streetwear → StudioTek es profesional/tech"
+    - "Fondo claro principal → StudioTek mantiene dark theme"
+```
+
+### Secciones Activas (app/page.tsx)
+
+```yaml
+Orden_Actual:
+  1_Hero: "Activo - bg-[#0A0A0A] con Particles"
+  2_PainPointsPAS: "COMENTADO - no activo"
+  3_Benefits: "Activo - GSAP horizontal scroll (desktop) / MobileBenefits (mobile)"
+  4_Services: "Activo - Expanding card (desktop) / Grid cards (mobile)"
+  5_HowItWorks: "COMENTADO - no activo"
+  6_ContactForm: "Activo - Formulario con DotPattern"
+  7_Footer: "Activo - Links y legal"
 ```
 
 ---
@@ -63,153 +96,433 @@ Acciones_Requeridas:
 ## Variables
 
 ```yaml
-DOMAIN: "studiotek.es"
-VERCEL_PROJECT: "studiotek-landing"
-SITEMAP_URL: "https://studiotek.es/sitemap.xml"
-GSC_PROPERTY: "https://studiotek.es/"
+# Archivos principales a modificar
+HERO: "components/sections/Hero.tsx"
+BENEFITS_INDEX: "components/sections/Benefits/index.tsx"
+BENEFITS_MOBILE: "components/sections/Benefits/MobileBenefits.tsx"
+BENEFITS_PANEL: "components/sections/Benefits/BenefitPanel.tsx"
+BENEFITS_DATA: "components/sections/Benefits/data/benefits-data.ts"
+SERVICES: "components/sections/Services.tsx"
+CONTACTFORM: "components/sections/ContactForm.tsx"
+HEADER: "components/sections/Header.tsx"
+FOOTER: "components/sections/Footer.tsx"
+LAYOUT: "app/layout.tsx"
+GLOBALS_CSS: "app/globals.css"
+PAGE: "app/page.tsx"
 
-URLS_TO_INDEX:
-  - "https://studiotek.es/"
-  - "https://studiotek.es/sitemap.xml"
+# Design tokens a unificar
+BG_PRIMARY: "#0A0A0A"           # Color de fondo principal unificado
+BG_SURFACE: "rgba(255,255,255,0.03)"  # Superficies elevadas sutiles
+ACCENT_BLUE: "#3B82F6"          # Azul principal (blue-500)
+ACCENT_BLUE_LIGHT: "#60A5FA"    # Azul claro para hover (blue-400)
+TEXT_PRIMARY: "#FFFFFF"          # Texto principal
+TEXT_SECONDARY: "rgba(255,255,255,0.7)"  # Texto secundario
+TEXT_MUTED: "rgba(255,255,255,0.4)"      # Texto terciario
+BORDER_SUBTLE: "rgba(255,255,255,0.06)"  # Bordes casi invisibles
 
-KEYWORD_TARGET: "automatización IA para empresas"
-
-GOOGLE_PING_URL: "https://www.google.com/ping?sitemap=https://studiotek.es/sitemap.xml"
-BING_PING_URL: "https://www.bing.com/ping?sitemap=https://studiotek.es/sitemap.xml"
+# Typography scale (Inter)
+FONT_FAMILY: "Inter"
+DISPLAY: "clamp(2.5rem, 5vw, 4.5rem)"     # Títulos hero/display
+HEADING_1: "clamp(2rem, 4vw, 3.5rem)"      # Sección headings
+HEADING_2: "clamp(1.5rem, 3vw, 2.25rem)"   # Sub-headings
+HEADING_3: "clamp(1.25rem, 2vw, 1.75rem)"  # Card titles
+BODY: "clamp(1rem, 1.5vw, 1.125rem)"       # Cuerpo de texto
+CAPTION: "clamp(0.75rem, 1vw, 0.875rem)"   # Captions y labels
+WEIGHT_BOLD: "700"
+WEIGHT_SEMIBOLD: "600"
+WEIGHT_MEDIUM: "500"
+WEIGHT_REGULAR: "400"
+WEIGHT_LIGHT: "300"
 ```
 
 ---
 
 ## Code Structure
 
-### Archivos Modificados (Pendientes de Commit)
+### Archivos a Modificar
 
 ```yaml
-SEO_Changes:
-  - app/layout.tsx           # Meta tags, schemas, keywords
-  - components/sections/Hero.tsx  # H1 optimizado
-  - components/sections/PainPointsParallax.tsx  # Ortografía
-  - components/sections/ProblemSolutionParallax.tsx  # Ortografía
-  - components/sections/Footer.tsx  # Ortografía
+Modificar:
+  - app/globals.css                          # Design tokens CSS, typography scale, transiciones
+  - app/layout.tsx                           # Verificar font configuration
+  - app/page.tsx                             # Wrapper unificador entre secciones
+  - components/sections/Hero.tsx             # Unificar bg, tipografía, eliminar bordes
+  - components/sections/Benefits/index.tsx   # Transición suave desde Hero
+  - components/sections/Benefits/BenefitPanel.tsx  # Eliminar variante light, unificar dark
+  - components/sections/Benefits/MobileBenefits.tsx # Mismo tratamiento visual
+  - components/sections/Benefits/data/benefits-data.ts  # Eliminar bgVariant light
+  - components/sections/Services.tsx         # Unificar bg con resto, transición suave
+  - components/sections/ContactForm.tsx      # Transición desde Services, tipografía
+  - components/sections/Header.tsx           # Tipografía y estilo coherente
+  - components/sections/Footer.tsx           # Eliminar border-top, fluir desde ContactForm
 
-Build_Status: "Verified - No errors"
-```
-
-### Script de Verificación Post-Deploy
-
-```bash
-#!/bin/bash
-# scripts/verify_seo_deploy.sh
-
-DOMAIN="studiotek.es"
-
-echo "=== Verificación SEO Post-Deploy ==="
-
-# 1. Verificar que el sitio responde
-echo "1. Verificando respuesta del sitio..."
-curl -s -o /dev/null -w "%{http_code}" https://$DOMAIN
-
-# 2. Verificar meta tags
-echo "2. Verificando title tag..."
-curl -s https://$DOMAIN | grep -o '<title>[^<]*</title>'
-
-# 3. Verificar schema FAQ
-echo "3. Verificando schema FAQPage..."
-curl -s https://$DOMAIN | grep -o '"@type":"FAQPage"' && echo "✅ FAQPage encontrado"
-
-# 4. Ping sitemap
-echo "4. Haciendo ping al sitemap..."
-curl -s "https://www.google.com/ping?sitemap=https://$DOMAIN/sitemap.xml"
-curl -s "https://www.bing.com/ping?sitemap=https://$DOMAIN/sitemap.xml"
-
-echo "=== Verificación completada ==="
+No_Crear_Archivos_Nuevos: true  # Usar CSS custom properties y Tailwind existente
 ```
 
 ---
 
 ## Instructions
 
-### Fase 1: Commit de Cambios SEO (@infra)
-1. Verificar todos los archivos modificados con `git status`
-2. Revisar diff de cambios: `git diff app/layout.tsx`
-3. Crear commit con mensaje descriptivo
-4. NO hacer push aún (esperar verificación)
+### Fase 1: Design Tokens & Typography Foundation (@frontend)
 
-### Fase 2: Build de Verificación (@frontend)
-1. Ejecutar `pnpm build` para verificar compilación
-2. Ejecutar `pnpm start` y verificar en http://localhost:3000
-3. Inspeccionar source HTML para confirmar:
-   - Title tag correcto
-   - Meta description correcta
-   - Schema FAQPage presente
-   - Schema Service presente
-4. Capturar screenshot de evidencia
+**1.1 Crear CSS custom properties globales en globals.css:**
+```css
+:root {
+  /* Background unificado */
+  --bg-primary: #0A0A0A;
+  --bg-surface: rgba(255, 255, 255, 0.03);
+  --bg-surface-hover: rgba(255, 255, 255, 0.06);
 
-### Fase 3: Deploy a Producción (@infra)
-1. Push a rama main: `git push origin main`
-2. **Opción A (Vercel Auto-Deploy):** Esperar deploy automático
-3. **Opción B (Manual):** `npx vercel --prod`
-4. Verificar URL de deploy en Vercel Dashboard
-5. Confirmar que https://studiotek.es muestra cambios
+  /* Accent */
+  --accent: #3B82F6;
+  --accent-hover: #60A5FA;
 
-### Fase 4: Ping Sitemap a Buscadores (@infra)
-1. Ping a Google:
-   ```bash
-   curl "https://www.google.com/ping?sitemap=https://studiotek.es/sitemap.xml"
-   ```
-2. Ping a Bing:
-   ```bash
-   curl "https://www.bing.com/ping?sitemap=https://studiotek.es/sitemap.xml"
-   ```
-3. Verificar respuesta OK de ambos
+  /* Text */
+  --text-primary: #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-muted: rgba(255, 255, 255, 0.4);
 
-### Fase 5: Google Search Console (@infra)
-1. Ir a https://search.google.com/search-console
-2. Seleccionar propiedad `studiotek.es`
-3. En "Inspección de URLs":
-   - Introducir: `https://studiotek.es/`
-   - Click "Solicitar indexación"
-4. En "Sitemaps":
-   - Verificar que `sitemap.xml` está enviado
-   - Si no, agregar: `https://studiotek.es/sitemap.xml`
-5. Capturar screenshot de confirmación
+  /* Borders */
+  --border-subtle: rgba(255, 255, 255, 0.06);
 
-### Fase 6: Verificación de Indexación (@testing)
-1. Esperar 24-48 horas
-2. Buscar en Google: `site:studiotek.es`
-3. Verificar que el title nuevo aparece
-4. Buscar: `"automatización IA para empresas" studiotek`
-5. Documentar posición actual
+  /* Spacing entre secciones (consistente) */
+  --section-gap: clamp(4rem, 8vw, 8rem);
+}
+```
 
-### Fase 7: Validación Final (@gentleman)
-1. Verificar rich snippets con: https://search.google.com/test/rich-results
-2. Verificar Open Graph con: https://www.opengraph.xyz/
-3. Verificar Twitter Card con: https://cards-dev.twitter.com/validator
-4. VERDICT: APPROVED / NEEDS_REVISION
+**1.2 Typography scale unificada:**
+```css
+/* Escala tipográfica consistente para toda la landing */
+.text-display {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.text-h1 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.text-h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.text-h3 {
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.text-body {
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.text-caption {
+  font-size: clamp(0.75rem, 1vw, 0.875rem);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+```
+
+**1.3 Transición suave entre secciones:**
+```css
+/* Cada sección debe usar este background unificado */
+.section-unified {
+  background-color: var(--bg-primary);
+  position: relative;
+}
+
+/* Gradiente conector entre secciones (aplicar en pseudo-element) */
+.section-connector::before {
+  content: '';
+  position: absolute;
+  top: -4rem;
+  left: 0;
+  right: 0;
+  height: 8rem;
+  background: linear-gradient(to bottom, transparent, var(--bg-primary));
+  pointer-events: none;
+  z-index: 1;
+}
+```
+
+### Fase 2: Unificar Background Color — Eliminar Cortes Duros (@frontend)
+
+**Problema principal:** Hero usa `#0A0A0A`, Services/Contact/Footer usan `slate-950` (#020617). La diferencia es sutil pero crea una línea visible en la transición.
+
+1. **Estandarizar TODAS las secciones a `var(--bg-primary)` (#0A0A0A)**
+   - Hero.tsx: ya usa `#0A0A0A` ✓
+   - Benefits: cambiar `bg-[#0A0A0A]` → `bg-[var(--bg-primary)]`
+   - Services.tsx: cambiar `bg-slate-950` → `bg-[var(--bg-primary)]`
+   - ContactForm.tsx: cambiar `bg-slate-950` → `bg-[var(--bg-primary)]`
+   - Footer.tsx: cambiar `bg-slate-950` → `bg-[var(--bg-primary)]`
+
+2. **Eliminar variante light de Benefits:**
+   - En `benefits-data.ts`: eliminar `bgVariant: 'light'` de todos los panels
+   - En `BenefitPanel.tsx`: eliminar lógica condicional para variante light
+   - En `MobileBenefits.tsx`: eliminar cards con fondo `#F5F5F5`
+   - Todo Benefits debe ser dark, consistente con el resto
+
+3. **Eliminar borders entre secciones:**
+   - Footer: eliminar `border-t border-white/5` o `border-white/10`
+   - Cualquier `<hr>` o `<div>` con border entre secciones
+
+4. **Aplicar gradientes conectores suaves donde sea necesario:**
+   - Hero → Benefits: gradiente que difumina la transición
+   - Benefits → Services: usar decorativo sutil (glow, radial gradient)
+   - Services → ContactForm: gradiente continuo
+   - ContactForm → Footer: sin separador visible
+
+### Fase 3: Unificar Tipografía en Todas las Secciones (@frontend)
+
+Aplicar la escala tipográfica definida en Fase 1 a cada sección:
+
+**Hero.tsx:**
+- Título principal: usar clase `text-display` o equivalente Tailwind `text-[clamp(2.5rem,5vw,4.5rem)] font-bold leading-[1.1] tracking-tight`
+- Subtítulo: usar `text-body` con `text-[var(--text-secondary)]`
+- CTA: font-weight `600`, tamaño consistente
+
+**Benefits:**
+- Título de cada beneficio: usar `text-h1`
+- Descripción: usar `text-body`
+- Labels/categorías (como "AHORRO", "CAPACIDAD"): usar `text-caption`
+- WatermarkStat: mantener oversized pero con el mismo font-family Inter
+
+**Services.tsx:**
+- Card titles: usar `text-h2`
+- Card descriptions: usar `text-body`
+- Labels de categoría: usar `text-caption`
+
+**ContactForm.tsx:**
+- Heading del form: usar `text-h1`
+- Subtítulo: usar `text-body`
+- Labels de inputs: usar `text-caption` o `text-sm font-medium`
+- Placeholder text: `text-body` con `text-[var(--text-muted)]`
+
+**Footer.tsx:**
+- Section headers: usar `text-caption` (uppercase, tracking)
+- Links: usar `text-body` con `text-[var(--text-secondary)]`
+- Legal text: usar `text-caption` con `text-[var(--text-muted)]`
+
+**Header.tsx:**
+- Logo text: font-weight consistente con brand
+- Nav links: `text-body` o `text-sm font-medium`
+- CTA button: consistente con Hero CTA
+
+### Fase 4: Crear Flujo Visual Continuo (Inspiración VICIO) (@frontend)
+
+**Concepto:** La landing debe sentirse como un scroll continuo, no como bloques apilados.
+
+1. **Eliminar márgenes/paddings que crean "gaps" entre secciones:**
+   - Reducir `pt-*` de secciones para que se sientan más conectadas
+   - Usar `--section-gap` consistente en todas las secciones
+
+2. **Elementos de conexión visual entre secciones:**
+   - Sutiles líneas de gradiente azul (`--accent`) que cruzan entre secciones
+   - Dot pattern o noise texture muy sutil que se repite en todo el background (ya existe DotPattern en magicui)
+   - Particles del Hero que se desvanecen gradualmente en la siguiente sección
+
+3. **Overlapping sutil:**
+   - Permitir que elementos de una sección "invadan" ligeramente la siguiente
+   - Ejemplo: la última stat de Benefits puede tener un -margin-bottom que lo superponga sobre Services
+   - Ejemplo: un gradiente glow azul entre secciones que actúa como conector
+
+4. **Background texture unificada:**
+   - Aplicar un noise/grain texture muy sutil al body completo (opacity 0.02-0.03)
+   - Esto crea cohesión visual, como un papel o lienzo continuo
+   - Implementar con CSS: `background-image: url('data:image/svg+xml,...')` o pseudo-element
+
+5. **Scroll indicators sutiles:**
+   - Considerar un indicador de progreso lateral minimalista
+   - O simplemente que las animaciones de entrada refuercen la sensación de flujo
+
+### Fase 5: Refinar Detalles por Sección (@frontend)
+
+**Hero:**
+- Asegurar que el gradiente inferior se mezcla perfectamente con Benefits
+- Particles deben desvanecerse hacia abajo, no cortarse abruptamente
+
+**Benefits:**
+- Sin borde superior ni inferior
+- Transición de entrada suave desde Hero
+- Transición de salida suave hacia Services
+- Desktop (GSAP scroll): el último panel debe tener un gradient-fade hacia la siguiente sección
+- Mobile: las cards deben fluir sin separadores duros entre ellas
+
+**Services:**
+- Sin borde superior
+- Background continuo desde Benefits
+- Mobile: cards con bordes `var(--border-subtle)` en vez de bordes gruesos
+- Desktop: el expanding card debe tener el mismo bg que el resto
+
+**ContactForm:**
+- Sin borde superior desde Services
+- Gradient sutil de `--bg-primary` a ligeramente más oscuro para crear profundidad
+- DotPattern existente es bueno, asegurar que se mezcla con el background
+
+**Footer:**
+- SIN border-top (actualmente tiene `border-white/5`)
+- Fluir directamente desde ContactForm
+- Separador interno (si necesario) con gradiente sutil, no línea recta
+- Reducir contraste visual respecto al ContactForm
+
+### Fase 6: Validación Visual por el Usuario (@frontend)
+
+El testing visual lo realiza el usuario manualmente. El agente @frontend preguntará mediante `AskUserQuestion` tras cada grupo de cambios:
+
+1. **Tras Fase 2 (backgrounds unificados):**
+   - Preguntar: "¿Se ven líneas o cortes entre secciones? ¿El fondo se siente continuo?"
+   - Opciones: "Se ve bien" / "Aún hay cortes visibles" / "Ha empeorado"
+
+2. **Tras Fase 3 (tipografía unificada):**
+   - Preguntar: "¿La tipografía se siente consistente en todas las secciones? ¿Algún texto se ve desproporcionado?"
+   - Opciones: "Consistente" / "Hay inconsistencias" / "Tamaños incorrectos"
+
+3. **Tras Fase 5 (refinamiento completo):**
+   - Preguntar: "¿La landing se siente como un lienzo continuo al hacer scroll? ¿Qué ajustes necesita?"
+   - Opciones: "Se ve unificada" / "Necesita ajustes menores" / "Necesita cambios grandes"
+
+4. **Verificación mobile:**
+   - Preguntar: "¿Puedes verificar en mobile (375-430px)? ¿Mantiene la cohesión visual?"
+   - Opciones: "Bien en mobile" / "Problemas en mobile"
+
+**Ciclo iterativo:** Si el usuario reporta problemas, el agente ajusta y vuelve a preguntar hasta obtener aprobación.
+
+### Fase 7: Build & Deploy (@frontend)
+
+```bash
+npm run build
+npm run dev  # Verificación visual
+```
+
+**Checklist final:**
+- [ ] Todas las secciones usan `--bg-primary` (#0A0A0A) como base
+- [ ] No hay `slate-950`, `bg-gray-900`, ni ningún otro dark color que no sea `--bg-primary`
+- [ ] No hay líneas rectas (border-t, border-b, hr) entre secciones
+- [ ] Tipografía sigue la escala unificada en todas las secciones
+- [ ] Font-family es Inter en toda la página sin excepciones
+- [ ] Font-weight sigue la jerarquía: display(700) > h1(700) > h2(600) > h3(600) > body(400) > caption(500)
+- [ ] Transiciones entre secciones usan gradientes suaves
+- [ ] Benefits NO tiene variante light (#F5F5F5)
+- [ ] Footer NO tiene border-top visible
+- [ ] Background se siente como un lienzo continuo al hacer scroll
+- [ ] Mobile mantiene la misma cohesión visual que desktop
+- [ ] Build compila sin errores
+- [ ] No hay regresiones visuales en componentes existentes
 
 ---
 
 ## Workflow
 
+### Agentes, Skills y Memorias
+
+```yaml
+Agentes_Asignados:
+
+  "@frontend":
+    fases: [1, 2, 3, 4, 5, 6]
+    skills:
+      - /tailwind        # Patrones Tailwind v4, custom properties, dark mode
+      - /react-19        # Server Components, hooks
+      - /nextjs          # App Router, layout, fonts
+      - /studiotek-landing-enhancer  # Contexto específico del proyecto
+      # Testing visual: lo hace el usuario, se pregunta via AskUserQuestion
+    memoria:
+      leer_al_inicio: "ai_docs/expertise/domain-experts/frontend.yaml"
+      actualizar_al_final: "ai_docs/expertise/domain-experts/frontend.yaml"
+      incluir_en_respuesta: |
+        ## Aprendizajes Clave:
+        1. [Insight sobre unificación visual y design tokens]
+        2. [Patrones de transición entre secciones en dark theme]
+        3. [Técnicas de cohesión visual aplicadas]
+
+  "@gentleman":
+    fases: [review post-fase 5]
+    skills:
+      - /code-analysis   # Análisis de consistencia, anti-patterns
+    memoria:
+      leer_al_inicio: "ai_docs/expertise/domain-experts/backend.yaml"
+      actualizar_al_final: "ai_docs/expertise/domain-experts/backend.yaml"
+      incluir_en_respuesta: |
+        ## Aprendizajes Clave:
+        1. [Observaciones sobre la coherencia del diseño]
+        2. [Trade-offs identificados en la unificación visual]
+        3. [Decisiones validadas o rechazadas con justificación]
+
+  "@quality-reviewer":
+    fases: [review post-fase 5]
+    skills:
+      - /code-analysis   # Clean code, CSS architecture, maintainability
+    memoria:
+      leer_al_inicio: "ai_docs/expertise/domain-experts/quality-reviewer.yaml"
+      actualizar_al_final: "ai_docs/expertise/domain-experts/quality-reviewer.yaml"
+      incluir_en_respuesta: |
+        ## Aprendizajes Clave:
+        1. [Calidad de la arquitectura CSS/design tokens]
+        2. [Mantenibilidad de los patrones visuales]
+        3. [Potenciales mejoras de organización]
+
+  # @testing NO se usa en este plan.
+  # Fase 6 es validación manual por el usuario via AskUserQuestion.
+```
+
+### Flujo de Ejecucion
+
 ```bash
-# 1. PLANIFICACIÓN (ESTE DOCUMENTO)
-# Revisar y aprobar este plan
+# 1. PLANIFICACION (ESTE DOCUMENTO)
+# Revisar y aprobar plan
 
 # 2. CONFIRMAR PLAN
-# Usuario aprueba: "Procede con el deploy"
+# Usuario aprueba: "Procede con la unificación visual"
 
-# 3. EJECUCIÓN CON TRACKING
-/ralph-execute
+# 3. PRE-EJECUCION
+# Cada agente LEE su memoria antes de empezar:
+#   @frontend → lee ai_docs/expertise/domain-experts/frontend.yaml
 
-# 4. VERIFICACIÓN POST-DEPLOY
-# - Verificar sitio en producción
-# - Verificar indexación en GSC
-# - Monitorear posiciones
+# 4. EJECUCION
+# Fase 1:  @frontend (/tailwind) - Design tokens & typography foundation
+# Fase 2:  @frontend (/tailwind, /studiotek-landing-enhancer) - Unificar backgrounds
+# Fase 3:  @frontend (/tailwind) - Unificar tipografía en todas las secciones
+# Fase 4:  @frontend (/studiotek-landing-enhancer) - Flujo visual continuo
+# Fase 5:  @frontend (/tailwind) - Refinar detalles por sección
+#
+# --- REVIEW GATE ---
+# Review: @gentleman (/code-analysis) - Coherencia y trade-offs
+# Review: @quality-reviewer (/code-analysis) - Calidad CSS y maintainability
+#
+# Fase 6:  @frontend (AskUserQuestion) - Validación visual por el usuario
+# Fase 7:  @frontend - Build & Deploy
 
-# 5. SEGUIMIENTO (48-72h después)
-# - Verificar cache de Google actualizado
-# - Verificar posición para keyword target
-# - Documentar resultados
+# 5. POST-EJECUCION
+# Cada agente ACTUALIZA su memoria al finalizar
+# Cada agente incluye "## Aprendizajes Clave:" en su respuesta final
+
+# 6. COMMIT
+# git add .
+# git commit -m "feat: unify visual design across all landing sections
+#
+# - Standardize background to #0A0A0A across all sections (remove slate-950 mix)
+# - Establish unified typography scale with CSS custom properties
+# - Remove hard borders and dividers between sections
+# - Add smooth gradient transitions between sections
+# - Eliminate Benefits light variant (#F5F5F5) for dark theme consistency
+# - Remove Footer border-top for seamless visual flow
+# - Apply consistent font-weight hierarchy throughout
+# - Add subtle background texture for visual cohesion
+# - Inspired by vicio.com's seamless scroll experience (adapted to dark tech theme)
+#
+# Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>"
 ```
 
 ---
@@ -218,42 +531,40 @@ echo "=== Verificación completada ==="
 
 ```yaml
 Expected_Output:
-  commits:
-    - message: "feat(seo): optimizar meta tags y schemas para 'automatización IA para empresas'"
-      files:
-        - app/layout.tsx
-        - components/sections/Hero.tsx
-        - components/sections/PainPointsParallax.tsx
-        - components/sections/ProblemSolutionParallax.tsx
-        - components/sections/Footer.tsx
+  archivos_modificados:
+    - app/globals.css                          # Design tokens, typography scale, transitions
+    - app/layout.tsx                           # Verificar font config
+    - app/page.tsx                             # Wrapper unificador si necesario
+    - components/sections/Hero.tsx             # Unificar bg, tipografía
+    - components/sections/Benefits/index.tsx   # Transición suave
+    - components/sections/Benefits/BenefitPanel.tsx  # Eliminar variante light
+    - components/sections/Benefits/MobileBenefits.tsx # Dark only
+    - components/sections/Benefits/data/benefits-data.ts  # Eliminar bgVariant light
+    - components/sections/Services.tsx         # Unificar bg, tipografía
+    - components/sections/ContactForm.tsx      # Unificar bg, tipografía, transición
+    - components/sections/Header.tsx           # Tipografía coherente
+    - components/sections/Footer.tsx           # Eliminar border-top, unificar
 
-  deploy:
-    platform: "Vercel"
-    url: "https://studiotek.es"
-    status: "PENDING"
-
-  indexacion:
-    google_ping: "PENDING"
-    bing_ping: "PENDING"
-    gsc_request: "PENDING"
-    sitemap_submitted: "PENDING"
-
-  verificacion:
-    rich_results_test: "PENDING"
-    opengraph_preview: "PENDING"
-    twitter_card_preview: "PENDING"
-
-  metricas_esperadas:
-    tiempo_indexacion: "24-48 horas"
-    posicion_inicial: "Top 20"
-    posicion_objetivo_30d: "Top 10"
+  archivos_nuevos: []  # No se crean archivos nuevos
 
   validation:
-    - "Deploy exitoso en Vercel"
-    - "Sitemap pingueado a Google y Bing"
-    - "URL enviada a indexación en GSC"
-    - "Rich snippets validados"
-    - "Title tag visible en SERP"
+    - "Todas las secciones usan --bg-primary (#0A0A0A)"
+    - "No existe ningún slate-950 en secciones activas"
+    - "No hay border-t/border-b entre secciones"
+    - "Tipografía sigue escala unificada (display > h1 > h2 > h3 > body > caption)"
+    - "Font-family Inter en toda la página"
+    - "Benefits NO tiene variante light"
+    - "Footer NO tiene border-top"
+    - "Transiciones entre secciones son gradientes suaves"
+    - "Background se percibe como lienzo continuo"
+    - "Build compila sin errores"
+    - "Mobile mantiene cohesión visual"
+
+  metricas_visuales:
+    separadores_visibles: "0"
+    colores_de_fondo_distintos: "1 (solo --bg-primary)"
+    font_families: "1 (solo Inter)"
+    variantes_tipograficas: "6 (display, h1, h2, h3, body, caption)"
 
   workflow_status: PENDING_APPROVAL
   phases_completed: 0/7
@@ -261,93 +572,39 @@ Expected_Output:
 
 ---
 
-## Comandos Útiles
-
-```bash
-# Ver archivos modificados
-git status
-
-# Ver cambios en detalle
-git diff app/layout.tsx
-
-# Commit de cambios SEO
-git add -A && git commit -m "feat(seo): optimizar meta tags para 'automatización IA para empresas'
-
-- Title: Automatización IA para Empresas | Ahorra 40% - StudioTek
-- H1 optimizado con keyword principal
-- Schema FAQPage con 4 preguntas
-- Schema Service agregado
-- Correcciones ortográficas en 4 archivos
-- Keywords long-tail agregadas
-
-Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>"
-
-# Push a main
-git push origin main
-
-# Deploy manual a Vercel
-npx vercel --prod
-
-# Ping sitemap a Google
-curl "https://www.google.com/ping?sitemap=https://studiotek.es/sitemap.xml"
-
-# Ping sitemap a Bing
-curl "https://www.bing.com/ping?sitemap=https://studiotek.es/sitemap.xml"
-
-# Verificar title tag en producción
-curl -s https://studiotek.es | grep -o '<title>[^<]*</title>'
-
-# Verificar schema FAQPage
-curl -s https://studiotek.es | grep -c '"@type":"FAQPage"'
-
-# Test de Rich Results
-open "https://search.google.com/test/rich-results?url=https://studiotek.es"
-
-# Test de Open Graph
-open "https://www.opengraph.xyz/?url=https://studiotek.es"
-
-# Buscar en Google (después de indexación)
-open "https://www.google.es/search?q=site:studiotek.es"
-open "https://www.google.es/search?q=automatización+IA+para+empresas"
-```
-
----
-
 ## Riesgos y Mitigaciones
 
-| Riesgo | Probabilidad | Impacto | Mitigación |
+| Riesgo | Probabilidad | Impacto | Mitigacion |
 |--------|--------------|---------|------------|
-| Deploy falla en Vercel | Baja | Alto | Build local verificado, rollback disponible |
-| Google no indexa rápido | Media | Medio | Ping manual + GSC request |
-| Cache de Google persistente | Media | Bajo | Esperar 48-72h, forzar con GSC |
-| Rich snippets no aparecen | Media | Bajo | Validar con Rich Results Test |
-| Posición no mejora | Media | Medio | Monitorear 30 días, ajustar si necesario |
+| Eliminar bgVariant light rompe Benefits panels visualmente | Media | Alto | Verificar que todos los panels en benefits-data.ts ya usan dark; si alguno usa light, rediseñar con variante dark equivalente |
+| Cambiar slate-950 a #0A0A0A causa diferencia en overlays/gradients existentes | Media | Medio | Revisar cada gradient que referencia slate-* y ajustar al nuevo token |
+| Typography scale rompe layouts existentes (textos más grandes/pequeños) | Alta | Alto | Aplicar progresivamente sección por sección, verificando visualmente cada una |
+| Eliminar border del Footer reduce la legibilidad de la separación legal | Baja | Bajo | Usar gradiente sutil o espaciado extra en su lugar |
+| Background texture (noise/grain) impacta performance en mobile | Baja | Medio | Usar opacity muy baja (0.02) y CSS en vez de imagen externa |
+| Particles del Hero no se difuminan bien hacia Benefits | Media | Medio | Ajustar gradient overlay inferior del Hero |
+| DotPattern en ContactForm crea inconsistencia si no se extiende | Baja | Bajo | Mantener DotPattern pero asegurar que se funde con --bg-primary |
 
 ---
 
 ## Notes
 
-### Tiempo de Indexación
-- Google puede tardar 24h-2 semanas en actualizar cache
-- GSC "Solicitar indexación" acelera el proceso
-- Sitios con autoridad indexan más rápido
+### Principios de Diseno (Inspirados en VICIO, adaptados a StudioTek)
 
-### Rich Snippets
-- FAQPage schema puede tardar 1-2 semanas en aparecer
-- No garantiza aparición (Google decide)
-- Aumenta CTR cuando aparece
+- **Lienzo continuo**: Toda la landing es un solo lienzo oscuro, no bloques apilados
+- **Tipografía como sistema**: Una sola familia (Inter), una escala de 6 niveles, aplicada consistentemente
+- **Sin líneas duras**: Las transiciones son gradientes, no borders
+- **Dark theme cohesivo**: Un solo color de fondo (#0A0A0A) con variaciones sutiles de superficie
+- **Flujo de scroll**: El usuario debe sentir que hace scroll en un documento continuo, no que "cambia de sección"
+- **Detalles sutiles**: Noise texture, glows, dot patterns muy tenues que unifican el fondo
+- **Jerarquía por contraste**: La separación visual viene del contenido (espaciado, tamaño, color de texto), no de bordes o cambios de fondo
 
-### Monitoreo Post-Deploy
-- Usar GSC para ver impresiones/clicks
-- Revisar posición diariamente primera semana
-- Ajustar meta description si CTR es bajo
-
-### Rollback Plan
-- Si algo falla: `git revert HEAD && git push`
-- Vercel permite rollback desde dashboard
-- Mantener nota del deploy ID anterior
+### Lo que NO hacemos (diferencia con VICIO)
+- NO usamos collage/overlap caótico → mantenemos grid limpio
+- NO usamos fondo claro → mantenemos dark theme
+- NO usamos colores llamativos (rojo/naranja) → mantenemos azul/blanco
+- NO rompemos la profesionalidad tech → adaptamos solo la fluidez visual
 
 ---
 
-*Última actualización: 26 Enero 2026*
-*Version: 1.0 - SEO Deploy & Indexación Plan*
+*Ultima actualizacion: 02 Febrero 2026*
+*Version: 5.0 - Visual Unification (VICIO-inspired)*

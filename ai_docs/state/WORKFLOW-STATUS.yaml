@@ -1,227 +1,47 @@
-# ai_docs/state/WORKFLOW-STATUS.yaml
-# Generado por /ralph-execute
-# Fecha: 2026-01-26
-
-workflow_id: "2026-01-26_apple-style-cards"
-issue: null
-mode: FAST
-started_at: "2026-01-26T16:00:00Z"
-iteration: 0
-max_iterations: 15
+workflow:
+  id: funnel-fase4-gcal-2026-02-02
+  name: "Funnel StudioTek - Fase 4: Google Calendar/Meets"
+  created: 2026-02-02T21:30:00Z
+  status: completed
+  mode: full
+  plan_file: prompt-funnel-studiotek.md
+  previous_workflow: funnel-fase3-analytics-2026-02-02
 
 phases:
   - id: 1
-    name: "Modificar CarouselCard.tsx - Estilo Apple"
-    agent: "@frontend"
-    status: PENDING
-    checkpoint:
-      command: "grep -c 'aspect-\\[3/4\\]' components/ui/CarouselCard.tsx"
-      expected: "1"
+    name: "Google Calendar Service + API Routes"
+    agent: "backend"
+    status: completed
+    dependencies: []
     retries: 0
     max_retries: 3
-    prompt: |
-      # TAREA: Rediseñar CarouselCard.tsx con estilo Apple
-
-      ## Archivo a modificar
-      `/Users/cristianbejaranomendez/Documents/GitHub/studiotek-landing/components/ui/CarouselCard.tsx`
-
-      ## Cambios requeridos
-
-      1. **Importar Plus de lucide-react**
-
-      2. **Reemplazar toda la estructura del componente** con:
-         - Estructura invertida: texto ARRIBA, imagen ABAJO
-         - Aspect ratio vertical: `aspect-[3/4] w-full`
-         - Fondo negro: `bg-black`
-         - Sin bordes (eliminar border-2 border-slate-700/60)
-         - Esquinas: `rounded-3xl`
-         - Hover más sutil: scale 1.02, y -4
-
-      3. **Agregar botón "+"** en esquina inferior derecha
-
-      ## Código completo a implementar
-
-      ```tsx
-      'use client';
-
-      import { motion } from 'framer-motion';
-      import Image from 'next/image';
-      import { Plus } from 'lucide-react';
-      import { cn } from '@/lib/utils';
-
-      export interface CardData {
-        title: string;
-        category: string;
-        gradient: string;
-        icon: React.ElementType;
-        content: React.ReactNode;
-        image?: string;
-      }
-
-      interface CarouselCardProps {
-        card: CardData;
-        index: number;
-        onClick?: () => void;
-      }
-
-      export function CarouselCard({ card, index, onClick }: CarouselCardProps) {
-        const Icon = card.icon;
-
-        return (
-          <motion.div
-            onClick={onClick}
-            whileHover={{ scale: 1.02, y: -4 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-            className={cn(
-              "relative flex flex-col",
-              "aspect-[3/4] w-full",
-              "rounded-3xl bg-black overflow-hidden",
-              "cursor-pointer group",
-              "shadow-xl shadow-black/40",
-              "hover:shadow-2xl hover:shadow-black/50"
-            )}
-          >
-            {/* Texto ARRIBA */}
-            <div className="relative z-10 p-6 pt-8">
-              <p className="text-[11px] text-slate-400 uppercase tracking-widest font-medium mb-2">
-                {card.category}
-              </p>
-              <h3 className="text-2xl md:text-3xl font-semibold text-white leading-tight">
-                {card.title}
-              </h3>
-            </div>
-
-            {/* Imagen ABAJO */}
-            <div className={cn(
-              "relative flex-1 overflow-hidden",
-              !card.image && `bg-gradient-to-br ${card.gradient}`
-            )}>
-              {card.image ? (
-                <>
-                  <Image
-                    src={card.image}
-                    alt={card.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                    className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/20" />
-                </>
-              ) : (
-                <Icon
-                  className="absolute bottom-8 right-8 text-white/20 transition-transform duration-500 group-hover:scale-110"
-                  size={120}
-                  strokeWidth={0.8}
-                />
-              )}
-            </div>
-
-            {/* Botón "+" */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onClick?.();
-              }}
-              className={cn(
-                "absolute bottom-4 right-4 z-20",
-                "w-10 h-10 rounded-full",
-                "bg-slate-800/80 backdrop-blur-sm",
-                "flex items-center justify-center",
-                "text-white/90",
-                "transition-all duration-300",
-                "hover:bg-slate-700 hover:scale-110"
-              )}
-              aria-label={`Ver detalles de ${card.title}`}
-            >
-              <Plus size={20} strokeWidth={2} />
-            </button>
-          </motion.div>
-        );
-      }
-      ```
-
-      ## Verificación
-      ```bash
-      grep -c 'aspect-\[3/4\]' components/ui/CarouselCard.tsx
-      # Esperado: 1
-      ```
 
   - id: 2
-    name: "Ajustar Gap en Services.tsx"
-    agent: "@frontend"
-    status: PENDING
-    checkpoint:
-      command: "grep -c 'gap-5' components/sections/Services.tsx"
-      expected: "1"
+    name: "Booking UI Components"
+    agent: "frontend"
+    status: completed
+    dependencies: [1]
     retries: 0
     max_retries: 3
-    prompt: |
-      # TAREA: Ajustar gap del grid en Services.tsx
-
-      ## Archivo a modificar
-      `/Users/cristianbejaranomendez/Documents/GitHub/studiotek-landing/components/sections/Services.tsx`
-
-      ## Cambio requerido
-
-      Cambiar el gap del grid de `gap-8` a `gap-5` para que las cards más altas tengan mejor espaciado.
-
-      Buscar:
-      ```tsx
-      <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-6">
-      ```
-
-      Reemplazar por:
-      ```tsx
-      <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 px-6">
-      ```
-
-      ## Verificación
-      ```bash
-      grep -c 'gap-5' components/sections/Services.tsx
-      # Esperado: 1
-      ```
 
   - id: 3
-    name: "Verificación Build y Visual"
-    agent: "@testing"
-    status: PENDING
-    checkpoint:
-      command: "npm run build 2>&1 | grep -c 'Generating static pages'"
-      expected: "1"
+    name: "Build Final + Documentacion"
+    agent: "orchestrator"
+    status: completed
+    dependencies: [1, 2]
     retries: 0
-    max_retries: 3
-    prompt: |
-      # TAREA: Verificar build y cambios visuales
+    max_retries: 1
 
-      ## Verificaciones
+current_phase: 3
+retry_count: 0
 
-      1. Build de producción:
-         ```bash
-         npm run build
-         ```
-
-      2. Verificar aspect-[3/4] en CarouselCard:
-         ```bash
-         grep 'aspect-\[3/4\]' components/ui/CarouselCard.tsx
-         ```
-
-      3. Verificar Plus importado:
-         ```bash
-         grep 'Plus' components/ui/CarouselCard.tsx
-         ```
-
-      4. Verificar gap-5 en Services:
-         ```bash
-         grep 'gap-5' components/sections/Services.tsx
-         ```
-
-      5. Verificar que no hay errores de TypeScript
-
-      ## Checkpoint
-      El build debe completarse sin errores.
+metrics:
+  total_phases: 3
+  completed: 3
+  in_progress: 0
+  pending: 0
+  failed: 0
 
 completion:
-  final_status: PENDING
-  completed_phases: 0
-  total_phases: 3
+  all_completed: true
+  final_status: SUCCESS

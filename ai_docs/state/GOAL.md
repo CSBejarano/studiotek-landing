@@ -1,10 +1,10 @@
 # GOAL - Estado Actual del Proyecto
 
-## Status: IDLE - LANDING COMPLETE
+## Status: IDLE - LANDING COMPLETE + MOBILE OPTIMIZED
 
-La landing page de StudioTek esta funcionalmente completa con todas las features implementadas.
+La landing page de StudioTek esta funcionalmente completa con mobile optimizado.
 
-**Production URL:** https://studiotek-landing-fsw63i0gi-csbejaranos-projects.vercel.app
+**Production URL:** https://studiotek-landing-4e016ugql-csbejaranos-projects.vercel.app
 **GitHub:** https://github.com/CSBejarano/studiotek-landing
 **Local Dev:** http://localhost:3000
 
@@ -12,42 +12,33 @@ La landing page de StudioTek esta funcionalmente completa con todas las features
 
 | Campo | Valor |
 |-------|-------|
-| ID | `2026-01-24_fix-chat-ia-movil-4bugs` |
-| Duracion | ~135 minutos |
-| Resultado | TTS funciona en todos los casos + Placeholder optimizado |
+| ID | `2026-02-02_hero-bg-mobile-optimization` |
+| Resultado | Hero background image (Gemini) + mobile layout optimization |
 
 ## Features Completos
-
-### PRD Progress
 
 | Phase | Status |
 |-------|--------|
 | 1-10. Landing Base | COMPLETE |
-| Apple Cards Carousel | COMPLETE |
+| Apple Cards / Expanding Card | COMPLETE |
 | Cookie Banner + RGPD | COMPLETE |
 | Supabase Integration | COMPLETE |
-| Images Generation | COMPLETE (15 imgs) |
+| Images Generation | COMPLETE (16+ imgs) |
 | Voice Agent | COMPLETE |
 | AI Chat Enhanced | COMPLETE |
 | Mobile Fixes | COMPLETE |
-
-### Ultimo Fix - Mobile Chat IA
-
-| Bug | Solucion | Commit |
-|-----|----------|--------|
-| TTS no funcionaba para voz | Habilitar TTS para todos los inputs | 220f1db |
-| Placeholder se truncaba | Remover padding derecho innecesario | 1cf9f86 |
-| Placeholder visible procesando | Ocultar durante isProcessing | 655f36c |
-| Microfono iOS/Android | Permisos MediaRecorder correctos | 59eaa20 |
+| Benefits Surface Scroll | COMPLETE |
+| Mobile Layout Optimization | COMPLETE |
+| Hero Background Image | COMPLETE |
 
 ## Git - Ultimos Commits
 
 ```text
-b8dda91 feat: Apple-style service cards + performance optimization
-655f36c fix: TTS for voice input + hide placeholder during processing
-220f1db fix: enable TTS for all responses (voice and text input)
-1cf9f86 fix: placeholder truncation - remove unnecessary right padding
-39fad9e fix: TTS response for voice input + placeholder overflow on mobile
+a8a4355 feat: add hero background image + optimize mobile layout across sections
+108ea6a feat: unify visual design system + integrate HeroAIChat with AIChatPanel
+2e35717 feat: add mobile swipe carousel for Services with compact N26-style cards
+75d0453 feat: optimize landing for mobile & iPad viewports
+28d2b61 feat: redesign Benefits (VICIO editorial), PainPoints PAS, adapt copy
 ```
 
 ## Integraciones Activas
@@ -58,20 +49,15 @@ b8dda91 feat: Apple-style service cards + performance optimization
 | Supabase | ACTIVO | Base de datos leads |
 | Vercel | ACTIVO | Hosting y deploy |
 | GitHub | ACTIVO | Repositorio de codigo |
-| Gemini | ACTIVO | Generacion de imagenes |
+| Gemini | ACTIVO | Generacion de imagenes (16+) |
 | Resend | PENDIENTE | Emails de confirmacion |
 
 ## Quick Start
 
 ```bash
-# Desarrollo
-npm run dev
-
-# Build de produccion
-npm run build
-
-# Deploy
-vercel deploy --prod
+npm run dev           # Desarrollo
+npm run build         # Build produccion
+vercel --prod         # Deploy manual
 ```
 
 ## Pendientes Opcionales
@@ -82,6 +68,6 @@ vercel deploy --prod
 
 ---
 
-**Landing Complete - Ready for New Features**
+**Landing Complete + Mobile Optimized - Ready for New Features**
 
-**Ultima actualizacion:** 2026-01-26
+**Ultima actualizacion:** 2026-02-02

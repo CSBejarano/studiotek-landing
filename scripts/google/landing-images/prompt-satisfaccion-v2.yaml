@@ -1,0 +1,15 @@
+images:
+  - id: benefit-satisfaccion-reviews-v2
+    prompt: >
+      3D isometric render of a customer satisfaction dashboard interface floating in dark space.
+      The main element is a large glassmorphism card showing a circular NPS score gauge at 98 with green accent,
+      surrounded by smaller floating glass cards showing: an upward trending satisfaction line chart in blue (#2563EB),
+      a row of happy customer emoji indicators, and a bar chart with monthly satisfaction metrics going up.
+      Dark charcoal gray glass cards with frosted glass effect and subtle blue neon edge glow (#2563EB).
+      Deep black background (#0A0A0A). Isometric perspective view from above-left angle.
+      Premium tech aesthetic, modern SaaS dashboard style.
+      Soft ambient lighting with blue accent glow reflections on the glass surfaces.
+      High detail, professional quality, 3D render style.
+      No text labels, no readable words in the interface elements.
+    output: public/images/generated/benefit-satisfaccion-reviews-v2.png
+    aspect_ratio: "16:9"

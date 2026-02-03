@@ -254,6 +254,8 @@ RESEND_API_KEY=re_...
 
 ## Agentes y Skills de este Proyecto
 
+>NOTA IMPORTANTE: SIEMPRE usarás a los agentes y skills de este proyecto para resolver TODAS las tareas.
+
 **Agentes principales:** @frontend, @seo-expert, @marketing-expert, @aepd-consultant
 **Skills principales:** `/nextjs`, `/react-19`, `/tailwind`, `/seo-toolkit`, `/studiotek-landing-enhancer`, `/marketing-content`, `/landing-image-generator`, `/aepd-privacidad`
 **Referencia completa:** Ver `~/.claude/CLAUDE.md` para routing table y lista completa de agentes y skills.
