@@ -107,6 +107,7 @@ export async function POST(request: NextRequest) {
       metadata: {
         eventId: booking.eventId,
         meetLink: booking.meetLink,
+        calendarLink: booking.calendarLink,
         date,
         time,
       },
@@ -121,6 +122,7 @@ export async function POST(request: NextRequest) {
       date,
       time,
       meetLink: booking.meetLink,
+      calendarLink: booking.calendarLink,
     }).catch((err) =>
       console.error('[BOOKING] Failed to send confirmation email:', err)
     )
@@ -131,6 +133,7 @@ export async function POST(request: NextRequest) {
         booking: {
           eventId: booking.eventId,
           meetLink: booking.meetLink,
+          calendarLink: booking.calendarLink,
           startTime: booking.startTime,
           endTime: booking.endTime,
         },
@@ -162,6 +165,7 @@ interface BookingEmailData {
   date: string
   time: string
   meetLink: string
+  calendarLink: string
 }
 
 async function sendBookingConfirmationEmail(data: BookingEmailData) {
@@ -220,7 +224,11 @@ async function sendBookingConfirmationEmail(data: BookingEmailData) {
                 a las <span class="highlight">${data.time}h</span> (hora de Madrid)
               </p>
               <p style="margin: 8px 0; color: #666;">Duracion: 30 minutos</p>
-              ${data.meetLink ? `<a href="${data.meetLink}" class="meet-link">Unirse a Google Meet</a>` : ''}
+              ${data.meetLink
+                ? `<a href="${data.meetLink}" class="meet-link">Unirse a Google Meet</a>`
+                : data.calendarLink
+                  ? `<a href="${data.calendarLink}" class="meet-link" style="background: #059669;">Ver evento en Google Calendar</a>`
+                  : ''}
             </div>
             <p>En esta reunion hablaremos sobre como la IA puede transformar tu negocio. No necesitas preparar nada especial, solo tener claros tus principales retos.</p>
             <p>Si necesitas reprogramar, escribenos a <a href="mailto:info@studiotek.es" style="color: #3b82f6;">info@studiotek.es</a></p>

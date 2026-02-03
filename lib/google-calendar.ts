@@ -151,6 +151,7 @@ export interface CreateMeetingParams {
 export interface MeetingResult {
   eventId: string
   meetLink: string
+  calendarLink: string
   startTime: string
   endTime: string
 }
@@ -177,6 +178,7 @@ export async function createMeetingEvent(
     return {
       eventId: `dev-event-${Date.now()}`,
       meetLink: 'https://meet.google.com/dev-test-link',
+      calendarLink: 'https://calendar.google.com/calendar/event?eid=dev-test',
       startTime: `${params.date}T${params.time}:00`,
       endTime: `${params.date}T${String(endHour).padStart(2, '0')}:${String(endMin).padStart(2, '0')}:00`,
     }
@@ -253,6 +255,7 @@ export async function createMeetingEvent(
           dateTime: endDateTime,
           timeZone: TIMEZONE,
         },
+        attendees: [{ email: params.leadEmail }],
         reminders: {
           useDefault: false,
           overrides: [
@@ -272,6 +275,7 @@ export async function createMeetingEvent(
   return {
     eventId: event.data.id ?? '',
     meetLink,
+    calendarLink: (event.data.htmlLink as string) ?? '',
     startTime: startDateTime,
     endTime: endDateTime,
   }
