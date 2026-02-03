@@ -1,117 +1,98 @@
 # PROGRESS.yaml - Estado del proyecto
 # Project: studiotek-landing
-# Updated: 2026-02-02
+# Updated: 2026-02-03
 
-workflow_id: "2026-02-02_hero-bg-mobile-optimization"
+workflow_id: "2026-02-03_funnel-deploy-test"
 status: "IDLE"
-started_at: "2026-02-02T00:00:00Z"
-completed_at: "2026-02-02T23:59:00Z"
+started_at: "2026-02-03T08:00:00Z"
+completed_at: "2026-02-03T11:00:00Z"
 
 # Estado actual
 current_state:
   phase: "IDLE"
-  description: "Landing complete + mobile optimized + hero bg image"
-  last_workflow: "2026-02-02_hero-bg-mobile-optimization"
+  description: "Funnel complete + Booking deployed + All E2E tests passed"
+  last_workflow: "2026-02-03_funnel-deploy-test"
 
 # Ultimo workflow completado
 last_workflow:
-  id: "2026-02-02_hero-bg-mobile-optimization"
+  id: "2026-02-03_funnel-deploy-test"
   status: "COMPLETE"
-  started_at: "2026-02-02T00:00:00Z"
-  completed_at: "2026-02-02T23:59:00Z"
+  started_at: "2026-02-03T08:00:00Z"
+  completed_at: "2026-02-03T11:00:00Z"
   phases:
     - id: 1
-      name: "Generate Hero Background Image"
+      name: "Deploy to Production"
       agent: "direct"
       status: "COMPLETE"
-      description: "Neural network image via Gemini Imagen 4.0, PNG->WebP (137KB)"
-      result: "SUCCESS - hero-bg-neural-network.webp"
+      description: "Git commit, push, Vercel deploy. Fixed: secret leak, pnpm-lock, orphan BenefitPanel"
+      result: "SUCCESS - studiotek.es live"
 
     - id: 2
-      name: "Implement Hero Background"
-      agent: "@frontend"
-      status: "COMPLETE"
-      description: "Next.js Image with opacity 15%, z-[0], pointer-events-none"
-      result: "SUCCESS - Hero.tsx updated"
-
-    - id: 3
-      name: "Optimize MobileBenefits"
-      agent: "@frontend"
-      status: "COMPLETE"
-      description: "Compact spacing, centered headlines/copies, smaller CTA"
-      result: "SUCCESS - spacing reduced, text centered"
-
-    - id: 4
-      name: "Optimize Services Mobile"
-      agent: "@frontend"
-      status: "COMPLETE"
-      description: "Cards w-[78%], snap-center, tablet 2-col, dot indicators fixed"
-      result: "SUCCESS - carousel improved"
-
-    - id: 5
-      name: "Optimize CarouselCard Mobile"
-      agent: "@frontend"
-      status: "COMPLETE"
-      description: "Touch targets 44px, text-base, active:scale-95"
-      result: "SUCCESS - accessibility improved"
-
-    - id: 6
-      name: "Optimize Hero Mobile"
-      agent: "@frontend"
-      status: "COMPLETE"
-      description: "Reduced padding, compact social proof, tighter spacing"
-      result: "SUCCESS - less vertical space"
-
-    - id: 7
-      name: "CTA Refinements"
+      name: "Configure Environment Variables"
       agent: "direct"
       status: "COMPLETE"
-      description: "Larger headline, smaller button, removed email link, centered text"
-      result: "SUCCESS - CTA more impactful"
+      description: "RESEND_API_KEY, CRON_SECRET, ADMIN_API_KEY, GOOGLE_SERVICE_ACCOUNT_KEY, GOOGLE_CALENDAR_ID"
+      result: "SUCCESS - 5 env vars added via CLI"
 
-    - id: 8
-      name: "Deploy to Production"
-      agent: "@infra"
+    - id: 3
+      name: "E2E Testing (6 tests)"
+      agent: "direct"
       status: "COMPLETE"
-      description: "git push + vercel --prod"
-      result: "SUCCESS - commit a8a4355 deployed"
+      description: "POST leads, GET leads, Admin dashboard, Booking slots, Form E2E, BookCallButton"
+      result: "SUCCESS - 6/6 tests passed"
+
+    - id: 4
+      name: "Google Meet Investigation"
+      agent: "direct"
+      status: "COMPLETE"
+      description: "Tested JWT impersonation, Domain-Wide Delegation. Workspace Individual lacks Admin Console"
+      result: "PARTIAL - Meet requires Workspace Business. Implemented 3-level fallback + Add to Calendar link"
+
+    - id: 5
+      name: "Calendar Link Fix"
+      agent: "direct"
+      status: "COMPLETE"
+      description: "htmlLink points to organizer, not lead. Changed to action=TEMPLATE URL"
+      result: "SUCCESS - Add to Calendar link works for lead"
 
 # Metricas
 metrics:
-  total_phases: 8
-  completed_phases: 8
+  total_phases: 5
+  completed_phases: 5
   skipped_phases: 0
-  agents_used: ["@frontend", "@infra", "direct"]
-  files_created: 3
-  files_modified: 5
+  agents_used: ["direct"]
+  files_created: 0
+  files_modified: 3
 
 # Git
 git:
   branch: "main"
   remote: "https://github.com/CSBejarano/studiotek-landing"
   commits:
-    - hash: "a8a4355"
-      message: "feat: add hero background image + optimize mobile layout across sections"
-    - hash: "108ea6a"
-      message: "feat: unify visual design system + integrate HeroAIChat with AIChatPanel"
-    - hash: "2e35717"
-      message: "feat: add mobile swipe carousel for Services with compact N26-style cards"
-    - hash: "75d0453"
-      message: "feat: optimize landing for mobile & iPad viewports"
-    - hash: "28d2b61"
-      message: "feat: redesign Benefits (VICIO editorial), PainPoints PAS, adapt copy"
+    - hash: "ba9899a"
+      message: "chore: restore fire-and-forget email after successful debug"
+    - hash: "30d4295"
+      message: "fix: use 'Add to Calendar' link instead of organizer htmlLink"
+    - hash: "24286c5"
+      message: "fix: add 3-level fallback for calendar event creation"
+    - hash: "1f989f5"
+      message: "feat: add calendar event link to booking confirmation email"
+    - hash: "afa7c61"
+      message: "fix: graceful fallback when Google Meet unavailable (non-Workspace)"
+    - hash: "9c594ab"
+      message: "feat: implement complete lead funnel (Phases 1-4)"
 
 # PRD Progress
 prd_progress:
   total_phases: 10
   completed_phases: 10
-  status: "100% COMPLETE + BENEFITS SURFACE + MOBILE OPTIMIZED + HERO BG"
+  status: "100% COMPLETE + FUNNEL + BOOKING + DEPLOYED"
 
 # Integraciones
 integrations:
   supabase:
     status: "ACTIVE"
-    table: "leads"
+    tables: ["leads", "lead_events", "scheduled_emails"]
     rls: true
     service_role: true
   openai:
@@ -119,11 +100,19 @@ integrations:
     models: ["gpt-4o-mini", "tts-1", "whisper-1"]
     features: ["chat", "function_calling", "tts", "stt"]
   resend:
-    status: "PENDING"
-    api_key: false
+    status: "ACTIVE"
+    domain: "studiotek.es"
+    templates: ["booking_confirmation", "lead_notification", "nurturing_sequence"]
+  google_calendar:
+    status: "ACTIVE"
+    service_account: "studiotek-calendar@studiotek-booking.iam.gserviceaccount.com"
+    features: ["freebusy", "events.insert", "3-level-fallback"]
+    meet_links: false
+    note: "Meet requires Workspace Business with Domain-Wide Delegation"
   vercel:
     status: "ACTIVE"
-    url: "https://studiotek-landing-4e016ugql-csbejaranos-projects.vercel.app"
+    url: "https://studiotek.es"
+    env_vars: 8
   github:
     status: "ACTIVE"
     repo: "https://github.com/CSBejarano/studiotek-landing"
@@ -138,8 +127,8 @@ domain_experts:
     version: "1.35"
     tasks_handled: 63
   backend:
-    version: "1.3"
-    tasks_handled: 6
+    version: "1.4"
+    tasks_handled: 10
   infra:
     version: "1.5"
     tasks_handled: 9
@@ -148,4 +137,4 @@ domain_experts:
     tasks_handled: 4
 
 # Completion Promise
-completion_promise: "Landing Complete + Mobile Optimized - Ready for New Features"
+completion_promise: "Funnel Complete + Booking Live - Ready for New Features"

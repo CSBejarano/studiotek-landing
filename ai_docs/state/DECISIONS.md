@@ -382,10 +382,50 @@
 
 ---
 
+## Session: 2026-02-03 Funnel Deploy + Booking System
+
+### D056: Lead Funnel Scoring Algorithm
+- **Contexto:** Necesidad de priorizar leads automaticamente
+- **Decision:** Scoring basado en budget(40pts), service_interest(15pts), phone(10pts), company(10pts), message(15pts). HOT>=70, WARM>=40, COLD<40
+- **Confianza:** 0.95
+- **Validado en:** E2E test - score 90 para lead completo
+
+### D057: Google Calendar Service Account Auth
+- **Contexto:** Integracion con Google Calendar para booking
+- **Decision:** Service Account JWT sin impersonation. Domain-Wide Delegation no disponible en Workspace Individual
+- **Confianza:** 0.99
+- **Validado en:** FreeBusy query + event creation en produccion
+
+### D058: 3-Level Calendar Event Fallback
+- **Contexto:** hangoutsMeet falla sin Workspace Business
+- **Decision:** Level 1: Meet+attendees → Level 2: no-Meet+attendees → Level 3: basic event
+- **Confianza:** 0.99
+- **Validado en:** Produccion - Level 2/3 funciona correctamente
+
+### D059: Add to Calendar URL vs htmlLink
+- **Contexto:** htmlLink del evento apunta al calendario del organizador (Service Account), no del lead
+- **Decision:** Generar URL con action=TEMPLATE que permite al lead añadir evento a su propio calendario
+- **Confianza:** 0.99
+- **Validado en:** User testing - link funciona correctamente
+
+### D060: Fire-and-Forget Email Pattern
+- **Contexto:** Email de confirmacion no debe bloquear la respuesta de la API
+- **Decision:** Usar .catch() para emails fire-and-forget. Debugging temporal con await cuando necesario
+- **Confianza:** 0.95
+- **Validado en:** Produccion - emails se envian sin bloquear API response
+
+### D061: Environment Variables via printf
+- **Contexto:** `echo` añade newline trailing que causa errores en Vercel
+- **Decision:** Usar `printf` en vez de `echo` al hacer pipe a `vercel env add`
+- **Confianza:** 0.99
+- **Validado en:** Fix de CRON_SECRET y ADMIN_API_KEY trailing whitespace
+
+---
+
 ## Decisiones Pendientes
 
 Ninguna decision pendiente de validacion.
 
 ---
 
-**Ultima actualizacion:** 2026-02-02T23:59:00Z
+**Ultima actualizacion:** 2026-02-03T11:00:00Z

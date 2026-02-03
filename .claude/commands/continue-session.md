@@ -3,13 +3,13 @@ Sincronizar el estado del proyecto al inicio de cada sesión de trabajo. Este sk
 
 ## Variables
 ```yaml
-PROJECT_ROOT: '/Users/cristianbejaranomendez/Documents/GitHub/claude-code-template'
+PROJECT_ROOT: '/Users/cristianbejaranomendez/Documents/GitHub/studiotek-landing'
 CONTINUE_SESSION_PATH: 'ai_docs/continue_session/CONTINUE_SESSION.md'
 PROGRESS_YAML_PATH: 'ai_docs/state/PROGRESS.yaml'
 GOAL_PATH: 'ai_docs/state/GOAL.md'
 PROGRESS_JSON_PATH: 'ai_docs/state/PROGRESS.json'
 DECISIONS_PATH: 'ai_docs/state/DECISIONS.md'
-SKILLS_ROADMAP_PATH: '.claude/SKILLS_ROADMAP.md'
+GUIA_STUDIOTEK_KAIROSAI_PATH: '~/Documents/GitHub/ai_docs/GUIA_STUDIOTEK_KAIROSAI.md'
 MAX_CONTEXT_TOKENS: 2500
 ```
 
@@ -28,17 +28,20 @@ ai_docs/
 └── review/                  # Reportes de review
 
 .claude/
-├── SKILLS_ROADMAP.md        # Roadmap de skills a crear
 ├── agents/                  # Agentes especializados
 ├── commands/                # Comandos slash
 └── skills/                  # Skills disponibles
+
+~/Documents/GitHub/ai_docs/
+└── GUIA_STUDIOTEK_KAIROSAI.md        # Roadmap de skills a crear
+
 ```
 
 ## Instructions
 1. **Leer estado actual del proyecto**
    - Leer `ai_docs/state/PROGRESS.yaml` para estado del workflow
    - Leer `ai_docs/state/GOAL.md` para objetivo actual
-   - Leer `.claude/SKILLS_ROADMAP.md` para próximos skills a crear
+   - Leer `~/Documents/GitHub/ai_docs/GUIA_STUDIOTEK_KAIROSAI.md` para próximos skills a crear
 
 2. **Verificar archivos de estado**
    - Si no existen, inicializarlos con valores por defecto
@@ -70,7 +73,7 @@ ai_docs/
 
 ## Workflow
 1. Leer archivos de estado existentes
-2. Actualizar `.claude/SKILLS_ROADMAP.md` para próximos skills
+2. Actualizar `~/Documents/GitHub/ai_docs/GUIA_STUDIOTEK_KAIROSAI.md` para próximos skills
 3. Actualizar `ai_docs/continue_session/CONTINUE_SESSION.md`
 4. Actualizar `ai_docs/state/PROGRESS.yaml`
 5. Actualizar `ai_docs/state/GOAL.md`
@@ -123,7 +126,7 @@ Context7 ID: /pydantic/pydantic-ai
 ### Quick Start
 ```bash
 # Ver roadmap completo
-cat .claude/SKILLS_ROADMAP.md
+cat ~/Documents/GitHub/ai_docs/GUIA_STUDIOTEK_KAIROSAI.md
 
 # Crear próximo skill
 /plan-task crear skill /pydantic-ai con Context7

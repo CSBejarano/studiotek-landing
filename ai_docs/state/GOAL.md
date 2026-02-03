@@ -1,10 +1,10 @@
 # GOAL - Estado Actual del Proyecto
 
-## Status: IDLE - LANDING COMPLETE + MOBILE OPTIMIZED
+## Status: IDLE - FUNNEL COMPLETE + BOOKING DEPLOYED
 
-La landing page de StudioTek esta funcionalmente completa con mobile optimizado.
+La landing page de StudioTek esta funcionalmente completa con funnel de leads y sistema de booking desplegado en produccion.
 
-**Production URL:** https://studiotek-landing-4e016ugql-csbejaranos-projects.vercel.app
+**Production URL:** https://studiotek.es
 **GitHub:** https://github.com/CSBejarano/studiotek-landing
 **Local Dev:** http://localhost:3000
 
@@ -12,8 +12,8 @@ La landing page de StudioTek esta funcionalmente completa con mobile optimizado.
 
 | Campo | Valor |
 |-------|-------|
-| ID | `2026-02-02_hero-bg-mobile-optimization` |
-| Resultado | Hero background image (Gemini) + mobile layout optimization |
+| ID | `2026-02-03_funnel-deploy-test` |
+| Resultado | Deploy + env vars + 6/6 E2E tests + Calendar link fix |
 
 ## Features Completos
 
@@ -30,27 +30,33 @@ La landing page de StudioTek esta funcionalmente completa con mobile optimizado.
 | Benefits Surface Scroll | COMPLETE |
 | Mobile Layout Optimization | COMPLETE |
 | Hero Background Image | COMPLETE |
+| Lead Funnel (Scoring + Nurturing) | COMPLETE |
+| Admin Dashboard | COMPLETE |
+| Google Calendar Booking | COMPLETE |
+| Email Confirmations | COMPLETE |
 
 ## Git - Ultimos Commits
 
 ```text
-a8a4355 feat: add hero background image + optimize mobile layout across sections
-108ea6a feat: unify visual design system + integrate HeroAIChat with AIChatPanel
-2e35717 feat: add mobile swipe carousel for Services with compact N26-style cards
-75d0453 feat: optimize landing for mobile & iPad viewports
-28d2b61 feat: redesign Benefits (VICIO editorial), PainPoints PAS, adapt copy
+ba9899a chore: restore fire-and-forget email after successful debug
+30d4295 fix: use 'Add to Calendar' link instead of organizer htmlLink
+24286c5 fix: add 3-level fallback for calendar event creation
+1f989f5 feat: add calendar event link to booking confirmation email
+afa7c61 fix: graceful fallback when Google Meet unavailable (non-Workspace)
+9c594ab feat: implement complete lead funnel (Phases 1-4)
 ```
 
 ## Integraciones Activas
 
-| Servicio | Estado | Modelos/Features |
-|----------|--------|------------------|
+| Servicio | Estado | Detalles |
+|----------|--------|----------|
 | OpenAI | ACTIVO | gpt-4o-mini, tts-1, whisper-1 |
-| Supabase | ACTIVO | Base de datos leads |
-| Vercel | ACTIVO | Hosting y deploy |
-| GitHub | ACTIVO | Repositorio de codigo |
+| Supabase | ACTIVO | leads, lead_events, scheduled_emails |
+| Google Calendar | ACTIVO | FreeBusy + events (sin Meet links) |
+| Resend | ACTIVO | Booking confirmations, nurturing, notifications |
 | Gemini | ACTIVO | Generacion de imagenes (16+) |
-| Resend | PENDIENTE | Emails de confirmacion |
+| Vercel | ACTIVO | studiotek.es (8 env vars) |
+| GitHub | ACTIVO | Repositorio de codigo |
 
 ## Quick Start
 
@@ -58,16 +64,22 @@ a8a4355 feat: add hero background image + optimize mobile layout across sections
 npm run dev           # Desarrollo
 npm run build         # Build produccion
 vercel --prod         # Deploy manual
+
+# Test APIs
+curl "https://studiotek.es/api/booking/slots?date=2026-02-04"
+curl -H "Authorization: Bearer $CRON_SECRET" https://studiotek.es/api/cron/nurture
 ```
 
 ## Pendientes Opcionales
 
-- Configurar Resend para emails de confirmacion
+- Google Workspace Business (studiotek.es) para Meet links automaticos
+- Test manual del cron job nurturing
+- Limpiar leads de prueba de Supabase
 - Google Analytics
-- Dashboard de leads (admin panel)
+- Rotar Anthropic API key (fue expuesta brevemente en git, nunca en remote)
 
 ---
 
-**Landing Complete + Mobile Optimized - Ready for New Features**
+**Funnel Complete + Booking Live - Ready for New Features**
 
-**Ultima actualizacion:** 2026-02-02
+**Ultima actualizacion:** 2026-02-03
