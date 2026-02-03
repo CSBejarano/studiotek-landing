@@ -185,7 +185,7 @@ export async function createMeetingEvent(
   }
 
   const companyLabel = params.company ? ` (${params.company})` : ''
-  const summary = `Discovery Call - ${params.leadName}${companyLabel}`
+  const summary = `Consulta Estrategica - ${params.leadName}${companyLabel}`
 
   const startDateTime = `${params.date}T${params.time}:00`
   const [hours, minutes] = params.time.split(':').map(Number)
@@ -195,7 +195,7 @@ export async function createMeetingEvent(
   const endDateTime = `${params.date}T${String(endHour).padStart(2, '0')}:${String(endMin).padStart(2, '0')}:00`
 
   const description = [
-    `Discovery Call con ${params.leadName}${companyLabel}`,
+    `Consulta Estrategica con ${params.leadName}${companyLabel}`,
     '',
     params.notes ? `Notas: ${params.notes}` : '',
     '',

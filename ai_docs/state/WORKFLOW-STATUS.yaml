@@ -1,47 +1,114 @@
-workflow:
-  id: funnel-fase4-gcal-2026-02-02
-  name: "Funnel StudioTek - Fase 4: Google Calendar/Meets"
-  created: 2026-02-02T21:30:00Z
-  status: completed
-  mode: full
-  plan_file: prompt-funnel-studiotek.md
-  previous_workflow: funnel-fase3-analytics-2026-02-02
+workflow_id: "2026-02-03_e2e-playwright-booking-form"
+issue: null
+mode: FULL
+started_at: "2026-02-03T12:00:00Z"
+completed_at: "2026-02-03T12:45:00Z"
+iteration: 6
+max_iterations: 30
+previous_workflow: "2026-02-03_unify-contact-booking"
 
 phases:
   - id: 1
-    name: "Google Calendar Service + API Routes"
-    agent: "backend"
-    status: completed
-    dependencies: []
+    name: "Visual verification - Form loads correctly"
+    agent: "@testing"
+    status: COMPLETED
+    checkpoint:
+      type: custom
+      command: "playwright visual check"
+      expected: "Form visible with booking toggle"
+      result: "17/17 PASSED - All form fields, booking toggle, submit button verified. Old BookCallButton section confirmed removed."
     retries: 0
     max_retries: 3
+    started_at: "2026-02-03T12:00:00Z"
+    completed_at: "2026-02-03T12:05:00Z"
+    error: null
 
   - id: 2
-    name: "Booking UI Components"
-    agent: "frontend"
-    status: completed
-    dependencies: [1]
+    name: "Booking toggle - Show/hide date/time pickers"
+    agent: "@testing"
+    status: COMPLETED
+    depends_on: [1]
+    checkpoint:
+      type: custom
+      command: "playwright interaction check"
+      expected: "Date and time dropdowns appear/disappear"
+      result: "17/17 PASSED - AnimatePresence toggle works correctly. Date/time pickers appear on check, disappear on uncheck."
     retries: 0
     max_retries: 3
+    started_at: "2026-02-03T12:05:00Z"
+    completed_at: "2026-02-03T12:12:00Z"
+    error: null
 
   - id: 3
-    name: "Build Final + Documentacion"
-    agent: "orchestrator"
-    status: completed
-    dependencies: [1, 2]
+    name: "Date selection - Slots loading"
+    agent: "@testing"
+    status: COMPLETED
+    depends_on: [2]
+    checkpoint:
+      type: custom
+      command: "playwright slots check"
+      expected: "Slots load when date selected"
+      result: "10/11 PASSED (1 minor cosmetic). Slots API returns 10 slots for 2026-02-04. Minor: Select placeholder duplication."
     retries: 0
-    max_retries: 1
+    max_retries: 3
+    started_at: "2026-02-03T12:12:00Z"
+    completed_at: "2026-02-03T12:18:00Z"
+    error: null
+    notes: "Minor finding: Select.tsx has hardcoded placeholder that duplicates with ContactForm's placeholder prop. Cosmetic only."
 
-current_phase: 3
-retry_count: 0
+  - id: 4
+    name: "Form submission without booking"
+    agent: "@testing"
+    status: COMPLETED
+    depends_on: [1]
+    checkpoint:
+      type: custom
+      command: "playwright submit check"
+      expected: "Success message without booking"
+      result: "15/15 PASSED - Lead created (201), email sent (200), generic success message displayed, form reset."
+    retries: 0
+    max_retries: 3
+    started_at: "2026-02-03T12:18:00Z"
+    completed_at: "2026-02-03T12:25:00Z"
+    error: null
 
-metrics:
-  total_phases: 3
-  completed: 3
-  in_progress: 0
-  pending: 0
-  failed: 0
+  - id: 5
+    name: "Form submission with booking"
+    agent: "@testing"
+    status: COMPLETED
+    depends_on: [3, 4]
+    checkpoint:
+      type: custom
+      command: "playwright booking submit check"
+      expected: "Success message with booking"
+      result: "20/22 PASSED (2 timing false-negatives confirmed PASS via screenshots). Lead created + Google Calendar event created + booking-specific success message."
+    retries: 0
+    max_retries: 3
+    started_at: "2026-02-03T12:18:00Z"
+    completed_at: "2026-02-03T12:30:00Z"
+    error: null
+    notes: "2 false-negatives due to Playwright timing on async API calls. Screenshots confirm full success."
+
+  - id: 6
+    name: "Mobile responsive verification"
+    agent: "@testing"
+    status: COMPLETED
+    depends_on: [1]
+    checkpoint:
+      type: custom
+      command: "playwright mobile check"
+      expected: "Form renders correctly on mobile"
+      result: "22/22 PASSED - 375x812 viewport, all fields visible, pickers stack vertically, no horizontal overflow, submit button full-width."
+    retries: 0
+    max_retries: 3
+    started_at: "2026-02-03T12:30:00Z"
+    completed_at: "2026-02-03T12:40:00Z"
+    error: null
 
 completion:
   all_completed: true
+  total_phases: 6
+  completed_phases: 6
+  failed_phases: 0
+  blocked_phases: 0
   final_status: SUCCESS

@@ -1,8 +1,8 @@
 domain_id: testing
 display_name: Testing Engineer
 version: '1.0'
-updated_at: '2026-02-02T10:14:47.393327+00:00'
-tasks_handled: 20
+updated_at: '2026-02-03T14:17:24.414514+00:00'
+tasks_handled: 33
 success_rate: 1.0
 keywords:
   primary:
@@ -150,13 +150,16 @@ validation_checklist:
   - ContactForm con form fields
   - Console sin errores
   - Parallax scroll funciona
+  - Booking toggle show/hide date-time pickers (AnimatePresence)
+  - Full booking submission flow (lead + calendar event creation)
+  - Mobile responsive 375x812 contact form (all fields, no overflow, pickers stacked)
 last_validation:
-  date: '2026-02-02'
-  phase: SERVICES_VIEWPORT_TESTING
+  date: '2026-02-03'
+  phase: PHASE6_MOBILE_RESPONSIVE
   result: SUCCESS
-  criteria_passed: 40
-  criteria_total: 40
-  notes: 'Playwright E2E verification: ALL TESTS PASSED (8/8)
+  criteria_passed: 22
+  criteria_total: 22
+  notes: 'Phase 6 Mobile Responsive (375x812 iPhone): ALL TESTS PASSED (22/22)
 
 
     Test Results:
@@ -245,3 +248,106 @@ learnings:
     importante dar waitForTimeout(1500) despues de scroll para que GSAP/animations
     se estabilicen antes de verificar el DOM.
   added_at: '2026-02-02T09:19:29.286338+00:00'
+- text: Para ejecutar scripts Playwright desde fuera de node_modules, el script debe
+    estar dentro del directorio del proyecto para que Node resuelva import { chromium
+    } from 'playwright' correctamente - mover el script al proyecto en lugar de correrlo
+    desde /tmp evita el ERR_MODULE_NOT_FOUND.
+  added_at: '2026-02-03T13:50:40.671144+00:00'
+- text: La verificacion de elementos "que NO deben existir" es tan importante como
+    verificar los que si existen - usar page.locator('text=...').count() === 0 como
+    assertion negativa es un patron clave para validar que features deprecated fueron
+    correctamente eliminadas.
+  added_at: '2026-02-03T13:50:40.671144+00:00'
+- text: El formulario unificado de ContactForm integra el booking como toggle inline
+    (checkbox + AnimatePresence para date/time selectors) en lugar de seccion separada,
+    lo cual es un patron UX superior que reduce friction al mantener todo en un unico
+    flujo de submission.
+  added_at: '2026-02-03T13:50:40.671144+00:00'
+- text: Para testear AnimatePresence toggle (checkbox show/hide con height 0->auto),
+    usar isVisible() de Playwright es suficiente ya que AnimatePresence con height
+    0 y opacity 0 hace que isVisible() retorne false correctamente. Un waitForTimeout
+    de 500ms (300ms animation + buffer) es suficiente para esperar la transicion.
+  added_at: '2026-02-03T15:00:00+00:00'
+- text: Verificar disabled state de selects dependientes (e.g. Hora disabled hasta
+    que se seleccione Fecha) con isDisabled() es un patron clave para validar UX de
+    formularios con campos condicionales encadenados.
+  added_at: '2026-02-03T15:00:00+00:00'
+- text: Para testear AnimatePresence toggle (checkbox show/hide con height 0->auto),
+    isVisible() de Playwright es suficiente ya que AnimatePresence con height 0 y
+    opacity 0 hace que isVisible() retorne false correctamente. Un waitForTimeout(500ms)
+    (300ms animation + buffer) basta para esperar la transicion.
+  added_at: '2026-02-03T13:54:09.453821+00:00'
+- text: Verificar el disabled state de selects dependientes (e.g. "Hora" disabled
+    hasta que se seleccione "Fecha") con isDisabled() es un patron clave para validar
+    UX de formularios con campos condicionales encadenados.
+  added_at: '2026-02-03T13:54:09.453821+00:00'
+- text: El ciclo completo de test toggle (hidden -> visible -> hidden) con 3 screenshots
+    de evidencia es el patron optimo para validar componentes con AnimatePresence,
+    ya que confirma tanto la aparicion como la desaparicion sin residuos en el DOM.
+  added_at: '2026-02-03T13:54:09.453821+00:00'
+- text: El componente Select de /Users/cristianbejaranomendez/Documents/GitHub/studiotek-landing/components/ui/Select.tsx
+    tiene un <option> hardcodeado "Selecciona una opcion" (linea 48) que se duplica
+    con los placeholders que ContactForm pasa via props -- esto causa que los selects
+    tengan 2 opciones placeholder (la hardcodeada + la del prop), un patron que deberia
+    refactorizarse para que el placeholder venga solo de props o solo del componente,
+    no ambos.
+  added_at: '2026-02-03T13:56:45.505987+00:00'
+- text: La API /api/booking/slots integrada con Google Calendar FreeBusy responde
+    correctamente con HTTP 200 y filtra slots ocupados -- el gap 12:30-14:30 en los
+    resultados confirma que la logica de FreeBusy esta funcionando (detecta eventos
+    existentes y excluye esos horarios de los slots disponibles).
+  added_at: '2026-02-03T13:56:45.505987+00:00'
+- text: 'Para testear selects dependientes (Fecha -> Hora), el patron optimo con Playwright
+    es: verificar disabled state inicial -> selectOption con valor -> waitForTimeout(3000)
+    para API + render -> verificar enabled state + opciones, interceptando responses
+    via page.on(''response'') para confirmar que la API fue llamada sin depender solo
+    del DOM.'
+  added_at: '2026-02-03T13:56:45.505987+00:00'
+- text: Para validar texto de mensajes de exito que son efimeros (5s timeout), capturar
+    el texto inmediatamente dentro del waitForSelector callback en vez de hacer un
+    segundo query al DOM despues -- el componente ContactForm usa setTimeout(() =>
+    setStatus('idle'), 5000) y el state change puede causar race conditions con queries
+    subsecuentes al [role="alert"].
+  added_at: '2026-02-03T13:59:37.448090+00:00'
+- text: 'El flujo sin booking de ContactForm ejecuta 2 API calls secuenciales: POST
+    /api/leads (await, sincrono) + POST /api/send-email (fire-and-forget con .catch()),
+    y ambas se pudieron interceptar via page.on(''response'') a pesar de que el email
+    es fire-and-forget -- esto confirma que Playwright captura todas las network responses
+    independientemente de si el codigo hace await o no.'
+  added_at: '2026-02-03T13:59:37.448090+00:00'
+- text: La verificacion de que el formulario se resetea requiere esperar los 5 segundos
+    completos del setTimeout + un buffer, ya que durante el estado success el formulario
+    esta condicionalmente oculto (status !== 'success') y no se pueden verificar los
+    campos vacios hasta que reaparezca.
+  added_at: '2026-02-03T13:59:37.448090+00:00'
+- text: Para tests E2E de formularios con multiple API calls secuenciales (lead +
+    booking), el script debe usar page.waitForResponse() en lugar de page.waitForSelector('[role="alert"]')
+    seguido de checks -- el alert DOM puede existir antes de que todas las APIs respondan,
+    causando falsos negativos al verificar texto y API calls posteriores.
+  added_at: '2026-02-03T14:01:15.355759+00:00'
+- text: El flujo de booking submission ejecuta POST /api/leads primero (sincrono,
+    await) y luego POST /api/booking/create (tambien sincrono) -- ambas retornan HTTP
+    201, y el success message con "Reunion agendada" solo aparece cuando lastSubmitHadBooking
+    es true, lo cual requiere que wantsBooking + bookingDate + bookingTime esten todos
+    seteados al momento del submit.
+  added_at: '2026-02-03T14:01:15.355759+00:00'
+- text: La API /api/booking/slots filtra correctamente horarios ocupados via Google
+    Calendar FreeBusy -- el gap 12:30-14:30 en los resultados del 2026-02-04 confirma
+    que la integracion real con Google Calendar esta funcionando end-to-end en produccion.
+  added_at: '2026-02-03T14:01:15.355759+00:00'
+- text: 'Para checkboxes controlados por React state (checked={wantsBooking} + onChange),
+    Playwright check({ force: true }) falla porque el click no triggers React state
+    update -- la solucion es clickear el <label> parent en lugar del <input> directamente,
+    ya que el label propaga el evento al onChange handler de React.'
+  added_at: '2026-02-03T14:05:02.776940+00:00'
+- text: 'La verificacion de layout stacking (vertical vs horizontal) se valida comparando
+    getBoundingClientRect() de los dos elementos: si timeRect.top >= dateRect.bottom
+    - tolerance, estan en columna; si Math.abs(dateRect.top - timeRect.top) < 10,
+    estan side-by-side -- esto es mas confiable que inspeccionar CSS classes porque
+    verifica el resultado visual real.'
+  added_at: '2026-02-03T14:05:02.776940+00:00'
+- text: Verificar document.documentElement.scrollWidth > clientWidth en dos momentos
+    (antes y despues de abrir pickers) es el patron correcto para detectar overflow
+    horizontal en tests de responsive, ya que componentes dinamicos (AnimatePresence)
+    pueden introducir overflow que no existe en el estado inicial.
+  added_at: '2026-02-03T14:05:02.776940+00:00'

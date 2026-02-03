@@ -4,7 +4,6 @@ import { Benefits } from '@/components/sections/Benefits';
 import { Services } from '@/components/sections/Services';
 // import { HowItWorks } from '@/components/sections/HowItWorks';
 import { ContactForm } from '@/components/sections/ContactForm';
-import { BookCallButton } from '@/components/BookCallButton';
 
 export default function Home() {
   return (
@@ -24,16 +23,8 @@ export default function Home() {
       {/* 5. Como trabajamos - TEMPORALMENTE DESACTIVADO */}
       {/* <HowItWorks /> */}
 
-      {/* 6. Formulario de contacto */}
+      {/* 6. Formulario de contacto (con booking integrado) */}
       <ContactForm />
-
-      {/* 7. CTA de agendar llamada */}
-      <section className="relative bg-[#0A0A0A] py-12 text-center">
-        <p className="mb-4 text-white/60 text-sm">
-          Prefiere hablar directamente con nuestro equipo?
-        </p>
-        <BookCallButton variant="primary" />
-      </section>
     </main>
   );
 }

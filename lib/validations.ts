@@ -14,6 +14,21 @@ export const contactSchema = z.object({
   commercialAccepted: z.boolean().optional(),
   // Smart form additional answers
   metadata: z.record(z.string(), z.unknown()).optional(),
-});
+  // Booking fields (optional)
+  wantsBooking: z.boolean().optional(),
+  bookingDate: z.string().optional(),
+  bookingTime: z.string().optional(),
+}).refine(
+  (data) => {
+    if (data.wantsBooking) {
+      return !!data.bookingDate && !!data.bookingTime;
+    }
+    return true;
+  },
+  {
+    message: 'Selecciona fecha y hora para agendar la llamada',
+    path: ['bookingTime'],
+  }
+);
 
 export type ContactFormData = z.infer<typeof contactSchema>;

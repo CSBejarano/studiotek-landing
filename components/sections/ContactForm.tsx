@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
-import { Mail, Building2, MessageSquare, User, Wallet, Phone, Briefcase } from 'lucide-react';
+import { Mail, Building2, MessageSquare, User, Wallet, Phone, Briefcase, Calendar } from 'lucide-react';
 import { contactSchema, type ContactFormData } from '@/lib/validations';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
@@ -116,10 +116,37 @@ const conditionalQuestions: Record<ServiceKey, ConditionalField[]> = {
 const isServiceKey = (value: string): value is ServiceKey =>
   value in conditionalQuestions;
 
+function getNext7Workdays(): { value: string; label: string }[] {
+  const days: { value: string; label: string }[] = [];
+  const now = new Date();
+  let current = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const DIAS = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+  const MESES = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+  while (days.length < 7) {
+    current = new Date(current.getTime() + 86_400_000);
+    const dow = current.getDay();
+    if (dow !== 0 && dow !== 6) {
+      const y = current.getFullYear();
+      const m = String(current.getMonth() + 1).padStart(2, '0');
+      const d = String(current.getDate()).padStart(2, '0');
+      days.push({
+        value: `${y}-${m}-${d}`,
+        label: `${DIAS[dow]} ${current.getDate()} ${MESES[current.getMonth()]}`,
+      });
+    }
+  }
+  return days;
+}
+const workdays = getNext7Workdays();
+
 type FormStatus = 'idle' | 'loading' | 'success' | 'error';
 
 export function ContactForm() {
   const [status, setStatus] = useState<FormStatus>('idle');
+  const [wantsBooking, setWantsBooking] = useState(false);
+  const [availableSlots, setAvailableSlots] = useState<string[]>([]);
+  const [slotsLoading, setSlotsLoading] = useState(false);
+  const [lastSubmitHadBooking, setLastSubmitHadBooking] = useState(false);
 
   const {
     register,
@@ -141,6 +168,9 @@ export function ContactForm() {
       privacyAccepted: undefined as unknown as true,
       commercialAccepted: false,
       metadata: {},
+      wantsBooking: false,
+      bookingDate: '',
+      bookingTime: '',
     },
   });
 
@@ -159,6 +189,24 @@ export function ContactForm() {
     [currentMetadata, setValue]
   );
 
+  const selectedBookingDate = watch('bookingDate');
+
+  useEffect(() => {
+    if (!selectedBookingDate || !wantsBooking) {
+      setAvailableSlots([]);
+      return;
+    }
+    setSlotsLoading(true);
+    fetch(`/api/booking/slots?date=${selectedBookingDate}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) setAvailableSlots(data.slots);
+        else setAvailableSlots([]);
+      })
+      .catch(() => setAvailableSlots([]))
+      .finally(() => setSlotsLoading(false));
+  }, [selectedBookingDate, wantsBooking]);
+
   const activeQuestions =
     selectedService && isServiceKey(selectedService)
       ? conditionalQuestions[selectedService]
@@ -166,8 +214,11 @@ export function ContactForm() {
 
   const onSubmit = async (data: ContactFormData) => {
     setStatus('loading');
+    const hadBooking = !!(data.wantsBooking && data.bookingDate && data.bookingTime);
+    setLastSubmitHadBooking(hadBooking);
+
     try {
-      // 1. Guardar lead en Supabase
+      // 1. Crear lead
       const leadRes = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -180,34 +231,52 @@ export function ContactForm() {
           service_interest: data.servicioInteres,
           message: data.mensaje,
           metadata: data.metadata && Object.keys(data.metadata).length > 0
-            ? data.metadata
-            : undefined,
+            ? data.metadata : undefined,
           privacy_accepted: data.privacyAccepted,
           commercial_accepted: data.commercialAccepted || false,
+          source: hadBooking ? 'web_with_booking' : 'web',
         })
       });
 
-      if (!leadRes.ok) {
-        console.error('Lead save failed, continuing...');
+      let leadId: string | undefined;
+      if (leadRes.ok) {
+        const leadData = await leadRes.json();
+        leadId = leadData.lead?.id;
       }
 
-      // 2. Enviar email de confirmación
-      await fetch('/api/send-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          to: data.email,
-          name: data.nombre,
-        })
-      });
+      // 2. Si quiere booking Y tenemos leadId, crear evento en Google Calendar
+      if (hadBooking && leadId) {
+        const bookingRes = await fetch('/api/booking/create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            lead_id: leadId,
+            date: data.bookingDate,
+            time: data.bookingTime,
+          }),
+        });
+        if (!bookingRes.ok) {
+          console.error('Booking creation failed, lead was saved');
+        }
+      }
+
+      // 3. Email de confirmación solo si NO hay booking (booking API envía su propio email)
+      if (!hadBooking) {
+        fetch('/api/send-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ to: data.email, name: data.nombre }),
+        }).catch(err => console.error('Email send failed:', err));
+      }
 
       setStatus('success');
       reset();
+      setWantsBooking(false);
     } catch (error) {
       console.error(error);
-      // UX: mostrar éxito de todas formas
       setStatus('success');
       reset();
+      setWantsBooking(false);
     }
 
     setTimeout(() => setStatus('idle'), 5000);
@@ -264,7 +333,9 @@ export function ContactForm() {
                       </svg>
                     </div>
                     <p className="text-emerald-400 font-medium text-lg">
-                      Gracias por contactarnos. Te responderemos en menos de 24 horas.
+                      {lastSubmitHadBooking
+                        ? 'Reunión agendada. Te hemos enviado un email con los detalles.'
+                        : 'Gracias por contactarnos. Te responderemos en menos de 24 horas.'}
                     </p>
                   </div>
                 ) : status === 'error' ? (
@@ -459,6 +530,75 @@ export function ContactForm() {
                         className="pl-11 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-blue-500 focus:ring-blue-500/20 min-h-[120px]"
                         {...register('mensaje')}
                       />
+                    </div>
+
+                    {/* Booking inline toggle */}
+                    <div className="border border-blue-500/20 rounded-lg p-4 bg-blue-500/5">
+                      <label className="flex items-center gap-3 cursor-pointer select-none">
+                        <input
+                          type="checkbox"
+                          checked={wantsBooking}
+                          onChange={(e) => {
+                            const checked = e.target.checked;
+                            setWantsBooking(checked);
+                            setValue('wantsBooking', checked);
+                            if (!checked) {
+                              setValue('bookingDate', '');
+                              setValue('bookingTime', '');
+                              setAvailableSlots([]);
+                            }
+                          }}
+                          className="h-4 w-4 rounded border-white/20 bg-white/5 text-blue-500 focus:ring-blue-500/30 focus:ring-offset-0"
+                        />
+                        <div className="flex items-center gap-2">
+                          <Calendar size={18} className="text-blue-400" />
+                          <span className="text-white font-medium text-sm">
+                            Quiero agendar una llamada de descubrimiento (30 min)
+                          </span>
+                        </div>
+                      </label>
+
+                      <AnimatePresence>
+                        {wantsBooking && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.3, ease: 'easeInOut' }}
+                            className="overflow-hidden"
+                          >
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                              <Select
+                                label="Fecha"
+                                options={[
+                                  { value: '', label: 'Selecciona un día' },
+                                  ...workdays,
+                                ]}
+                                error={errors.bookingDate?.message}
+                                className="bg-white/5 border-white/10 text-white focus:border-blue-500 focus:ring-blue-500/20"
+                                {...register('bookingDate')}
+                              />
+                              <Select
+                                label="Hora"
+                                options={
+                                  slotsLoading
+                                    ? [{ value: '', label: 'Cargando horarios...' }]
+                                    : availableSlots.length === 0
+                                      ? [{ value: '', label: selectedBookingDate ? 'Sin horarios disponibles' : 'Selecciona fecha primero' }]
+                                      : [{ value: '', label: 'Selecciona hora' }, ...availableSlots.map(s => ({ value: s, label: `${s}h` }))]
+                                }
+                                disabled={!selectedBookingDate || slotsLoading}
+                                error={errors.bookingTime?.message}
+                                className="bg-white/5 border-white/10 text-white focus:border-blue-500 focus:ring-blue-500/20"
+                                {...register('bookingTime')}
+                              />
+                            </div>
+                            <p className="text-xs text-white/40 mt-2">
+                              Horario de Madrid (L-V, 10:00-18:00). Recibirás email de confirmación.
+                            </p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
 
                     {/* Primera capa informativa RGPD - OBLIGATORIA */}

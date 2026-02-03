@@ -218,7 +218,7 @@ async function sendBookingConfirmationEmail(data: BookingEmailData) {
             <h2>Hola ${data.name},</h2>
             <p>Tu reunion de descubrimiento esta confirmada.</p>
             <div class="meeting-box">
-              <p style="margin: 0; font-size: 18px; font-weight: bold;">Discovery Call</p>
+              <p style="margin: 0; font-size: 18px; font-weight: bold;">Consulta Estrategica con StudioTek</p>
               <p style="margin: 8px 0; color: #666;">
                 <span class="highlight">${formattedDate}</span><br>
                 a las <span class="highlight">${data.time}h</span> (hora de Madrid)
@@ -227,7 +227,7 @@ async function sendBookingConfirmationEmail(data: BookingEmailData) {
               ${data.meetLink
                 ? `<a href="${data.meetLink}" class="meet-link">Unirse a Google Meet</a>`
                 : data.calendarLink
-                  ? `<a href="${data.calendarLink}" class="meet-link" style="background: #059669;">Añadir a mi Google Calendar</a>`
+                  ? `<a href="${data.calendarLink}" class="meet-link" style="background: #2563EB;">Añadir a mi Google Calendar</a>`
                   : ''}
             </div>
             <p>En esta reunion hablaremos sobre como la IA puede transformar tu negocio. No necesitas preparar nada especial, solo tener claros tus principales retos.</p>
