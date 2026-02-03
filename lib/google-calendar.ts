@@ -13,6 +13,31 @@ const SLOT_DURATION_MINUTES = 30
 const BUSINESS_HOURS_START = 10 // 10:00
 const BUSINESS_HOURS_END = 18   // 18:00 (last slot at 17:30)
 
+// ============================================================
+// Booking Availability Configuration
+// ============================================================
+// Days available for automatic booking via web form.
+// 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat
+//
+// Strategy (from 2026-02-02 meeting with Pau):
+// - Wednesday: open for automatic lead meetings
+// - Tuesday/Thursday: reserved for manual kick-offs (not auto-bookable)
+// - Monday/Friday: no meetings
+// - Sat/Sun: off
+//
+// For one-off blocks (vacations, specific days), use Google Calendar
+// events directly — FreeBusy API picks them up automatically.
+// ============================================================
+const BOOKABLE_DAYS: Set<number> = new Set([3]) // 3 = Wednesday
+
+// Optional: per-day hour overrides. If a day is in BOOKABLE_DAYS but
+// also here, only these hours are available (instead of full 10-18).
+// Format: dayOfWeek -> Array of [startHour, endHour] ranges
+// Example: { 3: [[10, 14], [16, 18]] } = Wed only 10-14 and 16-18
+const DAY_HOUR_OVERRIDES: Record<number, [number, number][]> = {
+  // 3: [[10, 14], [16, 18]],  // uncomment to restrict Wednesday hours
+}
+
 function getCalendarClient(): calendar_v3.Calendar | null {
   const keyBase64 = process.env.GOOGLE_SERVICE_ACCOUNT_KEY
   if (!keyBase64) return null
@@ -37,13 +62,20 @@ function getCalendarClient(): calendar_v3.Calendar | null {
 
 /**
  * Generate all possible 30-min slot strings between business hours.
+ * If dayOfWeek has hour overrides, only slots within those ranges are returned.
  * Returns ["10:00", "10:30", "11:00", ..., "17:30"]
  */
-function generateAllSlots(): string[] {
+function generateAllSlots(dayOfWeek?: number): string[] {
+  const ranges = dayOfWeek !== undefined && DAY_HOUR_OVERRIDES[dayOfWeek]
+    ? DAY_HOUR_OVERRIDES[dayOfWeek]
+    : [[BUSINESS_HOURS_START, BUSINESS_HOURS_END]]
+
   const slots: string[] = []
-  for (let hour = BUSINESS_HOURS_START; hour < BUSINESS_HOURS_END; hour++) {
-    slots.push(`${String(hour).padStart(2, '0')}:00`)
-    slots.push(`${String(hour).padStart(2, '0')}:30`)
+  for (const [start, end] of ranges) {
+    for (let hour = start; hour < end; hour++) {
+      slots.push(`${String(hour).padStart(2, '0')}:00`)
+      slots.push(`${String(hour).padStart(2, '0')}:30`)
+    }
   }
   return slots
 }
@@ -60,10 +92,10 @@ const DEV_SLOTS = [
  * @returns Array of available time slots in "HH:MM" format (Europe/Madrid)
  */
 export async function getAvailableSlots(date: string): Promise<string[]> {
-  // Check weekend (0=Sun, 6=Sat)
+  // Check if day is bookable (only configured days allowed)
   const dateObj = new Date(`${date}T12:00:00`)
   const dayOfWeek = dateObj.getUTCDay()
-  if (dayOfWeek === 0 || dayOfWeek === 6) {
+  if (!BOOKABLE_DAYS.has(dayOfWeek)) {
     return []
   }
 
@@ -99,7 +131,7 @@ export async function getAvailableSlots(date: string): Promise<string[]> {
     const busySlots =
       freeBusyResponse.data.calendars?.[calendarId]?.busy ?? []
 
-    const allSlots = generateAllSlots()
+    const allSlots = generateAllSlots(dayOfWeek)
 
     // Filter out slots that overlap with busy periods
     return allSlots.filter((slot) => {

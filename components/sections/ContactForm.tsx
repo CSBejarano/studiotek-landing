@@ -116,16 +116,20 @@ const conditionalQuestions: Record<ServiceKey, ConditionalField[]> = {
 const isServiceKey = (value: string): value is ServiceKey =>
   value in conditionalQuestions;
 
-function getNext7Workdays(): { value: string; label: string }[] {
+// Days available for booking (must match BOOKABLE_DAYS in lib/google-calendar.ts)
+// 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat
+const BOOKABLE_DAYS_FRONTEND = new Set([3]); // 3 = Wednesday
+
+function getNextBookableDays(): { value: string; label: string }[] {
   const days: { value: string; label: string }[] = [];
   const now = new Date();
   let current = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const DIAS = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
   const MESES = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
-  while (days.length < 7) {
+  while (days.length < 4) {
     current = new Date(current.getTime() + 86_400_000);
     const dow = current.getDay();
-    if (dow !== 0 && dow !== 6) {
+    if (BOOKABLE_DAYS_FRONTEND.has(dow)) {
       const y = current.getFullYear();
       const m = String(current.getMonth() + 1).padStart(2, '0');
       const d = String(current.getDate()).padStart(2, '0');
@@ -137,7 +141,7 @@ function getNext7Workdays(): { value: string; label: string }[] {
   }
   return days;
 }
-const workdays = getNext7Workdays();
+const bookableDays = getNextBookableDays();
 
 type FormStatus = 'idle' | 'loading' | 'success' | 'error';
 
@@ -572,7 +576,7 @@ export function ContactForm() {
                                 label="Fecha"
                                 options={[
                                   { value: '', label: 'Selecciona un día' },
-                                  ...workdays,
+                                  ...bookableDays,
                                 ]}
                                 error={errors.bookingDate?.message}
                                 className="bg-white/5 border-white/10 text-white focus:border-blue-500 focus:ring-blue-500/20"
