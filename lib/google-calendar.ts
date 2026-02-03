@@ -202,40 +202,71 @@ export async function createMeetingEvent(
     .filter(Boolean)
     .join('\n')
 
-  const event = await calendar.events.insert({
-    calendarId,
-    conferenceDataVersion: 1,
-    requestBody: {
-      summary,
-      description,
-      start: {
-        dateTime: startDateTime,
-        timeZone: TIMEZONE,
-      },
-      end: {
-        dateTime: endDateTime,
-        timeZone: TIMEZONE,
-      },
-      attendees: [{ email: params.leadEmail }],
-      conferenceData: {
-        createRequest: {
-          requestId: `studiotek-${Date.now()}`,
-          conferenceSolutionKey: { type: 'hangoutsMeet' },
+  // Try with Meet link first (requires Google Workspace), fallback without
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let event: any
+
+  try {
+    event = await calendar.events.insert({
+      calendarId,
+      conferenceDataVersion: 1,
+      requestBody: {
+        summary,
+        description,
+        start: {
+          dateTime: startDateTime,
+          timeZone: TIMEZONE,
+        },
+        end: {
+          dateTime: endDateTime,
+          timeZone: TIMEZONE,
+        },
+        attendees: [{ email: params.leadEmail }],
+        conferenceData: {
+          createRequest: {
+            requestId: `studiotek-${Date.now()}`,
+            conferenceSolutionKey: { type: 'hangoutsMeet' },
+          },
+        },
+        reminders: {
+          useDefault: false,
+          overrides: [
+            { method: 'email', minutes: 60 },
+            { method: 'popup', minutes: 15 },
+          ],
         },
       },
-      reminders: {
-        useDefault: false,
-        overrides: [
-          { method: 'email', minutes: 60 },
-          { method: 'popup', minutes: 15 },
-        ],
+    })
+  } catch (meetError) {
+    // Fallback: create event without Meet (works with personal Gmail)
+    console.warn('[CALENDAR] Meet link creation failed, creating event without Meet:', meetError)
+    event = await calendar.events.insert({
+      calendarId,
+      requestBody: {
+        summary,
+        description,
+        start: {
+          dateTime: startDateTime,
+          timeZone: TIMEZONE,
+        },
+        end: {
+          dateTime: endDateTime,
+          timeZone: TIMEZONE,
+        },
+        reminders: {
+          useDefault: false,
+          overrides: [
+            { method: 'email', minutes: 60 },
+            { method: 'popup', minutes: 15 },
+          ],
+        },
       },
-    },
-  })
+    })
+  }
 
   const meetLink =
     event.data.conferenceData?.entryPoints?.find(
-      (ep) => ep.entryPointType === 'video'
+      (ep: { entryPointType?: string; uri?: string }) => ep.entryPointType === 'video'
     )?.uri ?? ''
 
   return {
