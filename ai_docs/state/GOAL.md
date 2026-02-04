@@ -1,27 +1,20 @@
 # GOAL - Estado Actual del Proyecto
 
-## Status: DEPLOY PENDIENTE - Unified Form + Availability Config
+## Status: IDLE - All Features Deployed
 
-La landing page de StudioTek tiene el formulario unificado (contacto + booking inline) listo. Pendiente deploy a Vercel (CLI colgado, reintentar).
+La landing page de StudioTek esta completamente funcional en produccion. Todos los features desplegados y verificados, incluyendo el sistema de booking con email de confirmacion.
 
 **Production URL:** https://studiotek.es
 **GitHub:** https://github.com/CSBejarano/studiotek-landing
 **Local Dev:** http://localhost:3000
+**Auto-deploy:** GitHub push to main → Vercel production
 
 ## Ultimo Workflow Completado
 
 | Campo | Valor |
 |-------|-------|
-| ID | `2026-02-03_e2e-playwright-booking-form` |
-| Resultado | 6/6 E2E tests passed + 5/5 manual tests passed |
-
-## Cambios Pendientes de Deploy
-
-| Cambio | Commit |
-|--------|--------|
-| Unificar ContactForm + Booking en 1 flujo | `2a59719` |
-| Booking solo miercoles (config Pau meeting) | `c70c2b6` |
-| Email: "Consulta Estrategica" + boton azul | `2a59719` |
+| ID | `2026-02-04_email-fix-vercel-github` |
+| Resultado | Email fix verified (3 tests) + GitHub auto-deploy connected |
 
 ## Features Completos
 
@@ -42,18 +35,20 @@ La landing page de StudioTek tiene el formulario unificado (contacto + booking i
 | Admin Dashboard | COMPLETE |
 | Google Calendar Booking | COMPLETE |
 | Email Confirmations | COMPLETE |
-| Unified Form + Booking Inline | COMPLETE (pending deploy) |
-| Booking Availability Config | COMPLETE (pending deploy) |
+| Unified Form + Booking Inline | COMPLETE |
+| Booking Availability Config | COMPLETE |
+| Email Fix (await pattern) | COMPLETE |
+| GitHub Auto-Deploy | COMPLETE |
 
 ## Git - Ultimos Commits
 
 ```text
+2b58184 docs: update session state after email fix + Vercel GitHub integration
+2fbbe2b fix: use inline styles for booking email button text color
+6b468ee fix: await booking confirmation email to prevent Vercel serverless kill
 ed91b38 chore: update testing agent metadata
 c70c2b6 feat: add booking availability config (Wed only, per Pau meeting)
 2a59719 feat: unify contact form + booking into single flow, rebrand email
-3978acb docs: update session state after funnel deploy + booking system
-ba9899a chore: restore fire-and-forget email after successful debug
-30d4295 fix: use 'Add to Calendar' link instead of organizer htmlLink
 ```
 
 ## Integraciones Activas
@@ -61,35 +56,37 @@ ba9899a chore: restore fire-and-forget email after successful debug
 | Servicio | Estado | Detalles |
 |----------|--------|----------|
 | OpenAI | ACTIVO | gpt-4o-mini, tts-1, whisper-1 |
-| Supabase | ACTIVO | leads, lead_events, scheduled_emails |
+| Supabase | ACTIVO | leads, lead_events, email_sequences |
 | Google Calendar | ACTIVO | FreeBusy + events (Wed only auto-booking) |
-| Resend | ACTIVO | Booking confirmations, nurturing, notifications |
+| Resend | ACTIVO | Booking confirmations (awaited), nurturing, notifications |
 | Gemini | ACTIVO | Generacion de imagenes (16+) |
-| Vercel | ACTIVO | studiotek.es (8 env vars) |
-| GitHub | ACTIVO | Repositorio de codigo |
+| Vercel | ACTIVO | studiotek.es (8 env vars, GitHub auto-deploy) |
+| GitHub | ACTIVO | Auto-deploy on push to main |
 
 ## Quick Start
 
 ```bash
 npm run dev           # Desarrollo
 npm run build         # Build produccion
-vercel --prod         # Deploy manual (reintentar si CLI se cuelga)
+git push origin main  # Auto-deploy a Vercel (no necesita CLI)
 
 # Test APIs
-curl "https://studiotek.es/api/booking/slots?date=2026-02-05"  # Miercoles
-curl "https://studiotek.es/api/booking/slots?date=2026-02-04"  # Martes -> []
+curl "https://studiotek.es/api/booking/slots?date=2026-02-11"  # Miercoles
+curl "https://studiotek.es/api/booking/slots?date=2026-02-10"  # Martes -> []
 ```
 
 ## Pendientes
 
-- [ ] Deploy a Vercel (CLI se colgo, reintentar)
-- [ ] Test email en produccion con nixaitech@gmail.com
-- [ ] Limpiar leads de prueba de Supabase
+- [x] Deploy a Vercel
+- [x] Test email en produccion con nixaitech@gmail.com
+- [x] Limpiar leads de prueba de Supabase
+- [x] Conectar GitHub auto-deploy a Vercel
+- [ ] Limpiar 3 eventos test de Google Calendar
 - [ ] Google Workspace Business para Meet links
 - [ ] Google Analytics
 
 ---
 
-**Unified Form + Availability Config - Pending Deploy**
+**All Features Deployed - IDLE**
 
-**Ultima actualizacion:** 2026-02-03
+**Ultima actualizacion:** 2026-02-04

@@ -1,85 +1,59 @@
 # PROGRESS.yaml - Estado del proyecto
 # Project: studiotek-landing
-# Updated: 2026-02-03
+# Updated: 2026-02-04
 
-workflow_id: "2026-02-03_unify-contact-booking"
-status: "DEPLOY_PENDING"
-started_at: "2026-02-03T12:00:00Z"
-completed_at: null
+workflow_id: "2026-02-04_email-fix-vercel-github"
+status: "COMPLETE"
+started_at: "2026-02-04T09:00:00Z"
+completed_at: "2026-02-04T11:00:00Z"
 
 # Estado actual
 current_state:
-  phase: "DEPLOY_PENDING"
-  description: "Unified form + availability config implemented and tested. Vercel deploy pending (CLI hung)."
-  last_workflow: "2026-02-03_e2e-playwright-booking-form"
-  pending_action: "vercel --prod (reintentar deploy)"
+  phase: "IDLE"
+  description: "All features deployed and verified. Email fix + GitHub auto-deploy configured."
+  last_workflow: "2026-02-04_email-fix-vercel-github"
+  pending_action: null
 
 # Workflows completados en esta sesion
 session_workflows:
-  - id: "2026-02-03_unify-contact-booking"
+  - id: "2026-02-04_email-fix-vercel-github"
     status: "COMPLETE"
-    description: "Unify ContactForm + BookingModal into single form with inline booking toggle"
+    description: "Fix booking email (await pattern), button color, connect GitHub auto-deploy"
     phases_completed: 4
     phases_total: 4
+    results: "3 test emails received, button white text verified, GitHub connected to Vercel"
 
-  - id: "2026-02-03_e2e-playwright-booking-form"
-    status: "COMPLETE"
-    description: "6 E2E Playwright MCP tests on unified form"
-    phases_completed: 6
-    phases_total: 6
-    results: "101/104 checks passed (3 minor: 1 cosmetic placeholder, 2 timing false-negatives)"
-
-  - id: "2026-02-03_manual-testing"
-    status: "COMPLETE"
-    description: "5 manual tests on localhost with user"
-    phases_completed: 5
-    phases_total: 6
-    results: "5/5 passed, 1 deferred to production (email branding)"
-
-# Cambios pendientes de deploy
-pending_deploy:
-  commits:
-    - hash: "2a59719"
-      message: "feat: unify contact form + booking into single flow, rebrand email"
-    - hash: "c70c2b6"
-      message: "feat: add booking availability config (Wed only, per Pau meeting)"
-    - hash: "ed91b38"
-      message: "chore: update testing agent metadata"
-  blocker: "Vercel CLI hung during deploy. Retry needed."
+# Deploy info
+deploy:
+  method: "GitHub auto-deploy (connected 2026-02-04)"
+  last_deploy: "2026-02-04T10:40:00Z"
+  status: "Ready"
+  url: "https://studiotek.es"
 
 # Git
 git:
   branch: "main"
   remote: "https://github.com/CSBejarano/studiotek-landing"
   pushed: true
+  auto_deploy: true  # GitHub connected to Vercel
   commits:
-    - hash: "ed91b38"
-      message: "chore: update testing agent metadata"
-    - hash: "c70c2b6"
-      message: "feat: add booking availability config (Wed only, per Pau meeting)"
-    - hash: "2a59719"
-      message: "feat: unify contact form + booking into single flow, rebrand email"
-    - hash: "3978acb"
-      message: "docs: update session state after funnel deploy + booking system"
+    - hash: "2b58184"
+      message: "docs: update session state after email fix + Vercel GitHub integration"
+    - hash: "2fbbe2b"
+      message: "fix: use inline styles for booking email button text color"
+    - hash: "6b468ee"
+      message: "fix: await booking confirmation email to prevent Vercel serverless kill"
 
 # Key files modified
 files_modified:
-  - "lib/validations.ts"              # Added wantsBooking, bookingDate, bookingTime + refine
-  - "components/sections/ContactForm.tsx"  # Inline booking toggle, unified onSubmit
-  - "app/page.tsx"                     # Removed BookCallButton section
-  - "app/api/booking/create/route.ts"  # Rebranded email: Consulta Estrategica + blue button
-  - "lib/google-calendar.ts"          # BOOKABLE_DAYS config + DAY_HOUR_OVERRIDES + rebranded event
+  - "app/api/booking/create/route.ts"  # await email + inline styles
 
-# Decisions made (D062-D065)
+# Decisions made (D066-D067)
 decisions:
-  - id: "D062"
-    title: "Unified Contact Form + Booking Inline"
-  - id: "D063"
-    title: "Booking Availability Config (Code + Calendar)"
-  - id: "D064"
-    title: "Wednesday-Only Auto Booking"
-  - id: "D065"
-    title: "Email Rebranding - Consulta Estrategica"
+  - id: "D066"
+    title: "Await Booking Email Instead of Fire-and-Forget"
+  - id: "D067"
+    title: "Inline Styles for Email Button (Gmail Compatibility)"
 
 # Completion Promise
-completion_promise: "Unified Form + Availability Config - Pending Deploy to Vercel"
+completion_promise: "Email fix + GitHub auto-deploy - All complete"

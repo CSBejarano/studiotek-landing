@@ -446,10 +446,28 @@
 
 ---
 
+## Session: 2026-02-04 Email Fix + Vercel GitHub Integration
+
+### D066: Await Booking Email Instead of Fire-and-Forget
+- **Contexto:** Email de confirmacion de booking no se enviaba en produccion
+- **Decision:** Cambiar sendBookingConfirmationEmail de fire-and-forget (.catch()) a await con try-catch
+- **Razon:** Vercel serverless termina la funcion despues de enviar la respuesta HTTP, matando las promesas pendientes fire-and-forget antes de que se completen
+- **Confianza:** 0.99
+- **Validado en:** 3 emails de test recibidos en nixaitech@gmail.com
+
+### D067: Inline Styles for Email Button (Gmail Compatibility)
+- **Contexto:** Boton "Añadir a mi Google Calendar" tenia texto azul sobre fondo azul (ilegible)
+- **Decision:** Usar inline styles (color: #ffffff) en lugar de depender de <style> tags en el <head>
+- **Razon:** Gmail y otros clientes de email ignoran las etiquetas <style> en el <head> del HTML. El color hereda el default del enlace (azul)
+- **Confianza:** 0.99
+- **Validado en:** Email verificado visualmente con boton blanco sobre azul
+
+---
+
 ## Decisiones Pendientes
 
 Ninguna decision pendiente de validacion.
 
 ---
 
-**Ultima actualizacion:** 2026-02-03T16:00:00Z
+**Ultima actualizacion:** 2026-02-04T11:00:00Z
