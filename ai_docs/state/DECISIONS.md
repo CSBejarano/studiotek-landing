@@ -420,6 +420,30 @@
 - **Confianza:** 0.99
 - **Validado en:** Fix de CRON_SECRET y ADMIN_API_KEY trailing whitespace
 
+### D062: Unified Contact Form + Booking Inline
+- **Contexto:** Dos flujos separados (ContactForm + BookingModal) causan friccion UX
+- **Decision:** Fusionar en un solo formulario con toggle checkbox para booking inline (dropdowns fecha/hora)
+- **Confianza:** 0.99
+- **Validado en:** 6/6 E2E Playwright tests + 5/5 tests manuales localhost
+
+### D063: Booking Availability Config (Code + Calendar)
+- **Contexto:** Necesidad de controlar que dias y horas estan disponibles para booking automatico
+- **Decision:** Doble capa: BOOKABLE_DAYS en codigo (reglas fijas) + Google Calendar FreeBusy (bloqueos puntuales)
+- **Confianza:** 0.99
+- **Validado en:** Frontend solo muestra miercoles, API retorna [] para otros dias
+
+### D064: Wednesday-Only Auto Booking
+- **Contexto:** Reunion con Pau (02-02-2026): miercoles para leads, martes/jueves kick-offs manuales
+- **Decision:** BOOKABLE_DAYS = [3] (solo miercoles). Lunes/Viernes OFF. Martes/Jueves se gestionan manualmente
+- **Confianza:** 0.99
+- **Validado en:** Dropdown muestra proximos 4 miercoles
+
+### D065: Email Rebranding - Discovery Call to Consulta Estrategica
+- **Contexto:** Email de confirmacion y evento Google Calendar usaban "Discovery Call" (ingles)
+- **Decision:** Renombrar a "Consulta Estrategica con StudioTek" + boton azul (#2563EB) en lugar de verde
+- **Confianza:** 0.99
+- **Validado en:** Pendiente verificacion en produccion con email real
+
 ---
 
 ## Decisiones Pendientes
@@ -428,4 +452,4 @@ Ninguna decision pendiente de validacion.
 
 ---
 
-**Ultima actualizacion:** 2026-02-03T11:00:00Z
+**Ultima actualizacion:** 2026-02-03T16:00:00Z

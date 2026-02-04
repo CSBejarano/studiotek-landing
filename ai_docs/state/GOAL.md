@@ -1,8 +1,8 @@
 # GOAL - Estado Actual del Proyecto
 
-## Status: IDLE - FUNNEL COMPLETE + BOOKING DEPLOYED
+## Status: DEPLOY PENDIENTE - Unified Form + Availability Config
 
-La landing page de StudioTek esta funcionalmente completa con funnel de leads y sistema de booking desplegado en produccion.
+La landing page de StudioTek tiene el formulario unificado (contacto + booking inline) listo. Pendiente deploy a Vercel (CLI colgado, reintentar).
 
 **Production URL:** https://studiotek.es
 **GitHub:** https://github.com/CSBejarano/studiotek-landing
@@ -12,8 +12,16 @@ La landing page de StudioTek esta funcionalmente completa con funnel de leads y 
 
 | Campo | Valor |
 |-------|-------|
-| ID | `2026-02-03_funnel-deploy-test` |
-| Resultado | Deploy + env vars + 6/6 E2E tests + Calendar link fix |
+| ID | `2026-02-03_e2e-playwright-booking-form` |
+| Resultado | 6/6 E2E tests passed + 5/5 manual tests passed |
+
+## Cambios Pendientes de Deploy
+
+| Cambio | Commit |
+|--------|--------|
+| Unificar ContactForm + Booking en 1 flujo | `2a59719` |
+| Booking solo miercoles (config Pau meeting) | `c70c2b6` |
+| Email: "Consulta Estrategica" + boton azul | `2a59719` |
 
 ## Features Completos
 
@@ -34,16 +42,18 @@ La landing page de StudioTek esta funcionalmente completa con funnel de leads y 
 | Admin Dashboard | COMPLETE |
 | Google Calendar Booking | COMPLETE |
 | Email Confirmations | COMPLETE |
+| Unified Form + Booking Inline | COMPLETE (pending deploy) |
+| Booking Availability Config | COMPLETE (pending deploy) |
 
 ## Git - Ultimos Commits
 
 ```text
+ed91b38 chore: update testing agent metadata
+c70c2b6 feat: add booking availability config (Wed only, per Pau meeting)
+2a59719 feat: unify contact form + booking into single flow, rebrand email
+3978acb docs: update session state after funnel deploy + booking system
 ba9899a chore: restore fire-and-forget email after successful debug
 30d4295 fix: use 'Add to Calendar' link instead of organizer htmlLink
-24286c5 fix: add 3-level fallback for calendar event creation
-1f989f5 feat: add calendar event link to booking confirmation email
-afa7c61 fix: graceful fallback when Google Meet unavailable (non-Workspace)
-9c594ab feat: implement complete lead funnel (Phases 1-4)
 ```
 
 ## Integraciones Activas
@@ -52,7 +62,7 @@ afa7c61 fix: graceful fallback when Google Meet unavailable (non-Workspace)
 |----------|--------|----------|
 | OpenAI | ACTIVO | gpt-4o-mini, tts-1, whisper-1 |
 | Supabase | ACTIVO | leads, lead_events, scheduled_emails |
-| Google Calendar | ACTIVO | FreeBusy + events (sin Meet links) |
+| Google Calendar | ACTIVO | FreeBusy + events (Wed only auto-booking) |
 | Resend | ACTIVO | Booking confirmations, nurturing, notifications |
 | Gemini | ACTIVO | Generacion de imagenes (16+) |
 | Vercel | ACTIVO | studiotek.es (8 env vars) |
@@ -63,23 +73,23 @@ afa7c61 fix: graceful fallback when Google Meet unavailable (non-Workspace)
 ```bash
 npm run dev           # Desarrollo
 npm run build         # Build produccion
-vercel --prod         # Deploy manual
+vercel --prod         # Deploy manual (reintentar si CLI se cuelga)
 
 # Test APIs
-curl "https://studiotek.es/api/booking/slots?date=2026-02-04"
-curl -H "Authorization: Bearer $CRON_SECRET" https://studiotek.es/api/cron/nurture
+curl "https://studiotek.es/api/booking/slots?date=2026-02-05"  # Miercoles
+curl "https://studiotek.es/api/booking/slots?date=2026-02-04"  # Martes -> []
 ```
 
-## Pendientes Opcionales
+## Pendientes
 
-- Google Workspace Business (studiotek.es) para Meet links automaticos
-- Test manual del cron job nurturing
-- Limpiar leads de prueba de Supabase
-- Google Analytics
-- Rotar Anthropic API key (fue expuesta brevemente en git, nunca en remote)
+- [ ] Deploy a Vercel (CLI se colgo, reintentar)
+- [ ] Test email en produccion con nixaitech@gmail.com
+- [ ] Limpiar leads de prueba de Supabase
+- [ ] Google Workspace Business para Meet links
+- [ ] Google Analytics
 
 ---
 
-**Funnel Complete + Booking Live - Ready for New Features**
+**Unified Form + Availability Config - Pending Deploy**
 
 **Ultima actualizacion:** 2026-02-03

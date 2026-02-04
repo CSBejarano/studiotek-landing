@@ -2,139 +2,84 @@
 # Project: studiotek-landing
 # Updated: 2026-02-03
 
-workflow_id: "2026-02-03_funnel-deploy-test"
-status: "IDLE"
-started_at: "2026-02-03T08:00:00Z"
-completed_at: "2026-02-03T11:00:00Z"
+workflow_id: "2026-02-03_unify-contact-booking"
+status: "DEPLOY_PENDING"
+started_at: "2026-02-03T12:00:00Z"
+completed_at: null
 
 # Estado actual
 current_state:
-  phase: "IDLE"
-  description: "Funnel complete + Booking deployed + All E2E tests passed"
-  last_workflow: "2026-02-03_funnel-deploy-test"
+  phase: "DEPLOY_PENDING"
+  description: "Unified form + availability config implemented and tested. Vercel deploy pending (CLI hung)."
+  last_workflow: "2026-02-03_e2e-playwright-booking-form"
+  pending_action: "vercel --prod (reintentar deploy)"
 
-# Ultimo workflow completado
-last_workflow:
-  id: "2026-02-03_funnel-deploy-test"
-  status: "COMPLETE"
-  started_at: "2026-02-03T08:00:00Z"
-  completed_at: "2026-02-03T11:00:00Z"
-  phases:
-    - id: 1
-      name: "Deploy to Production"
-      agent: "direct"
-      status: "COMPLETE"
-      description: "Git commit, push, Vercel deploy. Fixed: secret leak, pnpm-lock, orphan BenefitPanel"
-      result: "SUCCESS - studiotek.es live"
+# Workflows completados en esta sesion
+session_workflows:
+  - id: "2026-02-03_unify-contact-booking"
+    status: "COMPLETE"
+    description: "Unify ContactForm + BookingModal into single form with inline booking toggle"
+    phases_completed: 4
+    phases_total: 4
 
-    - id: 2
-      name: "Configure Environment Variables"
-      agent: "direct"
-      status: "COMPLETE"
-      description: "RESEND_API_KEY, CRON_SECRET, ADMIN_API_KEY, GOOGLE_SERVICE_ACCOUNT_KEY, GOOGLE_CALENDAR_ID"
-      result: "SUCCESS - 5 env vars added via CLI"
+  - id: "2026-02-03_e2e-playwright-booking-form"
+    status: "COMPLETE"
+    description: "6 E2E Playwright MCP tests on unified form"
+    phases_completed: 6
+    phases_total: 6
+    results: "101/104 checks passed (3 minor: 1 cosmetic placeholder, 2 timing false-negatives)"
 
-    - id: 3
-      name: "E2E Testing (6 tests)"
-      agent: "direct"
-      status: "COMPLETE"
-      description: "POST leads, GET leads, Admin dashboard, Booking slots, Form E2E, BookCallButton"
-      result: "SUCCESS - 6/6 tests passed"
+  - id: "2026-02-03_manual-testing"
+    status: "COMPLETE"
+    description: "5 manual tests on localhost with user"
+    phases_completed: 5
+    phases_total: 6
+    results: "5/5 passed, 1 deferred to production (email branding)"
 
-    - id: 4
-      name: "Google Meet Investigation"
-      agent: "direct"
-      status: "COMPLETE"
-      description: "Tested JWT impersonation, Domain-Wide Delegation. Workspace Individual lacks Admin Console"
-      result: "PARTIAL - Meet requires Workspace Business. Implemented 3-level fallback + Add to Calendar link"
-
-    - id: 5
-      name: "Calendar Link Fix"
-      agent: "direct"
-      status: "COMPLETE"
-      description: "htmlLink points to organizer, not lead. Changed to action=TEMPLATE URL"
-      result: "SUCCESS - Add to Calendar link works for lead"
-
-# Metricas
-metrics:
-  total_phases: 5
-  completed_phases: 5
-  skipped_phases: 0
-  agents_used: ["direct"]
-  files_created: 0
-  files_modified: 3
+# Cambios pendientes de deploy
+pending_deploy:
+  commits:
+    - hash: "2a59719"
+      message: "feat: unify contact form + booking into single flow, rebrand email"
+    - hash: "c70c2b6"
+      message: "feat: add booking availability config (Wed only, per Pau meeting)"
+    - hash: "ed91b38"
+      message: "chore: update testing agent metadata"
+  blocker: "Vercel CLI hung during deploy. Retry needed."
 
 # Git
 git:
   branch: "main"
   remote: "https://github.com/CSBejarano/studiotek-landing"
+  pushed: true
   commits:
-    - hash: "ba9899a"
-      message: "chore: restore fire-and-forget email after successful debug"
-    - hash: "30d4295"
-      message: "fix: use 'Add to Calendar' link instead of organizer htmlLink"
-    - hash: "24286c5"
-      message: "fix: add 3-level fallback for calendar event creation"
-    - hash: "1f989f5"
-      message: "feat: add calendar event link to booking confirmation email"
-    - hash: "afa7c61"
-      message: "fix: graceful fallback when Google Meet unavailable (non-Workspace)"
-    - hash: "9c594ab"
-      message: "feat: implement complete lead funnel (Phases 1-4)"
+    - hash: "ed91b38"
+      message: "chore: update testing agent metadata"
+    - hash: "c70c2b6"
+      message: "feat: add booking availability config (Wed only, per Pau meeting)"
+    - hash: "2a59719"
+      message: "feat: unify contact form + booking into single flow, rebrand email"
+    - hash: "3978acb"
+      message: "docs: update session state after funnel deploy + booking system"
 
-# PRD Progress
-prd_progress:
-  total_phases: 10
-  completed_phases: 10
-  status: "100% COMPLETE + FUNNEL + BOOKING + DEPLOYED"
+# Key files modified
+files_modified:
+  - "lib/validations.ts"              # Added wantsBooking, bookingDate, bookingTime + refine
+  - "components/sections/ContactForm.tsx"  # Inline booking toggle, unified onSubmit
+  - "app/page.tsx"                     # Removed BookCallButton section
+  - "app/api/booking/create/route.ts"  # Rebranded email: Consulta Estrategica + blue button
+  - "lib/google-calendar.ts"          # BOOKABLE_DAYS config + DAY_HOUR_OVERRIDES + rebranded event
 
-# Integraciones
-integrations:
-  supabase:
-    status: "ACTIVE"
-    tables: ["leads", "lead_events", "scheduled_emails"]
-    rls: true
-    service_role: true
-  openai:
-    status: "ACTIVE"
-    models: ["gpt-4o-mini", "tts-1", "whisper-1"]
-    features: ["chat", "function_calling", "tts", "stt"]
-  resend:
-    status: "ACTIVE"
-    domain: "studiotek.es"
-    templates: ["booking_confirmation", "lead_notification", "nurturing_sequence"]
-  google_calendar:
-    status: "ACTIVE"
-    service_account: "studiotek-calendar@studiotek-booking.iam.gserviceaccount.com"
-    features: ["freebusy", "events.insert", "3-level-fallback"]
-    meet_links: false
-    note: "Meet requires Workspace Business with Domain-Wide Delegation"
-  vercel:
-    status: "ACTIVE"
-    url: "https://studiotek.es"
-    env_vars: 8
-  github:
-    status: "ACTIVE"
-    repo: "https://github.com/CSBejarano/studiotek-landing"
-  gemini:
-    status: "ACTIVE"
-    model: "imagen-4.0-generate-001"
-    images_generated: 16
-
-# Domain Experts
-domain_experts:
-  frontend:
-    version: "1.35"
-    tasks_handled: 63
-  backend:
-    version: "1.4"
-    tasks_handled: 10
-  infra:
-    version: "1.5"
-    tasks_handled: 9
-  testing:
-    version: "1.0"
-    tasks_handled: 4
+# Decisions made (D062-D065)
+decisions:
+  - id: "D062"
+    title: "Unified Contact Form + Booking Inline"
+  - id: "D063"
+    title: "Booking Availability Config (Code + Calendar)"
+  - id: "D064"
+    title: "Wednesday-Only Auto Booking"
+  - id: "D065"
+    title: "Email Rebranding - Consulta Estrategica"
 
 # Completion Promise
-completion_promise: "Funnel Complete + Booking Live - Ready for New Features"
+completion_promise: "Unified Form + Availability Config - Pending Deploy to Vercel"
