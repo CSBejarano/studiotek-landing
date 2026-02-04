@@ -226,9 +226,9 @@ async function sendBookingConfirmationEmail(data: BookingEmailData) {
               </p>
               <p style="margin: 8px 0; color: #666;">Duracion: 30 minutos</p>
               ${data.meetLink
-                ? `<a href="${data.meetLink}" class="meet-link">Unirse a Google Meet</a>`
+                ? `<a href="${data.meetLink}" class="meet-link" style="display: inline-block; background: #3b82f6; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold;">Unirse a Google Meet</a>`
                 : data.calendarLink
-                  ? `<a href="${data.calendarLink}" class="meet-link" style="background: #2563EB;">Añadir a mi Google Calendar</a>`
+                  ? `<a href="${data.calendarLink}" class="meet-link" style="display: inline-block; background: #2563EB; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold;">Añadir a mi Google Calendar</a>`
                   : ''}
             </div>
             <p>En esta reunion hablaremos sobre como la IA puede transformar tu negocio. No necesitas preparar nada especial, solo tener claros tus principales retos.</p>
