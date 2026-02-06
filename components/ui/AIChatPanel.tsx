@@ -73,6 +73,20 @@ export function AIChatPanel() {
   const audioContextRef = useRef<AudioContext | null>(null);
   const handleSendRef = useRef<((text: string) => void) | null>(null);
 
+  // Cleanup AudioContext on unmount to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      if (audioContextRef.current) {
+        try {
+          audioContextRef.current.close();
+        } catch {
+          // Already closed
+        }
+        audioContextRef.current = null;
+      }
+    };
+  }, []);
+
   // Auto-scroll to bottom
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });

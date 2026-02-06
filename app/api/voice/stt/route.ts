@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import { rateLimit, getClientIP } from '@/lib/rate-limit';
+import { createLogger } from '@/lib/logger';
+
+const logger = createLogger('VOICE-STT');
 
 // ============================================================================
 // Speech-to-Text API using OpenAI Whisper
@@ -19,11 +23,31 @@ export async function POST(
   request: NextRequest
 ): Promise<NextResponse<ErrorResponse | SuccessResponse>> {
   try {
+    // Rate limiting: 30 requests per minute
+    const ip = getClientIP(request);
+    const rateLimitResult = rateLimit(ip, 30, 60_000);
+
+    if (!rateLimitResult.success) {
+      const retryAfter = Math.ceil((rateLimitResult.resetAt - Date.now()) / 1000);
+      logger.warn(`Rate limit exceeded for IP: ${ip}`);
+      return NextResponse.json(
+        { success: false, error: 'Demasiadas solicitudes. Intenta en unos segundos.' },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': String(retryAfter),
+            'X-RateLimit-Limit': '30',
+            'X-RateLimit-Remaining': '0',
+          },
+        }
+      );
+    }
+
     // Check if OpenAI API key is available
     if (!process.env.OPENAI_API_KEY) {
-      console.warn('OPENAI_API_KEY not configured, STT unavailable');
+      logger.warn('OPENAI_API_KEY not configured, STT unavailable');
       return NextResponse.json(
-        { success: false, error: 'Servicio de transcripción no disponible' },
+        { success: false, error: 'Servicio de transcripcion no disponible' },
         { status: 503 }
       );
     }
@@ -33,7 +57,7 @@ export async function POST(
 
     if (!audioFile) {
       return NextResponse.json(
-        { success: false, error: 'No se recibió archivo de audio' },
+        { success: false, error: 'No se recibio archivo de audio' },
         { status: 400 }
       );
     }
@@ -65,7 +89,7 @@ export async function POST(
   } catch (error) {
     // OpenAI API error
     if (error instanceof OpenAI.APIError) {
-      console.error('OpenAI STT API error:', error.message);
+      logger.error('OpenAI STT API error:', error.message);
       return NextResponse.json(
         { success: false, error: 'Error al transcribir audio' },
         { status: 502 }
@@ -73,7 +97,7 @@ export async function POST(
     }
 
     // Generic error
-    console.error('STT API error:', error);
+    logger.error('STT API error:', error);
     return NextResponse.json(
       { success: false, error: 'Error interno del servidor' },
       { status: 500 }

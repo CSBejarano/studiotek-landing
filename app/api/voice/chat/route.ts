@@ -3,6 +3,10 @@ import { z } from 'zod';
 import OpenAI from 'openai';
 import { SYSTEM_PROMPT } from '@/lib/voice/prompts';
 import { voiceFunctions, toOpenAITools } from '@/lib/voice/functions';
+import { rateLimit, getClientIP } from '@/lib/rate-limit';
+import { createLogger } from '@/lib/logger';
+
+const logger = createLogger('VOICE-CHAT');
 
 // ============================================================================
 // Input Validation
@@ -170,12 +174,32 @@ async function callOpenAI(
 
 export async function POST(request: NextRequest): Promise<NextResponse<ChatResponse | ErrorResponse>> {
   try {
+    // Rate limiting: 20 requests per minute
+    const ip = getClientIP(request);
+    const rateLimitResult = rateLimit(ip, 20, 60_000);
+
+    if (!rateLimitResult.success) {
+      const retryAfter = Math.ceil((rateLimitResult.resetAt - Date.now()) / 1000);
+      logger.warn(`Rate limit exceeded for IP: ${ip}`);
+      return NextResponse.json(
+        { success: false, error: 'Demasiadas solicitudes. Intenta en unos segundos.' },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': String(retryAfter),
+            'X-RateLimit-Limit': '20',
+            'X-RateLimit-Remaining': '0',
+          },
+        }
+      );
+    }
+
     const body = await request.json();
     const validatedData = chatRequestSchema.parse(body);
 
     // Check if OpenAI API key is available
     if (!process.env.OPENAI_API_KEY) {
-      console.warn('OPENAI_API_KEY not configured, using mock response');
+      logger.warn('OPENAI_API_KEY not configured, using mock response');
       const mockResponse = getMockResponse(validatedData.userMessage);
       return NextResponse.json(mockResponse, { status: 200 });
     }
@@ -198,7 +222,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ChatRespo
 
     // OpenAI API error
     if (error instanceof OpenAI.APIError) {
-      console.error('OpenAI API error:', error.message);
+      logger.error('OpenAI API error:', error.message);
       return NextResponse.json(
         { success: false, error: 'Error al procesar el mensaje' },
         { status: 502 }
@@ -206,7 +230,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ChatRespo
     }
 
     // Generic error
-    console.error('Chat API error:', error);
+    logger.error('Chat API error:', error);
     return NextResponse.json(
       { success: false, error: 'Error interno del servidor' },
       { status: 500 }

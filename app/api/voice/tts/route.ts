@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import OpenAI from 'openai';
+import { rateLimit, getClientIP } from '@/lib/rate-limit';
+import { createLogger } from '@/lib/logger';
+
+const logger = createLogger('VOICE-TTS');
 
 // ============================================================================
 // Input Validation
@@ -25,12 +29,32 @@ interface ErrorResponse {
 
 export async function POST(request: NextRequest): Promise<NextResponse<ErrorResponse> | Response> {
   try {
+    // Rate limiting: 30 requests per minute
+    const ip = getClientIP(request);
+    const rateLimitResult = rateLimit(ip, 30, 60_000);
+
+    if (!rateLimitResult.success) {
+      const retryAfter = Math.ceil((rateLimitResult.resetAt - Date.now()) / 1000);
+      logger.warn(`Rate limit exceeded for IP: ${ip}`);
+      return NextResponse.json(
+        { success: false, error: 'Demasiadas solicitudes. Intenta en unos segundos.' },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': String(retryAfter),
+            'X-RateLimit-Limit': '30',
+            'X-RateLimit-Remaining': '0',
+          },
+        }
+      );
+    }
+
     const body = await request.json();
     const validatedData = ttsRequestSchema.parse(body);
 
     // Check if OpenAI API key is available
     if (!process.env.OPENAI_API_KEY) {
-      console.warn('OPENAI_API_KEY not configured, TTS unavailable');
+      logger.warn('OPENAI_API_KEY not configured, TTS unavailable');
       return NextResponse.json(
         { success: false, error: 'Servicio de voz no disponible' },
         { status: 503 }
@@ -73,7 +97,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ErrorResp
 
     // OpenAI API error
     if (error instanceof OpenAI.APIError) {
-      console.error('OpenAI TTS API error:', error.message);
+      logger.error('OpenAI TTS API error:', error.message);
       return NextResponse.json(
         { success: false, error: 'Error al generar audio' },
         { status: 502 }
@@ -81,7 +105,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ErrorResp
     }
 
     // Generic error
-    console.error('TTS API error:', error);
+    logger.error('TTS API error:', error);
     return NextResponse.json(
       { success: false, error: 'Error interno del servidor' },
       { status: 500 }

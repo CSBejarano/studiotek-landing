@@ -31,3 +31,18 @@ export function hasValidConsent(): boolean {
   const daysDiff = (now.getTime() - consentDate.getTime()) / (1000 * 60 * 60 * 24);
   return daysDiff < COOKIE_MAX_AGE_DAYS;
 }
+
+// ============================================================================
+// Session ID Management
+// ============================================================================
+
+const SESSION_ID_KEY = 'studiotek_session_id';
+
+export function getOrCreateSessionId(): string {
+  if (typeof window === 'undefined') return 'server';
+  const existing = sessionStorage.getItem(SESSION_ID_KEY);
+  if (existing) return existing;
+  const newId = crypto.randomUUID();
+  sessionStorage.setItem(SESSION_ID_KEY, newId);
+  return newId;
+}

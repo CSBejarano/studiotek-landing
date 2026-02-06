@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { CookieConsent } from '@/lib/cookie-config';
-import { getCookieConsent, setCookieConsent, hasValidConsent } from '@/lib/cookies';
+import { getCookieConsent, setCookieConsent, hasValidConsent, getOrCreateSessionId } from '@/lib/cookies';
 
 interface CookieContextType {
   consent: CookieConsent | null;
@@ -42,12 +42,26 @@ export function CookieProvider({ children }: { children: ReactNode }) {
     version: '1.0'
   });
 
+  const persistConsentToServer = (consent: CookieConsent, action: string) => {
+    fetch('/api/cookies/consent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        consent: { technical: consent.technical, analytics: consent.analytics, marketing: consent.marketing },
+        action,
+        sessionId: getOrCreateSessionId(),
+        consentVersion: consent.version,
+      }),
+    }).catch(() => {});
+  };
+
   const acceptAll = () => {
     const newConsent = createConsent(true, true);
     setCookieConsent(newConsent);
     setConsent(newConsent);
     setShowBanner(false);
     setShowSettings(false);
+    persistConsentToServer(newConsent, 'accept_all');
   };
 
   const rejectAll = () => {
@@ -56,6 +70,7 @@ export function CookieProvider({ children }: { children: ReactNode }) {
     setConsent(newConsent);
     setShowBanner(false);
     setShowSettings(false);
+    persistConsentToServer(newConsent, 'reject_all');
   };
 
   const saveSettings = (partialConsent: Partial<CookieConsent>) => {
@@ -67,6 +82,7 @@ export function CookieProvider({ children }: { children: ReactNode }) {
     setConsent(newConsent);
     setShowBanner(false);
     setShowSettings(false);
+    persistConsentToServer(newConsent, 'custom');
   };
 
   const openSettings = () => setShowSettings(true);
