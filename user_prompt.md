@@ -1,113 +1,40 @@
-# Proximas Tareas - Unificar PainPoints + Solution con Parallax Scroll
+⏺ Resumen de Tests en Producción
+  ┌───────────────────────────────┬───────────┬─────────────────────────────────────────────────────────┐
+  │             Test              │ Resultado │                         Detalle                         │
+  ├───────────────────────────────┼───────────┼─────────────────────────────────────────────────────────┤
+  │ #1 POST /api/leads (HOT lead) │ PASSED    │ Score 90, clasificación HOT                             │
+  ├───────────────────────────────┼───────────┼─────────────────────────────────────────────────────────┤
+  │ #2 GET /api/leads (auth)      │ PASSED    │ 13 leads con paginación y filtros                       │
+  ├───────────────────────────────┼───────────┼─────────────────────────────────────────────────────────┤
+  │ #3 Admin Dashboard UI         │ PASSED    │ Stats, tabla, filtros, búsqueda funcionan               │
+  ├───────────────────────────────┼───────────┼─────────────────────────────────────────────────────────┤
+  │ #4 GET /api/booking/slots     │ PASSED    │ 16 slots disponibles para día laborable                 │
+  ├───────────────────────────────┼───────────┼─────────────────────────────────────────────────────────┤
+  │ #5 Formulario E2E + email     │ PASSED    │ Formulario inteligente + email de confirmación recibido │
+  ├───────────────────────────────┼───────────┼─────────────────────────────────────────────────────────┤
+  │ #6 BookCallButton + Booking   │ PASSED    │ Modal multi-step, evento creado en Google Calendar      │
+  └───────────────────────────────┴───────────┴─────────────────────────────────────────────────────────┘
+  Fix aplicado durante testing
 
-> **Fecha:** 2026-01-26
-> **Plan:** ai_docs/plans/2026-01-26_unificar-painpoints-solution-parallax.md
-> **Mode:** FAST
-> **Estado:** READY FOR EXECUTION
+  - Google Meet fallback: hangoutsMeet falla en cuentas Gmail sin Workspace. Se implementó fallback que crea el evento sin Meet link. Cuando actives Workspace, los Meet links se generarán automáticamente.
 
-## Resumen del Proyecto
+  Estado final
 
-Mejora visual de la landing page unificando las secciones PainPoints y Solution:
-- Crear componente TextParallaxContent con framer-motion
-- Crear componente ProblemSolutionParallax que unifica problema y solucion
-- Eliminar SocialProof (redundante con Stats)
-- Eliminar imports de PainPointsSection y SolutionSection
-- Efecto parallax scroll con sticky images y text overlays
+  Todo el funnel de 4 fases está desplegado y funcionando en producción en studiotek.es:
 
-## Fases
+  - Lead scoring automático (HOT/WARM/COLD)
+  - Formulario inteligente con preguntas condicionales
+  - Notificaciones HOT leads
+  - Email nurturing (cron diario 9:00 UTC)
+  - Dashboard admin (/admin/leads)
+  - Tracking apertura/click emails
+  - Booking con Google Calendar
 
-| Phase | Status | Agent | Description |
-|-------|--------|-------|-------------|
-| 1 | PENDING | @frontend | Crear TextParallaxContent.tsx |
-| 2 | PENDING | @frontend | Crear ProblemSolutionParallax.tsx |
-| 3 | PENDING | @frontend | Actualizar app/page.tsx |
-| 4 | PENDING | @testing | Testing Visual |
-| 5 | PENDING | @gentleman | Code Review Final |
-
-## Archivos
-
-```yaml
-CREATE:
-  - components/sections/TextParallaxContent.tsx
-  - components/sections/ProblemSolutionParallax.tsx
-
-MODIFY:
-  - app/page.tsx
-
-REMOVE_FROM_PAGE (imports):
-  - SocialProof
-  - PainPointsSection
-  - SolutionSection
-```
-
-## Para Ejecutar
-
-Usa el comando `/ralph-execute` para ejecutar este plan.
-
-```bash
-/ralph-execute
-```
-
-Opciones disponibles:
-- `--max-iterations=N` - Limitar numero de iteraciones
-- `--resume` - Continuar desde ultima fase completada
-
-## Quick Commands
-
-```bash
-# Ver plan completo
-cat ai_docs/plans/2026-01-26_unificar-painpoints-solution-parallax.md
-
-# Ver estado del workflow
-cat ai_docs/state/WORKFLOW-STATUS.yaml
-
-# Ejecutar el plan
-/ralph-execute
-```
-
-## Checkpoints de Verificacion
-
-| Fase | Checkpoint | Comando |
-|------|------------|---------|
-| 1 | TextParallaxContent compila | `npm run build` |
-| 2 | ProblemSolutionParallax compila | `npm run build` |
-| 3 | page.tsx actualizado | `npm run build` |
-| 4 | Visual test pass | `npm run dev` |
-| 5 | Review approved | `echo APPROVED` |
-
-## Nuevo Orden de Secciones (post-ejecucion)
-
-1. Hero
-2. **ProblemSolutionParallax** (NUEVO - reemplaza SocialProof + PainPoints + Solution)
-3. Benefits
-4. Services
-5. SectionDivider
-6. HowItWorks
-7. Stats
-8. ContactForm
-
-## Estimaciones
-
-- **Tiempo total:** 10-20 minutos de ejecucion
-- **Complejidad:** 5/10 (FAST mode)
-- **Fases:** 5
-- **Agentes:** @frontend (3 fases), @testing (1 fase), @gentleman (1 fase)
-- **Archivos creados:** 2
-- **Archivos modificados:** 1
-
-## Dependencias Verificadas
-
-- framer-motion: ^12.26.2 (instalado)
-- lucide-react: ^0.562.0 (instalado)
-
-## Riesgos Identificados
-
-| Riesgo | Probabilidad | Mitigacion |
-|--------|--------------|------------|
-| framer-motion API changed | Baja | Verificar docs v12.x |
-| Sticky positioning fails | Media | Probar overflow settings |
-| Performance jank on mobile | Media | Test en dispositivos |
-| Import paths incorrect | Baja | Usar @/ alias |
-
----
-*Generado por /plan-task v5.0 - 2026-01-26*
+  Tokens guardados para referencia
+  ┌───────────────┬──────────────────────────────────────────────────────────────────┐
+  │   Variable    │                              Valor                               │
+  ├───────────────┼──────────────────────────────────────────────────────────────────┤
+  │ ADMIN_API_KEY │ a4f088d15a99776e66f7c8d4b95e58a593a0849d182c3e501864f36319c787d4 │
+  ├───────────────┼──────────────────────────────────────────────────────────────────┤
+  │ CRON_SECRET   │ 5e7bcb5fd1ee5a2c84561daa500590b7e95f163ecfd5777967a1e07e6e787960 │
+  └───────────────┴──────────────────────────────────────────────────────────────────┘

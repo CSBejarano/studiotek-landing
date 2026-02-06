@@ -38,7 +38,7 @@ Updated: 2026-02-04T11:00:00Z
 
 ## Pending items
 
-- [ ] Delete 3 test events from Google Calendar (cristianbejarano11@gmail.com)
+- [x] Delete 3 test events from Google Calendar (cristianbejarano11@gmail.com) - DONE 6 Feb
 - [ ] Google Workspace Business for Meet links
 - [ ] Google Analytics
 </compact_context>

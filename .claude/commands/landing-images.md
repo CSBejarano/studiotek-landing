@@ -1,80 +1,109 @@
-# Landing Images Generator
+---
+model: opus
+description: Genera imagenes profesionales para landing pages usando Gemini API
+argument-hint: [path] [--analyze-only] [--regenerate=name] [--output=dir]
+allowed-tools: read, write, edit, glob, grep, bash, webfetch, websearch
+context: fork
+agent: frontend,marketing-expert,seo-expert
+disable-model-invocation: false
+hooks: {}
+---
 
-Genera imagenes profesionales para tu landing page usando Gemini API.
+# Purpose
 
-## Invocacion
+Genera imagenes profesionales para landing pages usando Gemini API. Analiza la estructura de la landing, identifica secciones que necesitan imagenes, genera prompts optimizados y conecta con Gemini API para crear las imagenes.
 
-```
-/landing-images
-```
+## Variables
 
-## Descripcion
+Argumentos recibidos: $ARGUMENTS
 
-Este comando activa el skill `landing-image-generator` que automatiza la creacion de imagenes para landing pages:
+Descompuestos:
+- PATH: $ARGUMENTS[0] (ruta de la landing, opcional)
+- FLAGS: Flags opcionales extraidos de $ARGUMENTS:
+  - --analyze-only: Solo analizar sin generar
+  - --regenerate=name: Regenerar imagen especifica
+  - --output=dir: Directorio de salida (default: public/images/landing)
 
-1. Analiza la estructura de tu landing page
-2. Identifica secciones que necesitan imagenes
-3. Genera prompts profesionales optimizados
-4. Conecta con Gemini API para crear las imagenes
-5. Integra las imagenes en tu codigo
+Requerido:
+- GEMINI_API_KEY: API key para Gemini
 
-## Pre-requisitos
+Resources disponibles:
+- SKILLS_DIR: .claude/skills/ (incluye landing-image-generator/)
+- AGENTS_DIR: .claude/agents/ (para invocar @marketing-expert si es necesario)
 
-### 1. API Key de Gemini
+## Codebase Structure
 
-Configurar la variable de entorno:
+Skill location: .claude/skills/landing-image-generator/
 
-```bash
-export GEMINI_API_KEY="tu-api-key-aqui"
-```
+Estructura de .claude/:
+.claude/
+├── agents/
+│   ├── marketing-expert.md    # @marketing-expert - Para estrategia de contenido
+│   ├── frontend.md            # @frontend - Para integracion en React/Next.js
+│   └── seo-expert.md          # @seo-expert - Para optimizacion SEO de imagenes
+│
+├── skills/
+│   └── landing-image-generator/  # Este skill
+│       ├── SKILL.md
+│       ├── workflows/01-analyze-landing.md
+│       ├── workflows/02-generate-prompts.md
+│       ├── workflows/03-gemini-integration.md
+│       ├── workflows/04-integrate-images.md
+│       ├── templates/prompt-templates.md
+│       ├── templates/section-types.md
+│       └── scripts/gemini_client.py
+│
+└── commands/
+    └── landing-images.md      # Este comando
 
-Obtener en: https://makersuite.google.com/app/apikey
+Archivos del skill:
+- SKILL.md - Definicion del skill
+- workflows/01-analyze-landing.md - Analisis
+- workflows/02-generate-prompts.md - Prompts
+- workflows/03-gemini-integration.md - API
+- workflows/04-integrate-images.md - Integracion
+- templates/prompt-templates.md - Plantillas
+- templates/section-types.md - Secciones
+- scripts/gemini_client.py - Cliente Python
 
-### 2. Dependencias Python
+Skills relacionadas:
+- /landing-image-generator (este skill)
+- /marketing-content - Para copywriting de la landing
+- /linkedin-publisher - Para compartir en redes
+- /seo-toolkit - Para optimizacion SEO
+- /studiotek-landing-enhancer - Para optimizaciones especificas
 
-```bash
-pip install google-generativeai
-```
-
-## Flujo de Trabajo
+## Instructions
 
 ### Paso 1: Analisis
 
-El skill analizara tu landing page para detectar:
+PRE-TAREA: Cargar skills relacionadas
+- /landing-image-generator (skill principal)
+- /marketing-content (si requiere copy optimizado)
+- /seo-toolkit (si requiere optimizacion SEO)
 
-- **Framework**: Next.js, React, Vue, HTML estatico, etc.
-- **Secciones**: Hero, Features, Testimonials, Pricing, CTA
-- **Contenido**: Headlines, subheadlines, CTAs
-- **Contexto**: Industria, tono, audiencia objetivo
+El skill analizara la landing page para detectar:
+- Framework: Next.js, React, Vue, HTML estatico
+- Secciones: Hero, Features, Testimonials, Pricing, CTA
+- Contenido: Headlines, subheadlines, CTAs
+- Contexto: Industria, tono, audiencia objetivo
+
+Opcionalmente, invocar @marketing-expert si se necesita estrategia de contenido adicional.
 
 ### Paso 2: Generacion de Prompts
 
-Se crean prompts optimizados para cada imagen necesaria:
-
+Se crean prompts optimizados para cada imagen:
 - Prompts en ingles para mejor calidad
 - Aspect ratios correctos por tipo de seccion
 - Estilos coherentes con el branding
 
 ### Paso 3: Confirmacion de Costos
 
-Antes de generar, se muestra:
-
-```
-========================================
-ESTIMACION DE COSTOS
-========================================
-Imagenes a generar: 5
-Costo por imagen:   $0.039 USD
-Costo total:        $0.195 USD
-========================================
-
-Proceder? (yes/no):
-```
+Antes de generar, mostrar estimacion de costos y pedir confirmacion.
 
 ### Paso 4: Generacion
 
 Las imagenes se generan secuencialmente con:
-
 - Reintentos automaticos en caso de error
 - Logging detallado del proceso
 - Guardado en directorio especificado
@@ -82,119 +111,37 @@ Las imagenes se generan secuencialmente con:
 ### Paso 5: Integracion
 
 Las imagenes se integran en el codigo:
-
 - Optimizacion a WebP
 - Actualizacion de referencias
 - Configuracion responsive
 
-## Opciones de Uso
+## Workflow
 
-### Analisis Solo
+Pre-requisitos:
+1. Configurar GEMINI_API_KEY
+2. Instalar dependencia: pip install google-generativeai
 
-Para solo analizar sin generar:
+Tipos de imagenes:
+- Hero: Ilustracion principal (16:9) - 1 tipica
+- Features: Iconos (1:1) - 3-6 tipicos
+- Testimonials: Avatares (1:1) - 1-4 tipicos
+- CTA: Grafico de fondo (16:9) - 1 tipico
+- About: Ilustracion - 1 tipica
 
-```
-/landing-images --analyze-only
-```
+Costos estimados:
+- Landing minima (3 imagenes): ~$0.12
+- Landing tipica (7 imagenes): ~$0.27
+- Landing completa (15 imagenes): ~$0.59
 
-### Regenerar Imagenes Especificas
+## Report
 
-Para regenerar una imagen:
+Mostrar resumen de:
+- Framework detectado
+- Secciones encontradas
+- Imagenes necesarias con nombres y aspect ratios
+- Costo estimado total
+- Confirmacion para proceder
 
-```
-/landing-images --regenerate hero_main
-```
-
-### Especificar Directorio de Salida
-
-```
-/landing-images --output public/images/landing
-```
-
-## Tipos de Imagenes
-
-| Seccion | Tipo | Cantidad Tipica |
-|---------|------|-----------------|
-| Hero | Ilustracion principal | 1 |
-| Features | Iconos | 3-6 |
-| Testimonials | Avatares | 1-4 |
-| CTA | Grafico de fondo | 1 |
-| About | Ilustracion | 1 |
-
-## Costos Estimados
-
-| Escenario | Imagenes | Costo |
-|-----------|----------|-------|
-| Landing minima | 3 | ~$0.12 |
-| Landing tipica | 7 | ~$0.27 |
-| Landing completa | 15 | ~$0.59 |
-
-## Archivos del Skill
-
-```
-.claude/skills/landing-image-generator/
-├── SKILL.md                    # Definicion del skill
-├── workflows/
-│   ├── 01-analyze-landing.md   # Analisis
-│   ├── 02-generate-prompts.md  # Prompts
-│   ├── 03-gemini-integration.md # API
-│   └── 04-integrate-images.md  # Integracion
-├── templates/
-│   ├── prompt-templates.md     # Plantillas
-│   └── section-types.md        # Secciones
-├── scripts/
-│   └── gemini_client.py        # Cliente Python
-└── README.md                   # Documentacion
-```
-
-## Ejemplo de Sesion
-
-```
-Usuario: /landing-images
-
-Claude: Voy a analizar tu landing page para generar imagenes.
-
-[Analisis]
-- Framework detectado: Next.js (App Router)
-- Archivo principal: app/page.tsx
-- Secciones encontradas: hero, features (4), testimonials (2), cta
-
-[Imagenes necesarias]
-1. hero_main - Hero illustration (16:9)
-2. feature_speed - Speed icon (1:1)
-3. feature_security - Security icon (1:1)
-4. feature_scale - Scale icon (1:1)
-5. feature_api - API icon (1:1)
-6. avatar_testimonial_1 - Avatar (1:1)
-7. avatar_testimonial_2 - Avatar (1:1)
-8. cta_background - CTA graphic (16:9)
-
-Costo estimado: $0.312 USD (8 imagenes x $0.039)
-
-Proceder con la generacion? (si/no)
-```
-
-## Notas de Seguridad
-
-- La API key NUNCA se muestra en logs
-- Siempre se confirma el costo antes de generar
-- Limite de 10 imagenes por sesion sin confirmacion adicional
-
-## Troubleshooting
-
-### API Key no configurada
-```bash
-export GEMINI_API_KEY="tu-key"
-```
-
-### Error de rate limit
-Esperar 60 segundos y reintentar.
-
-### Imagenes bloqueadas
-Modificar el prompt para evitar contenido flaggeado.
-
----
-
-Skill: `landing-image-generator`
-Modelo: `gemini-2.5-flash-image-preview`
+Skill: landing-image-generator
+Modelo: gemini-2.5-flash-image-preview
 Costo: ~$0.039/imagen

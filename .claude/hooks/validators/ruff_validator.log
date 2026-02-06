@@ -1,0 +1,806 @@
+2026-02-03 18:42:05 | INFO | ==================================================
+2026-02-03 18:42:05 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-03 18:42:05 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-03 18:42:05 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/ai_docs/continue_session/CONTINUE_SESSION.md
+2026-02-03 18:42:05 | INFO | Skipping non-Python file
+2026-02-03 18:42:18 | INFO | ==================================================
+2026-02-03 18:42:18 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-03 18:42:18 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-03 18:42:18 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/ai_docs/state/GOAL.md
+2026-02-03 18:42:18 | INFO | Skipping non-Python file
+2026-02-03 18:42:45 | INFO | ==================================================
+2026-02-03 18:42:45 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-03 18:42:45 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-03 18:42:45 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/ai_docs/state/PROGRESS.yaml
+2026-02-03 18:42:45 | INFO | Skipping non-Python file
+2026-02-03 18:43:42 | INFO | ==================================================
+2026-02-03 18:43:42 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-03 18:43:42 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-03 18:43:42 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/ai_docs/issue_analysis/MVP_ISSUES_EXECUTION_ORDER.md
+2026-02-03 18:43:42 | INFO | Skipping non-Python file
+2026-02-04 11:28:45 | INFO | ==================================================
+2026-02-04 11:28:45 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-04 11:28:45 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-04 11:28:45 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/application/use_cases/invoicing/generate_invoice_pdf_use_case.py
+2026-02-04 11:28:45 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/application/use_cases/invoicing/generate_invoice_pdf_use_case.py
+2026-02-04 11:28:54 | INFO |   All checks passed!
+2026-02-04 11:28:54 | INFO | RESULT: PASS - Lint check successful
+2026-02-04 11:29:00 | INFO | ==================================================
+2026-02-04 11:29:00 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-04 11:29:00 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-04 11:29:00 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/application/use_cases/invoicing/generate_invoice_pdf_use_case.py
+2026-02-04 11:29:00 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/application/use_cases/invoicing/generate_invoice_pdf_use_case.py
+2026-02-04 11:29:00 | INFO |   All checks passed!
+2026-02-04 11:29:00 | INFO | RESULT: PASS - Lint check successful
+2026-02-04 11:29:04 | INFO | ==================================================
+2026-02-04 11:29:04 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-04 11:29:04 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-04 11:29:04 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/application/use_cases/invoicing/generate_invoice_pdf_use_case.py
+2026-02-04 11:29:04 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/application/use_cases/invoicing/generate_invoice_pdf_use_case.py
+2026-02-04 11:29:04 | INFO |   All checks passed!
+2026-02-04 11:29:04 | INFO | RESULT: PASS - Lint check successful
+2026-02-04 11:29:07 | INFO | ==================================================
+2026-02-04 11:29:07 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-04 11:29:07 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-04 11:29:07 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/application/use_cases/invoicing/generate_invoice_pdf_use_case.py
+2026-02-04 11:29:07 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/application/use_cases/invoicing/generate_invoice_pdf_use_case.py
+2026-02-04 11:29:07 | INFO |   All checks passed!
+2026-02-04 11:29:07 | INFO | RESULT: PASS - Lint check successful
+2026-02-04 11:29:54 | INFO | ==================================================
+2026-02-04 11:29:54 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-04 11:29:54 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-04 11:29:54 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/infrastructure/services/invoice_pdf_service.py
+2026-02-04 11:29:54 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/infrastructure/services/invoice_pdf_service.py
+2026-02-04 11:29:54 | INFO |   F401 [*] `segno` imported but unused
+2026-02-04 11:29:54 | INFO |     --> app/infrastructure/services/invoice_pdf_service.py:11:8
+2026-02-04 11:29:54 | INFO |      |
+2026-02-04 11:29:54 | INFO |    9 | from typing import Any
+2026-02-04 11:29:54 | INFO |   10 |
+2026-02-04 11:29:54 | INFO |   11 | import segno
+2026-02-04 11:29:54 | INFO |      |        ^^^^^
+2026-02-04 11:29:54 | INFO |   12 | from reportlab.lib import colors
+2026-02-04 11:29:54 | INFO |   13 | from reportlab.lib.pagesizes import A4
+2026-02-04 11:29:54 | INFO |      |
+2026-02-04 11:29:54 | INFO |   help: Remove unused import: `segno`
+2026-02-04 11:29:54 | INFO |   
+2026-02-04 11:29:54 | INFO |   F401 [*] `reportlab.platypus.Image` imported but unused
+2026-02-04 11:29:54 | INFO |     --> app/infrastructure/services/invoice_pdf_service.py:16:32
+2026-02-04 11:29:54 | INFO |      |
+2026-02-04 11:29:54 | INFO |   14 | from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+2026-02-04 11:29:54 | INFO |   15 | from reportlab.lib.units import cm, mm
+2026-02-04 11:29:54 | INFO |   16 | from reportlab.platypus import Image, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
+2026-02-04 11:29:54 | INFO |      |                                ^^^^^
+2026-02-04 11:29:54 | INFO |      |
+2026-02-04 11:29:54 | INFO | RESULT: BLOCK (exit code 1)
+2026-02-04 11:29:58 | INFO | ==================================================
+2026-02-04 11:29:58 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-04 11:29:58 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-04 11:29:58 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/infrastructure/services/invoice_pdf_service.py
+2026-02-04 11:29:58 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/infrastructure/services/invoice_pdf_service.py
+2026-02-04 11:29:58 | INFO |   All checks passed!
+2026-02-04 11:29:58 | INFO | RESULT: PASS - Lint check successful
+2026-02-04 11:30:50 | INFO | ==================================================
+2026-02-04 11:30:50 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-04 11:30:50 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-04 11:30:50 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/infrastructure/services/invoice_pdf_service.py
+2026-02-04 11:30:50 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/infrastructure/services/invoice_pdf_service.py
+2026-02-04 11:30:50 | INFO |   All checks passed!
+2026-02-04 11:30:50 | INFO | RESULT: PASS - Lint check successful
+2026-02-04 11:33:43 | INFO | ==================================================
+2026-02-04 11:33:43 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-04 11:33:43 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-04 11:33:43 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/application/use_cases/invoicing/generate_invoice_pdf_use_case.py
+2026-02-04 11:33:43 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/application/use_cases/invoicing/generate_invoice_pdf_use_case.py
+2026-02-04 11:33:43 | INFO |   I001 [*] Import block is un-sorted or un-formatted
+2026-02-04 11:33:43 | INFO |     --> app/application/use_cases/invoicing/generate_invoice_pdf_use_case.py:11:1
+2026-02-04 11:33:43 | INFO |      |
+2026-02-04 11:33:43 | INFO |    9 |   """
+2026-02-04 11:33:43 | INFO |   10 |
+2026-02-04 11:33:43 | INFO |   11 | / import logging
+2026-02-04 11:33:43 | INFO |   12 | | from dataclasses import dataclass
+2026-02-04 11:33:43 | INFO |   13 | | from uuid import UUID
+2026-02-04 11:33:43 | INFO |   14 | |
+2026-02-04 11:33:43 | INFO |   15 | | from app.domain.exceptions import EntityNotFoundError
+2026-02-04 11:33:43 | INFO |   16 | | from app.domain.repositories.business_repository import IBusinessRepository
+2026-02-04 11:33:43 | INFO |   17 | | from app.infrastructure.services.invoice_pdf_service import InvoicePDFService
+2026-02-04 11:33:43 | INFO |   18 | | from app.domain.repositories.customer_repository import ICustomerRepository
+2026-02-04 11:33:43 | INFO |   19 | | from app.domain.repositories.fiscal_settings_repository import IFiscalSettingsRepository
+2026-02-04 11:33:43 | INFO |   20 | | from app.domain.repositories.invoice_repository import IInvoiceRepository
+2026-02-04 11:33:43 | INFO |      | |_________________________________________________________________________^
+2026-02-04 11:33:43 | INFO |   21 |
+2026-02-04 11:33:43 | INFO |   22 |   logger = logging.getLogger(__name__)
+2026-02-04 11:33:43 | INFO |      |
+2026-02-04 11:33:43 | INFO |   help: Organize imports
+2026-02-04 11:33:43 | INFO | RESULT: BLOCK (exit code 1)
+2026-02-04 11:33:48 | INFO | ==================================================
+2026-02-04 11:33:48 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-04 11:33:48 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-04 11:33:48 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/application/use_cases/invoicing/generate_invoice_pdf_use_case.py
+2026-02-04 11:33:48 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/application/use_cases/invoicing/generate_invoice_pdf_use_case.py
+2026-02-04 11:33:48 | INFO |   F401 [*] `app.infrastructure.services.invoice_pdf_service.InvoicePDFService` imported but unused
+2026-02-04 11:33:48 | INFO |     --> app/application/use_cases/invoicing/generate_invoice_pdf_use_case.py:20:61
+2026-02-04 11:33:48 | INFO |      |
+2026-02-04 11:33:48 | INFO |   18 | from app.domain.repositories.fiscal_settings_repository import IFiscalSettingsRepository
+2026-02-04 11:33:48 | INFO |   19 | from app.domain.repositories.invoice_repository import IInvoiceRepository
+2026-02-04 11:33:48 | INFO |   20 | from app.infrastructure.services.invoice_pdf_service import InvoicePDFService
+2026-02-04 11:33:48 | INFO |      |                                                             ^^^^^^^^^^^^^^^^^
+2026-02-04 11:33:48 | INFO |   21 |
+2026-02-04 11:33:48 | INFO |   22 | logger = logging.getLogger(__name__)
+2026-02-04 11:33:48 | INFO |      |
+2026-02-04 11:33:48 | INFO |   help: Remove unused import: `app.infrastructure.services.invoice_pdf_service.InvoicePDFService`
+2026-02-04 11:33:48 | INFO |   
+2026-02-04 11:33:48 | INFO |   Found 1 error.
+2026-02-04 11:33:48 | INFO |   [*] 1 fixable with the `--fix` option.
+2026-02-04 11:33:48 | INFO | RESULT: BLOCK (exit code 1)
+2026-02-04 11:33:58 | INFO | ==================================================
+2026-02-04 11:33:58 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-04 11:33:58 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-04 11:33:58 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/application/use_cases/invoicing/generate_invoice_pdf_use_case.py
+2026-02-04 11:33:58 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/application/use_cases/invoicing/generate_invoice_pdf_use_case.py
+2026-02-04 11:33:58 | INFO |   All checks passed!
+2026-02-04 11:33:58 | INFO | RESULT: PASS - Lint check successful
+2026-02-04 11:34:10 | INFO | ==================================================
+2026-02-04 11:34:10 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-04 11:34:10 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-04 11:34:10 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/api/v1/invoices.py
+2026-02-04 11:34:10 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/api/v1/invoices.py
+2026-02-04 11:34:10 | INFO |   All checks passed!
+2026-02-04 11:34:10 | INFO | RESULT: PASS - Lint check successful
+2026-02-04 11:50:11 | INFO | ==================================================
+2026-02-04 11:50:11 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-04 11:50:11 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-04 11:50:11 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/tests/test_pdf_generation_standalone.py
+2026-02-04 11:50:11 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/tests/test_pdf_generation_standalone.py
+2026-02-04 11:50:11 | INFO |   I001 [*] Import block is un-sorted or un-formatted
+2026-02-04 11:50:11 | INFO |    --> tests/test_pdf_generation_standalone.py:2:1
+2026-02-04 11:50:11 | INFO |     |
+2026-02-04 11:50:11 | INFO |   1 |   """Standalone test for PDF generation with VeriFactu QR."""
+2026-02-04 11:50:11 | INFO |   2 | / import pytest
+2026-02-04 11:50:11 | INFO |   3 | | from app.infrastructure.services.invoice_pdf_service import InvoicePDFService
+2026-02-04 11:50:11 | INFO |     | |_____________________________________________________________________________^
+2026-02-04 11:50:11 | INFO |     |
+2026-02-04 11:50:11 | INFO |   help: Organize imports
+2026-02-04 11:50:11 | INFO |   
+2026-02-04 11:50:11 | INFO |   ARG002 Unused method argument: `sample_items`
+2026-02-04 11:50:11 | INFO |      --> tests/test_pdf_generation_standalone.py:108:75
+2026-02-04 11:50:11 | INFO |       |
+2026-02-04 11:50:11 | INFO |   106 |         assert pdf_bytes[:5] == b"%PDF-", "Not a valid PDF file"
+2026-02-04 11:50:11 | INFO |   107 |
+2026-02-04 11:50:11 | INFO |   108 |     def test_generate_rectificativa_pdf(self, pdf_service, business_data, sample_items):
+2026-02-04 11:50:11 | INFO |       |                                                                           ^^^^^^^^^^^^
+2026-02-04 11:50:11 | INFO |   109 |         """Test rectifying invoice PDF generation."""
+2026-02-04 11:50:11 | INFO |   110 |         invoice_data = {
+2026-02-04 11:50:11 | INFO |       |
+2026-02-04 11:50:11 | INFO | RESULT: BLOCK (exit code 1)
+2026-02-04 11:50:34 | INFO | ==================================================
+2026-02-04 11:50:34 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-04 11:50:34 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-04 11:50:34 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/tests/test_pdf_generation_standalone.py
+2026-02-04 11:50:34 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/tests/test_pdf_generation_standalone.py
+2026-02-04 11:50:34 | INFO |   All checks passed!
+2026-02-04 11:50:34 | INFO | RESULT: PASS - Lint check successful
+2026-02-04 11:57:14 | INFO | ==================================================
+2026-02-04 11:57:14 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-04 11:57:14 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-04 11:57:14 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/scripts/test_pdf_standalone.py
+2026-02-04 11:57:14 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/scripts/test_pdf_standalone.py
+2026-02-04 11:57:14 | INFO |   All checks passed!
+2026-02-04 11:57:14 | INFO | RESULT: PASS - Lint check successful
+2026-02-04 12:02:23 | INFO | ==================================================
+2026-02-04 12:02:23 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-04 12:02:23 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-04 12:02:23 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/scripts/mini_pdf_test.py
+2026-02-04 12:02:23 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/scripts/mini_pdf_test.py
+2026-02-04 12:02:24 | INFO |   I001 [*] Import block is un-sorted or un-formatted
+2026-02-04 12:02:24 | INFO |    --> scripts/mini_pdf_test.py:2:1
+2026-02-04 12:02:24 | INFO |     |
+2026-02-04 12:02:24 | INFO |   1 | """Minimal PDF test."""
+2026-02-04 12:02:24 | INFO |   2 | import sys
+2026-02-04 12:02:24 | INFO |     | ^^^^^^^^^^
+2026-02-04 12:02:24 | INFO |   3 | print("Starting...", flush=True)
+2026-02-04 12:02:24 | INFO |     |
+2026-02-04 12:02:24 | INFO |   help: Organize imports
+2026-02-04 12:02:24 | INFO |   
+2026-02-04 12:02:24 | INFO |   E402 Module level import not at top of file
+2026-02-04 12:02:24 | INFO |    --> scripts/mini_pdf_test.py:5:1
+2026-02-04 12:02:24 | INFO |     |
+2026-02-04 12:02:24 | INFO |   3 | print("Starting...", flush=True)
+2026-02-04 12:02:24 | INFO |   4 |
+2026-02-04 12:02:24 | INFO |   5 | from reportlab.lib.pagesizes import A4
+2026-02-04 12:02:24 | INFO |     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-04 12:02:24 | INFO |   6 | from reportlab.platypus import SimpleDocTemplate, Paragraph
+2026-02-04 12:02:24 | INFO |   7 | from reportlab.lib.styles import getSampleStyleSheet
+2026-02-04 12:02:24 | INFO |     |
+2026-02-04 12:02:24 | INFO | RESULT: BLOCK (exit code 1)
+2026-02-04 12:02:28 | INFO | ==================================================
+2026-02-04 12:02:28 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-04 12:02:28 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-04 12:02:28 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/scripts/mini_pdf_test.py
+2026-02-04 12:02:28 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/scripts/mini_pdf_test.py
+2026-02-04 12:02:28 | INFO |   All checks passed!
+2026-02-04 12:02:28 | INFO | RESULT: PASS - Lint check successful
+2026-02-04 12:03:02 | INFO | ==================================================
+2026-02-04 12:03:02 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-04 12:03:02 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-04 12:03:02 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/scripts/test_pdf_standalone.py
+2026-02-04 12:03:02 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/scripts/test_pdf_standalone.py
+2026-02-04 12:03:02 | INFO |   All checks passed!
+2026-02-04 12:03:02 | INFO | RESULT: PASS - Lint check successful
+2026-02-04 12:03:07 | INFO | ==================================================
+2026-02-04 12:03:07 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-04 12:03:07 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-04 12:03:07 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/scripts/test_pdf_standalone.py
+2026-02-04 12:03:07 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/scripts/test_pdf_standalone.py
+2026-02-04 12:03:07 | INFO |   All checks passed!
+2026-02-04 12:03:07 | INFO | RESULT: PASS - Lint check successful
+2026-02-04 14:03:30 | INFO | ==================================================
+2026-02-04 14:03:30 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-04 14:03:30 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-04 14:03:30 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/application/use_cases/invoicing/generate_invoice_pdf_use_case.py
+2026-02-04 14:03:30 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/application/use_cases/invoicing/generate_invoice_pdf_use_case.py
+2026-02-04 14:03:31 | INFO |   All checks passed!
+2026-02-04 14:03:31 | INFO | RESULT: PASS - Lint check successful
+2026-02-04 14:03:33 | INFO | ==================================================
+2026-02-04 14:03:33 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-04 14:03:33 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-04 14:03:33 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/application/use_cases/invoicing/generate_invoice_pdf_use_case.py
+2026-02-04 14:03:33 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/application/use_cases/invoicing/generate_invoice_pdf_use_case.py
+2026-02-04 14:03:33 | INFO |   F841 Local variable `rectifies_invoice_number` is assigned to but never used
+2026-02-04 14:03:33 | INFO |      --> app/application/use_cases/invoicing/generate_invoice_pdf_use_case.py:146:17
+2026-02-04 14:03:33 | INFO |       |
+2026-02-04 14:03:33 | INFO |   144 |             original_invoice = await self.invoice_repo.get_by_id(invoice.rectifies_invoice_id)
+2026-02-04 14:03:33 | INFO |   145 |             if original_invoice:
+2026-02-04 14:03:33 | INFO |   146 |                 rectifies_invoice_number = original_invoice.invoice_number
+2026-02-04 14:03:33 | INFO |       |                 ^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-04 14:03:33 | INFO |   147 |
+2026-02-04 14:03:33 | INFO |   148 |         # 7. Build PDF data
+2026-02-04 14:03:33 | INFO |       |
+2026-02-04 14:03:33 | INFO |   help: Remove assignment to unused variable `rectifies_invoice_number`
+2026-02-04 14:03:33 | INFO |   
+2026-02-04 14:03:33 | INFO |   Found 1 error.
+2026-02-04 14:03:33 | INFO |   No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+2026-02-04 14:03:33 | INFO | RESULT: BLOCK (exit code 1)
+2026-02-04 14:03:34 | INFO | ==================================================
+2026-02-04 14:03:34 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-04 14:03:34 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-04 14:03:34 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/application/use_cases/invoicing/generate_invoice_pdf_use_case.py
+2026-02-04 14:03:34 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/application/use_cases/invoicing/generate_invoice_pdf_use_case.py
+2026-02-04 14:03:34 | INFO |   All checks passed!
+2026-02-04 14:03:34 | INFO | RESULT: PASS - Lint check successful
+2026-02-04 14:05:28 | INFO | ==================================================
+2026-02-04 14:05:28 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-04 14:05:28 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-04 14:05:28 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/infrastructure/services/invoice_pdf_service.py
+2026-02-04 14:05:28 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/infrastructure/services/invoice_pdf_service.py
+2026-02-04 14:05:29 | INFO |   F541 [*] f-string without any placeholders
+2026-02-04 14:05:29 | INFO |      --> app/infrastructure/services/invoice_pdf_service.py:340:14
+2026-02-04 14:05:29 | INFO |       |
+2026-02-04 14:05:29 | INFO |   338 |             ["Subtotal:", subtotal],
+2026-02-04 14:05:29 | INFO |   339 |             ["IVA:", tax_amount],
+2026-02-04 14:05:29 | INFO |   340 |             [f"<b>TOTAL:</b>", f"<b>{total}</b>"],
+2026-02-04 14:05:29 | INFO |       |              ^^^^^^^^^^^^^^^^
+2026-02-04 14:05:29 | INFO |   341 |         ]
+2026-02-04 14:05:29 | INFO |       |
+2026-02-04 14:05:29 | INFO |   help: Remove extraneous `f` prefix
+2026-02-04 14:05:29 | INFO |   
+2026-02-04 14:05:29 | INFO |   Found 1 error.
+2026-02-04 14:05:29 | INFO |   [*] 1 fixable with the `--fix` option.
+2026-02-04 14:05:29 | INFO | RESULT: BLOCK (exit code 1)
+2026-02-04 14:05:32 | INFO | ==================================================
+2026-02-04 14:05:32 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-04 14:05:32 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-04 14:05:32 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/infrastructure/services/invoice_pdf_service.py
+2026-02-04 14:05:32 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/infrastructure/services/invoice_pdf_service.py
+2026-02-04 14:05:32 | INFO |   All checks passed!
+2026-02-04 14:05:32 | INFO | RESULT: PASS - Lint check successful
+2026-02-05 00:44:07 | INFO | ==================================================
+2026-02-05 00:44:07 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 00:44:07 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 00:44:07 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/core/config.py
+2026-02-05 00:44:07 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/core/config.py
+2026-02-05 00:44:07 | INFO |   All checks passed!
+2026-02-05 00:44:07 | INFO | RESULT: PASS - Lint check successful
+2026-02-05 00:44:46 | INFO | ==================================================
+2026-02-05 00:44:46 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 00:44:46 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 00:44:46 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/verifactu.py
+2026-02-05 00:44:46 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/verifactu.py
+2026-02-05 00:44:46 | INFO |   F401 [*] `fastapi.Query` imported but unused
+2026-02-05 00:44:46 | INFO |     --> app/presentation/verifactu.py:12:41
+2026-02-05 00:44:46 | INFO |      |
+2026-02-05 00:44:46 | INFO |   10 | import logging
+2026-02-05 00:44:46 | INFO |   11 |
+2026-02-05 00:44:46 | INFO |   12 | from fastapi import APIRouter, Depends, Query, Request
+2026-02-05 00:44:46 | INFO |      |                                         ^^^^^
+2026-02-05 00:44:46 | INFO |   13 | from fastapi.responses import HTMLResponse
+2026-02-05 00:44:46 | INFO |   14 | from pydantic import BaseModel, Field
+2026-02-05 00:44:46 | INFO |      |
+2026-02-05 00:44:46 | INFO |   help: Remove unused import: `fastapi.Query`
+2026-02-05 00:44:46 | INFO |   
+2026-02-05 00:44:46 | INFO |   B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
+2026-02-05 00:44:46 | INFO |      --> app/presentation/verifactu.py:243:35
+2026-02-05 00:44:46 | INFO |       |
+2026-02-05 00:44:46 | INFO |   241 | async def verify_invoice(
+2026-02-05 00:44:46 | INFO |   242 |     request: Request,
+2026-02-05 00:44:46 | INFO |   243 |     params: VerifyInvoiceParams = Depends(),
+2026-02-05 00:44:46 | INFO |       |                                   ^^^^^^^^^
+2026-02-05 00:44:46 | INFO |   244 | ) -> HTMLResponse:
+2026-02-05 00:44:46 | INFO | RESULT: BLOCK (exit code 1)
+2026-02-05 00:44:50 | INFO | ==================================================
+2026-02-05 00:44:50 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 00:44:50 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 00:44:50 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/verifactu.py
+2026-02-05 00:44:50 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/verifactu.py
+2026-02-05 00:44:50 | INFO |   B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
+2026-02-05 00:44:50 | INFO |      --> app/presentation/verifactu.py:243:35
+2026-02-05 00:44:50 | INFO |       |
+2026-02-05 00:44:50 | INFO |   241 | async def verify_invoice(
+2026-02-05 00:44:50 | INFO |   242 |     request: Request,
+2026-02-05 00:44:50 | INFO |   243 |     params: VerifyInvoiceParams = Depends(),
+2026-02-05 00:44:50 | INFO |       |                                   ^^^^^^^^^
+2026-02-05 00:44:50 | INFO |   244 | ) -> HTMLResponse:
+2026-02-05 00:44:50 | INFO |   245 |     """Public endpoint to verify a VeriFactu invoice via QR code.
+2026-02-05 00:44:50 | INFO |       |
+2026-02-05 00:44:50 | INFO |   
+2026-02-05 00:44:50 | INFO |   Found 1 error.
+2026-02-05 00:44:50 | INFO | RESULT: BLOCK (exit code 1)
+2026-02-05 00:44:53 | INFO | ==================================================
+2026-02-05 00:44:53 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 00:44:53 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 00:44:53 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/verifactu.py
+2026-02-05 00:44:53 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/verifactu.py
+2026-02-05 00:44:53 | INFO |   B008 Do not perform function call `Depends` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
+2026-02-05 00:44:53 | INFO |      --> app/presentation/verifactu.py:245:35
+2026-02-05 00:44:53 | INFO |       |
+2026-02-05 00:44:53 | INFO |   243 | async def verify_invoice(
+2026-02-05 00:44:53 | INFO |   244 |     request: Request,
+2026-02-05 00:44:53 | INFO |   245 |     params: VerifyInvoiceParams = Depends(),
+2026-02-05 00:44:53 | INFO |       |                                   ^^^^^^^^^
+2026-02-05 00:44:53 | INFO |   246 | ) -> HTMLResponse:
+2026-02-05 00:44:53 | INFO |   247 |     """Public endpoint to verify a VeriFactu invoice via QR code.
+2026-02-05 00:44:53 | INFO |       |
+2026-02-05 00:44:53 | INFO |   
+2026-02-05 00:44:53 | INFO |   Found 1 error.
+2026-02-05 00:44:53 | INFO | RESULT: BLOCK (exit code 1)
+2026-02-05 00:44:57 | INFO | ==================================================
+2026-02-05 00:44:57 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 00:44:57 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 00:44:57 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/verifactu.py
+2026-02-05 00:44:57 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/verifactu.py
+2026-02-05 00:44:57 | INFO |   All checks passed!
+2026-02-05 00:44:57 | INFO | RESULT: PASS - Lint check successful
+2026-02-05 00:46:41 | INFO | ==================================================
+2026-02-05 00:46:41 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 00:46:41 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 00:46:41 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/main.py
+2026-02-05 00:46:41 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/main.py
+2026-02-05 00:46:41 | INFO |   E402 Module level import not at top of file
+2026-02-05 00:46:41 | INFO |      --> app/presentation/main.py:99:1
+2026-02-05 00:46:41 | INFO |       |
+2026-02-05 00:46:41 | INFO |    98 | # Include VeriFactu public verification router (outside /api/v1, public access)
+2026-02-05 00:46:41 | INFO |    99 | from app.presentation.verifactu import router as verifactu_router
+2026-02-05 00:46:41 | INFO |       | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-05 00:46:41 | INFO |   100 |
+2026-02-05 00:46:41 | INFO |   101 | app.include_router(verifactu_router, prefix="/verifactu")
+2026-02-05 00:46:41 | INFO |       |
+2026-02-05 00:46:41 | INFO |   
+2026-02-05 00:46:41 | INFO |   Found 1 error.
+2026-02-05 00:46:41 | INFO | RESULT: BLOCK (exit code 1)
+2026-02-05 00:46:42 | INFO | ==================================================
+2026-02-05 00:46:42 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 00:46:42 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 00:46:42 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/middleware/rls.py
+2026-02-05 00:46:42 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/middleware/rls.py
+2026-02-05 00:46:42 | INFO |   All checks passed!
+2026-02-05 00:46:42 | INFO | RESULT: PASS - Lint check successful
+2026-02-05 00:46:42 | INFO | ==================================================
+2026-02-05 00:46:42 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 00:46:42 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 00:46:42 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/middleware/subscription_middleware.py
+2026-02-05 00:46:42 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/middleware/subscription_middleware.py
+2026-02-05 00:46:42 | INFO |   All checks passed!
+2026-02-05 00:46:43 | INFO | RESULT: PASS - Lint check successful
+2026-02-05 00:46:44 | INFO | ==================================================
+2026-02-05 00:46:44 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 00:46:44 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 00:46:44 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/middleware/subscription_middleware.py
+2026-02-05 00:46:44 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/middleware/subscription_middleware.py
+2026-02-05 00:46:44 | INFO |   All checks passed!
+2026-02-05 00:46:44 | INFO | RESULT: PASS - Lint check successful
+2026-02-05 00:46:51 | INFO | ==================================================
+2026-02-05 00:46:51 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 00:46:51 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 00:46:51 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/main.py
+2026-02-05 00:46:51 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/main.py
+2026-02-05 00:46:51 | INFO |   I001 [*] Import block is un-sorted or un-formatted
+2026-02-05 00:46:51 | INFO |     --> app/presentation/main.py:3:1
+2026-02-05 00:46:51 | INFO |      |
+2026-02-05 00:46:51 | INFO |    1 |   """FastAPI application entry point."""
+2026-02-05 00:46:51 | INFO |    2 |
+2026-02-05 00:46:51 | INFO |    3 | / from collections.abc import AsyncGenerator
+2026-02-05 00:46:51 | INFO |    4 | | from contextlib import asynccontextmanager
+2026-02-05 00:46:51 | INFO |    5 | |
+2026-02-05 00:46:51 | INFO |    6 | | from fastapi import FastAPI
+2026-02-05 00:46:51 | INFO |    7 | | from fastapi.middleware.cors import CORSMiddleware
+2026-02-05 00:46:51 | INFO |    8 | |
+2026-02-05 00:46:51 | INFO |    9 | | from app.core.config import settings
+2026-02-05 00:46:51 | INFO |   10 | | from app.infrastructure.cache.redis_client import redis_client
+2026-02-05 00:46:51 | INFO |   11 | | from app.infrastructure.database.connection import close_db, init_db
+2026-02-05 00:46:51 | INFO |   12 | | from app.infrastructure.scheduler import shutdown_scheduler, start_scheduler
+2026-02-05 00:46:51 | INFO |   13 | | from app.presentation.api.v1 import api_router
+2026-02-05 00:46:51 | INFO |   14 | | from app.presentation.verifactu import router as verifactu_router
+2026-02-05 00:46:51 | INFO |   15 | | from app.presentation.dependencies.rate_limit import limiter
+2026-02-05 00:46:51 | INFO |   16 | | from app.presentation.exceptions import register_exception_handlers
+2026-02-05 00:46:51 | INFO |   17 | | from app.presentation.middleware import (
+2026-02-05 00:46:51 | INFO | RESULT: BLOCK (exit code 1)
+2026-02-05 00:46:57 | INFO | ==================================================
+2026-02-05 00:46:57 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 00:46:57 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 00:46:57 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/main.py
+2026-02-05 00:46:57 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/main.py
+2026-02-05 00:46:57 | INFO |   I001 [*] Import block is un-sorted or un-formatted
+2026-02-05 00:46:57 | INFO |     --> app/presentation/main.py:3:1
+2026-02-05 00:46:57 | INFO |      |
+2026-02-05 00:46:57 | INFO |    1 |   """FastAPI application entry point."""
+2026-02-05 00:46:57 | INFO |    2 |
+2026-02-05 00:46:57 | INFO |    3 | / from collections.abc import AsyncGenerator
+2026-02-05 00:46:57 | INFO |    4 | | from contextlib import asynccontextmanager
+2026-02-05 00:46:57 | INFO |    5 | |
+2026-02-05 00:46:57 | INFO |    6 | | from fastapi import FastAPI
+2026-02-05 00:46:57 | INFO |    7 | | from fastapi.middleware.cors import CORSMiddleware
+2026-02-05 00:46:57 | INFO |    8 | |
+2026-02-05 00:46:57 | INFO |    9 | | from app.core.config import settings
+2026-02-05 00:46:57 | INFO |   10 | | from app.infrastructure.cache.redis_client import redis_client
+2026-02-05 00:46:57 | INFO |   11 | | from app.infrastructure.database.connection import close_db, init_db
+2026-02-05 00:46:57 | INFO |   12 | | from app.infrastructure.scheduler import shutdown_scheduler, start_scheduler
+2026-02-05 00:46:57 | INFO |   13 | | from app.presentation.api.v1 import api_router
+2026-02-05 00:46:57 | INFO |   14 | | from app.presentation.verifactu import router as verifactu_router
+2026-02-05 00:46:57 | INFO |   15 | | from app.presentation.dependencies.rate_limit import limiter
+2026-02-05 00:46:57 | INFO |   16 | | from app.presentation.exceptions import register_exception_handlers
+2026-02-05 00:46:57 | INFO |   17 | | from app.presentation.middleware import (
+2026-02-05 00:46:57 | INFO | RESULT: BLOCK (exit code 1)
+2026-02-05 00:47:05 | INFO | ==================================================
+2026-02-05 00:47:05 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 00:47:05 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 00:47:05 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/main.py
+2026-02-05 00:47:05 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/main.py
+2026-02-05 00:47:05 | INFO |   All checks passed!
+2026-02-05 00:47:05 | INFO | RESULT: PASS - Lint check successful
+2026-02-05 00:57:22 | INFO | ==================================================
+2026-02-05 00:57:22 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 00:57:22 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 00:57:22 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/infrastructure/services/invoice_pdf_service.py
+2026-02-05 00:57:22 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/infrastructure/services/invoice_pdf_service.py
+2026-02-05 00:57:23 | INFO |   I001 [*] Import block is un-sorted or un-formatted
+2026-02-05 00:57:23 | INFO |     --> app/infrastructure/services/invoice_pdf_service.py:6:1
+2026-02-05 00:57:23 | INFO |      |
+2026-02-05 00:57:23 | INFO |    4 |   """
+2026-02-05 00:57:23 | INFO |    5 |
+2026-02-05 00:57:23 | INFO |    6 | / import io
+2026-02-05 00:57:23 | INFO |    7 | | from datetime import date
+2026-02-05 00:57:23 | INFO |    8 | | from decimal import Decimal
+2026-02-05 00:57:23 | INFO |    9 | | from typing import Any
+2026-02-05 00:57:23 | INFO |   10 | |
+2026-02-05 00:57:23 | INFO |   11 | | import segno
+2026-02-05 00:57:23 | INFO |   12 | |
+2026-02-05 00:57:23 | INFO |   13 | | from app.core.config import settings
+2026-02-05 00:57:23 | INFO |   14 | | from reportlab.lib import colors
+2026-02-05 00:57:23 | INFO |   15 | | from reportlab.lib.pagesizes import A4
+2026-02-05 00:57:23 | INFO |   16 | | from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+2026-02-05 00:57:23 | INFO |   17 | | from reportlab.lib.units import cm, mm
+2026-02-05 00:57:23 | INFO |   18 | | from reportlab.platypus import Image, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
+2026-02-05 00:57:23 | INFO |      | |_____________________________________________________________________________________________^
+2026-02-05 00:57:23 | INFO |      |
+2026-02-05 00:57:23 | INFO | RESULT: BLOCK (exit code 1)
+2026-02-05 00:57:26 | INFO | ==================================================
+2026-02-05 00:57:26 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 00:57:26 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 00:57:26 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/infrastructure/services/invoice_pdf_service.py
+2026-02-05 00:57:26 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/infrastructure/services/invoice_pdf_service.py
+2026-02-05 00:57:26 | INFO |   All checks passed!
+2026-02-05 00:57:26 | INFO | RESULT: PASS - Lint check successful
+2026-02-05 00:57:32 | INFO | ==================================================
+2026-02-05 00:57:32 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 00:57:32 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 00:57:32 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/infrastructure/services/invoice_pdf_service.py
+2026-02-05 00:57:32 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/infrastructure/services/invoice_pdf_service.py
+2026-02-05 00:57:32 | INFO |   F401 [*] `app.core.config.settings` imported but unused
+2026-02-05 00:57:32 | INFO |     --> app/infrastructure/services/invoice_pdf_service.py:18:29
+2026-02-05 00:57:32 | INFO |      |
+2026-02-05 00:57:32 | INFO |   16 | from reportlab.platypus import Image, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
+2026-02-05 00:57:32 | INFO |   17 |
+2026-02-05 00:57:32 | INFO |   18 | from app.core.config import settings
+2026-02-05 00:57:32 | INFO |      |                             ^^^^^^^^
+2026-02-05 00:57:32 | INFO |      |
+2026-02-05 00:57:32 | INFO |   help: Remove unused import: `app.core.config.settings`
+2026-02-05 00:57:32 | INFO |   
+2026-02-05 00:57:32 | INFO |   Found 1 error.
+2026-02-05 00:57:32 | INFO |   [*] 1 fixable with the `--fix` option.
+2026-02-05 00:57:32 | INFO | RESULT: BLOCK (exit code 1)
+2026-02-05 00:57:39 | INFO | ==================================================
+2026-02-05 00:57:39 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 00:57:39 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 00:57:39 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/infrastructure/services/invoice_pdf_service.py
+2026-02-05 00:57:39 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/infrastructure/services/invoice_pdf_service.py
+2026-02-05 00:57:39 | INFO |   All checks passed!
+2026-02-05 00:57:39 | INFO | RESULT: PASS - Lint check successful
+2026-02-05 01:25:13 | INFO | ==================================================
+2026-02-05 01:25:13 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 01:25:13 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 01:25:13 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/migrations/versions/044_add_verifactu_verify_function.py
+2026-02-05 01:25:13 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/migrations/versions/044_add_verifactu_verify_function.py
+2026-02-05 01:25:13 | INFO |   I001 [*] Import block is un-sorted or un-formatted
+2026-02-05 01:25:13 | INFO |     --> migrations/versions/044_add_verifactu_verify_function.py:16:1
+2026-02-05 01:25:13 | INFO |      |
+2026-02-05 01:25:13 | INFO |   14 | """
+2026-02-05 01:25:13 | INFO |   15 |
+2026-02-05 01:25:13 | INFO |   16 | from alembic import op
+2026-02-05 01:25:13 | INFO |      | ^^^^^^^^^^^^^^^^^^^^^^
+2026-02-05 01:25:13 | INFO |      |
+2026-02-05 01:25:13 | INFO |   help: Organize imports
+2026-02-05 01:25:13 | INFO |   
+2026-02-05 01:25:13 | INFO |   Found 1 error.
+2026-02-05 01:25:13 | INFO |   [*] 1 fixable with the `--fix` option.
+2026-02-05 01:25:13 | INFO | RESULT: BLOCK (exit code 1)
+2026-02-05 01:25:15 | INFO | ==================================================
+2026-02-05 01:25:15 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 01:25:15 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 01:25:15 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/044_verifactu_verify_function.sql
+2026-02-05 01:25:15 | INFO | Skipping non-Python file
+2026-02-05 01:25:17 | INFO | ==================================================
+2026-02-05 01:25:17 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 01:25:17 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 01:25:17 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/verifactu.py
+2026-02-05 01:25:17 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/verifactu.py
+2026-02-05 01:25:17 | INFO |   All checks passed!
+2026-02-05 01:25:17 | INFO | RESULT: PASS - Lint check successful
+2026-02-05 22:14:44 | INFO | ==================================================
+2026-02-05 22:14:44 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 22:14:44 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 22:14:44 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/tmp_playwright_test.py
+2026-02-05 22:14:44 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/tmp_playwright_test.py
+2026-02-05 22:14:45 | INFO |   I001 [*] Import block is un-sorted or un-formatted
+2026-02-05 22:14:45 | INFO |     --> tmp_playwright_test.py:6:1
+2026-02-05 22:14:45 | INFO |      |
+2026-02-05 22:14:45 | INFO |    4 |   Checks for Mixed Content errors in browser console.
+2026-02-05 22:14:45 | INFO |    5 |   """
+2026-02-05 22:14:45 | INFO |    6 | / import asyncio
+2026-02-05 22:14:45 | INFO |    7 | | import json
+2026-02-05 22:14:45 | INFO |    8 | | import os
+2026-02-05 22:14:45 | INFO |    9 | | from datetime import datetime
+2026-02-05 22:14:45 | INFO |   10 | | from playwright.async_api import async_playwright
+2026-02-05 22:14:45 | INFO |      | |_________________________________________________^
+2026-02-05 22:14:45 | INFO |   11 |
+2026-02-05 22:14:45 | INFO |   12 |   SCREENSHOTS_DIR = "/Users/cristianbejaranomendez/Documents/GitHub/ideas/tmp_screenshots"
+2026-02-05 22:14:45 | INFO |      |
+2026-02-05 22:14:45 | INFO |   help: Organize imports
+2026-02-05 22:14:45 | INFO |   
+2026-02-05 22:14:45 | INFO |   T201 `print` found
+2026-02-05 22:14:45 | INFO |     --> tmp_playwright_test.py:35:9
+2026-02-05 22:14:45 | INFO |      |
+2026-02-05 22:14:45 | INFO |   33 |         mixed_content_errors.append(entry)
+2026-02-05 22:14:45 | INFO | RESULT: BLOCK (exit code 1)
+2026-02-05 22:15:48 | INFO | ==================================================
+2026-02-05 22:15:48 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 22:15:48 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 22:15:48 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/tmp_playwright_test.py
+2026-02-05 22:15:48 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/tmp_playwright_test.py
+2026-02-05 22:15:48 | INFO |   T201 `print` found
+2026-02-05 22:15:48 | INFO |     --> tmp_playwright_test.py:38:9
+2026-02-05 22:15:48 | INFO |      |
+2026-02-05 22:15:48 | INFO |   36 |         mixed_content_errors.append(entry)
+2026-02-05 22:15:48 | INFO |   37 |     if msg.type == "error":
+2026-02-05 22:15:48 | INFO |   38 |         print(f"  [CONSOLE ERROR] {msg.text[:200]}")
+2026-02-05 22:15:48 | INFO |      |         ^^^^^
+2026-02-05 22:15:48 | INFO |      |
+2026-02-05 22:15:48 | INFO |   help: Remove `print`
+2026-02-05 22:15:48 | INFO |   
+2026-02-05 22:15:48 | INFO |   T201 `print` found
+2026-02-05 22:15:48 | INFO |     --> tmp_playwright_test.py:75:9
+2026-02-05 22:15:48 | INFO |      |
+2026-02-05 22:15:48 | INFO |   74 |         # STEP 1: Navigate to /bookings (expect redirect to login)
+2026-02-05 22:15:48 | INFO |   75 |         print("\n=== STEP 1: Navigate to /bookings ===")
+2026-02-05 22:15:48 | INFO |      |         ^^^^^
+2026-02-05 22:15:48 | INFO |   76 |         try:
+2026-02-05 22:15:48 | INFO |   77 |             response = await page.goto(
+2026-02-05 22:15:48 | INFO |      |
+2026-02-05 22:15:48 | INFO |   help: Remove `print`
+2026-02-05 22:15:48 | INFO | RESULT: BLOCK (exit code 1)
+2026-02-05 22:24:39 | INFO | ==================================================
+2026-02-05 22:24:39 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 22:24:39 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 22:24:39 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/main.py
+2026-02-05 22:24:39 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/app/presentation/main.py
+2026-02-05 22:24:39 | INFO |   All checks passed!
+2026-02-05 22:24:39 | INFO | RESULT: PASS - Lint check successful
+2026-02-05 22:35:56 | INFO | ==================================================
+2026-02-05 22:35:56 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 22:35:56 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 22:35:56 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/test_mixed_content.py
+2026-02-05 22:35:56 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/test_mixed_content.py
+2026-02-05 22:35:57 | INFO |   I001 [*] Import block is un-sorted or un-formatted
+2026-02-05 22:35:57 | INFO |    --> test_mixed_content.py:6:1
+2026-02-05 22:35:57 | INFO |     |
+2026-02-05 22:35:57 | INFO |   4 |   Tests production environment: https://app.kairosai.es/login
+2026-02-05 22:35:57 | INFO |   5 |   """
+2026-02-05 22:35:57 | INFO |   6 | / import asyncio
+2026-02-05 22:35:57 | INFO |   7 | | from playwright.async_api import async_playwright
+2026-02-05 22:35:57 | INFO |   8 | | from collections import defaultdict
+2026-02-05 22:35:57 | INFO |   9 | | from urllib.parse import urlparse
+2026-02-05 22:35:57 | INFO |     | |_________________________________^
+2026-02-05 22:35:57 | INFO |     |
+2026-02-05 22:35:57 | INFO |   help: Organize imports
+2026-02-05 22:35:57 | INFO |   
+2026-02-05 22:35:57 | INFO |   T201 `print` found
+2026-02-05 22:35:57 | INFO |     --> test_mixed_content.py:40:21
+2026-02-05 22:35:57 | INFO |      |
+2026-02-05 22:35:57 | INFO |   38 |                 if parsed.scheme == 'http':
+2026-02-05 22:35:57 | INFO |   39 |                     http_requests.append(request_info)
+2026-02-05 22:35:57 | INFO |   40 |                     print(f"❌ HTTP REQUEST DETECTED: {request.method} {url}")
+2026-02-05 22:35:57 | INFO |      |                     ^^^^^
+2026-02-05 22:35:57 | INFO | RESULT: BLOCK (exit code 1)
+2026-02-05 22:36:02 | INFO | ==================================================
+2026-02-05 22:36:02 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 22:36:02 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 22:36:02 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/test_mixed_content.py
+2026-02-05 22:36:02 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/test_mixed_content.py
+2026-02-05 22:36:02 | INFO |   T201 `print` found
+2026-02-05 22:36:02 | INFO |     --> test_mixed_content.py:41:21
+2026-02-05 22:36:02 | INFO |      |
+2026-02-05 22:36:02 | INFO |   39 |                 if parsed.scheme == 'http':
+2026-02-05 22:36:02 | INFO |   40 |                     http_requests.append(request_info)
+2026-02-05 22:36:02 | INFO |   41 |                     print(f"❌ HTTP REQUEST DETECTED: {request.method} {url}")
+2026-02-05 22:36:02 | INFO |      |                     ^^^^^
+2026-02-05 22:36:02 | INFO |   42 |                 elif parsed.scheme == 'https':
+2026-02-05 22:36:02 | INFO |   43 |                     https_requests.append(request_info)
+2026-02-05 22:36:02 | INFO |      |
+2026-02-05 22:36:02 | INFO |   help: Remove `print`
+2026-02-05 22:36:02 | INFO |   
+2026-02-05 22:36:02 | INFO |   T201 `print` found
+2026-02-05 22:36:02 | INFO |     --> test_mixed_content.py:44:21
+2026-02-05 22:36:02 | INFO |      |
+2026-02-05 22:36:02 | INFO |   42 |                 elif parsed.scheme == 'https':
+2026-02-05 22:36:02 | INFO |   43 |                     https_requests.append(request_info)
+2026-02-05 22:36:02 | INFO |   44 |                     print(f"✅ HTTPS: {request.method} {url}")
+2026-02-05 22:36:02 | INFO |      |                     ^^^^^
+2026-02-05 22:36:02 | INFO |   45 |
+2026-02-05 22:36:02 | INFO | RESULT: BLOCK (exit code 1)
+2026-02-05 22:36:07 | INFO | ==================================================
+2026-02-05 22:36:07 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 22:36:07 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 22:36:07 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/test_mixed_content.py
+2026-02-05 22:36:07 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/test_mixed_content.py
+2026-02-05 22:36:07 | INFO |   F541 [*] f-string without any placeholders
+2026-02-05 22:36:07 | INFO |     --> test_mixed_content.py:52:15
+2026-02-05 22:36:07 | INFO |      |
+2026-02-05 22:36:07 | INFO |   50 |         print("PLAYWRIGHT MIXED CONTENT TEST")
+2026-02-05 22:36:07 | INFO |   51 |         print("=" * 80)
+2026-02-05 22:36:07 | INFO |   52 |         print(f"Target: https://app.kairosai.es/login")
+2026-02-05 22:36:07 | INFO |      |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-05 22:36:07 | INFO |   53 |         print(f"Credentials: nixaitech@gmail.com / Demokairos2026")
+2026-02-05 22:36:07 | INFO |   54 |         print("=" * 80)
+2026-02-05 22:36:07 | INFO |      |
+2026-02-05 22:36:07 | INFO |   help: Remove extraneous `f` prefix
+2026-02-05 22:36:07 | INFO |   
+2026-02-05 22:36:07 | INFO |   F541 [*] f-string without any placeholders
+2026-02-05 22:36:07 | INFO |     --> test_mixed_content.py:53:15
+2026-02-05 22:36:07 | INFO |      |
+2026-02-05 22:36:07 | INFO |   51 |         print("=" * 80)
+2026-02-05 22:36:07 | INFO |   52 |         print(f"Target: https://app.kairosai.es/login")
+2026-02-05 22:36:07 | INFO |   53 |         print(f"Credentials: nixaitech@gmail.com / Demokairos2026")
+2026-02-05 22:36:07 | INFO |      |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-05 22:36:07 | INFO |   54 |         print("=" * 80)
+2026-02-05 22:36:07 | INFO | RESULT: BLOCK (exit code 1)
+2026-02-05 22:36:12 | INFO | ==================================================
+2026-02-05 22:36:12 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 22:36:12 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 22:36:12 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/test_mixed_content.py
+2026-02-05 22:36:12 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/test_mixed_content.py
+2026-02-05 22:36:12 | INFO |   F541 [*] f-string without any placeholders
+2026-02-05 22:36:12 | INFO |     --> test_mixed_content.py:52:15
+2026-02-05 22:36:12 | INFO |      |
+2026-02-05 22:36:12 | INFO |   50 |         print("PLAYWRIGHT MIXED CONTENT TEST")
+2026-02-05 22:36:12 | INFO |   51 |         print("=" * 80)
+2026-02-05 22:36:12 | INFO |   52 |         print(f"Target: https://app.kairosai.es/login")
+2026-02-05 22:36:12 | INFO |      |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-05 22:36:12 | INFO |   53 |         print(f"Credentials: nixaitech@gmail.com / Demokairos2026")
+2026-02-05 22:36:12 | INFO |   54 |         print("=" * 80)
+2026-02-05 22:36:12 | INFO |      |
+2026-02-05 22:36:12 | INFO |   help: Remove extraneous `f` prefix
+2026-02-05 22:36:12 | INFO |   
+2026-02-05 22:36:12 | INFO |   F541 [*] f-string without any placeholders
+2026-02-05 22:36:12 | INFO |     --> test_mixed_content.py:53:15
+2026-02-05 22:36:12 | INFO |      |
+2026-02-05 22:36:12 | INFO |   51 |         print("=" * 80)
+2026-02-05 22:36:12 | INFO |   52 |         print(f"Target: https://app.kairosai.es/login")
+2026-02-05 22:36:12 | INFO |   53 |         print(f"Credentials: nixaitech@gmail.com / Demokairos2026")
+2026-02-05 22:36:12 | INFO |      |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-05 22:36:12 | INFO |   54 |         print("=" * 80)
+2026-02-05 22:36:12 | INFO | RESULT: BLOCK (exit code 1)
+2026-02-05 22:36:22 | INFO | ==================================================
+2026-02-05 22:36:22 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-05 22:36:22 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-05 22:36:22 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/ideas/test_mixed_content.py
+2026-02-05 22:36:22 | INFO | Running: uvx ruff check /Users/cristianbejaranomendez/Documents/GitHub/ideas/test_mixed_content.py
+2026-02-05 22:36:22 | INFO |   All checks passed!
+2026-02-05 22:36:22 | INFO | RESULT: PASS - Lint check successful
+2026-02-06 12:06:25 | INFO | ==================================================
+2026-02-06 12:06:25 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-06 12:06:25 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-06 12:06:25 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/studiotek-landing/components/ui/AIChatPanel.tsx
+2026-02-06 12:06:25 | INFO | Skipping non-Python file
+2026-02-06 12:06:37 | INFO | ==================================================
+2026-02-06 12:06:37 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-06 12:06:37 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-06 12:06:37 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/studiotek-landing/lib/rate-limit.ts
+2026-02-06 12:06:37 | INFO | Skipping non-Python file
+2026-02-06 12:06:39 | INFO | ==================================================
+2026-02-06 12:06:39 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-06 12:06:39 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-06 12:06:39 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/studiotek-landing/lib/logger.ts
+2026-02-06 12:06:39 | INFO | Skipping non-Python file
+2026-02-06 12:06:58 | INFO | ==================================================
+2026-02-06 12:06:58 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-06 12:06:58 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-06 12:06:58 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/studiotek-landing/app/api/cookies/consent/route.ts
+2026-02-06 12:06:58 | INFO | Skipping non-Python file
+2026-02-06 12:07:32 | INFO | ==================================================
+2026-02-06 12:07:32 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-06 12:07:32 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-06 12:07:32 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/studiotek-landing/app/api/voice/chat/route.ts
+2026-02-06 12:07:32 | INFO | Skipping non-Python file
+2026-02-06 12:07:41 | INFO | ==================================================
+2026-02-06 12:07:41 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-06 12:07:41 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-06 12:07:41 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/studiotek-landing/app/api/voice/tts/route.ts
+2026-02-06 12:07:41 | INFO | Skipping non-Python file
+2026-02-06 12:07:49 | INFO | ==================================================
+2026-02-06 12:07:49 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-06 12:07:49 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-06 12:07:49 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/studiotek-landing/app/api/voice/stt/route.ts
+2026-02-06 12:07:49 | INFO | Skipping non-Python file
+2026-02-06 12:07:59 | INFO | ==================================================
+2026-02-06 12:07:59 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-06 12:07:59 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-06 12:07:59 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/studiotek-landing/lib/cookies.ts
+2026-02-06 12:07:59 | INFO | Skipping non-Python file
+2026-02-06 12:08:03 | INFO | ==================================================
+2026-02-06 12:08:03 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-06 12:08:03 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-06 12:08:03 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/studiotek-landing/components/cookies/CookieContext.tsx
+2026-02-06 12:08:03 | INFO | Skipping non-Python file
+2026-02-06 12:08:13 | INFO | ==================================================
+2026-02-06 12:08:13 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-06 12:08:13 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-06 12:08:13 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/studiotek-landing/components/cookies/CookieContext.tsx
+2026-02-06 12:08:13 | INFO | Skipping non-Python file
+2026-02-06 13:23:47 | INFO | ==================================================
+2026-02-06 13:23:47 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-06 13:23:47 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-06 13:23:47 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/studiotek-landing/hooks/useRotatingPlaceholder.ts
+2026-02-06 13:23:47 | INFO | Skipping non-Python file
+2026-02-06 13:24:16 | INFO | ==================================================
+2026-02-06 13:24:16 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-06 13:24:16 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-06 13:24:16 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/studiotek-landing/hooks/useWhisperRecording.ts
+2026-02-06 13:24:16 | INFO | Skipping non-Python file
+2026-02-06 13:25:27 | INFO | ==================================================
+2026-02-06 13:25:27 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-06 13:25:27 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-06 13:25:27 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/studiotek-landing/components/ui/ai-chat-input.tsx
+2026-02-06 13:25:27 | INFO | Skipping non-Python file
+2026-02-06 13:26:10 | INFO | ==================================================
+2026-02-06 13:26:10 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-06 13:26:10 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-06 13:26:10 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/studiotek-landing/hooks/useNativeSpeechRecognition.ts
+2026-02-06 13:26:10 | INFO | Skipping non-Python file
+2026-02-06 13:26:47 | INFO | ==================================================
+2026-02-06 13:26:47 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-06 13:26:47 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-06 13:26:47 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/studiotek-landing/components/ui/ai-chat-input.tsx
+2026-02-06 13:26:47 | INFO | Skipping non-Python file
+2026-02-06 13:27:32 | INFO | ==================================================
+2026-02-06 13:27:32 | INFO | RUFF VALIDATOR POSTTOOLUSE HOOK TRIGGERED
+2026-02-06 13:27:32 | INFO | hook_input keys: ['session_id', 'transcript_path', 'cwd', 'permission_mode', 'hook_event_name', 'tool_name', 'tool_input', 'tool_response', 'tool_use_id']
+2026-02-06 13:27:32 | INFO | file_path: /Users/cristianbejaranomendez/Documents/GitHub/studiotek-landing/components/ui/ai-chat-input.tsx
+2026-02-06 13:27:32 | INFO | Skipping non-Python file

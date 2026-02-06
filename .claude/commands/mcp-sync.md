@@ -1,97 +1,118 @@
 ---
-description: "Sincroniza y documenta MCP servers locales y globales. Lista herramientas disponibles."
+model: opus
+description: Sincroniza y documenta MCP servers locales y globales. Lista herramientas disponibles.
+argument-hint: [--docs] [server-name]
+allowed-tools: read, write, glob, bash
+context: fork
+agent: general-purpose
+disable-model-invocation: false
+hooks: {}
 ---
 
-# /mcp-sync - Documentar MCP Servers
+# Purpose
 
 Escanea configuraciones MCP y genera documentacion de servidores y herramientas disponibles.
 
-## Instrucciones
+## Variables
+
+Argumentos recibidos: $ARGUMENTS
+
+Descompuestos:
+- SERVER_NAME: $ARGUMENTS[0] (nombre de server especifico, opcional)
+- FLAGS: Flags opcionales:
+  - --docs: Generar documentacion
+
+Configuracion MCP:
+- MCP_GLOBAL: ~/.mcp.json (MCPs globales)
+- MCP_LOCAL: .mcp.json (MCPs especificos del proyecto)
+
+Resources disponibles:
+- SKILLS_DIR: .claude/skills/ (para detectar skills que usan MCP)
+- AGENTS_DIR: .claude/agents/ (para detectar agents que usan MCP)
+
+## Codebase Structure
+
+Estructura del proyecto:
+.claude/
+├── agents/                  # Agentes que pueden usar MCPs
+│   ├── backend.md          # Usa MCPs: serena (codebase analysis)
+│   ├── testing.md          # Usa MCPs: playwright-mcp
+│   └── codebase-analyst.md # Usa MCPs: serena
+│
+├── skills/
+│   └── mcp-tools/          # /mcp-tools - Patrones para usar MCPs
+│       └── SKILL.md
+│
+├── commands/
+│   └── mcp-sync.md         # Este comando
+│
+└── .mcp.json              # Config local (si existe)
+
+~/.mcp.json               # Config global (si existe)
+
+Archivos de configuracion MCP:
+- ~/.mcp.json: Scope Global - MCPs compartidos entre proyectos
+- .mcp.json: Scope Local - MCPs especificos del proyecto
+
+MCP Servers comunes en este proyecto:
+- serena: Analisis de codigo (usado por @backend, @codebase-analyst)
+- playwright-mcp: Testing E2E (usado por @testing)
+- server-sequential-thinking: Pensamiento estructurado (usado en /plan-task)
+
+## Instructions
 
 ### Paso 1: Verificar archivos de configuracion
 
 Leer los archivos de configuracion MCP:
-
-| Archivo | Scope | Proposito |
-|---------|-------|-----------|
-| `.mcp.json` | Proyecto local | MCPs especificos del proyecto |
-| `~/.mcp.json` | Global | MCPs compartidos entre proyectos |
+- ~/.mcp.json (Global)
+- .mcp.json (Local)
 
 ### Paso 2: Parsear configuraciones
 
 Para cada archivo que exista:
-
 1. Parsear el JSON
-2. Extraer lista de `mcpServers`
+2. Extraer lista de mcpServers
 3. Identificar tipo de cada server:
-   - **command**: Ejecuta proceso local (npx, python, etc)
-   - **http**: Conecta a servidor HTTP
-   - **stdio**: Comunicacion por stdin/stdout
+   - command: Ejecuta proceso local (npx, python, etc)
+   - http: Conecta a servidor HTTP
+   - stdio: Comunicacion por stdin/stdout
 
 ### Paso 3: Listar servidores
 
-Mostrar tabla consolidada:
-
-```
-## MCP Servers Disponibles
-
-| Server | Tipo | Scope | Comando/URL |
-|--------|------|-------|-------------|
-| server-sequential-thinking | command | global | npx @modelcontextprotocol/server-sequential-thinking |
-| serena | command | local | python -m serena |
-```
+Mostrar tabla consolidada con:
+- Server name
+- Tipo (command/http/stdio)
+- Scope (global/local)
+- Comando/URL
 
 ### Paso 4: Documentar herramientas
 
-Para cada server, intentar listar sus herramientas conocidas:
-
-```
-### server-sequential-thinking
-- `mcp__server-sequential-thinking__sequentialthinking`: Pensamiento paso a paso
-
-### serena
-- `mcp__serena__read_file`: Leer archivo
-- `mcp__serena__find_symbol`: Buscar simbolo
-- `mcp__serena__search_for_pattern`: Buscar patron
-```
+Para cada server, intentar listar sus herramientas conocidas.
 
 ### Paso 5: Generar documentacion (opcional)
 
-Si el usuario lo solicita, crear archivo de documentacion:
+Si el usuario solicita --docs, crear archivo de documentacion con:
+- Configuracion Global y Local
+- Herramientas por Server
+- Uso en Comandos
+- Skills y Agents que utilizan cada MCP
 
-```markdown
-# MCP Servers - {proyecto}
+## Workflow
 
-> Generado: {fecha}
+Flujo de trabajo:
+1. Verificar existencia de archivos de config
+2. Parsear JSON de cada archivo
+3. Extraer mcpServers y sus propiedades
+4. Identificar tipo de cada server
+5. Listar en tabla consolidada
+6. Documentar herramientas conocidas
+7. Opcionalmente generar archivo de docs
 
-## Configuracion
+## Report
 
-### Global (~/.mcp.json)
-{lista de servers globales}
+Al finalizar mostrar:
 
-### Local (.mcp.json)
-{lista de servers locales}
-
-## Herramientas por Server
-
-{documentacion de cada server}
-
-## Uso en Comandos
-
-Para usar en comandos .claude/commands/:
-
-tools:
-  - mcp__{server}__{tool}
-```
-
-## Output Esperado
-
-Al finalizar, mostrar:
-
-```
-============================================================
 MCP SYNC COMPLETADO
-============================================================
 
 Archivos escaneados:
 - ~/.mcp.json: {ENCONTRADO|NO EXISTE}
@@ -101,41 +122,8 @@ Servers encontrados: {N}
 - Global: {N}
 - Local: {N}
 
-{tabla de servers}
+Tabla de servers con nombre, tipo, scope y comando/URL.
 
-------------------------------------------------------------
-Para generar documentacion, ejecuta:
-  /mcp-sync --docs
-------------------------------------------------------------
-```
+Para generar documentacion, ejecuta: /mcp-sync --docs
 
-## Ejemplos
-
-### Listar servers
-
-```
-/mcp-sync
-```
-
-### Generar documentacion
-
-```
-/mcp-sync --docs
-```
-
-### Verificar server especifico
-
-```
-/mcp-sync serena
-```
-
-## Notas
-
-- No modifica archivos de configuracion
-- Solo lectura y documentacion
-- Util para verificar que MCPs estan configurados correctamente
-- Ayuda a descubrir herramientas disponibles para usar en comandos
-
----
-
-**Version:** 1.0.0 | **Creado:** 2026-01-16
+Version: 1.0.0 | Creado: 2026-01-16

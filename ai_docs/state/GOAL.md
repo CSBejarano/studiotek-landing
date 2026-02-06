@@ -81,7 +81,7 @@ curl "https://studiotek.es/api/booking/slots?date=2026-02-10"  # Martes -> []
 - [x] Test email en produccion con nixaitech@gmail.com
 - [x] Limpiar leads de prueba de Supabase
 - [x] Conectar GitHub auto-deploy a Vercel
-- [ ] Limpiar 3 eventos test de Google Calendar
+- [x] Limpiar 3 eventos test de Google Calendar
 - [ ] Google Workspace Business para Meet links
 - [ ] Google Analytics
 

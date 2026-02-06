@@ -1,0 +1,852 @@
+2026-02-03 18:32:40 | INFO | ============================================================
+2026-02-03 18:32:40 | INFO | Validator started
+2026-02-03 18:32:40 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-03 18:32:40 | INFO | Stdin input received: 376 bytes
+2026-02-03 18:32:40 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-03 18:32:40 | INFO | Git untracked files: ['ai_docs/meetings/20260111_informe_completo.md']
+2026-02-03 18:32:40 | INFO | Git new files: ['ai_docs/meetings/20260111_informe_completo.md']
+2026-02-03 18:32:40 | INFO | Recent files: []
+2026-02-03 18:32:40 | INFO | PASS: New file(s) found: ai_docs/meetings/20260111_informe_completo.md
+2026-02-03 18:32:40 | INFO | Result: CONTINUE - New file(s) found: ai_docs/meetings/20260111_informe_completo.md
+2026-02-03 18:38:18 | INFO | ============================================================
+2026-02-03 18:38:18 | INFO | Validator started
+2026-02-03 18:38:18 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-03 18:38:18 | INFO | Stdin input received: 376 bytes
+2026-02-03 18:38:18 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-03 18:38:18 | INFO | Git untracked files: ['ai_docs/meetings/20260111_informe_completo.md']
+2026-02-03 18:38:18 | INFO | Git new files: ['ai_docs/meetings/20260111_informe_completo.md']
+2026-02-03 18:38:18 | INFO | Recent files: []
+2026-02-03 18:38:18 | INFO | PASS: New file(s) found: ai_docs/meetings/20260111_informe_completo.md
+2026-02-03 18:38:18 | INFO | Result: CONTINUE - New file(s) found: ai_docs/meetings/20260111_informe_completo.md
+2026-02-03 18:39:55 | INFO | ============================================================
+2026-02-03 18:39:55 | INFO | Validator started
+2026-02-03 18:39:55 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-03 18:39:55 | INFO | Stdin input received: 376 bytes
+2026-02-03 18:39:55 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-03 18:39:55 | INFO | Git untracked files: ['ai_docs/meetings/20260111_informe_completo.md']
+2026-02-03 18:39:55 | INFO | Git new files: ['ai_docs/meetings/20260111_informe_completo.md']
+2026-02-03 18:39:55 | INFO | Recent files: []
+2026-02-03 18:39:55 | INFO | PASS: New file(s) found: ai_docs/meetings/20260111_informe_completo.md
+2026-02-03 18:39:55 | INFO | Result: CONTINUE - New file(s) found: ai_docs/meetings/20260111_informe_completo.md
+2026-02-03 18:45:27 | INFO | ============================================================
+2026-02-03 18:45:27 | INFO | Validator started
+2026-02-03 18:45:27 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-03 18:45:27 | INFO | Stdin input received: 376 bytes
+2026-02-03 18:45:27 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-03 18:45:28 | INFO | Git untracked files: ['ai_docs/meetings/20260111_informe_completo.md']
+2026-02-03 18:45:28 | INFO | Git new files: ['ai_docs/meetings/20260111_informe_completo.md']
+2026-02-03 18:45:28 | INFO | Recent files: []
+2026-02-03 18:45:28 | INFO | PASS: New file(s) found: ai_docs/meetings/20260111_informe_completo.md
+2026-02-03 18:45:28 | INFO | Result: CONTINUE - New file(s) found: ai_docs/meetings/20260111_informe_completo.md
+2026-02-03 18:47:08 | INFO | ============================================================
+2026-02-03 18:47:08 | INFO | Validator started
+2026-02-03 18:47:08 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-03 18:47:08 | INFO | Stdin input received: 376 bytes
+2026-02-03 18:47:08 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-03 18:47:08 | INFO | Git untracked files: ['ai_docs/meetings/20260111_informe_completo.md', 'ai_docs/plans/2026-01-22_kairos-ai-demo-bugs.md', 'ai_docs/plans/2026-01-23_opt4-conversaciones-realtime.md']
+2026-02-03 18:47:08 | INFO | Git new files: ['ai_docs/meetings/20260111_informe_completo.md', 'ai_docs/plans/2026-01-22_kairos-ai-demo-bugs.md', 'ai_docs/plans/2026-01-23_opt4-conversaciones-realtime.md']
+2026-02-03 18:47:08 | INFO | Recent files: []
+2026-02-03 18:47:08 | INFO | PASS: New file(s) found: ai_docs/meetings/20260111_informe_completo.md, ai_docs/plans/2026-01-22_kairos-ai-demo-bugs.md, ai_docs/plans/2026-01-23_opt4-conversaciones-realtime.md
+2026-02-03 18:47:08 | INFO | Result: CONTINUE - New file(s) found: ai_docs/meetings/20260111_informe_completo.md, ai_docs/plans/2026-01-22_kairos-ai-demo-bugs.md, ai_docs/plans/2026-01-23_opt4-conversaciones-realtime.md
+2026-02-03 18:48:01 | INFO | ============================================================
+2026-02-03 18:48:01 | INFO | Validator started
+2026-02-03 18:48:01 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-03 18:48:01 | INFO | Stdin input received: 376 bytes
+2026-02-03 18:48:01 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-03 18:48:01 | INFO | Git untracked files: ['ai_docs/meetings/20260111_informe_completo.md', 'ai_docs/plans/2026-01-22_kairos-ai-demo-bugs.md', 'ai_docs/plans/2026-01-23_opt4-conversaciones-realtime.md']
+2026-02-03 18:48:01 | INFO | Git new files: ['ai_docs/meetings/20260111_informe_completo.md', 'ai_docs/plans/2026-01-22_kairos-ai-demo-bugs.md', 'ai_docs/plans/2026-01-23_opt4-conversaciones-realtime.md']
+2026-02-03 18:48:01 | INFO | Recent files: []
+2026-02-03 18:48:01 | INFO | PASS: New file(s) found: ai_docs/meetings/20260111_informe_completo.md, ai_docs/plans/2026-01-22_kairos-ai-demo-bugs.md, ai_docs/plans/2026-01-23_opt4-conversaciones-realtime.md
+2026-02-03 18:48:01 | INFO | Result: CONTINUE - New file(s) found: ai_docs/meetings/20260111_informe_completo.md, ai_docs/plans/2026-01-22_kairos-ai-demo-bugs.md, ai_docs/plans/2026-01-23_opt4-conversaciones-realtime.md
+2026-02-03 18:48:51 | INFO | ============================================================
+2026-02-03 18:48:51 | INFO | Validator started
+2026-02-03 18:48:51 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-03 18:48:51 | INFO | Stdin input received: 376 bytes
+2026-02-03 18:48:51 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-03 18:48:51 | INFO | Git untracked files: ['ai_docs/meetings/20260111_informe_completo.md', 'ai_docs/plans/2026-01-22_kairos-ai-demo-bugs.md', 'ai_docs/plans/2026-01-23_opt4-conversaciones-realtime.md']
+2026-02-03 18:48:51 | INFO | Git new files: ['ai_docs/meetings/20260111_informe_completo.md', 'ai_docs/plans/2026-01-22_kairos-ai-demo-bugs.md', 'ai_docs/plans/2026-01-23_opt4-conversaciones-realtime.md']
+2026-02-03 18:48:51 | INFO | Recent files: []
+2026-02-03 18:48:51 | INFO | PASS: New file(s) found: ai_docs/meetings/20260111_informe_completo.md, ai_docs/plans/2026-01-22_kairos-ai-demo-bugs.md, ai_docs/plans/2026-01-23_opt4-conversaciones-realtime.md
+2026-02-03 18:48:51 | INFO | Result: CONTINUE - New file(s) found: ai_docs/meetings/20260111_informe_completo.md, ai_docs/plans/2026-01-22_kairos-ai-demo-bugs.md, ai_docs/plans/2026-01-23_opt4-conversaciones-realtime.md
+2026-02-03 18:58:17 | INFO | ============================================================
+2026-02-03 18:58:17 | INFO | Validator started
+2026-02-03 18:58:17 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-03 18:58:17 | INFO | Stdin input received: 376 bytes
+2026-02-03 18:58:17 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-03 18:58:17 | INFO | Git untracked files: []
+2026-02-03 18:58:17 | INFO | Git new files: []
+2026-02-03 18:58:17 | INFO | Recent files: []
+2026-02-03 18:58:17 | WARNING | FAIL: VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-03 18:58:17 | INFO | Result: BLOCK - VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-03 18:58:25 | INFO | ============================================================
+2026-02-03 18:58:25 | INFO | Validator started
+2026-02-03 18:58:25 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-03 18:58:25 | INFO | Stdin input received: 376 bytes
+2026-02-03 18:58:25 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-03 18:58:25 | INFO | Git untracked files: []
+2026-02-03 18:58:25 | INFO | Git new files: []
+2026-02-03 18:58:25 | INFO | Recent files: []
+2026-02-03 18:58:25 | WARNING | FAIL: VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-03 18:58:25 | INFO | Result: BLOCK - VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-03 19:07:54 | INFO | ============================================================
+2026-02-03 19:07:54 | INFO | Validator started
+2026-02-03 19:07:54 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-03 19:07:54 | INFO | Stdin input received: 376 bytes
+2026-02-03 19:07:54 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-03 19:07:54 | INFO | Git untracked files: ['ai_docs/plans/audit-close-github-issues.md']
+2026-02-03 19:07:54 | INFO | Git new files: ['ai_docs/plans/audit-close-github-issues.md']
+2026-02-03 19:07:54 | INFO | Recent files: []
+2026-02-03 19:07:54 | INFO | PASS: New file(s) found: ai_docs/plans/audit-close-github-issues.md
+2026-02-03 19:07:54 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/audit-close-github-issues.md
+2026-02-03 19:13:18 | INFO | ============================================================
+2026-02-03 19:13:18 | INFO | Validator started
+2026-02-03 19:13:18 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-03 19:13:18 | INFO | Stdin input received: 376 bytes
+2026-02-03 19:13:18 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-03 19:13:18 | INFO | Git untracked files: ['ai_docs/plans/audit-close-github-issues.md']
+2026-02-03 19:13:18 | INFO | Git new files: ['ai_docs/plans/audit-close-github-issues.md']
+2026-02-03 19:13:18 | INFO | Recent files: []
+2026-02-03 19:13:18 | INFO | PASS: New file(s) found: ai_docs/plans/audit-close-github-issues.md
+2026-02-03 19:13:18 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/audit-close-github-issues.md
+2026-02-03 19:25:26 | INFO | ============================================================
+2026-02-03 19:25:26 | INFO | Validator started
+2026-02-03 19:25:26 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-03 19:25:26 | INFO | Stdin input received: 376 bytes
+2026-02-03 19:25:26 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-03 19:25:26 | INFO | Git untracked files: ['ai_docs/plans/audit-close-github-issues.md']
+2026-02-03 19:25:26 | INFO | Git new files: ['ai_docs/plans/audit-close-github-issues.md']
+2026-02-03 19:25:26 | INFO | Recent files: []
+2026-02-03 19:25:26 | INFO | PASS: New file(s) found: ai_docs/plans/audit-close-github-issues.md
+2026-02-03 19:25:26 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/audit-close-github-issues.md
+2026-02-03 19:26:09 | INFO | ============================================================
+2026-02-03 19:26:09 | INFO | Validator started
+2026-02-03 19:26:09 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-03 19:26:09 | INFO | Stdin input received: 376 bytes
+2026-02-03 19:26:09 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-03 19:26:09 | INFO | Git untracked files: []
+2026-02-03 19:26:09 | INFO | Git new files: []
+2026-02-03 19:26:09 | INFO | Recent files: []
+2026-02-03 19:26:09 | WARNING | FAIL: VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-03 19:26:09 | INFO | Result: BLOCK - VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-03 19:27:18 | INFO | ============================================================
+2026-02-03 19:27:18 | INFO | Validator started
+2026-02-03 19:27:18 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-03 19:27:18 | INFO | Stdin input received: 376 bytes
+2026-02-03 19:27:18 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-03 19:27:18 | INFO | Git untracked files: []
+2026-02-03 19:27:18 | INFO | Git new files: []
+2026-02-03 19:27:18 | INFO | Recent files: []
+2026-02-03 19:27:18 | WARNING | FAIL: VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-03 19:27:18 | INFO | Result: BLOCK - VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-03 19:33:22 | INFO | ============================================================
+2026-02-03 19:33:22 | INFO | Validator started
+2026-02-03 19:33:22 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-03 19:33:22 | INFO | Stdin input received: 376 bytes
+2026-02-03 19:33:22 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-03 19:33:22 | INFO | Git untracked files: []
+2026-02-03 19:33:22 | INFO | Git new files: []
+2026-02-03 19:33:22 | INFO | Recent files: []
+2026-02-03 19:33:22 | WARNING | FAIL: VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-03 19:33:22 | INFO | Result: BLOCK - VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-03 19:35:07 | INFO | ============================================================
+2026-02-03 19:35:07 | INFO | Validator started
+2026-02-03 19:35:07 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-03 19:35:07 | INFO | Stdin input received: 376 bytes
+2026-02-03 19:35:07 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-03 19:35:07 | INFO | Git untracked files: []
+2026-02-03 19:35:07 | INFO | Git new files: []
+2026-02-03 19:35:07 | INFO | Recent files: []
+2026-02-03 19:35:07 | WARNING | FAIL: VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-03 19:35:07 | INFO | Result: BLOCK - VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-03 19:36:36 | INFO | ============================================================
+2026-02-03 19:36:36 | INFO | Validator started
+2026-02-03 19:36:36 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-03 19:36:36 | INFO | Stdin input received: 376 bytes
+2026-02-03 19:36:36 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-03 19:36:36 | INFO | Git untracked files: []
+2026-02-03 19:36:36 | INFO | Git new files: []
+2026-02-03 19:36:36 | INFO | Recent files: []
+2026-02-03 19:36:36 | WARNING | FAIL: VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-03 19:36:36 | INFO | Result: BLOCK - VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-03 19:42:15 | INFO | ============================================================
+2026-02-03 19:42:15 | INFO | Validator started
+2026-02-03 19:42:15 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-03 19:42:15 | INFO | Stdin input received: 376 bytes
+2026-02-03 19:42:15 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-03 19:42:15 | INFO | Git untracked files: []
+2026-02-03 19:42:15 | INFO | Git new files: []
+2026-02-03 19:42:15 | INFO | Recent files: []
+2026-02-03 19:42:15 | WARNING | FAIL: VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-03 19:42:15 | INFO | Result: BLOCK - VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-03 19:42:55 | INFO | ============================================================
+2026-02-03 19:42:55 | INFO | Validator started
+2026-02-03 19:42:55 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-03 19:42:55 | INFO | Stdin input received: 376 bytes
+2026-02-03 19:42:55 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-03 19:42:55 | INFO | Git untracked files: []
+2026-02-03 19:42:55 | INFO | Git new files: []
+2026-02-03 19:42:55 | INFO | Recent files: []
+2026-02-03 19:42:55 | WARNING | FAIL: VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-03 19:42:55 | INFO | Result: BLOCK - VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-04 11:00:02 | INFO | ============================================================
+2026-02-04 11:00:02 | INFO | Validator started
+2026-02-04 11:00:02 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-04 11:00:02 | INFO | Stdin input received: 376 bytes
+2026-02-04 11:00:02 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-04 11:00:02 | INFO | Git untracked files: ['ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md']
+2026-02-04 11:00:02 | INFO | Git new files: ['ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md']
+2026-02-04 11:00:02 | INFO | Recent files: []
+2026-02-04 11:00:02 | INFO | PASS: New file(s) found: ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md
+2026-02-04 11:00:02 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md
+2026-02-04 12:07:20 | INFO | ============================================================
+2026-02-04 12:07:20 | INFO | Validator started
+2026-02-04 12:07:20 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-04 12:07:20 | INFO | Stdin input received: 376 bytes
+2026-02-04 12:07:20 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-04 12:07:20 | INFO | Git untracked files: ['ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md', 'ai_docs/reports/invoicing-pdf-verifactu-verification-report.md']
+2026-02-04 12:07:20 | INFO | Git new files: ['ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md', 'ai_docs/reports/invoicing-pdf-verifactu-verification-report.md']
+2026-02-04 12:07:20 | INFO | Recent files: []
+2026-02-04 12:07:20 | INFO | PASS: New file(s) found: ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md, ai_docs/reports/invoicing-pdf-verifactu-verification-report.md
+2026-02-04 12:07:20 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md, ai_docs/reports/invoicing-pdf-verifactu-verification-report.md
+2026-02-04 12:16:13 | INFO | ============================================================
+2026-02-04 12:16:13 | INFO | Validator started
+2026-02-04 12:16:13 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-04 12:16:13 | INFO | Stdin input received: 376 bytes
+2026-02-04 12:16:13 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-04 12:16:13 | INFO | Git untracked files: ['ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md', 'ai_docs/reports/invoicing-pdf-verifactu-verification-report.md']
+2026-02-04 12:16:13 | INFO | Git new files: ['ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md', 'ai_docs/reports/invoicing-pdf-verifactu-verification-report.md']
+2026-02-04 12:16:13 | INFO | Recent files: []
+2026-02-04 12:16:13 | INFO | PASS: New file(s) found: ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md, ai_docs/reports/invoicing-pdf-verifactu-verification-report.md
+2026-02-04 12:16:13 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md, ai_docs/reports/invoicing-pdf-verifactu-verification-report.md
+2026-02-04 12:16:44 | INFO | ============================================================
+2026-02-04 12:16:44 | INFO | Validator started
+2026-02-04 12:16:44 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-04 12:16:44 | INFO | Stdin input received: 376 bytes
+2026-02-04 12:16:44 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-04 12:16:44 | INFO | Git untracked files: ['ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md', 'ai_docs/reports/invoicing-pdf-verifactu-verification-report.md']
+2026-02-04 12:16:44 | INFO | Git new files: ['ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md', 'ai_docs/reports/invoicing-pdf-verifactu-verification-report.md']
+2026-02-04 12:16:44 | INFO | Recent files: []
+2026-02-04 12:16:44 | INFO | PASS: New file(s) found: ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md, ai_docs/reports/invoicing-pdf-verifactu-verification-report.md
+2026-02-04 12:16:44 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md, ai_docs/reports/invoicing-pdf-verifactu-verification-report.md
+2026-02-04 12:16:57 | INFO | ============================================================
+2026-02-04 12:16:57 | INFO | Validator started
+2026-02-04 12:16:57 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-04 12:16:57 | INFO | Stdin input received: 376 bytes
+2026-02-04 12:16:57 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-04 12:16:57 | INFO | Git untracked files: ['ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md', 'ai_docs/reports/invoicing-pdf-verifactu-verification-report.md']
+2026-02-04 12:16:57 | INFO | Git new files: ['ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md', 'ai_docs/reports/invoicing-pdf-verifactu-verification-report.md']
+2026-02-04 12:16:57 | INFO | Recent files: []
+2026-02-04 12:16:57 | INFO | PASS: New file(s) found: ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md, ai_docs/reports/invoicing-pdf-verifactu-verification-report.md
+2026-02-04 12:16:57 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md, ai_docs/reports/invoicing-pdf-verifactu-verification-report.md
+2026-02-04 12:17:08 | INFO | ============================================================
+2026-02-04 12:17:08 | INFO | Validator started
+2026-02-04 12:17:08 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-04 12:17:08 | INFO | Stdin input received: 376 bytes
+2026-02-04 12:17:08 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-04 12:17:08 | INFO | Git untracked files: ['ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md', 'ai_docs/reports/invoicing-pdf-verifactu-verification-report.md']
+2026-02-04 12:17:08 | INFO | Git new files: ['ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md', 'ai_docs/reports/invoicing-pdf-verifactu-verification-report.md']
+2026-02-04 12:17:08 | INFO | Recent files: []
+2026-02-04 12:17:08 | INFO | PASS: New file(s) found: ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md, ai_docs/reports/invoicing-pdf-verifactu-verification-report.md
+2026-02-04 12:17:08 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md, ai_docs/reports/invoicing-pdf-verifactu-verification-report.md
+2026-02-04 12:17:18 | INFO | ============================================================
+2026-02-04 12:17:18 | INFO | Validator started
+2026-02-04 12:17:18 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-04 12:17:18 | INFO | Stdin input received: 376 bytes
+2026-02-04 12:17:18 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-04 12:17:18 | INFO | Git untracked files: ['ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md', 'ai_docs/reports/invoicing-pdf-verifactu-verification-report.md']
+2026-02-04 12:17:18 | INFO | Git new files: ['ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md', 'ai_docs/reports/invoicing-pdf-verifactu-verification-report.md']
+2026-02-04 12:17:18 | INFO | Recent files: []
+2026-02-04 12:17:18 | INFO | PASS: New file(s) found: ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md, ai_docs/reports/invoicing-pdf-verifactu-verification-report.md
+2026-02-04 12:17:18 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md, ai_docs/reports/invoicing-pdf-verifactu-verification-report.md
+2026-02-04 12:17:27 | INFO | ============================================================
+2026-02-04 12:17:27 | INFO | Validator started
+2026-02-04 12:17:27 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-04 12:17:27 | INFO | Stdin input received: 376 bytes
+2026-02-04 12:17:27 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-04 12:17:27 | INFO | Git untracked files: ['ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md', 'ai_docs/reports/invoicing-pdf-verifactu-verification-report.md']
+2026-02-04 12:17:27 | INFO | Git new files: ['ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md', 'ai_docs/reports/invoicing-pdf-verifactu-verification-report.md']
+2026-02-04 12:17:27 | INFO | Recent files: []
+2026-02-04 12:17:27 | INFO | PASS: New file(s) found: ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md, ai_docs/reports/invoicing-pdf-verifactu-verification-report.md
+2026-02-04 12:17:27 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md, ai_docs/reports/invoicing-pdf-verifactu-verification-report.md
+2026-02-04 12:17:37 | INFO | ============================================================
+2026-02-04 12:17:37 | INFO | Validator started
+2026-02-04 12:17:37 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-04 12:17:37 | INFO | Stdin input received: 376 bytes
+2026-02-04 12:17:37 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-04 12:17:37 | INFO | Git untracked files: ['ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md', 'ai_docs/reports/invoicing-pdf-verifactu-verification-report.md']
+2026-02-04 12:17:37 | INFO | Git new files: ['ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md', 'ai_docs/reports/invoicing-pdf-verifactu-verification-report.md']
+2026-02-04 12:17:37 | INFO | Recent files: []
+2026-02-04 12:17:37 | INFO | PASS: New file(s) found: ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md, ai_docs/reports/invoicing-pdf-verifactu-verification-report.md
+2026-02-04 12:17:37 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/verify-invoicing-pdf-verifactu-qr.md, ai_docs/reports/invoicing-pdf-verifactu-verification-report.md
+2026-02-04 13:33:38 | INFO | ============================================================
+2026-02-04 13:33:38 | INFO | Validator started
+2026-02-04 13:33:38 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-04 13:33:38 | INFO | Stdin input received: 376 bytes
+2026-02-04 13:33:38 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-04 13:33:38 | INFO | Git untracked files: []
+2026-02-04 13:33:38 | INFO | Git new files: []
+2026-02-04 13:33:38 | INFO | Recent files: []
+2026-02-04 13:33:38 | WARNING | FAIL: VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-04 13:33:38 | INFO | Result: BLOCK - VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-04 13:40:45 | INFO | ============================================================
+2026-02-04 13:40:45 | INFO | Validator started
+2026-02-04 13:40:45 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-04 13:40:45 | INFO | Stdin input received: 376 bytes
+2026-02-04 13:40:45 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-04 13:40:45 | INFO | Git untracked files: []
+2026-02-04 13:40:45 | INFO | Git new files: []
+2026-02-04 13:40:45 | INFO | Recent files: []
+2026-02-04 13:40:45 | WARNING | FAIL: VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-04 13:40:45 | INFO | Result: BLOCK - VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-04 13:44:00 | INFO | ============================================================
+2026-02-04 13:44:00 | INFO | Validator started
+2026-02-04 13:44:00 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-04 13:44:00 | INFO | Stdin input received: 376 bytes
+2026-02-04 13:44:00 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-04 13:44:00 | INFO | Git untracked files: []
+2026-02-04 13:44:00 | INFO | Git new files: []
+2026-02-04 13:44:00 | INFO | Recent files: []
+2026-02-04 13:44:00 | WARNING | FAIL: VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-04 13:44:00 | INFO | Result: BLOCK - VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-04 13:52:14 | INFO | ============================================================
+2026-02-04 13:52:14 | INFO | Validator started
+2026-02-04 13:52:14 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-04 13:52:14 | INFO | Stdin input received: 376 bytes
+2026-02-04 13:52:14 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-04 13:52:14 | INFO | Git untracked files: []
+2026-02-04 13:52:14 | INFO | Git new files: []
+2026-02-04 13:52:14 | INFO | Recent files: []
+2026-02-04 13:52:14 | WARNING | FAIL: VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-04 13:52:14 | INFO | Result: BLOCK - VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-04 13:55:01 | INFO | ============================================================
+2026-02-04 13:55:01 | INFO | Validator started
+2026-02-04 13:55:01 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-04 13:55:01 | INFO | Stdin input received: 376 bytes
+2026-02-04 13:55:01 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-04 13:55:01 | INFO | Git untracked files: ['ai_docs/plans/pdf-visual-improvements.md']
+2026-02-04 13:55:01 | INFO | Git new files: ['ai_docs/plans/pdf-visual-improvements.md']
+2026-02-04 13:55:01 | INFO | Recent files: []
+2026-02-04 13:55:01 | INFO | PASS: New file(s) found: ai_docs/plans/pdf-visual-improvements.md
+2026-02-04 13:55:01 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/pdf-visual-improvements.md
+2026-02-04 14:08:06 | INFO | ============================================================
+2026-02-04 14:08:06 | INFO | Validator started
+2026-02-04 14:08:06 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-04 14:08:06 | INFO | Stdin input received: 376 bytes
+2026-02-04 14:08:06 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-04 14:08:06 | INFO | Git untracked files: ['ai_docs/plans/pdf-visual-improvements.md', 'ai_docs/reports/pdf-visual-improvements-verification.md']
+2026-02-04 14:08:06 | INFO | Git new files: ['ai_docs/plans/pdf-visual-improvements.md', 'ai_docs/reports/pdf-visual-improvements-verification.md']
+2026-02-04 14:08:06 | INFO | Recent files: []
+2026-02-04 14:08:06 | INFO | PASS: New file(s) found: ai_docs/plans/pdf-visual-improvements.md, ai_docs/reports/pdf-visual-improvements-verification.md
+2026-02-04 14:08:06 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/pdf-visual-improvements.md, ai_docs/reports/pdf-visual-improvements-verification.md
+2026-02-04 14:12:56 | INFO | ============================================================
+2026-02-04 14:12:56 | INFO | Validator started
+2026-02-04 14:12:56 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-04 14:12:56 | INFO | Stdin input received: 376 bytes
+2026-02-04 14:12:56 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-04 14:12:56 | INFO | Git untracked files: []
+2026-02-04 14:12:56 | INFO | Git new files: []
+2026-02-04 14:12:56 | INFO | Recent files: []
+2026-02-04 14:12:56 | WARNING | FAIL: VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-04 14:12:56 | INFO | Result: BLOCK - VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-04 14:20:23 | INFO | ============================================================
+2026-02-04 14:20:23 | INFO | Validator started
+2026-02-04 14:20:23 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-04 14:20:23 | INFO | Stdin input received: 376 bytes
+2026-02-04 14:20:23 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-04 14:20:23 | INFO | Git untracked files: []
+2026-02-04 14:20:23 | INFO | Git new files: []
+2026-02-04 14:20:23 | INFO | Recent files: []
+2026-02-04 14:20:23 | WARNING | FAIL: VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-04 14:20:23 | INFO | Result: BLOCK - VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-04 14:24:04 | INFO | ============================================================
+2026-02-04 14:24:04 | INFO | Validator started
+2026-02-04 14:24:04 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-04 14:24:04 | INFO | Stdin input received: 376 bytes
+2026-02-04 14:24:04 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-04 14:24:04 | INFO | Git untracked files: []
+2026-02-04 14:24:04 | INFO | Git new files: []
+2026-02-04 14:24:04 | INFO | Recent files: []
+2026-02-04 14:24:04 | WARNING | FAIL: VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-04 14:24:04 | INFO | Result: BLOCK - VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-04 14:26:39 | INFO | ============================================================
+2026-02-04 14:26:39 | INFO | Validator started
+2026-02-04 14:26:39 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-04 14:26:39 | INFO | Stdin input received: 376 bytes
+2026-02-04 14:26:39 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-04 14:26:39 | INFO | Git untracked files: []
+2026-02-04 14:26:39 | INFO | Git new files: []
+2026-02-04 14:26:39 | INFO | Recent files: []
+2026-02-04 14:26:39 | WARNING | FAIL: VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-04 14:26:39 | INFO | Result: BLOCK - VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-04 14:30:18 | INFO | ============================================================
+2026-02-04 14:30:18 | INFO | Validator started
+2026-02-04 14:30:18 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-04 14:30:18 | INFO | Stdin input received: 376 bytes
+2026-02-04 14:30:18 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-04 14:30:18 | INFO | Git untracked files: []
+2026-02-04 14:30:18 | INFO | Git new files: []
+2026-02-04 14:30:18 | INFO | Recent files: []
+2026-02-04 14:30:18 | WARNING | FAIL: VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-04 14:30:18 | INFO | Result: BLOCK - VALIDATION FAILED: No new file found matching ai_docs/*.md.
+
+ACTION REQUIRED: Use the Write tool to create a new file in the ai_docs/ directory. The file must match the expected pattern (ai_docs/*.md). Do not stop until the file has been created.
+2026-02-04 23:47:08 | INFO | ============================================================
+2026-02-04 23:47:08 | INFO | Validator started
+2026-02-04 23:47:08 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-04 23:47:08 | INFO | Stdin input received: 376 bytes
+2026-02-04 23:47:08 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-04 23:47:08 | INFO | Git untracked files: ['ai_docs/plans/fix-verifactu-qr-verification-endpoint.md']
+2026-02-04 23:47:08 | INFO | Git new files: ['ai_docs/plans/fix-verifactu-qr-verification-endpoint.md']
+2026-02-04 23:47:08 | INFO | Recent files: []
+2026-02-04 23:47:08 | INFO | PASS: New file(s) found: ai_docs/plans/fix-verifactu-qr-verification-endpoint.md
+2026-02-04 23:47:08 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-verifactu-qr-verification-endpoint.md
+2026-02-05 00:36:03 | INFO | ============================================================
+2026-02-05 00:36:03 | INFO | Validator started
+2026-02-05 00:36:03 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-05 00:36:03 | INFO | Stdin input received: 376 bytes
+2026-02-05 00:36:03 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-05 00:36:03 | INFO | Git untracked files: ['ai_docs/plans/fix-verifactu-qr-verification-endpoint.md']
+2026-02-05 00:36:03 | INFO | Git new files: ['ai_docs/plans/fix-verifactu-qr-verification-endpoint.md']
+2026-02-05 00:36:03 | INFO | Recent files: []
+2026-02-05 00:36:03 | INFO | PASS: New file(s) found: ai_docs/plans/fix-verifactu-qr-verification-endpoint.md
+2026-02-05 00:36:03 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-verifactu-qr-verification-endpoint.md
+2026-02-05 00:40:59 | INFO | ============================================================
+2026-02-05 00:40:59 | INFO | Validator started
+2026-02-05 00:40:59 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-05 00:40:59 | INFO | Stdin input received: 376 bytes
+2026-02-05 00:40:59 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-05 00:40:59 | INFO | Git untracked files: ['ai_docs/plans/fix-verifactu-qr-verification-endpoint.md']
+2026-02-05 00:40:59 | INFO | Git new files: ['ai_docs/plans/fix-verifactu-qr-verification-endpoint.md']
+2026-02-05 00:40:59 | INFO | Recent files: []
+2026-02-05 00:40:59 | INFO | PASS: New file(s) found: ai_docs/plans/fix-verifactu-qr-verification-endpoint.md
+2026-02-05 00:40:59 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-verifactu-qr-verification-endpoint.md
+2026-02-05 20:38:44 | INFO | ============================================================
+2026-02-05 20:38:44 | INFO | Validator started
+2026-02-05 20:38:44 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-05 20:38:44 | INFO | Stdin input received: 376 bytes
+2026-02-05 20:38:44 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-05 20:38:44 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md']
+2026-02-05 20:38:44 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md']
+2026-02-05 20:38:44 | INFO | Recent files: []
+2026-02-05 20:38:44 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md
+2026-02-05 20:38:44 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md
+2026-02-05 21:38:40 | INFO | ============================================================
+2026-02-05 21:38:40 | INFO | Validator started
+2026-02-05 21:38:40 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-05 21:38:40 | INFO | Stdin input received: 376 bytes
+2026-02-05 21:38:40 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-05 21:38:40 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md']
+2026-02-05 21:38:40 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md']
+2026-02-05 21:38:40 | INFO | Recent files: []
+2026-02-05 21:38:40 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md
+2026-02-05 21:38:40 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md
+2026-02-05 21:39:54 | INFO | ============================================================
+2026-02-05 21:39:54 | INFO | Validator started
+2026-02-05 21:39:54 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-05 21:39:54 | INFO | Stdin input received: 376 bytes
+2026-02-05 21:39:54 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-05 21:39:54 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md']
+2026-02-05 21:39:54 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md']
+2026-02-05 21:39:54 | INFO | Recent files: []
+2026-02-05 21:39:54 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md
+2026-02-05 21:39:54 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md
+2026-02-05 21:40:23 | INFO | ============================================================
+2026-02-05 21:40:23 | INFO | Validator started
+2026-02-05 21:40:23 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-05 21:40:23 | INFO | Stdin input received: 376 bytes
+2026-02-05 21:40:23 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-05 21:40:23 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md']
+2026-02-05 21:40:23 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md']
+2026-02-05 21:40:23 | INFO | Recent files: []
+2026-02-05 21:40:23 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md
+2026-02-05 21:40:23 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md
+2026-02-05 21:52:45 | INFO | ============================================================
+2026-02-05 21:52:45 | INFO | Validator started
+2026-02-05 21:52:45 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-05 21:52:45 | INFO | Stdin input received: 376 bytes
+2026-02-05 21:52:45 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-05 21:52:45 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md']
+2026-02-05 21:52:45 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md']
+2026-02-05 21:52:45 | INFO | Recent files: []
+2026-02-05 21:52:45 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md
+2026-02-05 21:52:45 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md
+2026-02-05 22:11:38 | INFO | ============================================================
+2026-02-05 22:11:38 | INFO | Validator started
+2026-02-05 22:11:38 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-05 22:11:38 | INFO | Stdin input received: 376 bytes
+2026-02-05 22:11:38 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-05 22:11:38 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md']
+2026-02-05 22:11:38 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md']
+2026-02-05 22:11:38 | INFO | Recent files: []
+2026-02-05 22:11:38 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md
+2026-02-05 22:11:38 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md
+2026-02-05 22:13:37 | INFO | ============================================================
+2026-02-05 22:13:37 | INFO | Validator started
+2026-02-05 22:13:37 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-05 22:13:37 | INFO | Stdin input received: 376 bytes
+2026-02-05 22:13:37 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-05 22:13:37 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md']
+2026-02-05 22:13:37 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md']
+2026-02-05 22:13:37 | INFO | Recent files: []
+2026-02-05 22:13:37 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md
+2026-02-05 22:13:37 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md
+2026-02-05 22:37:43 | INFO | ============================================================
+2026-02-05 22:37:43 | INFO | Validator started
+2026-02-05 22:37:43 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-05 22:37:43 | INFO | Stdin input received: 376 bytes
+2026-02-05 22:37:43 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-05 22:37:43 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md']
+2026-02-05 22:37:43 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md']
+2026-02-05 22:37:43 | INFO | Recent files: []
+2026-02-05 22:37:43 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md
+2026-02-05 22:37:43 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md
+2026-02-05 22:37:52 | INFO | ============================================================
+2026-02-05 22:37:52 | INFO | Validator started
+2026-02-05 22:37:52 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-05 22:37:52 | INFO | Stdin input received: 376 bytes
+2026-02-05 22:37:52 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-05 22:37:52 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md']
+2026-02-05 22:37:52 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md']
+2026-02-05 22:37:52 | INFO | Recent files: []
+2026-02-05 22:37:52 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md
+2026-02-05 22:37:52 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md
+2026-02-05 22:38:00 | INFO | ============================================================
+2026-02-05 22:38:00 | INFO | Validator started
+2026-02-05 22:38:00 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-05 22:38:00 | INFO | Stdin input received: 376 bytes
+2026-02-05 22:38:00 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-05 22:38:00 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md']
+2026-02-05 22:38:00 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md']
+2026-02-05 22:38:00 | INFO | Recent files: []
+2026-02-05 22:38:00 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md
+2026-02-05 22:38:00 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md
+2026-02-05 22:40:31 | INFO | ============================================================
+2026-02-05 22:40:31 | INFO | Validator started
+2026-02-05 22:40:31 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-05 22:40:31 | INFO | Stdin input received: 376 bytes
+2026-02-05 22:40:31 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-05 22:40:31 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md']
+2026-02-05 22:40:31 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md']
+2026-02-05 22:40:31 | INFO | Recent files: []
+2026-02-05 22:40:31 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md
+2026-02-05 22:40:31 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md
+2026-02-05 23:00:03 | INFO | ============================================================
+2026-02-05 23:00:03 | INFO | Validator started
+2026-02-05 23:00:03 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-05 23:00:03 | INFO | Stdin input received: 376 bytes
+2026-02-05 23:00:03 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-05 23:00:03 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md']
+2026-02-05 23:00:03 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md']
+2026-02-05 23:00:03 | INFO | Recent files: []
+2026-02-05 23:00:03 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md
+2026-02-05 23:00:03 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md
+2026-02-05 23:01:48 | INFO | ============================================================
+2026-02-05 23:01:48 | INFO | Validator started
+2026-02-05 23:01:48 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-05 23:01:48 | INFO | Stdin input received: 376 bytes
+2026-02-05 23:01:48 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-05 23:01:48 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md']
+2026-02-05 23:01:48 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md']
+2026-02-05 23:01:48 | INFO | Recent files: []
+2026-02-05 23:01:48 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md
+2026-02-05 23:01:48 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md
+2026-02-05 23:03:49 | INFO | ============================================================
+2026-02-05 23:03:49 | INFO | Validator started
+2026-02-05 23:03:49 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-05 23:03:49 | INFO | Stdin input received: 376 bytes
+2026-02-05 23:03:49 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-05 23:03:49 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md']
+2026-02-05 23:03:49 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md']
+2026-02-05 23:03:49 | INFO | Recent files: []
+2026-02-05 23:03:49 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md
+2026-02-05 23:03:49 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md
+2026-02-05 23:34:37 | INFO | ============================================================
+2026-02-05 23:34:37 | INFO | Validator started
+2026-02-05 23:34:37 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-05 23:34:37 | INFO | Stdin input received: 376 bytes
+2026-02-05 23:34:37 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-05 23:34:37 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md']
+2026-02-05 23:34:37 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md']
+2026-02-05 23:34:37 | INFO | Recent files: []
+2026-02-05 23:34:37 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md
+2026-02-05 23:34:37 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md
+2026-02-05 23:34:51 | INFO | ============================================================
+2026-02-05 23:34:51 | INFO | Validator started
+2026-02-05 23:34:51 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-05 23:34:51 | INFO | Stdin input received: 376 bytes
+2026-02-05 23:34:51 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-05 23:34:51 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md']
+2026-02-05 23:34:51 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md']
+2026-02-05 23:34:51 | INFO | Recent files: []
+2026-02-05 23:34:51 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md
+2026-02-05 23:34:51 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md
+2026-02-05 23:35:09 | INFO | ============================================================
+2026-02-05 23:35:09 | INFO | Validator started
+2026-02-05 23:35:09 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-05 23:35:09 | INFO | Stdin input received: 376 bytes
+2026-02-05 23:35:09 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-05 23:35:09 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md']
+2026-02-05 23:35:09 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md']
+2026-02-05 23:35:09 | INFO | Recent files: []
+2026-02-05 23:35:09 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md
+2026-02-05 23:35:09 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md
+2026-02-05 23:46:15 | INFO | ============================================================
+2026-02-05 23:46:15 | INFO | Validator started
+2026-02-05 23:46:15 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-05 23:46:15 | INFO | Stdin input received: 376 bytes
+2026-02-05 23:46:15 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-05 23:46:15 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md']
+2026-02-05 23:46:15 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md']
+2026-02-05 23:46:15 | INFO | Recent files: []
+2026-02-05 23:46:15 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md
+2026-02-05 23:46:15 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md
+2026-02-06 01:10:41 | INFO | ============================================================
+2026-02-06 01:10:41 | INFO | Validator started
+2026-02-06 01:10:41 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-06 01:10:41 | INFO | Stdin input received: 376 bytes
+2026-02-06 01:10:41 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-06 01:10:41 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md']
+2026-02-06 01:10:41 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md']
+2026-02-06 01:10:41 | INFO | Recent files: []
+2026-02-06 01:10:41 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md
+2026-02-06 01:10:41 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md
+2026-02-06 01:20:30 | INFO | ============================================================
+2026-02-06 01:20:30 | INFO | Validator started
+2026-02-06 01:20:30 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-06 01:20:30 | INFO | Stdin input received: 376 bytes
+2026-02-06 01:20:30 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-06 01:20:30 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md']
+2026-02-06 01:20:30 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md']
+2026-02-06 01:20:30 | INFO | Recent files: []
+2026-02-06 01:20:30 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md
+2026-02-06 01:20:30 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md
+2026-02-06 01:23:57 | INFO | ============================================================
+2026-02-06 01:23:57 | INFO | Validator started
+2026-02-06 01:23:57 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-06 01:23:57 | INFO | Stdin input received: 376 bytes
+2026-02-06 01:23:57 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-06 01:23:57 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md', 'ai_docs/plans/implement-header-navigation-buttons.md']
+2026-02-06 01:23:57 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md', 'ai_docs/plans/implement-header-navigation-buttons.md']
+2026-02-06 01:23:57 | INFO | Recent files: []
+2026-02-06 01:23:57 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md, ai_docs/plans/implement-header-navigation-buttons.md
+2026-02-06 01:23:57 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md, ai_docs/plans/implement-header-navigation-buttons.md
+2026-02-06 09:53:20 | INFO | ============================================================
+2026-02-06 09:53:23 | INFO | Validator started
+2026-02-06 09:53:23 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-06 09:53:23 | INFO | Stdin input received: 376 bytes
+2026-02-06 09:53:23 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-06 09:53:23 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md', 'ai_docs/plans/implement-header-navigation-buttons.md', 'ai_docs/plans/implement-notifications-system.md']
+2026-02-06 09:53:23 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md', 'ai_docs/plans/implement-header-navigation-buttons.md', 'ai_docs/plans/implement-notifications-system.md']
+2026-02-06 09:53:23 | INFO | Recent files: []
+2026-02-06 09:53:23 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md, ai_docs/plans/implement-header-navigation-buttons.md, ai_docs/plans/implement-notifications-system.md
+2026-02-06 09:53:23 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md, ai_docs/plans/implement-header-navigation-buttons.md, ai_docs/plans/implement-notifications-system.md
+2026-02-06 09:59:47 | INFO | ============================================================
+2026-02-06 09:59:47 | INFO | Validator started
+2026-02-06 09:59:47 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-06 09:59:47 | INFO | Stdin input received: 376 bytes
+2026-02-06 09:59:47 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-06 09:59:47 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md', 'ai_docs/plans/implement-header-navigation-buttons.md', 'ai_docs/plans/implement-notifications-system.md']
+2026-02-06 09:59:47 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md', 'ai_docs/plans/implement-header-navigation-buttons.md', 'ai_docs/plans/implement-notifications-system.md']
+2026-02-06 09:59:47 | INFO | Recent files: []
+2026-02-06 09:59:47 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md, ai_docs/plans/implement-header-navigation-buttons.md, ai_docs/plans/implement-notifications-system.md
+2026-02-06 09:59:47 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md, ai_docs/plans/implement-header-navigation-buttons.md, ai_docs/plans/implement-notifications-system.md
+2026-02-06 10:03:50 | INFO | ============================================================
+2026-02-06 10:03:50 | INFO | Validator started
+2026-02-06 10:03:50 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-06 10:03:50 | INFO | Stdin input received: 376 bytes
+2026-02-06 10:03:50 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-06 10:03:50 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md', 'ai_docs/plans/implement-header-navigation-buttons.md', 'ai_docs/plans/implement-notifications-system.md']
+2026-02-06 10:03:50 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md', 'ai_docs/plans/implement-header-navigation-buttons.md', 'ai_docs/plans/implement-notifications-system.md']
+2026-02-06 10:03:50 | INFO | Recent files: []
+2026-02-06 10:03:50 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md, ai_docs/plans/implement-header-navigation-buttons.md, ai_docs/plans/implement-notifications-system.md
+2026-02-06 10:03:50 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md, ai_docs/plans/implement-header-navigation-buttons.md, ai_docs/plans/implement-notifications-system.md
+2026-02-06 10:19:24 | INFO | ============================================================
+2026-02-06 10:19:24 | INFO | Validator started
+2026-02-06 10:19:24 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-06 10:19:24 | INFO | Stdin input received: 376 bytes
+2026-02-06 10:19:24 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-06 10:19:24 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md', 'ai_docs/plans/implement-header-navigation-buttons.md', 'ai_docs/plans/implement-notifications-system.md']
+2026-02-06 10:19:24 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md', 'ai_docs/plans/implement-header-navigation-buttons.md', 'ai_docs/plans/implement-notifications-system.md']
+2026-02-06 10:19:24 | INFO | Recent files: []
+2026-02-06 10:19:24 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md, ai_docs/plans/implement-header-navigation-buttons.md, ai_docs/plans/implement-notifications-system.md
+2026-02-06 10:19:24 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md, ai_docs/plans/implement-header-navigation-buttons.md, ai_docs/plans/implement-notifications-system.md
+2026-02-06 10:19:31 | INFO | ============================================================
+2026-02-06 10:19:31 | INFO | Validator started
+2026-02-06 10:19:31 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-06 10:19:31 | INFO | Stdin input received: 376 bytes
+2026-02-06 10:19:31 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-06 10:19:31 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md', 'ai_docs/plans/implement-header-navigation-buttons.md', 'ai_docs/plans/implement-notifications-system.md']
+2026-02-06 10:19:31 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md', 'ai_docs/plans/implement-header-navigation-buttons.md', 'ai_docs/plans/implement-notifications-system.md']
+2026-02-06 10:19:31 | INFO | Recent files: []
+2026-02-06 10:19:31 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md, ai_docs/plans/implement-header-navigation-buttons.md, ai_docs/plans/implement-notifications-system.md
+2026-02-06 10:19:31 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md, ai_docs/plans/implement-header-navigation-buttons.md, ai_docs/plans/implement-notifications-system.md
+2026-02-06 10:19:38 | INFO | ============================================================
+2026-02-06 10:19:38 | INFO | Validator started
+2026-02-06 10:19:38 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-06 10:19:38 | INFO | Stdin input received: 376 bytes
+2026-02-06 10:19:38 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-06 10:19:38 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md', 'ai_docs/plans/implement-header-navigation-buttons.md', 'ai_docs/plans/implement-notifications-system.md']
+2026-02-06 10:19:38 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md', 'ai_docs/plans/implement-header-navigation-buttons.md', 'ai_docs/plans/implement-notifications-system.md']
+2026-02-06 10:19:38 | INFO | Recent files: []
+2026-02-06 10:19:38 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md, ai_docs/plans/implement-header-navigation-buttons.md, ai_docs/plans/implement-notifications-system.md
+2026-02-06 10:19:38 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md, ai_docs/plans/implement-header-navigation-buttons.md, ai_docs/plans/implement-notifications-system.md
+2026-02-06 10:22:40 | INFO | ============================================================
+2026-02-06 10:22:40 | INFO | Validator started
+2026-02-06 10:22:40 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-06 10:22:40 | INFO | Stdin input received: 376 bytes
+2026-02-06 10:22:40 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-06 10:22:40 | INFO | Git untracked files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md', 'ai_docs/plans/implement-header-navigation-buttons.md']
+2026-02-06 10:22:40 | INFO | Git new files: ['ai_docs/plans/fix-mixed-content-https-dashboard.md', 'ai_docs/plans/fix-weekview-width-business-hours.md', 'ai_docs/plans/implement-header-navigation-buttons.md']
+2026-02-06 10:22:40 | INFO | Recent files: []
+2026-02-06 10:22:40 | INFO | PASS: New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md, ai_docs/plans/implement-header-navigation-buttons.md
+2026-02-06 10:22:40 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/fix-mixed-content-https-dashboard.md, ai_docs/plans/fix-weekview-width-business-hours.md, ai_docs/plans/implement-header-navigation-buttons.md
+2026-02-06 11:59:05 | INFO | ============================================================
+2026-02-06 11:59:05 | INFO | Validator started
+2026-02-06 11:59:05 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-06 11:59:05 | INFO | Stdin input received: 400 bytes
+2026-02-06 11:59:05 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-06 11:59:05 | INFO | Git untracked files: ['ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md']
+2026-02-06 11:59:05 | INFO | Git new files: ['ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md']
+2026-02-06 11:59:05 | INFO | Recent files: []
+2026-02-06 11:59:05 | INFO | PASS: New file(s) found: ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md
+2026-02-06 11:59:05 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md
+2026-02-06 12:06:20 | INFO | ============================================================
+2026-02-06 12:06:20 | INFO | Validator started
+2026-02-06 12:06:21 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-06 12:06:21 | INFO | Stdin input received: 400 bytes
+2026-02-06 12:06:21 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-06 12:06:21 | INFO | Git untracked files: ['ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md']
+2026-02-06 12:06:21 | INFO | Git new files: ['ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md']
+2026-02-06 12:06:21 | INFO | Recent files: []
+2026-02-06 12:06:21 | INFO | PASS: New file(s) found: ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md
+2026-02-06 12:06:21 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md
+2026-02-06 12:11:07 | INFO | ============================================================
+2026-02-06 12:11:07 | INFO | Validator started
+2026-02-06 12:11:07 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-06 12:11:07 | INFO | Stdin input received: 400 bytes
+2026-02-06 12:11:07 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-06 12:11:07 | INFO | Git untracked files: ['ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md']
+2026-02-06 12:11:07 | INFO | Git new files: ['ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md']
+2026-02-06 12:11:07 | INFO | Recent files: []
+2026-02-06 12:11:07 | INFO | PASS: New file(s) found: ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md
+2026-02-06 12:11:07 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md
+2026-02-06 12:27:16 | INFO | ============================================================
+2026-02-06 12:27:16 | INFO | Validator started
+2026-02-06 12:27:16 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-06 12:27:16 | INFO | Stdin input received: 400 bytes
+2026-02-06 12:27:16 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-06 12:27:16 | INFO | Git untracked files: ['ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md']
+2026-02-06 12:27:16 | INFO | Git new files: ['ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md']
+2026-02-06 12:27:16 | INFO | Recent files: []
+2026-02-06 12:27:16 | INFO | PASS: New file(s) found: ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md
+2026-02-06 12:27:16 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md
+2026-02-06 13:09:13 | INFO | ============================================================
+2026-02-06 13:09:13 | INFO | Validator started
+2026-02-06 13:09:13 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-06 13:09:13 | INFO | Stdin input received: 400 bytes
+2026-02-06 13:09:13 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-06 13:09:13 | INFO | Git untracked files: ['ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md']
+2026-02-06 13:09:13 | INFO | Git new files: ['ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md']
+2026-02-06 13:09:13 | INFO | Recent files: []
+2026-02-06 13:09:13 | INFO | PASS: New file(s) found: ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md
+2026-02-06 13:09:13 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md
+2026-02-06 13:29:35 | INFO | ============================================================
+2026-02-06 13:29:35 | INFO | Validator started
+2026-02-06 13:29:35 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-06 13:29:35 | INFO | Stdin input received: 400 bytes
+2026-02-06 13:29:35 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-06 13:29:35 | INFO | Git untracked files: ['ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md']
+2026-02-06 13:29:35 | INFO | Git new files: ['ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md']
+2026-02-06 13:29:35 | INFO | Recent files: []
+2026-02-06 13:29:35 | INFO | PASS: New file(s) found: ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md
+2026-02-06 13:29:35 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md
+2026-02-06 13:29:43 | INFO | ============================================================
+2026-02-06 13:29:43 | INFO | Validator started
+2026-02-06 13:29:43 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-06 13:29:43 | INFO | Stdin input received: 400 bytes
+2026-02-06 13:29:43 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-06 13:29:43 | INFO | Git untracked files: ['ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md']
+2026-02-06 13:29:43 | INFO | Git new files: ['ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md']
+2026-02-06 13:29:43 | INFO | Recent files: []
+2026-02-06 13:29:43 | INFO | PASS: New file(s) found: ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md
+2026-02-06 13:29:43 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md
+2026-02-06 13:30:52 | INFO | ============================================================
+2026-02-06 13:30:52 | INFO | Validator started
+2026-02-06 13:30:52 | INFO | Args: directory=ai_docs, extension=.md, max_age=5
+2026-02-06 13:30:52 | INFO | Stdin input received: 400 bytes
+2026-02-06 13:30:52 | INFO | Validating: directory=ai_docs, extension=.md, max_age=5min
+2026-02-06 13:30:52 | INFO | Git untracked files: ['ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md']
+2026-02-06 13:30:52 | INFO | Git new files: ['ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md']
+2026-02-06 13:30:52 | INFO | Recent files: []
+2026-02-06 13:30:52 | INFO | PASS: New file(s) found: ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md
+2026-02-06 13:30:52 | INFO | Result: CONTINUE - New file(s) found: ai_docs/plans/2026-02-06_cookies-supabase-ratelimit-quality.md
