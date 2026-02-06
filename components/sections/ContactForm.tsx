@@ -116,6 +116,14 @@ const conditionalQuestions: Record<ServiceKey, ConditionalField[]> = {
 const isServiceKey = (value: string): value is ServiceKey =>
   value in conditionalQuestions;
 
+// Mapping of step to fields for partial validation
+const STEP_FIELDS: Record<number, (keyof ContactFormData)[]> = {
+  1: ['nombre', 'email', 'empresa'],
+  2: ['presupuesto'],
+  3: [],
+  4: ['privacyAccepted'],
+};
+
 // Days available for booking (must match BOOKABLE_DAYS in lib/google-calendar.ts)
 // 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat
 const BOOKABLE_DAYS_FRONTEND = new Set([3]); // 3 = Wednesday
@@ -152,12 +160,19 @@ export function ContactForm() {
   const [slotsLoading, setSlotsLoading] = useState(false);
   const [lastSubmitHadBooking, setLastSubmitHadBooking] = useState(false);
 
+  // Multi-step state
+  const [currentStep, setCurrentStep] = useState(1);
+  const [visitedSteps, setVisitedSteps] = useState(new Set([1])); // Track visited steps
+  const TOTAL_STEPS = 4;
+  const STEP_LABELS = ['Contacto', 'Proyecto', 'Llamada', 'Confirmación'];
+
   const {
     register,
     handleSubmit,
     reset,
     watch,
     setValue,
+    trigger,
     formState: { errors },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
@@ -215,6 +230,39 @@ export function ContactForm() {
     selectedService && isServiceKey(selectedService)
       ? conditionalQuestions[selectedService]
       : null;
+
+  // Navigation handlers
+  const handleNext = async () => {
+    const fieldsToValidate: (keyof ContactFormData)[] = [...STEP_FIELDS[currentStep]];
+
+    // Paso 3: validación condicional solo si quiere booking
+    if (currentStep === 3 && wantsBooking) {
+      fieldsToValidate.push('bookingDate', 'bookingTime');
+    }
+
+    if (fieldsToValidate.length === 0) {
+      const nextStep = Math.min(currentStep + 1, TOTAL_STEPS);
+      setCurrentStep(nextStep);
+      setVisitedSteps(prev => new Set([...prev, nextStep]));
+      return;
+    }
+
+    const isValid = await trigger(fieldsToValidate);
+    if (isValid) {
+      const nextStep = Math.min(currentStep + 1, TOTAL_STEPS);
+      setCurrentStep(nextStep);
+      setVisitedSteps(prev => new Set([...prev, nextStep]));
+    }
+  };
+
+  const handlePrev = () => setCurrentStep(prev => Math.max(prev - 1, 1));
+
+  // Navigate to specific step (only allowed for visited steps or current)
+  const handleStepClick = (stepNumber: number) => {
+    if (stepNumber <= currentStep || visitedSteps.has(stepNumber)) {
+      setCurrentStep(stepNumber);
+    }
+  };
 
   const onSubmit = async (data: ContactFormData) => {
     setStatus('loading');
@@ -276,11 +324,15 @@ export function ContactForm() {
       setStatus('success');
       reset();
       setWantsBooking(false);
+      setCurrentStep(1);
+      setVisitedSteps(new Set([1]));
     } catch (error) {
       console.error(error);
       setStatus('success');
       reset();
       setWantsBooking(false);
+      setCurrentStep(1);
+      setVisitedSteps(new Set([1]));
     }
 
     setTimeout(() => setStatus('idle'), 5000);
@@ -326,6 +378,7 @@ export function ContactForm() {
           <div className="max-w-2xl mx-auto relative">
             <VitaEonCard variant="form" glowColor="blue" showAccentLine className="relative z-10">
               <div className="p-4 md:p-10 lg:p-12">
+                {/* Success/Error messages - shown OUTSIDE the steps */}
                 {status === 'success' ? (
                   <div
                     className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-8 text-center"
@@ -360,328 +413,488 @@ export function ContactForm() {
                     aria-label="Formulario de contacto"
                     noValidate
                   >
-                    {/* Row 1: Nombre y Email */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                      <div className="relative">
-                        <div className="absolute left-4 top-[42px] text-white/40 pointer-events-none">
-                          <User size={18} />
-                        </div>
-                        <Input
-                          label="Nombre"
-                          type="text"
-                          placeholder="Tu nombre"
-                          required
-                          error={errors.nombre?.message}
-                          className="pl-11 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-blue-500 focus:ring-blue-500/20"
-                          {...register('nombre')}
+                    {/* Progress Indicator */}
+                    <div className="mb-8">
+                      {/* Step Labels */}
+                      <div className="flex justify-between mb-3 gap-2">
+                        {STEP_LABELS.map((label, index) => {
+                          const stepNumber = index + 1;
+                          const isCompleted = stepNumber < currentStep;
+                          const isCurrent = stepNumber === currentStep;
+                          const isClickable = stepNumber <= currentStep || visitedSteps.has(stepNumber);
+
+                          return (
+                            <div
+                              key={index}
+                              onClick={() => isClickable && handleStepClick(stepNumber)}
+                              className={cn(
+                                "flex flex-col items-center gap-1.5 transition-all duration-300 min-w-0 flex-1",
+                                isClickable && "cursor-pointer hover:opacity-80",
+                                !isClickable && "cursor-default"
+                              )}
+                            >
+                              {/* Step Circle */}
+                              <div
+                                className={cn(
+                                  "w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center text-xs md:text-sm font-semibold transition-all duration-300 shrink-0",
+                                  isCompleted && "bg-emerald-500/20 text-emerald-400 border-2 border-emerald-500",
+                                  isCurrent && "bg-blue-500 text-white border-2 border-blue-400",
+                                  !isCompleted && !isCurrent && "bg-white/5 text-white/40 border-2 border-white/20"
+                                )}
+                              >
+                                {isCompleted ? (
+                                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                  </svg>
+                                ) : (
+                                  stepNumber
+                                )}
+                              </div>
+                              {/* Step Label */}
+                              <span
+                                className={cn(
+                                  "text-xs md:text-sm font-medium transition-colors duration-300 text-center truncate w-full",
+                                  isCurrent && "text-blue-400",
+                                  isCompleted && "text-emerald-400/80",
+                                  !isCurrent && !isCompleted && "text-white/40"
+                                )}
+                              >
+                                {label}
+                              </span>
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      {/* Progress Bar */}
+                      <div className="h-1.5 bg-white/10 rounded-full overflow-hidden mb-2">
+                        <div
+                          className="h-full bg-gradient-to-r from-blue-500 to-emerald-500 transition-all duration-500 ease-out"
+                          style={{ width: `${(currentStep / TOTAL_STEPS) * 100}%` }}
                         />
                       </div>
-                      <div className="relative">
-                        <div className="absolute left-4 top-[42px] text-white/40 pointer-events-none">
-                          <Mail size={18} />
-                        </div>
-                        <Input
-                          label="Email"
-                          type="email"
-                          placeholder="tu@empresa.com"
-                          required
-                          error={errors.email?.message}
-                          className="pl-11 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-blue-500 focus:ring-blue-500/20"
-                          {...register('email')}
-                        />
+
+                      {/* Step Counter */}
+                      <div className="text-center text-xs text-white/50">
+                        Paso {currentStep} de {TOTAL_STEPS}
                       </div>
                     </div>
 
-                    {/* Row 2: Empresa y Telefono */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                      <div className="relative">
-                        <div className="absolute left-4 top-[42px] text-white/40 pointer-events-none">
-                          <Building2 size={18} />
-                        </div>
-                        <Input
-                          label="Empresa"
-                          type="text"
-                          placeholder="Nombre de tu empresa"
-                          required
-                          error={errors.empresa?.message}
-                          className="pl-11 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-blue-500 focus:ring-blue-500/20"
-                          {...register('empresa')}
-                        />
-                      </div>
-                      <div className="relative">
-                        <div className="absolute left-4 top-[42px] text-white/40 pointer-events-none">
-                          <Phone size={18} />
-                        </div>
-                        <Input
-                          label="Teléfono (opcional)"
-                          type="tel"
-                          placeholder="+34 600 000 000"
-                          error={errors.telefono?.message}
-                          className="pl-11 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-blue-500 focus:ring-blue-500/20"
-                          {...register('telefono')}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Row 3: Presupuesto y Servicio de interes */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                      <div className="relative">
-                        <div className="absolute left-4 top-[42px] text-white/40 pointer-events-none">
-                          <Wallet size={18} />
-                        </div>
-                        <Select
-                          label="Presupuesto estimado"
-                          options={presupuestoOptions}
-                          required
-                          error={errors.presupuesto?.message}
-                          className="pl-11 bg-white/5 border-white/10 text-white focus:border-blue-500 focus:ring-blue-500/20"
-                          {...register('presupuesto')}
-                        />
-                      </div>
-                      <div className="relative">
-                        <div className="absolute left-4 top-[42px] text-white/40 pointer-events-none">
-                          <Briefcase size={18} />
-                        </div>
-                        <Select
-                          label="Servicio de interés"
-                          options={serviciosOptions}
-                          error={errors.servicioInteres?.message}
-                          className="pl-11 bg-white/5 border-white/10 text-white focus:border-blue-500 focus:ring-blue-500/20"
-                          {...register('servicioInteres')}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Conditional smart questions based on selected service */}
+                    {/* Steps with animations */}
                     <AnimatePresence mode="wait">
-                      {activeQuestions && (
-                        <motion.div
-                          key={selectedService}
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: 'auto' }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.3, ease: 'easeInOut' }}
-                          className="overflow-hidden"
-                        >
-                          <div
-                            className="border border-blue-500/20 rounded-lg p-4 bg-blue-500/5 space-y-4"
-                            role="group"
-                            aria-label="Preguntas adicionales sobre tu proyecto"
-                          >
-                            <p className="text-sm text-white/50">
-                              Cuentanos mas sobre tu proyecto
-                            </p>
+                      <motion.div
+                        key={currentStep}
+                        initial={{ opacity: 0, x: 30 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -30 }}
+                        transition={{ duration: 0.3, ease: 'easeInOut' }}
+                      >
+                        {/* STEP 1: Contacto */}
+                        {currentStep === 1 && (
+                          <div className="space-y-4 md:space-y-6">
+                            {/* Row 1: Nombre y Email */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                          <div className="relative">
+                            <div className="absolute left-4 top-[42px] text-white/40 pointer-events-none">
+                              <User size={18} />
+                            </div>
+                            <Input
+                              label="Nombre"
+                              type="text"
+                              placeholder="Tu nombre"
+                              required
+                              error={errors.nombre?.message}
+                              className="pl-11 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-blue-500 focus:ring-blue-500/20"
+                              {...register('nombre')}
+                            />
+                          </div>
+                          <div className="relative">
+                            <div className="absolute left-4 top-[42px] text-white/40 pointer-events-none">
+                              <Mail size={18} />
+                            </div>
+                            <Input
+                              label="Email"
+                              type="email"
+                              placeholder="tu@empresa.com"
+                              required
+                              error={errors.email?.message}
+                              className="pl-11 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-blue-500 focus:ring-blue-500/20"
+                              {...register('email')}
+                            />
+                          </div>
+                        </div>
 
-                            <div className={cn(
-                              "grid gap-4",
-                              activeQuestions.length > 1
-                                ? "grid-cols-1 md:grid-cols-2"
-                                : "grid-cols-1"
-                            )}>
-                              {activeQuestions.map((field) => {
-                                if (field.type === 'select' && field.options) {
-                                  return (
-                                    <Select
-                                      key={field.key}
-                                      label={field.label}
-                                      options={field.options.filter((o) => o.value !== '')}
-                                      value={
-                                        (currentMetadata?.[field.key] as string) ?? ''
-                                      }
-                                      onChange={(e) =>
-                                        handleMetadataChange(field.key, e.target.value)
-                                      }
-                                      className="bg-white/5 border-white/10 text-white focus:border-blue-500 focus:ring-blue-500/20 min-h-[44px]"
-                                    />
-                                  );
-                                }
-
-                                if (field.type === 'textarea') {
-                                  return (
-                                    <Textarea
-                                      key={field.key}
-                                      label={field.label}
-                                      placeholder={field.placeholder}
-                                      maxLength={field.maxLength}
-                                      value={
-                                        (currentMetadata?.[field.key] as string) ?? ''
-                                      }
-                                      onChange={(e) =>
-                                        handleMetadataChange(field.key, e.target.value)
-                                      }
-                                      className="bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-blue-500 focus:ring-blue-500/20 min-h-[100px]"
-                                    />
-                                  );
-                                }
-
-                                return null;
-                              })}
+                        {/* Row 2: Empresa y Telefono */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                          <div className="relative">
+                            <div className="absolute left-4 top-[42px] text-white/40 pointer-events-none">
+                              <Building2 size={18} />
+                            </div>
+                            <Input
+                              label="Empresa"
+                              type="text"
+                              placeholder="Nombre de tu empresa"
+                              required
+                              error={errors.empresa?.message}
+                              className="pl-11 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-blue-500 focus:ring-blue-500/20"
+                              {...register('empresa')}
+                            />
+                          </div>
+                          <div className="relative">
+                            <div className="absolute left-4 top-[42px] text-white/40 pointer-events-none">
+                              <Phone size={18} />
+                            </div>
+                            <Input
+                              label="Teléfono (opcional)"
+                              type="tel"
+                              placeholder="+34 600 000 000"
+                              error={errors.telefono?.message}
+                              className="pl-11 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-blue-500 focus:ring-blue-500/20"
+                              {...register('telefono')}
+                            />
                             </div>
                           </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
 
-                    {/* Row 4: Mensaje (full width) */}
-                    <div className="relative">
-                      <div className="absolute left-4 top-[42px] text-white/40 pointer-events-none">
-                        <MessageSquare size={18} />
-                      </div>
-                      <Textarea
-                        label="Mensaje"
-                        placeholder="Cuéntanos brevemente qué necesitas..."
-                        error={errors.mensaje?.message}
-                        className="pl-11 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-blue-500 focus:ring-blue-500/20 min-h-[120px]"
-                        {...register('mensaje')}
-                      />
-                    </div>
-
-                    {/* Booking inline toggle */}
-                    <div className="border border-blue-500/20 rounded-lg p-4 bg-blue-500/5">
-                      <label className="flex items-center gap-3 cursor-pointer select-none">
-                        <input
-                          type="checkbox"
-                          checked={wantsBooking}
-                          onChange={(e) => {
-                            const checked = e.target.checked;
-                            setWantsBooking(checked);
-                            setValue('wantsBooking', checked);
-                            if (!checked) {
-                              setValue('bookingDate', '');
-                              setValue('bookingTime', '');
-                              setAvailableSlots([]);
-                            }
-                          }}
-                          className="h-4 w-4 rounded border-white/20 bg-white/5 text-blue-500 focus:ring-blue-500/30 focus:ring-offset-0"
-                        />
-                        <div className="flex items-center gap-2">
-                          <Calendar size={18} className="text-blue-400" />
-                          <span className="text-white font-medium text-sm">
-                            Quiero agendar una llamada de descubrimiento (30 min)
-                          </span>
-                        </div>
-                      </label>
-
-                      <AnimatePresence>
-                        {wantsBooking && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.3, ease: 'easeInOut' }}
-                            className="overflow-hidden"
-                          >
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                              <Select
-                                label="Fecha"
-                                options={[
-                                  { value: '', label: 'Selecciona un día' },
-                                  ...bookableDays,
-                                ]}
-                                error={errors.bookingDate?.message}
-                                className="bg-white/5 border-white/10 text-white focus:border-blue-500 focus:ring-blue-500/20"
-                                {...register('bookingDate')}
-                              />
-                              <Select
-                                label="Hora"
-                                options={
-                                  slotsLoading
-                                    ? [{ value: '', label: 'Cargando horarios...' }]
-                                    : availableSlots.length === 0
-                                      ? [{ value: '', label: selectedBookingDate ? 'Sin horarios disponibles' : 'Selecciona fecha primero' }]
-                                      : [{ value: '', label: 'Selecciona hora' }, ...availableSlots.map(s => ({ value: s, label: `${s}h` }))]
-                                }
-                                disabled={!selectedBookingDate || slotsLoading}
-                                error={errors.bookingTime?.message}
-                                className="bg-white/5 border-white/10 text-white focus:border-blue-500 focus:ring-blue-500/20"
-                                {...register('bookingTime')}
-                              />
-                            </div>
-                            <p className="text-xs text-white/40 mt-2">
-                              Horario de Madrid (L-V, 10:00-18:00). Recibirás email de confirmación.
-                            </p>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-
-                    {/* Primera capa informativa RGPD - OBLIGATORIA */}
-                    <div className="text-xs text-white/60 bg-white/5 p-3 rounded-lg border border-white/10">
-                      <p><strong className="text-white/70">Responsable:</strong> StudioTek</p>
-                      <p><strong className="text-white/70">Finalidad:</strong> Gestionar tu consulta y, si lo autorizas, enviarte comunicaciones comerciales</p>
-                      <p><strong className="text-white/70">Derechos:</strong> Acceso, rectificación, supresión, oposición, portabilidad, limitación</p>
-                      <p>
-                        <strong className="text-white/70">Más info:</strong>{' '}
-                        <Link href="/politica-privacidad" className="text-blue-400 hover:underline">
-                          Política de Privacidad
-                        </Link>
-                      </p>
-                    </div>
-
-                    {/* Checkbox privacidad - OBLIGATORIO */}
-                    <Checkbox
-                      {...register('privacyAccepted')}
-                      label={
-                        <>
-                          He leído y acepto la{' '}
-                          <Link href="/politica-privacidad" className="text-blue-400 hover:underline">
-                            Política de Privacidad
-                          </Link>
-                          {' '}*
-                        </>
-                      }
-                      error={errors.privacyAccepted?.message}
-                    />
-
-                    {/* Checkbox comunicaciones comerciales - OPCIONAL */}
-                    <Checkbox
-                      {...register('commercialAccepted')}
-                      label="Deseo recibir comunicaciones comerciales sobre productos y servicios de StudioTek"
-                    />
-
-                    {/* Submit Button */}
-                    <div className="text-center pt-4">
-                      <ShimmerButton
-                        shimmerColor="#ffffff"
-                        shimmerSize="0.05em"
-                        shimmerDuration="3s"
-                        background="rgba(59, 130, 246, 1)"
-                        shineColor={["#60a5fa", "#3b82f6", "#60a5fa"]}
-                        borderRadius="12px"
-                        className="w-full min-h-[48px] text-base md:text-lg px-8 md:px-12 py-4 font-semibold"
-                        type="submit"
-                        disabled={status === 'loading'}
-                      >
-                        {status === 'loading' ? (
-                          <span className="flex items-center justify-center gap-2">
-                            <svg
-                              className="animate-spin h-5 w-5"
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              aria-hidden="true"
+                          {/* Navigation Buttons */}
+                          <div className="flex justify-end items-center mt-6">
+                            <button
+                              type="button"
+                              onClick={handleNext}
+                              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium transition-colors"
                             >
-                              <circle
-                                className="opacity-25"
-                                cx="12"
-                                cy="12"
-                                r="10"
-                                stroke="currentColor"
-                                strokeWidth="4"
-                              />
-                              <path
-                                className="opacity-75"
-                                fill="currentColor"
-                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                              />
-                            </svg>
-                            Enviando...
-                          </span>
-                        ) : (
-                          'Solicitar consulta gratuita'
-                        )}
-                      </ShimmerButton>
-                    </div>
+                              Siguiente
+                            </button>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* STEP 2: Proyecto */}
+                      {currentStep === 2 && (
+                        <div className="space-y-4 md:space-y-6">
+                          {/* Row 1: Presupuesto y Servicio de interes */}
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                          <div className="relative">
+                            <div className="absolute left-4 top-[42px] text-white/40 pointer-events-none">
+                              <Wallet size={18} />
+                            </div>
+                            <Select
+                              label="Presupuesto estimado"
+                              options={presupuestoOptions}
+                              required
+                              error={errors.presupuesto?.message}
+                              className="pl-11 bg-white/5 border-white/10 text-white focus:border-blue-500 focus:ring-blue-500/20"
+                              {...register('presupuesto')}
+                            />
+                          </div>
+                          <div className="relative">
+                            <div className="absolute left-4 top-[42px] text-white/40 pointer-events-none">
+                              <Briefcase size={18} />
+                            </div>
+                            <Select
+                              label="Servicio de interés"
+                              options={serviciosOptions}
+                              error={errors.servicioInteres?.message}
+                              className="pl-11 bg-white/5 border-white/10 text-white focus:border-blue-500 focus:ring-blue-500/20"
+                              {...register('servicioInteres')}
+                            />
+                          </div>
+                        </div>
+
+                        {/* Conditional smart questions based on selected service */}
+                        <AnimatePresence mode="wait">
+                          {activeQuestions && (
+                            <motion.div
+                              key={selectedService}
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: 'auto' }}
+                              exit={{ opacity: 0, height: 0 }}
+                              transition={{ duration: 0.3, ease: 'easeInOut' }}
+                              className="overflow-hidden"
+                            >
+                              <div
+                                className="border border-blue-500/20 rounded-lg p-4 bg-blue-500/5 space-y-4"
+                                role="group"
+                                aria-label="Preguntas adicionales sobre tu proyecto"
+                              >
+                                <p className="text-sm text-white/50">
+                                  Cuentanos mas sobre tu proyecto
+                                </p>
+
+                                <div className={cn(
+                                  "grid gap-4",
+                                  activeQuestions.length > 1
+                                    ? "grid-cols-1 md:grid-cols-2"
+                                    : "grid-cols-1"
+                                )}>
+                                  {activeQuestions.map((field) => {
+                                    if (field.type === 'select' && field.options) {
+                                      return (
+                                        <Select
+                                          key={field.key}
+                                          label={field.label}
+                                          options={field.options.filter((o) => o.value !== '')}
+                                          value={
+                                            (currentMetadata?.[field.key] as string) ?? ''
+                                          }
+                                          onChange={(e) =>
+                                            handleMetadataChange(field.key, e.target.value)
+                                          }
+                                          className="bg-white/5 border-white/10 text-white focus:border-blue-500 focus:ring-blue-500/20 min-h-[44px]"
+                                        />
+                                      );
+                                    }
+
+                                    if (field.type === 'textarea') {
+                                      return (
+                                        <Textarea
+                                          key={field.key}
+                                          label={field.label}
+                                          placeholder={field.placeholder}
+                                          maxLength={field.maxLength}
+                                          value={
+                                            (currentMetadata?.[field.key] as string) ?? ''
+                                          }
+                                          onChange={(e) =>
+                                            handleMetadataChange(field.key, e.target.value)
+                                          }
+                                          className="bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-blue-500 focus:ring-blue-500/20 min-h-[100px]"
+                                        />
+                                      );
+                                    }
+
+                                    return null;
+                                  })}
+                                </div>
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+
+                        {/* Mensaje (full width) */}
+                        <div className="relative">
+                          <div className="absolute left-4 top-[42px] text-white/40 pointer-events-none">
+                            <MessageSquare size={18} />
+                          </div>
+                          <Textarea
+                            label="Mensaje"
+                            placeholder="Cuéntanos brevemente qué necesitas..."
+                            error={errors.mensaje?.message}
+                            className="pl-11 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-blue-500 focus:ring-blue-500/20 min-h-[120px]"
+                            {...register('mensaje')}
+                            />
+                          </div>
+
+                          {/* Navigation Buttons */}
+                          <div className="flex justify-between items-center mt-6">
+                            <button
+                              type="button"
+                              onClick={handlePrev}
+                              className="bg-white/10 hover:bg-white/15 text-white/70 px-6 py-3 rounded-lg font-medium transition-colors"
+                            >
+                              Anterior
+                            </button>
+                            <button
+                              type="button"
+                              onClick={handleNext}
+                              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+                            >
+                              Siguiente
+                            </button>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* STEP 3: Llamada (opcional) */}
+                      {currentStep === 3 && (
+                        <div className="space-y-4 md:space-y-6">
+                          <div className="text-center py-2">
+                            <p className="text-sm text-white/50 leading-relaxed">
+                              Este paso es opcional. Si prefieres, puedes saltarlo.
+                            </p>
+                          </div>
+
+                        {/* Booking inline toggle */}
+                        <div className="border border-blue-500/20 rounded-lg p-4 bg-blue-500/5">
+                          <label className="flex items-center gap-3 cursor-pointer select-none">
+                            <input
+                              type="checkbox"
+                              checked={wantsBooking}
+                              onChange={(e) => {
+                                const checked = e.target.checked;
+                                setWantsBooking(checked);
+                                setValue('wantsBooking', checked);
+                                if (!checked) {
+                                  setValue('bookingDate', '');
+                                  setValue('bookingTime', '');
+                                  setAvailableSlots([]);
+                                }
+                              }}
+                              className="h-4 w-4 rounded border-white/20 bg-white/5 text-blue-500 focus:ring-blue-500/30 focus:ring-offset-0"
+                            />
+                            <div className="flex items-center gap-2">
+                              <Calendar size={18} className="text-blue-400" />
+                              <span className="text-white font-medium text-sm">
+                                Quiero agendar una llamada de descubrimiento (30 min)
+                              </span>
+                            </div>
+                          </label>
+
+                          <AnimatePresence>
+                            {wantsBooking && (
+                              <motion.div
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0 }}
+                                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                                className="overflow-hidden"
+                              >
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                                  <Select
+                                    label="Fecha"
+                                    options={[
+                                      { value: '', label: 'Selecciona un día' },
+                                      ...bookableDays,
+                                    ]}
+                                    error={errors.bookingDate?.message}
+                                    className="bg-white/5 border-white/10 text-white focus:border-blue-500 focus:ring-blue-500/20"
+                                    {...register('bookingDate')}
+                                  />
+                                  <Select
+                                    label="Hora"
+                                    options={
+                                      slotsLoading
+                                        ? [{ value: '', label: 'Cargando horarios...' }]
+                                        : availableSlots.length === 0
+                                          ? [{ value: '', label: selectedBookingDate ? 'Sin horarios disponibles' : 'Selecciona fecha primero' }]
+                                          : [{ value: '', label: 'Selecciona hora' }, ...availableSlots.map(s => ({ value: s, label: `${s}h` }))]
+                                    }
+                                    disabled={!selectedBookingDate || slotsLoading}
+                                    error={errors.bookingTime?.message}
+                                    className="bg-white/5 border-white/10 text-white focus:border-blue-500 focus:ring-blue-500/20"
+                                    {...register('bookingTime')}
+                                  />
+                                </div>
+                                <p className="text-xs text-white/40 mt-2">
+                                  Horario de Madrid (L-V, 10:00-18:00). Recibirás email de confirmación.
+                                </p>
+                              </motion.div>
+                            )}
+                            </AnimatePresence>
+                          </div>
+
+                          {/* Navigation Buttons */}
+                          <div className="flex justify-between items-center mt-6">
+                            <button
+                              type="button"
+                              onClick={handlePrev}
+                              className="bg-white/10 hover:bg-white/15 text-white/70 px-6 py-3 rounded-lg font-medium transition-colors"
+                            >
+                              Anterior
+                            </button>
+                            <button
+                              type="button"
+                              onClick={handleNext}
+                              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+                            >
+                              {wantsBooking ? 'Siguiente' : 'Saltar'}
+                            </button>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* STEP 4: Confirmación (RGPD + Submit) */}
+                      {currentStep === 4 && (
+                        <div className="space-y-4 md:space-y-6">
+                          {/* Primera capa informativa RGPD - OBLIGATORIA */}
+                          <div className="text-xs text-white/60 bg-white/5 p-3 rounded-lg border border-white/10">
+                          <p><strong className="text-white/70">Responsable:</strong> StudioTek</p>
+                          <p><strong className="text-white/70">Finalidad:</strong> Gestionar tu consulta y, si lo autorizas, enviarte comunicaciones comerciales</p>
+                          <p><strong className="text-white/70">Derechos:</strong> Acceso, rectificación, supresión, oposición, portabilidad, limitación</p>
+                          <p>
+                            <strong className="text-white/70">Más info:</strong>{' '}
+                            <Link href="/politica-privacidad" className="text-blue-400 hover:underline">
+                              Política de Privacidad
+                            </Link>
+                          </p>
+                        </div>
+
+                        {/* Checkbox privacidad - OBLIGATORIO */}
+                        <Checkbox
+                          {...register('privacyAccepted')}
+                          label={
+                            <>
+                              He leído y acepto la{' '}
+                              <Link href="/politica-privacidad" className="text-blue-400 hover:underline">
+                                Política de Privacidad
+                              </Link>
+                              {' '}*
+                            </>
+                          }
+                          error={errors.privacyAccepted?.message}
+                        />
+
+                        {/* Checkbox comunicaciones comerciales - OPCIONAL */}
+                        <Checkbox
+                          {...register('commercialAccepted')}
+                          label="Deseo recibir comunicaciones comerciales sobre productos y servicios de StudioTek"
+                        />
+
+                        {/* Navigation Buttons + Submit */}
+                        <div className="flex justify-between items-center mt-6">
+                          <button
+                            type="button"
+                            onClick={handlePrev}
+                            className="bg-white/10 hover:bg-white/15 text-white/70 px-6 py-3 rounded-lg font-medium transition-colors"
+                          >
+                            Anterior
+                          </button>
+
+                          {/* Submit Button */}
+                          <ShimmerButton
+                            shimmerColor="#ffffff"
+                            shimmerSize="0.05em"
+                            shimmerDuration="3s"
+                            background="rgba(59, 130, 246, 1)"
+                            shineColor={["#60a5fa", "#3b82f6", "#60a5fa"]}
+                            borderRadius="12px"
+                            className="min-h-[48px] text-base px-8 py-3 font-semibold"
+                            type="submit"
+                            disabled={status === 'loading'}
+                          >
+                            {status === 'loading' ? (
+                              <span className="flex items-center justify-center gap-2">
+                                <svg
+                                  className="animate-spin h-5 w-5"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  aria-hidden="true"
+                                >
+                                  <circle
+                                    className="opacity-25"
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    strokeWidth="4"
+                                  />
+                                  <path
+                                    className="opacity-75"
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                  />
+                                </svg>
+                                Enviando...
+                              </span>
+                            ) : (
+                              'Solicitar consulta gratuita'
+                              )}
+                            </ShimmerButton>
+                          </div>
+                        </div>
+                      )}
+                      </motion.div>
+                    </AnimatePresence>
                   </form>
                 )}
               </div>
